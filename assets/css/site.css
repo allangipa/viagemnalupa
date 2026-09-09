@@ -310,3 +310,32 @@ tfoot td{padding:.7rem .85rem; border-top:2px solid var(--ambar);
   padding:.32rem .6rem}
 .mapa:hover{background:var(--ciano);color:var(--tinta);text-decoration:none}
 .mapa svg{flex-shrink:0}
+
+/* ---------- onde reservar / parceiros ---------- */
+.reserva{border:1px solid var(--rule); background:var(--noite);
+  display:flex; flex-direction:column}
+.reserva-topo{padding:1rem 1.25rem .85rem; border-bottom:1px solid var(--rule)}
+.reserva-topo h3{font-size:1.12rem}
+.reserva-topo p{font-size:.88rem; color:var(--nevoa); line-height:1.5; margin-top:.35rem}
+.reserva-lista{display:grid; grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));
+  gap:.75rem; padding:1.1rem 1.25rem}
+.parceiro{display:flex; flex-direction:column; gap:.15rem; padding:.7rem .85rem;
+  border:1px solid var(--rule); color:var(--gelo);
+  transition:border-color .15s ease, transform .15s ease}
+.parceiro:hover{border-color:var(--ambar); transform:translateY(-1px); text-decoration:none}
+.parceiro .p-nome{font-weight:600; font-size:.97rem; display:flex;
+  align-items:center; gap:.4rem}
+.parceiro .p-nome svg{flex-shrink:0; color:var(--ambar)}
+.parceiro .p-nota{font-family:"IBM Plex Mono",monospace; font-size:.66rem;
+  letter-spacing:.1em; text-transform:uppercase; color:var(--nevoa)}
+.divulgacao{padding:.8rem 1.25rem; border-top:1px solid var(--rule);
+  background:var(--card); font-size:.8rem; line-height:1.5; color:var(--nevoa)}
+.divulgacao b{color:var(--gelo)}
+
+/* ---------- foto do ponto ---------- */
+figure.foto{margin:0}
+figure.foto img{width:100%; aspect-ratio:16/9; object-fit:cover;
+  background:var(--tinta)}
+.foto-cred{font-family:"IBM Plex Mono",monospace; font-size:.66rem;
+  letter-spacing:.08em; color:var(--nevoa); padding:.5rem 1.3rem 0}
+.foto-cred-falta{color:var(--coral)}
