@@ -371,3 +371,43 @@ tr.off{opacity:.42}
 tr.off td.n{text-decoration:line-through}
 /* o painel de resultado tem 4 células: 2×2 em vez de 3+1 órfã */
 #res{grid-template-columns:repeat(auto-fit,minmax(18rem,1fr))}
+
+/* ---------- link que sai do site ---------- */
+/* texto que só o leitor de tela lê: quem enxerga vê a seta, quem não
+   enxerga ouve "abre em outra aba". Os dois recebem o mesmo aviso. */
+.so-leitor{position:absolute; width:1px; height:1px; overflow:hidden;
+  clip:rect(0 0 0 0); clip-path:inset(50%); white-space:nowrap}
+nav a.externo{display:inline-flex; align-items:center; gap:.34rem}
+.seta-ext{opacity:.65; transform:translateY(-.5px)}
+nav a.externo:hover .seta-ext{opacity:1}
+#c-alertas{display:flex; flex-direction:column; gap:.7rem}
+#c-alertas:empty{display:none}
+.calc-dur{font-family:"IBM Plex Mono",monospace; font-size:.82rem; color:var(--nevoa);
+  letter-spacing:.03em}
+.calc-dur b{color:var(--ambar)}
+
+/* ---------- destaque da calculadora ---------- */
+.destaque{background:var(--noite); border:1px solid var(--rule);
+  border-left:4px solid var(--ambar); padding:clamp(1.3rem,3vw,2.1rem);
+  display:grid; gap:clamp(1.2rem,3vw,2.2rem); align-items:center;
+  grid-template-columns:minmax(0,1.25fr) minmax(15rem,.75fr)}
+.dq-txt{display:flex; flex-direction:column; gap:.7rem; align-items:flex-start}
+.destaque h2{font-size:clamp(1.45rem,1.1rem+1.3vw,2.05rem)}
+.destaque p{color:var(--nevoa); font-size:.97rem; max-width:52ch}
+.btn{display:inline-flex; align-items:center; gap:.55rem; margin-top:.35rem;
+  background:var(--ambar); color:var(--tinta); border:1px solid var(--ambar);
+  font-family:"IBM Plex Mono",monospace; font-weight:500; font-size:.72rem;
+  letter-spacing:.15em; text-transform:uppercase; padding:.85rem 1.2rem}
+.btn:hover{background:transparent; color:var(--ambar); text-decoration:none}
+.btn .seta-ext{opacity:1}
+
+.dq-demo{display:flex; flex-direction:column; gap:1px; background:var(--rule);
+  border:1px solid var(--rule)}
+.dqc,.dqt{display:flex; justify-content:space-between; align-items:baseline; gap:1rem;
+  background:var(--tinta); padding:.62rem .8rem}
+.dqc span,.dqt span{font-family:"IBM Plex Mono",monospace; font-size:.62rem;
+  letter-spacing:.14em; text-transform:uppercase; color:var(--nevoa)}
+.dqc b{font-size:.92rem; color:var(--gelo); font-weight:600}
+.dqt b{font-family:"Archivo Black","Arial Black",sans-serif; font-weight:400;
+  font-size:1.35rem; color:var(--ambar); font-variant-numeric:tabular-nums}
+@media(max-width:48rem){.destaque{grid-template-columns:1fr}}

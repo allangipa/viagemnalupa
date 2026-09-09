@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="google-site-verification" content="IpjUvTgAQF5LxYdxAXXj2g3Qi-qh1KldEl7RelcQ9bo">
-<title>Quanto custa 7 dias em Nova York em 2026</title>
-<meta name="description" content="US$ 2.167 por pessoa em ingressos, metrô e hospedagem. Ficha de custos fechada, com preços verificados em setembro de 2026.">
+<title>Quanto custa Nova York: calculadora de custos da viagem, 2026</title>
+<meta name="description" content="Calculadora de custos de Nova York: escolha as datas, quantas pessoas e a categoria de hotel, e veja o total. US$ 2.167 por pessoa em 7 dias, com preços verificados em setembro de 2026.">
 <link rel="canonical" href="https://viagemnalupa.com.br/destinos/nova-york/quanto-custa/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Viagem na Lupa">
-<meta property="og:title" content="Quanto custa 7 dias em Nova York em 2026">
-<meta property="og:description" content="US$ 2.167 por pessoa em ingressos, metrô e hospedagem. Ficha de custos fechada, com preços verificados em setembro de 2026.">
+<meta property="og:title" content="Quanto custa Nova York: calculadora de custos da viagem, 2026">
+<meta property="og:description" content="Calculadora de custos de Nova York: escolha as datas, quantas pessoas e a categoria de hotel, e veja o total. US$ 2.167 por pessoa em 7 dias, com preços verificados em setembro de 2026.">
 <meta property="og:url" content="https://viagemnalupa.com.br/destinos/nova-york/quanto-custa/">
 <meta property="og:locale" content="pt_BR">
 <meta name="twitter:card" content="summary_large_image">
@@ -18,7 +18,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="../../../assets/css/site.css?v=80635bb8">
+<link rel="stylesheet" href="../../../assets/css/site.css?v=d97f6b6a">
 </head>
 <body>
 <a class="pular" href="#conteudo">Pular para o conteúdo</a>
@@ -28,26 +28,35 @@
   <path d="M491 481 L648 638" stroke="#FFB703" stroke-width="64" stroke-linecap="round"></path>
   <path d="M282 396 L336 320 L392 372 L446 268" stroke="#2EC4B6" stroke-width="30" stroke-linecap="round" stroke-linejoin="round"></path>
 </svg><span>VIAGEM NA LUPA</span></a>
-<nav><a href="../../../destinos/" aria-current="page">Destinos</a><a href="../../../sobre/">Sobre</a><a href="https://www.youtube.com/@viagemnalupa" rel="noopener">YouTube</a></nav>
+<nav><a href="../../../destinos/" aria-current="page">Destinos</a><a href="../../../sobre/">Sobre</a><a class="externo" href="https://www.youtube.com/@viagemnalupa" target="_blank" rel="noopener">YouTube<span class="so-leitor"> (abre em outra aba)</span><svg class="seta-ext" width="11" height="11" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17 L17 7 M9 7h8v8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></nav>
 </div></header>
 <main id="conteudo">
 <div class="faixa"><div class="wrap wrap-estreito">
 <p class="migalhas"><a href="../../../">Início</a> › <a href="../../">Destinos</a> › <a href="../">Nova York</a> › Quanto custa</p>
 <div class="hero">
   <span class="eyebrow">Ficha de custos</span>
-  <h1>Quanto custa 7 dias em Nova York</h1>
-  <p>A conta fechada, por pessoa, com os preços pesquisados em 9 de setembro de 2026.</p>
+  <h1>Quanto custa Nova York</h1>
+  <p>A conta fechada, item por item, com os preços pesquisados em 9 de setembro de 2026 — e uma <b style="color:var(--gelo)">calculadora</b> para refazer tudo com as suas datas.</p>
 </div>
 </div></div>
 
 <div class="wrap wrap-estreito">
 
-<section class="bloco">
+<section class="bloco" id="calculadora">
+  <div class="bloco-head">
+    <span class="eyebrow">Calculadora</span>
+    <h2>Faça a conta da <em style="font-style:normal;color:var(--ambar)">sua</em> viagem</h2>
+    <p>A tabela abaixo é a nossa apuração: 7 dias, uma pessoa, hotel intermediário em
+       Manhattan. Mude as datas, o número de pessoas e a categoria de hotel, desmarque
+       o que você não vai visitar, e a conta se refaz na hora.</p>
+  </div>
   <div class="calc" id="calc" hidden>
-    <span class="t">Faça a conta da sua viagem</span>
+    <span class="t">Sua viagem</span>
     <div class="calc-ctrl">
-      <label>Dias de viagem
-        <input type="number" id="c-dias" min="1" max="30" step="1" value="7" inputmode="numeric"></label>
+      <label>Chegada
+        <input type="date" id="c-ida" value="2026-11-10" min="2026-09-09" max="2028-12-31"></label>
+      <label>Volta
+        <input type="date" id="c-volta" value="2026-11-16" min="2026-09-09" max="2028-12-31"></label>
       <label>Pessoas
         <input type="number" id="c-pes" min="1" max="8" step="1" value="1" inputmode="numeric"></label>
       <label>Hospedagem
@@ -59,11 +68,13 @@
           <option value="media">Média geral de Manhattan</option>
         </select></label>
     </div>
+    <p class="calc-dur" id="c-dur">7 dias &middot; 6 noites de hotel</p>
+    <div id="c-alertas"></div>
     <p class="calc-nota">Desmarque na tabela abaixo o que você não pretende visitar.
-      A conta assume <b style="color:var(--gelo)">noites = dias &minus; 1</b>, quarto
-      duplo para as categorias de quarto privativo, e duas viagens de metrô por dia.
-      Os preços unitários são os apurados em 9 de setembro de 2026 — o que muda aqui é
-      só a aritmética, não a fonte.</p>
+      As noites saem das suas datas; a conta assume quarto duplo nas categorias de
+      quarto privativo e duas viagens de metrô por dia. Os preços unitários são os
+      apurados em 9 de setembro de 2026 para <b style="color:var(--gelo)">novembro de
+      2026</b> — o que muda aqui é só a aritmética, não a fonte.</p>
     <div class="painel" id="res"></div>
   </div>
 </section>
@@ -112,7 +123,7 @@
   </div>
 </section>
 </div>
-<script src="../../../assets/js/ficha.js?v=ae96f1b1" defer></script>
+<script src="../../../assets/js/ficha.js?v=f4214bf2" defer></script>
 </main>
 <footer class="rodape"><div class="wrap cols">
 <p><b>Preços verificados em 9 de setembro de 2026.</b> Cada página traz a data da própria apuração. Atrações com preço dinâmico podem variar conforme a data escolhida — reconfira no checkout.</p>

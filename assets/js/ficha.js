@@ -50,19 +50,78 @@
     td.appendChild(lab);
   });
 
-  var cDias = document.getElementById("c-dias");
+  var cIda = document.getElementById("c-ida");
+  var cVolta = document.getElementById("c-volta");
   var cPes = document.getElementById("c-pes");
   var cHosp = document.getElementById("c-hosp");
-  [cDias, cPes, cHosp].forEach(function (el) {
+  var cDur = document.getElementById("c-dur");
+  var cAlertas = document.getElementById("c-alertas");
+  [cIda, cVolta, cPes, cHosp].forEach(function (el) {
     if (el) { el.addEventListener("input", render); el.addEventListener("change", render); }
   });
 
+  /* Datas do próprio conteúdo da página, já apuradas: a maratona e a semana
+     do Thanksgiving. Nenhuma delas altera a conta sozinha — elas avisam.
+     Multiplicar a diária por um fator de alta que ninguém apurou seria
+     inventar número, que é exatamente o que este site não faz. */
+  var DIA = 86400000;
+  function dt(s) { return s ? new Date(s + "T12:00:00") : null; }
+  function cruza(a, b, x, y) { return a <= dt(y) && b >= dt(x); }
+  function brdata(d) {
+    return d.toLocaleDateString("pt-BR", { day: "numeric", month: "long", year: "numeric" });
+  }
+
+  function periodo() {
+    var a = dt(cIda.value), b = dt(cVolta.value);
+    if (!a || !b || isNaN(a) || isNaN(b) || b <= a) return { noites: 6, d: 7, ok: false };
+    var n = Math.min(29, Math.round((b - a) / DIA));
+    return { noites: n, d: n + 1, ok: true, a: a, b: b };
+  }
+
+  function alertas(pr) {
+    var av = [];
+    if (!pr.ok) {
+      av.push(["a", "Datas incompletas",
+        "Preencha chegada e volta (a volta precisa ser depois da chegada). " +
+        "Enquanto isso, a conta está usando o cenário apurado: 7 dias, 6 noites."]);
+      return av;
+    }
+    if (cruza(pr.a, pr.b, "2026-10-30", "2026-11-02"))
+      av.push(["", "Sua viagem pega a Maratona de Nova York",
+        "Domingo, 1º de novembro. Ruas fechadas em cinco distritos e preços de hotel " +
+        "já elevados nesse fim de semana. A conta abaixo <b>não</b> embute essa alta."]);
+    if (cruza(pr.a, pr.b, "2026-11-22", "2026-11-29"))
+      av.push(["", "Sua viagem pega a semana do Thanksgiving",
+        "Quinta, 26 de novembro, e a 100ª edição do desfile da Macy's. A diária média " +
+        "da cidade nessa semana foi de <b>US$ 452</b> contra <b>US$ 349</b> de média " +
+        "geral <span class=\"flag\">Dado de 2023</span> — cerca de 30% a mais, e hoje " +
+        "seria maior. A conta abaixo usa a diária normal: <b>some essa diferença por conta própria</b>."]);
+    var fora = pr.a < dt("2026-11-01") || pr.b > dt("2026-11-30");
+    if (fora)
+      av.push(["b", "Fora de novembro de 2026",
+        "Os preços desta página foram apurados para novembro. Ingressos mudam pouco; " +
+        "<b>hotel muda muito</b>. Dezembro é o mês mais caro do ano em Nova York, com " +
+        "diária média de <b>US$ 577</b> — 65% acima da média geral."]);
+    return av;
+  }
+
   function render() {
-    var d = Math.max(1, Math.min(30, parseInt(cDias.value, 10) || 1));
+    var pr = periodo();
+    var d = pr.d, noites = pr.noites;
     var p = Math.max(1, Math.min(8, parseInt(cPes.value, 10) || 1));
     var h = HOSP[cHosp.value] || HOSP.manhattan;
-    var noites = Math.max(1, d - 1);
     var quartos = Math.ceil(p / 2);
+
+    cDur.innerHTML = pr.ok
+      ? "<b>" + plural(d, "dia", "dias") + "</b> &middot; " +
+        plural(noites, "noite", "noites") + " de hotel &middot; " +
+        brdata(pr.a) + " a " + brdata(pr.b)
+      : "<b>7 dias</b> &middot; 6 noites de hotel &middot; cenário apurado";
+
+    cAlertas.innerHTML = alertas(pr).map(function (x) {
+      return '<div class="aviso ' + x[0] + '"><span class="t">' + x[1] +
+             "</span><p>" + x[2] + "</p></div>";
+    }).join("");
 
     var ing = 0;
     ingressos.forEach(function (tr) {
