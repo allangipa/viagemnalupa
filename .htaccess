@@ -1,0 +1,38 @@
+# Viagem na Lupa — Apache / LiteSpeed (Hostinger)
+
+# HTTPS obrigatório
+RewriteEngine On
+RewriteCond %{HTTPS} !=on
+RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+# canônico com www
+RewriteCond %{HTTP_HOST} ^viagemnalupa\.com\.br$ [NC]
+RewriteRule ^(.*)$ https://www.viagemnalupa.com.br/$1 [R=301,L]
+
+# página de erro
+ErrorDocument 404 /404.html
+
+# compressão
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/javascript application/javascript application/json image/svg+xml text/xml
+</IfModule>
+
+# cache
+<IfModule mod_expires.c>
+  ExpiresActive On
+  ExpiresByType text/css "access plus 1 year"
+  ExpiresByType application/javascript "access plus 1 year"
+  ExpiresByType image/svg+xml "access plus 1 year"
+  ExpiresByType image/webp "access plus 1 year"
+  ExpiresByType image/jpeg "access plus 1 year"
+  ExpiresByType image/png "access plus 1 year"
+  ExpiresByType text/html "access plus 1 hour"
+</IfModule>
+
+# segurança básica
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+Options -Indexes
