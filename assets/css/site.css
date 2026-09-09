@@ -26,6 +26,8 @@
 
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
+/* precisa de !important: .dest e .vazio definem display próprio */
+[hidden]{display:none !important}
 body{
   margin:0; background:var(--tinta); color:var(--gelo);
   font-family:"Archivo","Helvetica Neue",Arial,sans-serif;
