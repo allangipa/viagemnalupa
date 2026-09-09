@@ -41,31 +41,62 @@
 </div></div>
 
 <div class="wrap wrap-estreito">
+
+<section class="bloco" id="calculadora">
+  <div class="bloco-head">
+    <span class="eyebrow">Calculadora</span>
+    <h2>Faça a conta da <em style="font-style:normal;color:var(--ambar)">sua</em> viagem</h2>
+    <p>A tabela abaixo é a nossa apuração: 5 dias, 1 pessoa.
+       Mude as datas, o número de pessoas e a categoria de hospedagem, desmarque o que
+       você não vai fazer, e a conta se refaz na hora.</p>
+  </div>
+  <div class="calc" id="calc" hidden>
+    <span class="t">Sua viagem</span>
+    <div class="calc-ctrl">
+      <label>Chegada
+        <input type="date" id="c-ida" value="2026-11-10" min="2026-09-09" max="2028-12-31"></label>
+      <label>Volta
+        <input type="date" id="c-volta" value="2026-11-14" min="2026-09-09" max="2028-12-31"></label>
+      <label>Pessoas
+        <input type="number" id="c-pes" min="1" max="8" step="1" value="1" inputmode="numeric"></label>
+      <label>Hospedagem
+        <select id="c-hosp"><option value="economico">Econômico</option><option value="intermediario" selected>Intermediário</option><option value="media">Média geral da amostra</option><option value="oficial">Diária média oficial (ADR)</option><option value="luxo">Luxo</option></select></label>
+    </div>
+    <p class="calc-dur" id="c-dur"></p>
+    <div id="c-alertas"></div>
+    <p class="calc-nota">As noites saem das suas datas. Hospedagem por quarto, 2 pessoas por quarto. O metrô foi apurado como 18 viagens em 5 dias e escala proporcional aos dias; a isenção de IVA acompanha a hospedagem. Os valores unitários são os apurados em 9 de setembro de 2026
+       e estão na tabela abaixo — <b style="color:var(--gelo)">o que muda aqui é só a
+       aritmética, não a fonte</b>. Linhas marcadas como não encontradas continuam fora
+       da conta.</p>
+    <div class="painel" id="res"></div>
+  </div>
+  <script type="application/json" id="calc-cfg">{"moeda": "US$", "dec": 2, "dias": 5, "pessoas": 1, "hosp": [{"k": "economico", "rot": "Econômico", "ref": 42, "mn": 42, "mx": 42}, {"k": "intermediario", "rot": "Intermediário", "ref": 73, "mn": 73, "mx": 73}, {"k": "media", "rot": "Média geral da amostra", "ref": 70, "mn": 64, "mx": 70}, {"k": "oficial", "rot": "Diária média oficial (ADR)", "ref": 100.4, "mn": 100.4, "mx": 100.4}, {"k": "luxo", "rot": "Luxo", "ref": 128, "mn": 128, "mx": 128}], "hospPadrao": "intermediario", "janela": null, "eventos": []}</script>
+</section>
 <section class="bloco">
-  <div class="tabwrap"><table><thead><tr><th>Item</th><th>Valor</th><th>Observação</th></tr></thead><tbody><tr><td>Hospedagem, 4 noites, faixa intermediária</td><td class="n">US$ 292,00 · ≈ 272.800 CLP</td><td>US$ 73 por noite × 4 noites (budgetyourtrip, 164 hotéis, 8/set/2026).
+  <div class="tabwrap"><table id="tab-ficha"><thead><tr><th>Item</th><th>Valor</th><th>Observação</th></tr></thead><tbody><tr data-tipo="hosp"><td>Hospedagem, 4 noites, faixa intermediária</td><td class="n">US$ 292,00 · ≈ 272.800 CLP</td><td>US$ 73 por noite × 4 noites (budgetyourtrip, 164 hotéis, 8/set/2026).
          <span class="flag">Fonte não oficial</span> — a média oficial do SIET/Sernatur
-         é bem mais alta, 93.776 CLP a diária.</td></tr><tr><td>Isenção de 19% de IVA na hospedagem</td><td class="n">− US$ 46,62 · ≈ − 43.560 CLP</td><td>Art. 12° letra E) N°17 da LIVS, fonte SII, para estrangeiro sem residência
+         é bem mais alta, 93.776 CLP a diária.</td></tr><tr data-tipo="pct" data-base="hosp" data-p="-0.1596639"><td>Isenção de 19% de IVA na hospedagem</td><td class="n">− US$ 46,62 · ≈ − 43.560 CLP</td><td>Art. 12° letra E) N°17 da LIVS, fonte SII, para estrangeiro sem residência
          no Chile que paga em moeda estrangeira. <span class="flag">Estimativa</span>
          a conta assume que os US$ 292 já incluem o imposto (292 ÷ 1,19 = 245,38);
-         a fonte da diária não informa se o preço é com ou sem IVA.</td></tr><tr><td>Cerro San Cristóbal, combo funicular + teleférico</td><td class="n">6.300 CLP · US$ 6,74</td><td>Entrar no parque a pé é grátis; o combo é o que o roteiro usa, para subir
+         a fonte da diária não informa se o preço é com ou sem IVA.</td></tr><tr data-tipo="ingresso" data-v="6.7400"><td>Cerro San Cristóbal, combo funicular + teleférico</td><td class="n">6.300 CLP · US$ 6,74</td><td>Entrar no parque a pé é grátis; o combo é o que o roteiro usa, para subir
          de funicular por Bellavista e descer de teleférico em Providencia.
-         Fonte: telefericoonline.cl, 8/set/2026.</td></tr><tr><td>Sky Costanera, adulto</td><td class="n">25.000 CLP · US$ 26,76 · ≈ R$ 141</td><td>Tarifa de horário normal (skycostanera.cl, 8/set/2026). Entrar entre 16h e
+         Fonte: telefericoonline.cl, 8/set/2026.</td></tr><tr data-tipo="ingresso" data-v="26.7600"><td>Sky Costanera, adulto</td><td class="n">25.000 CLP · US$ 26,76 · ≈ R$ 141</td><td>Tarifa de horário normal (skycostanera.cl, 8/set/2026). Entrar entre 16h e
          18h, o horário sunset, custa 30.000 CLP — o roteiro sobe depois das 18h para
-         pagar a tarifa menor.</td></tr><tr><td>Museo Chileno de Arte Precolombino</td><td class="n">12.000 CLP · US$ 12,84 · ≈ R$ 68</td><td>Tarifa de turista estrangeiro (museo.precolombino.cl, 8/set/2026).
+         pagar a tarifa menor.</td></tr><tr data-tipo="ingresso" data-v="12.8400"><td>Museo Chileno de Arte Precolombino</td><td class="n">12.000 CLP · US$ 12,84 · ≈ R$ 68</td><td>Tarifa de turista estrangeiro (museo.precolombino.cl, 8/set/2026).
          Chileno e residente pagam 3.000 CLP. É a maior diferença de tarifa para
-         estrangeiro entre os pontos desta lista.</td></tr><tr><td>La Chascona, casa museu de Neruda</td><td class="n">11.000 CLP · US$ 11,77 · ≈ R$ 62</td><td>Tarifa geral. <span class="flag">A confirmar</span> o valor vem do Registro
+         estrangeiro entre os pontos desta lista.</td></tr><tr data-tipo="ingresso" data-v="11.7700"><td>La Chascona, casa museu de Neruda</td><td class="n">11.000 CLP · US$ 11,77 · ≈ R$ 62</td><td>Tarifa geral. <span class="flag">A confirmar</span> o valor vem do Registro
          de Museos de Chile, não do site da Fundación Neruda, que bloqueia acesso
          automatizado. A Fundação costuma cobrar valores diferentes de chilenos e
-         estrangeiros — confirme em fundacionneruda.org/informaciones.</td></tr><tr><td>Viña Concha y Toro, Visita Guiada Premium</td><td class="n">50.000 CLP · US$ 53,51 · ≈ R$ 282</td><td>Opção mais barata do cardápio de enoturismo, 120 minutos, reserva
-         obrigatória. Fonte: enoturismo.conchaytoro.com, 8/set/2026.</td></tr><tr><td>Ônibus Santiago–Valparaíso, ida e volta</td><td class="n">8.400 CLP · US$ 8,99 · ≈ R$ 47</td><td>4.200 CLP por trecho pela Turbus, a tarifa mais cara da faixa; a Buses
+         estrangeiros — confirme em fundacionneruda.org/informaciones.</td></tr><tr data-tipo="ingresso" data-v="53.5100"><td>Viña Concha y Toro, Visita Guiada Premium</td><td class="n">50.000 CLP · US$ 53,51 · ≈ R$ 282</td><td>Opção mais barata do cardápio de enoturismo, 120 minutos, reserva
+         obrigatória. Fonte: enoturismo.conchaytoro.com, 8/set/2026.</td></tr><tr data-tipo="ingresso" data-v="8.9900"><td>Ônibus Santiago–Valparaíso, ida e volta</td><td class="n">8.400 CLP · US$ 8,99 · ≈ R$ 47</td><td>4.200 CLP por trecho pela Turbus, a tarifa mais cara da faixa; a Buses
          Romani sai por 2.700 CLP o trecho, o que baixaria para 5.400 CLP.
          Fonte: recorrido.cl, 8/set/2026. <span class="flag">Preço dinâmico</span>
-         varia por horário e antecedência.</td></tr><tr><td>Metrô, 18 viagens + cartão bip!</td><td class="n">16.220 CLP · US$ 17,36 · ≈ R$ 91</td><td>18 viagens à tarifa valle de 815 CLP (14.670 CLP) mais 1.550 CLP do cartão
+         varia por horário e antecedência.</td></tr><tr data-tipo="dia" data-v="3.4720" data-rot="Metrô e cartão bip!, {d} dias"><td>Metrô, 18 viagens + cartão bip!</td><td class="n">16.220 CLP · US$ 17,36 · ≈ R$ 91</td><td>18 viagens à tarifa valle de 815 CLP (14.670 CLP) mais 1.550 CLP do cartão
          bip!, que não inclui carga. Fontes: metro.cl e red.cl, 8/set/2026.
-         Uma tarifa dá direito a até 2 transferências em 120 minutos.</td></tr><tr><td>Aeroporto SCL, ida e volta de Centropuerto</td><td class="n">4.100 CLP · US$ 4,39 · ≈ R$ 23</td><td>Ônibus até a estação Los Héroes (Linhas 1 e 2).
+         Uma tarifa dá direito a até 2 transferências em 120 minutos.</td></tr><tr data-tipo="fixo" data-v="4.3900"><td>Aeroporto SCL, ida e volta de Centropuerto</td><td class="n">4.100 CLP · US$ 4,39 · ≈ R$ 23</td><td>Ônibus até a estação Los Héroes (Linhas 1 e 2).
          <span class="flag">Fontes divergem</span> o airporttransferportal.com publica
          2.400 CLP a ida e 4.100 a ida e volta; o viajarxchile.cl fala em ~1.800 CLP.
-         Nenhuma das duas é o site oficial. Não há metrô até o aeroporto em 2026.</td></tr></tbody><tfoot><tr><td>Total por pessoa</td><td class="n">US$ 388</td><td>US$ 78 por dia · ≈ 362.300 CLP · ≈ R$ 2.043 (soma exata US$ 387,74)</td></tr></tfoot></table></div>
+         Nenhuma das duas é o site oficial. Não há metrô até o aeroporto em 2026.</td></tr></tbody><tfoot><tr><td id="tot-rot">Total por pessoa</td><td class="n" id="tot-val">US$ 388</td><td id="tot-dia">US$ 78 por dia · ≈ 362.300 CLP · ≈ R$ 2.043 (soma exata US$ 387,74)</td></tr></tfoot></table></div>
   <p style="color:var(--nevoa);font-size:.92rem">A conta soma o que o roteiro de 5 dias efetivamente usa: os ingressos
 dos seis pontos pagos, o transporte urbano, o traslado do aeroporto e quatro noites de
 hospedagem na faixa intermediária, já com a isenção de 19% de IVA aplicada.
@@ -119,6 +150,7 @@ tarjeta de turismo.</p>
   <a class="pg" href="../roteiro-5-dias/">Roteiro de 5 dias</a>
 </div></section>
 </div>
+<script src="../../../assets/js/ficha.js?v=9a965768" defer></script>
 </main>
 <footer class="rodape"><div class="wrap cols">
 <p><b>Preços verificados em 9 de setembro de 2026.</b> Cada página traz a data da própria apuração. Atrações com preço dinâmico podem variar conforme a data escolhida — reconfira no checkout.</p>

@@ -46,9 +46,9 @@
   <div class="bloco-head">
     <span class="eyebrow">Calculadora</span>
     <h2>Faça a conta da <em style="font-style:normal;color:var(--ambar)">sua</em> viagem</h2>
-    <p>A tabela abaixo é a nossa apuração: 7 dias, uma pessoa, hotel intermediário em
-       Manhattan. Mude as datas, o número de pessoas e a categoria de hotel, desmarque
-       o que você não vai visitar, e a conta se refaz na hora.</p>
+    <p>A tabela abaixo é a nossa apuração: 7 dias, 1 pessoa.
+       Mude as datas, o número de pessoas e a categoria de hospedagem, desmarque o que
+       você não vai fazer, e a conta se refaz na hora.</p>
   </div>
   <div class="calc" id="calc" hidden>
     <span class="t">Sua viagem</span>
@@ -60,23 +60,17 @@
       <label>Pessoas
         <input type="number" id="c-pes" min="1" max="8" step="1" value="1" inputmode="numeric"></label>
       <label>Hospedagem
-        <select id="c-hosp">
-          <option value="hostel">Hostel, dormitório em Manhattan</option>
-          <option value="economico">Hotel econômico, quarto privativo</option>
-          <option value="brooklyn">Intermediário no Brooklyn</option>
-          <option value="manhattan" selected>Intermediário em Manhattan</option>
-          <option value="media">Média geral de Manhattan</option>
-        </select></label>
+        <select id="c-hosp"><option value="hostel">Hostel, dormitório em Manhattan</option><option value="economico">Hotel econômico, quarto privativo</option><option value="brooklyn">Intermediário no Brooklyn</option><option value="manhattan" selected>Intermediário em Manhattan</option><option value="media">Média geral de Manhattan</option></select></label>
     </div>
-    <p class="calc-dur" id="c-dur">7 dias &middot; 6 noites de hotel</p>
+    <p class="calc-dur" id="c-dur"></p>
     <div id="c-alertas"></div>
-    <p class="calc-nota">Desmarque na tabela abaixo o que você não pretende visitar.
-      As noites saem das suas datas; a conta assume quarto duplo nas categorias de
-      quarto privativo e duas viagens de metrô por dia. Os preços unitários são os
-      apurados em 9 de setembro de 2026 para <b style="color:var(--gelo)">novembro de
-      2026</b> — o que muda aqui é só a aritmética, não a fonte.</p>
+    <p class="calc-nota">As noites saem das suas datas; a conta assume quarto duplo nas categorias de quarto privativo e duas viagens de metrô por dia. Os valores unitários são os apurados em 9 de setembro de 2026
+       e estão na tabela abaixo — <b style="color:var(--gelo)">o que muda aqui é só a
+       aritmética, não a fonte</b>. Linhas marcadas como não encontradas continuam fora
+       da conta.</p>
     <div class="painel" id="res"></div>
   </div>
+  <script type="application/json" id="calc-cfg">{"moeda": "US$", "dec": 2, "dias": 7, "pessoas": 1, "hosp": [{"k": "hostel", "rot": "Hostel, dormitório em Manhattan", "ref": 45, "mn": 35, "mx": 55, "pessoa": true}, {"k": "economico", "rot": "Hotel econômico, quarto privativo", "ref": 78, "mn": 60, "mx": 95}, {"k": "brooklyn", "rot": "Intermediário no Brooklyn", "ref": 220, "mn": 160, "mx": 280}, {"k": "manhattan", "rot": "Intermediário em Manhattan", "ref": 300, "mn": 250, "mx": 400}, {"k": "media", "rot": "Média geral de Manhattan", "ref": 349, "mn": 349, "mx": 349}], "hospPadrao": "manhattan", "janela": ["2026-11-01", "2026-11-30", "b", "Fora de novembro de 2026", "Os preços desta página foram apurados para novembro. Ingressos mudam pouco; <b>hotel muda muito</b>. Dezembro é o mês mais caro do ano em Nova York, com diária média de <b>US$ 577</b> — 65% acima da média geral."], "eventos": [["2026-10-30", "2026-11-02", "", "Sua viagem pega a Maratona de Nova York", "Domingo, 1º de novembro. Ruas fechadas em cinco distritos e preços de hotel já elevados nesse fim de semana. A conta abaixo <b>não</b> embute essa alta."], ["2026-11-22", "2026-11-29", "", "Sua viagem pega a semana do Thanksgiving", "Quinta, 26 de novembro, e a 100ª edição do desfile da Macy's. A diária média da cidade nessa semana foi de <b>US$ 452</b> contra <b>US$ 349</b> de média geral <span class=\"flag\">Dado de 2023</span> — cerca de 30% a mais, e hoje seria maior. A conta abaixo usa a diária normal: <b>some essa diferença por conta própria</b>."]]}</script>
 </section>
 <section class="bloco">
   <div class="tabwrap"><table id="tab-ficha">
@@ -123,7 +117,7 @@
   </div>
 </section>
 </div>
-<script src="../../../assets/js/ficha.js?v=f4214bf2" defer></script>
+<script src="../../../assets/js/ficha.js?v=9a965768" defer></script>
 </main>
 <footer class="rodape"><div class="wrap cols">
 <p><b>Preços verificados em 9 de setembro de 2026.</b> Cada página traz a data da própria apuração. Atrações com preço dinâmico podem variar conforme a data escolhida — reconfira no checkout.</p>

@@ -1,41 +1,45 @@
-/* Ficha de custos interativa.
-   A tabela já vem completa no HTML com o cenário apurado (7 dias, 1 pessoa,
-   intermediário em Manhattan). Este script só recalcula em cima dela.
-   Sem JavaScript a página continua correta e indexável — só não é interativa,
-   e por isso os controles ficam escondidos até o script assumir. */
+/* Ficha de custos interativa — a mesma para todos os destinos.
+   Toda a configuração vem do JSON #calc-cfg que a página traz, e todos os
+   valores unitários vêm dos atributos data- da própria tabela apurada.
+   Este arquivo não guarda preço nenhum: ele só faz aritmética.
+
+   Sem JavaScript a página continua correta e indexável — a tabela é a ficha
+   apurada, e os controles ficam escondidos até o script assumir. */
 (function () {
   var tab = document.getElementById("tab-ficha");
   var calc = document.getElementById("calc");
-  if (!tab || !calc) return;
+  var raw = document.getElementById("calc-cfg");
+  if (!tab || !calc || !raw) return;
 
-  /* Diárias apuradas na própria página. "ref" é o valor de referência usado
-     na conta; "min/max" é a faixa observada, mostrada junto para o leitor ver
-     o tamanho da incerteza em vez de engolir um número só. */
-  var HOSP = {
-    hostel:    { ref: 45,  min: 35,  max: 55,  pessoa: true,  rot: "Hostel, dormitório em Manhattan" },
-    economico: { ref: 78,  min: 60,  max: 95,  pessoa: false, rot: "Hotel econômico, quarto privativo" },
-    brooklyn:  { ref: 220, min: 160, max: 280, pessoa: false, rot: "Intermediário no Brooklyn" },
-    manhattan: { ref: 300, min: 250, max: 400, pessoa: false, rot: "Intermediário em Manhattan" },
-    media:     { ref: 349, min: 349, max: 349, pessoa: false, rot: "Média geral de Manhattan" }
-  };
+  var CFG;
+  try { CFG = JSON.parse(raw.textContent); } catch (e) { return; }
+  var HOSP = {};
+  CFG.hosp.forEach(function (h) { HOSP[h.k] = h; });
 
-  function usd(n) {
-    return "US$ " + n.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  var DIA = 86400000;
+  var dec = CFG.dec == null ? 2 : CFG.dec;
+
+  function moeda(n, casas) {
+    var c = casas == null ? dec : casas;
+    return CFG.moeda + " " + n.toLocaleString("pt-BR",
+      { minimumFractionDigits: c, maximumFractionDigits: c });
   }
-  function usd0(n) {
-    return "US$ " + Math.round(n).toLocaleString("pt-BR");
-  }
+  function m0(n) { return CFG.moeda + " " + Math.round(n).toLocaleString("pt-BR"); }
+  function num0(n) { return Math.round(n).toLocaleString("pt-BR"); }
   function plural(n, um, muitos) { return n + " " + (n === 1 ? um : muitos); }
+  function dt(s) { return s ? new Date(s + "T12:00:00") : null; }
+  function cruza(a, b, x, y) { return a <= dt(y) && b >= dt(x); }
+  function brdata(d) {
+    return d.toLocaleDateString("pt-BR", { day: "numeric", month: "long", year: "numeric" });
+  }
 
-  var ingressos = [].slice.call(tab.querySelectorAll('tr[data-tipo="ingresso"]'));
-  var lMetro = tab.querySelector('tr[data-tipo="metro"]');
+  var linhas = [].slice.call(tab.querySelectorAll("tbody tr[data-tipo]"));
+  var ingressos = linhas.filter(function (t) { return t.dataset.tipo === "ingresso"; });
   var lHosp = tab.querySelector('tr[data-tipo="hosp"]');
-  var pe = document.getElementById("tot-rot");
-  var pv = document.getElementById("tot-val");
-  var pd = document.getElementById("tot-dia");
+  var lMetro = tab.querySelector('tr[data-tipo="metro"]');
 
   /* Caixas de seleção injetadas aqui, e não no HTML: sem JS elas não
-     apareceriam funcionando, e caixa que não funciona é pior que nenhuma. */
+     funcionariam, e caixa que não funciona é pior que nenhuma. */
   ingressos.forEach(function (tr) {
     var td = tr.cells[0], nome = td.textContent.trim();
     var lab = document.createElement("label");
@@ -56,52 +60,37 @@
   var cHosp = document.getElementById("c-hosp");
   var cDur = document.getElementById("c-dur");
   var cAlertas = document.getElementById("c-alertas");
+  var cRes = document.getElementById("res");
+  var totRot = document.getElementById("tot-rot");
+  var totVal = document.getElementById("tot-val");
+  var totDia = document.getElementById("tot-dia");
   [cIda, cVolta, cPes, cHosp].forEach(function (el) {
     if (el) { el.addEventListener("input", render); el.addEventListener("change", render); }
   });
 
-  /* Datas do próprio conteúdo da página, já apuradas: a maratona e a semana
-     do Thanksgiving. Nenhuma delas altera a conta sozinha — elas avisam.
-     Multiplicar a diária por um fator de alta que ninguém apurou seria
-     inventar número, que é exatamente o que este site não faz. */
-  var DIA = 86400000;
-  function dt(s) { return s ? new Date(s + "T12:00:00") : null; }
-  function cruza(a, b, x, y) { return a <= dt(y) && b >= dt(x); }
-  function brdata(d) {
-    return d.toLocaleDateString("pt-BR", { day: "numeric", month: "long", year: "numeric" });
-  }
-
   function periodo() {
     var a = dt(cIda.value), b = dt(cVolta.value);
-    if (!a || !b || isNaN(a) || isNaN(b) || b <= a) return { noites: 6, d: 7, ok: false };
+    if (!a || !b || isNaN(a) || isNaN(b) || b <= a)
+      return { noites: Math.max(1, CFG.dias - 1), d: CFG.dias, ok: false };
     var n = Math.min(29, Math.round((b - a) / DIA));
     return { noites: n, d: n + 1, ok: true, a: a, b: b };
   }
 
+  /* As datas avisam; elas não mexem no preço. Multiplicar a diária por um
+     fator de alta que ninguém apurou seria inventar número. */
   function alertas(pr) {
     var av = [];
     if (!pr.ok) {
       av.push(["a", "Datas incompletas",
-        "Preencha chegada e volta (a volta precisa ser depois da chegada). " +
-        "Enquanto isso, a conta está usando o cenário apurado: 7 dias, 6 noites."]);
+        "Preencha chegada e volta (a volta precisa ser depois da chegada). Enquanto isso, " +
+        "a conta está usando o cenário apurado: " + plural(CFG.dias, "dia", "dias") + "."]);
       return av;
     }
-    if (cruza(pr.a, pr.b, "2026-10-30", "2026-11-02"))
-      av.push(["", "Sua viagem pega a Maratona de Nova York",
-        "Domingo, 1º de novembro. Ruas fechadas em cinco distritos e preços de hotel " +
-        "já elevados nesse fim de semana. A conta abaixo <b>não</b> embute essa alta."]);
-    if (cruza(pr.a, pr.b, "2026-11-22", "2026-11-29"))
-      av.push(["", "Sua viagem pega a semana do Thanksgiving",
-        "Quinta, 26 de novembro, e a 100ª edição do desfile da Macy's. A diária média " +
-        "da cidade nessa semana foi de <b>US$ 452</b> contra <b>US$ 349</b> de média " +
-        "geral <span class=\"flag\">Dado de 2023</span> — cerca de 30% a mais, e hoje " +
-        "seria maior. A conta abaixo usa a diária normal: <b>some essa diferença por conta própria</b>."]);
-    var fora = pr.a < dt("2026-11-01") || pr.b > dt("2026-11-30");
-    if (fora)
-      av.push(["b", "Fora de novembro de 2026",
-        "Os preços desta página foram apurados para novembro. Ingressos mudam pouco; " +
-        "<b>hotel muda muito</b>. Dezembro é o mês mais caro do ano em Nova York, com " +
-        "diária média de <b>US$ 577</b> — 65% acima da média geral."]);
+    (CFG.eventos || []).forEach(function (e) {
+      if (cruza(pr.a, pr.b, e[0], e[1])) av.push([e[2], e[3], e[4]]);
+    });
+    var j = CFG.janela;
+    if (j && (pr.a < dt(j[0]) || pr.b > dt(j[1]))) av.push([j[2], j[3], j[4]]);
     return av;
   }
 
@@ -109,72 +98,98 @@
     var pr = periodo();
     var d = pr.d, noites = pr.noites;
     var p = Math.max(1, Math.min(8, parseInt(cPes.value, 10) || 1));
-    var h = HOSP[cHosp.value] || HOSP.manhattan;
+    var h = HOSP[cHosp.value] || CFG.hosp[0];
     var quartos = Math.ceil(p / 2);
+    var un = h.pessoa ? p : quartos;
+    var fator = 1 - (h.desc || 0);
+
+    var hRef = h.ref * noites * un * fator;
+    var hMin = h.mn * noites * un * fator;
+    var hMax = h.mx * noites * un * fator;
+
+    var ing = 0, outros = 0, pcts = [];
+    linhas.forEach(function (tr) {
+      var t = tr.dataset.tipo, v = parseFloat(tr.dataset.v);
+      if (t === "ingresso") {
+        var on = tr.querySelector("input").checked;
+        tr.classList.toggle("off", !on);
+        if (on) ing += v;
+      } else if (t === "fixo") {
+        outros += v * p;
+      } else if (t === "dia") {
+        var q = tr.dataset.grupo ? 1 : p;
+        var sub = v * d * q;
+        outros += sub;
+        if (tr.dataset.rot) tr.cells[0].textContent = tr.dataset.rot.replace("{d}", d);
+        tr.cells[1].textContent = moeda(sub);
+      } else if (t === "metro") {
+        var pd = parseFloat(tr.dataset.dia), teto = parseFloat(tr.dataset.teto);
+        var mp = Math.min(d * pd, teto * Math.ceil(d / 7));
+        outros += mp * p;
+        tr.cells[0].textContent = (d * pd >= teto * Math.ceil(d / 7))
+          ? "Metrô, teto semanal" : "Metrô, " + plural(d, "dia", "dias");
+        tr.cells[1].textContent = moeda(mp);
+      } else if (t === "pct") {
+        pcts.push(tr);
+      }
+    });
+
+    /* Uma conta só, aplicada três vezes: no valor de referência e nos dois
+       extremos da faixa de hospedagem. Assim os percentuais (IVA, IOF)
+       acompanham a faixa em vez de ficarem presos ao valor central. */
+    function totalCom(hv) {
+      var b = ing * p + outros + hv, e = 0;
+      pcts.forEach(function (tr) {
+        e += (tr.dataset.base === "hosp" ? hv : b) * parseFloat(tr.dataset.p);
+      });
+      return b + e;
+    }
+    var total = totalCom(hRef), tMin = totalCom(hMin), tMax = totalCom(hMax);
+
+    pcts.forEach(function (tr) {
+      var pp = parseFloat(tr.dataset.p);
+      var sobre = tr.dataset.base === "hosp" ? hRef : (ing * p + outros + hRef);
+      var val = sobre * pp;
+      tr.cells[1].textContent = (val < 0 ? "\u2212 " : "") + moeda(Math.abs(val));
+    });
+
+    if (lHosp) {
+      lHosp.cells[0].textContent = "Hospedagem, " + plural(noites, "noite", "noites");
+      lHosp.cells[1].textContent = moeda(hRef);
+    }
 
     cDur.innerHTML = pr.ok
       ? "<b>" + plural(d, "dia", "dias") + "</b> &middot; " +
-        plural(noites, "noite", "noites") + " de hotel &middot; " +
+        plural(noites, "noite", "noites") + " de hospedagem &middot; " +
         brdata(pr.a) + " a " + brdata(pr.b)
-      : "<b>7 dias</b> &middot; 6 noites de hotel &middot; cenário apurado";
+      : "<b>" + plural(CFG.dias, "dia", "dias") + "</b> &middot; cenário apurado";
 
     cAlertas.innerHTML = alertas(pr).map(function (x) {
       return '<div class="aviso ' + x[0] + '"><span class="t">' + x[1] +
              "</span><p>" + x[2] + "</p></div>";
     }).join("");
 
-    var ing = 0;
-    ingressos.forEach(function (tr) {
-      var on = tr.querySelector("input").checked;
-      tr.classList.toggle("off", !on);
-      if (on) ing += parseFloat(tr.dataset.v);
-    });
-    var ingTotal = ing * p;
-
-    var porDia = parseFloat(lMetro.dataset.dia);
-    var teto = parseFloat(lMetro.dataset.teto);
-    var metroPes = Math.min(d * porDia, teto * Math.ceil(d / 7));
-    var metroTotal = metroPes * p;
-
-    var un = h.pessoa ? p : quartos;
-    var hRef = h.ref * noites * un;
-    var hMin = h.min * noites * un;
-    var hMax = h.max * noites * un;
-
-    var total = ingTotal + metroTotal + hRef;
-    var totMin = ingTotal + metroTotal + hMin;
-    var totMax = ingTotal + metroTotal + hMax;
-
-    lMetro.cells[0].textContent = (d * porDia >= teto * Math.ceil(d / 7))
-      ? "Metrô, teto semanal" : "Metrô, " + plural(d, "dia", "dias");
-    lMetro.cells[1].textContent = usd(metroPes);
-    lMetro.cells[2].innerHTML = "2 viagens por dia a US$ 2,90, com teto de " +
-      usd0(teto) + " por semana. Por pessoa.";
-
-    lHosp.cells[0].textContent = "Hospedagem, " + plural(noites, "noite", "noites");
-    lHosp.cells[1].textContent = usd(hRef);
-    lHosp.cells[2].innerHTML = h.rot + ", " + usd0(h.ref) + "/noite" +
-      (h.pessoa ? " por pessoa × " + plural(p, "pessoa", "pessoas")
-                : " × " + plural(quartos, "quarto", "quartos"));
-
-    pe.textContent = p === 1 ? "Total por pessoa" : "Total do grupo, " + plural(p, "pessoa", "pessoas");
-    pv.textContent = usd(total);
-    pd.textContent = usd0(total / p / d) + " por pessoa por dia";
-
-    var cx = document.getElementById("res");
-    if (cx) {
-      cx.innerHTML =
-        cel("Total do grupo", usd0(total), plural(d, "dia", "dias") + " · " +
-            plural(p, "pessoa", "pessoas") + " · " + plural(noites, "noite", "noites") + " de hotel", "") +
-        cel("Por pessoa", usd0(total / p), "Ingressos " + usd0(ing) + " · metrô " +
-            usd0(metroPes) + " · hotel " + usd0(hRef / p), "c") +
-        cel("Por pessoa por dia", usd0(total / p / d), "Sem passagem aérea, sem alimentação e sem seguro.", "") +
-        cel("Faixa da hospedagem", hMin === hMax ? usd0(totMax)
-              : usd0(totMin) + "–" + Math.round(totMax).toLocaleString("pt-BR"),
-            hMin === hMax ? "Esta categoria tem valor único apurado, sem faixa."
-                          : "A diária observada varia entre " + usd0(h.min) + " e " + usd0(h.max) +
-                            ". Este é o total do grupo nos dois extremos.", "c");
+    if (totRot) {
+      totRot.textContent = p === 1 ? "Total por pessoa"
+                                   : "Total do grupo, " + plural(p, "pessoa", "pessoas");
+      totVal.textContent = moeda(total);
+      totDia.textContent = m0(total / p / d) + " por pessoa por dia";
     }
+
+    var faixa = (Math.round(tMin) === Math.round(tMax))
+      ? ["Hospedagem", m0(hRef), "Esta categoria tem valor único apurado, sem faixa observada."]
+      : ["Faixa da hospedagem", m0(tMin) + "–" + num0(tMax),
+         "A diária observada varia entre " + m0(h.mn) + " e " + m0(h.mx) +
+         ". Este é o total do grupo nos dois extremos."];
+
+    cRes.innerHTML =
+      cel("Total do grupo", m0(total), plural(d, "dia", "dias") + " · " +
+          plural(p, "pessoa", "pessoas") + " · " + plural(noites, "noite", "noites") + " de hospedagem", "") +
+      cel("Por pessoa", m0(total / p), "Hospedagem " + m0(hRef / p) +
+          " · o resto " + m0((total - hRef) / p), "c") +
+      cel("Por pessoa por dia", m0(total / p / d),
+          "Só o que está nesta ficha. O que não foi apurado continua de fora.", "") +
+      cel(faixa[0], faixa[1], faixa[2], "c");
   }
 
   function cel(rot, big, sub, cls) {

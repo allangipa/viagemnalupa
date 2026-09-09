@@ -41,38 +41,69 @@
 </div></div>
 
 <div class="wrap wrap-estreito">
+
+<section class="bloco" id="calculadora">
+  <div class="bloco-head">
+    <span class="eyebrow">Calculadora</span>
+    <h2>Faça a conta da <em style="font-style:normal;color:var(--ambar)">sua</em> viagem</h2>
+    <p>A tabela abaixo é a nossa apuração: 5 dias, 2 pessoas.
+       Mude as datas, o número de pessoas e a categoria de hospedagem, desmarque o que
+       você não vai fazer, e a conta se refaz na hora.</p>
+  </div>
+  <div class="calc" id="calc" hidden>
+    <span class="t">Sua viagem</span>
+    <div class="calc-ctrl">
+      <label>Chegada
+        <input type="date" id="c-ida" value="2026-11-10" min="2026-09-09" max="2028-12-31"></label>
+      <label>Volta
+        <input type="date" id="c-volta" value="2026-11-14" min="2026-09-09" max="2028-12-31"></label>
+      <label>Pessoas
+        <input type="number" id="c-pes" min="1" max="8" step="1" value="2" inputmode="numeric"></label>
+      <label>Hospedagem
+        <select id="c-hosp"><option value="dorm">Cama em dormitório de hostel</option><option value="privativo">Quarto privativo em hostel</option><option value="apto" selected>Apartamento de 1 quarto</option><option value="quatro">Hotel 4 estrelas (estimativa)</option><option value="boutique">Hotel boutique</option><option value="luxo">Hotel de luxo</option></select></label>
+    </div>
+    <p class="calc-dur" id="c-dur"></p>
+    <div id="c-alertas"></div>
+    <p class="calc-nota">As noites saem das suas datas. Hospedagem por quarto, 2 pessoas por quarto, já com a devolução de 21% de IVA para quem paga com cartão emitido no exterior. O subte foi apurado como 10 viagens em 5 dias e escala proporcional aos dias; o IOF de 3,5% recalcula sobre o total. Os valores unitários são os apurados em 9 de setembro de 2026
+       e estão na tabela abaixo — <b style="color:var(--gelo)">o que muda aqui é só a
+       aritmética, não a fonte</b>. Linhas marcadas como não encontradas continuam fora
+       da conta.</p>
+    <div class="painel" id="res"></div>
+  </div>
+  <script type="application/json" id="calc-cfg">{"moeda": "US$", "dec": 2, "dias": 5, "pessoas": 2, "hosp": [{"k": "dorm", "rot": "Cama em dormitório de hostel", "ref": 18, "mn": 15, "mx": 21, "pessoa": true, "desc": 0.174}, {"k": "privativo", "rot": "Quarto privativo em hostel", "ref": 65.5, "mn": 55, "mx": 76, "desc": 0.174}, {"k": "apto", "rot": "Apartamento de 1 quarto", "ref": 80, "mn": 80, "mx": 80, "desc": 0.174}, {"k": "quatro", "rot": "Hotel 4 estrelas (estimativa)", "ref": 140, "mn": 100, "mx": 180, "desc": 0.174}, {"k": "boutique", "rot": "Hotel boutique", "ref": 276, "mn": 255, "mx": 297, "desc": 0.174}, {"k": "luxo", "rot": "Hotel de luxo", "ref": 569, "mn": 500, "mx": 638, "desc": 0.174}], "hospPadrao": "apto", "janela": null, "eventos": []}</script>
+</section>
 <section class="bloco">
-  <div class="tabwrap"><table><thead><tr><th>Item</th><th>Valor</th><th>Observação</th></tr></thead><tbody><tr><td>Cemitério da Recoleta</td><td class="n">ARS 24.030 · US$ 15,70 · R$ 80</td><td>Preço de estrangeiro, dado de agosto de 2026, confirmado por duas fontes independentes (loomi.fun e
+  <div class="tabwrap"><table id="tab-ficha"><thead><tr><th>Item</th><th>Valor</th><th>Observação</th></tr></thead><tbody><tr data-tipo="ingresso" data-v="15.7000"><td>Cemitério da Recoleta</td><td class="n">ARS 24.030 · US$ 15,70 · R$ 80</td><td>Preço de estrangeiro, dado de agosto de 2026, confirmado por duas fontes independentes (loomi.fun e
          buenosaires123). Residente argentino não paga. <span class="flag">Divergência</span> A página oficial de
          turismo da cidade ainda diz "entrada gratuita" e está desatualizada — a cobrança de estrangeiros vigora
-         desde 2022.</td></tr><tr><td>Teatro Colón, visita guiada</td><td class="n">ARS 34.000 · US$ 22,20 · R$ 114</td><td>Tarifa geral/estrangeiro no site oficial em 8/9/2026. Residente argentino paga ARS 17.000, exatamente
-         a metade. Visitas em português às 11h45 e às 16h.</td></tr><tr><td>Jardín Japonés</td><td class="n">ARS 24.000 · US$ 15,70</td><td>Preço de estrangeiro. O residente paga ARS 8.000 — o estrangeiro paga três vezes mais. Fonte:
-         buenosaires123, 2026.</td></tr><tr><td>MALBA, quarta-feira</td><td class="n">ARS 6.000 · US$ 3,90</td><td>Meia-entrada de quarta para o público geral (a inteira é ARS 12.000).
+         desde 2022.</td></tr><tr data-tipo="ingresso" data-v="22.2000"><td>Teatro Colón, visita guiada</td><td class="n">ARS 34.000 · US$ 22,20 · R$ 114</td><td>Tarifa geral/estrangeiro no site oficial em 8/9/2026. Residente argentino paga ARS 17.000, exatamente
+         a metade. Visitas em português às 11h45 e às 16h.</td></tr><tr data-tipo="ingresso" data-v="15.7000"><td>Jardín Japonés</td><td class="n">ARS 24.000 · US$ 15,70</td><td>Preço de estrangeiro. O residente paga ARS 8.000 — o estrangeiro paga três vezes mais. Fonte:
+         buenosaires123, 2026.</td></tr><tr data-tipo="ingresso" data-v="3.9000"><td>MALBA, quarta-feira</td><td class="n">ARS 6.000 · US$ 3,90</td><td>Meia-entrada de quarta para o público geral (a inteira é ARS 12.000).
          <span class="flag">Divergência</span> O site oficial confirma a estrutura de desconto mas não publica os
          valores absolutos; buenosaires123 (2026) cita ARS 12.000 e vidrierabuenosaires (junho/2026) cita
-         ARS 4.000 para a inteira. Reconfira na véspera.</td></tr><tr><td>Fragata Sarmiento</td><td class="n">ARS 1.000 · US$ 0,65</td><td>Bono contribución. <span class="flag">Divergência</span> Uma fonte mais antiga citava ARS 500; ARS 1.000
-         é o valor mais recente localizado (buenosaires123, 2026). Historicamente só aceitam dinheiro.</td></tr><tr><td>Ezeiza ↔ centro, ônibus Tienda León</td><td class="n">ARS 31.000 · US$ 20,26</td><td>ARS 15.500 por trecho até a Terminal Pellegrini, perto do Obelisco. Fonte: buenosaires123, 2026.
+         ARS 4.000 para a inteira. Reconfira na véspera.</td></tr><tr data-tipo="ingresso" data-v="0.6500"><td>Fragata Sarmiento</td><td class="n">ARS 1.000 · US$ 0,65</td><td>Bono contribución. <span class="flag">Divergência</span> Uma fonte mais antiga citava ARS 500; ARS 1.000
+         é o valor mais recente localizado (buenosaires123, 2026). Historicamente só aceitam dinheiro.</td></tr><tr data-tipo="fixo" data-v="20.2600"><td>Ezeiza ↔ centro, ônibus Tienda León</td><td class="n">ARS 31.000 · US$ 20,26</td><td>ARS 15.500 por trecho até a Terminal Pellegrini, perto do Obelisco. Fonte: buenosaires123, 2026.
          Alternativas apuradas: Uber/Cabify US$ 25–30, táxi oficial US$ 40–45, shuttle NEO Bus US$ 9, ônibus
-         público linha 8 abaixo de US$ 1,50 mas com mais de 2 horas de viagem.</td></tr><tr><td>Subte, 10 viagens</td><td class="n">ARS 17.530 · US$ 11,46</td><td>Tarifa de setembro de 2026 com SUBE registrada: ARS 1.753 por viagem na faixa de 1 a 20 viagens no mês.
+         público linha 8 abaixo de US$ 1,50 mas com mais de 2 horas de viagem.</td></tr><tr data-tipo="dia" data-v="2.2920" data-rot="Subte, {d} dias"><td>Subte, 10 viagens</td><td class="n">ARS 17.530 · US$ 11,46</td><td>Tarifa de setembro de 2026 com SUBE registrada: ARS 1.753 por viagem na faixa de 1 a 20 viagens no mês.
          Sem registrar o cartão, a mesma viagem custa ARS 2.541,10 — cerca de 45% a mais. Fonte oficial:
-         buenosaires.gob.ar/subte/tarifas. <span class="flag">Reajuste mensal</span></td></tr><tr><td>Trem Retiro ↔ Tigre, ida e volta</td><td class="n">ARS 1.180 · US$ 0,77</td><td>Terceira seção do ramal Mitre a ARS 590 por trecho com SUBE, tarifa oficial de setembro de 2026. Sem
-         SUBE são ARS 1.200 fixos por trecho. São 33 km por menos que uma viagem de subte.</td></tr><tr><td>Ônibus até La Boca, ida e volta</td><td class="n">ARS 1.641 · US$ 1,07</td><td>Tarifa mínima da Cidade de Buenos Aires, ARS 820,60 por trecho.
+         buenosaires.gob.ar/subte/tarifas. <span class="flag">Reajuste mensal</span></td></tr><tr data-tipo="ingresso" data-v="0.7700"><td>Trem Retiro ↔ Tigre, ida e volta</td><td class="n">ARS 1.180 · US$ 0,77</td><td>Terceira seção do ramal Mitre a ARS 590 por trecho com SUBE, tarifa oficial de setembro de 2026. Sem
+         SUBE são ARS 1.200 fixos por trecho. São 33 km por menos que uma viagem de subte.</td></tr><tr data-tipo="ingresso" data-v="1.0700"><td>Ônibus até La Boca, ida e volta</td><td class="n">ARS 1.641 · US$ 1,07</td><td>Tarifa mínima da Cidade de Buenos Aires, ARS 820,60 por trecho.
          <span class="flag">Dado de julho/2026</span> É o número oficial mais recente localizado e os reajustes são
          mensais. La Boca não tem subte, e muitos colectivos não aceitam dinheiro — só SUBE.</td></tr><tr><td>Tarjeta SUBE, aquisição</td><td class="n"><span class="flag">Não encontrado</span></td><td>O preço de compra do cartão físico em 2026 não foi localizado. Sem SUBE o turista fica sem ônibus e
          paga cerca de 45% a mais no subte, então o cartão é obrigatório na prática — e registrá-lo no site da SUBE
-         é gratuito.</td></tr><tr><td>Hospedagem, 4 noites</td><td class="n">US$ 132</td><td>Apartamento de 1 quarto a ~US$ 80 a diária para duas pessoas, ou seja US$ 40 por pessoa por noite,
+         é gratuito.</td></tr><tr data-tipo="hosp"><td>Hospedagem, 4 noites</td><td class="n">US$ 132</td><td>Apartamento de 1 quarto a ~US$ 80 a diária para duas pessoas, ou seja US$ 40 por pessoa por noite,
          US$ 160 nas quatro noites — <b>menos os 21% de IVA devolvidos por pagar com cartão emitido no exterior</b>,
          o que reduz o valor final em cerca de 17,4%. Pagando em dinheiro, esta linha voltaria a US$ 160.
          <span class="flag">Estimativa</span> A diária vem de guia de viagem (Rebecca and the World, abril/2026),
          não de fonte oficial. O roteiro de 5 dias tem 4 noites entre o dia 1 e o dia 5; as noites de chegada e
          partida dependem do voo.</td></tr><tr><td>Alimentação</td><td class="n"><span class="flag">Não encontrado</span></td><td>A apuração não levantou preço de restaurante, café da manhã, parrilla ou mercado em Buenos Aires. Não
          há número para colocar aqui e não vamos inventar um — esta linha fica fora do total, e é a maior lacuna
-         desta ficha.</td></tr><tr><td>IOF sobre o gasto no cartão</td><td class="n">US$ 7,84</td><td>3,5% sobre US$ 223,94, considerando tudo pago no cartão. A alíquota de 3,5% para compras internacionais
+         desta ficha.</td></tr><tr data-tipo="pct" data-base="tudo" data-p="0.0350000"><td>IOF sobre o gasto no cartão</td><td class="n">US$ 7,84</td><td>3,5% sobre US$ 223,94, considerando tudo pago no cartão. A alíquota de 3,5% para compras internacionais
          em crédito e débito está fixa em 2026: a redução progressiva que zeraria o imposto em 2028 foi suspensa.
          Alguns bancos isentam ou devolvem (BTG Pactual isenta; Porto Bank, Nubank Ultravioleta, Caixa e Banco do
          Brasil têm condições especiais). Fonte: cartoesdecredito.me, 2026.</td></tr><tr><td>Museo de Arte de Tigre, se entrar</td><td class="n"><span class="flag">Não encontrado</span></td><td>O preço para argentinos é ARS 7.650 (US$ 5,00); o preço para estrangeiro não foi localizado, e vários
          museus argentinos cobram mais de estrangeiro. Fora do total por isso. O Museo de la Reconquista, na mesma
-         cidade, é gratuito.</td></tr></tbody><tfoot><tr><td>Total por pessoa, sem alimentação</td><td class="n">US$ 232</td><td>US$ 46 por dia · ARS 354.960 · R$ 1.189</td></tr></tfoot></table></div>
+         cidade, é gratuito.</td></tr></tbody><tfoot><tr><td id="tot-rot">Total por pessoa, sem alimentação</td><td class="n" id="tot-val">US$ 232</td><td id="tot-dia">US$ 46 por dia · ARS 354.960 · R$ 1.189</td></tr></tfoot></table></div>
   <p style="color:var(--nevoa);font-size:.92rem"><b>O que está dentro:</b> os cinco ingressos que o roteiro efetivamente usa, o traslado de ida e
     volta a Ezeiza, dez viagens de subte, o trem de Tigre, o ônibus de La Boca, quatro noites de hospedagem já com
     a devolução do IVA e o IOF de 3,5% sobre o total. Conversão a <b>US$ 1 = ARS 1.530</b> (oficial de venda do
@@ -134,6 +165,7 @@
   <a class="pg" href="../roteiro-5-dias/">Roteiro de 5 dias</a>
 </div></section>
 </div>
+<script src="../../../assets/js/ficha.js?v=9a965768" defer></script>
 </main>
 <footer class="rodape"><div class="wrap cols">
 <p><b>Preços verificados em 9 de setembro de 2026.</b> Cada página traz a data da própria apuração. Atrações com preço dinâmico podem variar conforme a data escolhida — reconfira no checkout.</p>
