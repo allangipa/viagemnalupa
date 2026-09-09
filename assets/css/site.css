@@ -411,3 +411,20 @@ nav a.externo:hover .seta-ext{opacity:1}
 .dqt b{font-family:"Archivo Black","Arial Black",sans-serif; font-weight:400;
   font-size:1.35rem; color:var(--ambar); font-variant-numeric:tabular-nums}
 @media(max-width:48rem){.destaque{grid-template-columns:1fr}}
+
+/* A faixa é sempre escura, nos dois temas. Então nada de variável de tema
+   para texto aqui dentro: no tema claro --gelo é quase preto, e o negrito
+   sumia contra o fundo azul. Cor fixa, e o problema não volta. */
+.faixa b,.faixa strong{color:#EEF2F6}
+.faixa .hero p a{color:#FFB703}
+
+/* trocar de cidade sem sair da calculadora */
+.calc-cidades{display:flex; flex-wrap:wrap; align-items:center; gap:.5rem;
+  margin-bottom:-.35rem}
+.cc-rot{font-family:"IBM Plex Mono",monospace; font-size:.62rem; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--nevoa); margin-right:.2rem}
+.cc{font-family:"IBM Plex Mono",monospace; font-size:.68rem; letter-spacing:.1em;
+  text-transform:uppercase; padding:.42rem .7rem; border:1px solid var(--rule);
+  color:var(--nevoa); background:var(--noite)}
+a.cc:hover{border-color:var(--ambar); color:var(--ambar); text-decoration:none}
+.cc.atual{border-color:var(--ambar); color:var(--tinta); background:var(--ambar)}

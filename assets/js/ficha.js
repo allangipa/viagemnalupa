@@ -68,6 +68,30 @@
     if (el) { el.addEventListener("input", render); el.addEventListener("change", render); }
   });
 
+  /* A viagem acompanha o leitor entre as cidades: os campos entram na URL
+     e os links das outras cidades carregam os mesmos parâmetros. Quem clica
+     em "Santiago" não precisa digitar as datas de novo. */
+  var ISO = /^\d{4}-\d{2}-\d{2}$/;
+  (function lerURL() {
+    try {
+      var q = new URLSearchParams(location.search);
+      if (ISO.test(q.get("d") || "")) cIda.value = q.get("d");
+      if (ISO.test(q.get("v") || "")) cVolta.value = q.get("v");
+      var np = parseInt(q.get("p"), 10);
+      if (np >= 1 && np <= 8) cPes.value = np;
+    } catch (e) { /* URL estranha não pode derrubar a página */ }
+  })();
+
+  var abas = [].slice.call(document.querySelectorAll(".calc-cidades a.cc"));
+  function levarViagem() {
+    var q = "?d=" + encodeURIComponent(cIda.value) +
+            "&v=" + encodeURIComponent(cVolta.value) +
+            "&p=" + encodeURIComponent(cPes.value);
+    abas.forEach(function (a) {
+      a.href = a.href.split("?")[0].split("#")[0] + q + "#calculadora";
+    });
+  }
+
   function periodo() {
     var a = dt(cIda.value), b = dt(cVolta.value);
     if (!a || !b || isNaN(a) || isNaN(b) || b <= a)
@@ -190,6 +214,8 @@
       cel("Por pessoa por dia", m0(total / p / d),
           "Só o que está nesta ficha. O que não foi apurado continua de fora.", "") +
       cel(faixa[0], faixa[1], faixa[2], "c");
+
+    levarViagem();
   }
 
   function cel(rot, big, sub, cls) {
