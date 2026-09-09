@@ -18,7 +18,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="../../../assets/css/site.css?v=23dc0c54">
+<link rel="stylesheet" href="../../../assets/css/site.css?v=80635bb8">
 </head>
 <body>
 <a class="pular" href="#conteudo">Pular para o conteúdo</a>
@@ -43,10 +43,35 @@
 <div class="wrap wrap-estreito">
 
 <section class="bloco">
-  <div class="tabwrap"><table>
+  <div class="calc" id="calc" hidden>
+    <span class="t">Faça a conta da sua viagem</span>
+    <div class="calc-ctrl">
+      <label>Dias de viagem
+        <input type="number" id="c-dias" min="1" max="30" step="1" value="7" inputmode="numeric"></label>
+      <label>Pessoas
+        <input type="number" id="c-pes" min="1" max="8" step="1" value="1" inputmode="numeric"></label>
+      <label>Hospedagem
+        <select id="c-hosp">
+          <option value="hostel">Hostel, dormitório em Manhattan</option>
+          <option value="economico">Hotel econômico, quarto privativo</option>
+          <option value="brooklyn">Intermediário no Brooklyn</option>
+          <option value="manhattan" selected>Intermediário em Manhattan</option>
+          <option value="media">Média geral de Manhattan</option>
+        </select></label>
+    </div>
+    <p class="calc-nota">Desmarque na tabela abaixo o que você não pretende visitar.
+      A conta assume <b style="color:var(--gelo)">noites = dias &minus; 1</b>, quarto
+      duplo para as categorias de quarto privativo, e duas viagens de metrô por dia.
+      Os preços unitários são os apurados em 9 de setembro de 2026 — o que muda aqui é
+      só a aritmética, não a fonte.</p>
+    <div class="painel" id="res"></div>
+  </div>
+</section>
+<section class="bloco">
+  <div class="tabwrap"><table id="tab-ficha">
     <thead><tr><th>Item</th><th>Valor</th><th>Observação</th></tr></thead>
-    <tbody><tr><td>SUMMIT One Vanderbilt</td><td class="n">US$ 47,00</td><td>US$ 44 + US$ 3 de taxa</td></tr><tr><td>Estátua da Liberdade (balsa)</td><td class="n">US$ 25,50</td><td>Pedestal e coroa: +US$ 0,30</td></tr><tr><td>One World Observatory</td><td class="n">US$ 42,50</td><td>US$ 39 + US$ 3,50</td></tr><tr><td>The Met</td><td class="n">US$ 30,00</td><td>Obrigatório para turista</td></tr><tr><td>Museu de História Natural</td><td class="n">US$ 37,00</td><td>Obrigatório para turista</td></tr><tr><td>Top of the Rock</td><td class="n">US$ 42,00</td><td>Confirmar no checkout</td></tr><tr><td>Edge</td><td class="n">US$ 34,00</td><td>Reservando 14 dias antes</td></tr><tr><td>MoMA</td><td class="n">US$ 30,00</td><td>Abre todos os dias</td></tr><tr><td>Empire State Building</td><td class="n">US$ 44,00</td><td>US$ 39 + US$ 5 de taxa</td></tr><tr><td>Metrô, semana inteira</td><td class="n">US$ 35,00</td><td>Teto do OMNY</td></tr><tr><td>Hospedagem, 6 noites</td><td class="n">US$ 1.800,00</td><td>Intermediário em Manhattan, US$ 300/noite</td></tr></tbody>
-    <tfoot><tr><td>Total por pessoa</td><td class="n">US$ 2.167,00</td><td>US$ 310 por dia</td></tr></tfoot>
+    <tbody><tr data-tipo="ingresso" data-v="47.00"><td>SUMMIT One Vanderbilt</td><td class="n">US$ 47,00</td><td>US$ 44 + US$ 3 de taxa</td></tr><tr data-tipo="ingresso" data-v="25.50"><td>Estátua da Liberdade (balsa)</td><td class="n">US$ 25,50</td><td>Pedestal e coroa: +US$ 0,30</td></tr><tr data-tipo="ingresso" data-v="42.50"><td>One World Observatory</td><td class="n">US$ 42,50</td><td>US$ 39 + US$ 3,50</td></tr><tr data-tipo="ingresso" data-v="30.00"><td>The Met</td><td class="n">US$ 30,00</td><td>Obrigatório para turista</td></tr><tr data-tipo="ingresso" data-v="37.00"><td>Museu de História Natural</td><td class="n">US$ 37,00</td><td>Obrigatório para turista</td></tr><tr data-tipo="ingresso" data-v="42.00"><td>Top of the Rock</td><td class="n">US$ 42,00</td><td>Confirmar no checkout</td></tr><tr data-tipo="ingresso" data-v="34.00"><td>Edge</td><td class="n">US$ 34,00</td><td>Reservando 14 dias antes</td></tr><tr data-tipo="ingresso" data-v="30.00"><td>MoMA</td><td class="n">US$ 30,00</td><td>Abre todos os dias</td></tr><tr data-tipo="ingresso" data-v="44.00"><td>Empire State Building</td><td class="n">US$ 44,00</td><td>US$ 39 + US$ 5 de taxa</td></tr><tr data-tipo="metro" data-dia="5.80" data-teto="35"><td>Metrô, semana inteira</td><td class="n">US$ 35,00</td><td>Teto do OMNY</td></tr><tr data-tipo="hosp"><td>Hospedagem, 6 noites</td><td class="n">US$ 1.800,00</td><td>Intermediário em Manhattan, US$ 300/noite</td></tr></tbody>
+    <tfoot><tr><td id="tot-rot">Total por pessoa</td><td class="n" id="tot-val">US$ 2.167,00</td><td id="tot-dia">US$ 310 por pessoa por dia</td></tr></tfoot>
   </table></div>
   <p style="color:var(--nevoa);font-size:.92rem">Sete pontos do roteiro são gratuitos: Times Square, Bryant Park, Grand Central, Central Park, High Line, Ponte do Brooklyn e o memorial ao ar livre do Onze de Setembro. <b style="color:var(--gelo)">Não inclui passagem aérea, alimentação nem seguro</b> — é o custo de fazer Nova York, não o de chegar nela.</p>
 </section>
@@ -87,6 +112,7 @@
   </div>
 </section>
 </div>
+<script src="../../../assets/js/ficha.js?v=ae96f1b1" defer></script>
 </main>
 <footer class="rodape"><div class="wrap cols">
 <p><b>Preços verificados em 9 de setembro de 2026.</b> Cada página traz a data da própria apuração. Atrações com preço dinâmico podem variar conforme a data escolhida — reconfira no checkout.</p>
