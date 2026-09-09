@@ -10,16 +10,16 @@
   --sombra: 0 1px 2px rgba(0,0,0,.35), 0 10px 30px -20px rgba(0,0,0,.8);
 }
 :root[data-theme="light"]{
-  --tinta:#F1F4F0; --noite:#FFFFFF; --card:#FFFFFF;
-  --ambar:#8A5F03; --ciano:#0E6F64; --coral:#9C3418;
-  --gelo:#101C29; --nevoa:#54646F; --rule:#D5DCE2;
+  --tinta:#EDF0EA; --noite:#FFFFFF; --card:#F6F8F3;
+  --ambar:#A96C00; --ciano:#0C6A5F; --coral:#9A3116;
+  --gelo:#0E1A26; --nevoa:#5A6A76; --rule:#CBD5DC;
   --sombra: 0 1px 2px rgba(16,28,41,.06), 0 10px 30px -22px rgba(16,28,41,.35);
 }
 @media (prefers-color-scheme: light){
   :root:not([data-theme="dark"]){
-    --tinta:#F1F4F0; --noite:#FFFFFF; --card:#FFFFFF;
-    --ambar:#8A5F03; --ciano:#0E6F64; --coral:#9C3418;
-    --gelo:#101C29; --nevoa:#54646F; --rule:#D5DCE2;
+    --tinta:#EDF0EA; --noite:#FFFFFF; --card:#F6F8F3;
+    --ambar:#A96C00; --ciano:#0C6A5F; --coral:#9A3116;
+    --gelo:#0E1A26; --nevoa:#5A6A76; --rule:#CBD5DC;
     --sombra: 0 1px 2px rgba(16,28,41,.06), 0 10px 30px -22px rgba(16,28,41,.35);
   }
 }
@@ -84,6 +84,28 @@ footer.rodape b{color:var(--gelo)}
 .hero p{font-size:clamp(1.02rem,.98rem+.5vw,1.3rem); line-height:1.5;
   color:var(--nevoa); max-width:46ch}
 
+/* ---------- faixa escura do topo ----------
+   Sempre azul-tinta, nos dois temas. É a âncora visual da marca:
+   sem ela o site fica lavado no tema claro. */
+.faixa{background:#0F1B2D; color:#EEF2F6; border-bottom:4px solid #FFB703}
+.faixa .hero h1{color:#EEF2F6}
+.faixa .hero h1 em{color:#FFB703}
+.faixa .hero p{color:#8496AE}
+.faixa .campo{background:#16253C; border-color:#2A3F60}
+.faixa .campo input{color:#EEF2F6}
+.faixa .campo input::placeholder{color:#8496AE}
+.faixa .campo svg{color:#8496AE}
+.faixa .chip{border-color:#2A3F60; color:#8496AE}
+.faixa .chip:hover{border-color:#FFB703; color:#FFB703}
+.faixa .chip[aria-pressed="true"]{background:#FFB703; border-color:#FFB703; color:#0F1B2D}
+.faixa .contagem{color:#8496AE}
+.faixa .eyebrow{color:#FFB703}
+.faixa .migalhas, .faixa .migalhas a{color:#8496AE}
+.faixa .migalhas a:hover{color:#FFB703}
+.faixa .busca{padding-bottom:clamp(1.6rem,4vw,2.6rem)}
+.faixa a:focus-visible, .faixa input:focus-visible, .faixa button:focus-visible{
+  outline-color:#FFB703}
+
 /* ---------- busca ---------- */
 .busca{display:flex; flex-direction:column; gap:.85rem; padding-bottom:2rem}
 .campo{display:flex; align-items:center; gap:.8rem; background:var(--noite);
@@ -101,10 +123,12 @@ footer.rodape b{color:var(--gelo)}
   text-transform:uppercase; color:var(--nevoa)}
 
 /* ---------- grade de destinos ---------- */
-.grade{display:grid; grid-template-columns:repeat(auto-fill,minmax(19rem,1fr));
-  gap:1px; background:var(--rule); border:1px solid var(--rule)}
-.dest{background:var(--noite); padding:1.3rem 1.4rem; display:flex;
-  flex-direction:column; gap:.9rem}
+.grade{display:grid; grid-template-columns:repeat(auto-fit,minmax(25rem,1fr));
+  gap:1.15rem}
+.dest{background:var(--noite); border:1px solid var(--rule); padding:1.35rem 1.45rem;
+  display:flex; flex-direction:column; gap:.9rem;
+  transition:border-color .15s ease, transform .15s ease, box-shadow .15s ease}
+.dest:hover{border-color:var(--ambar); transform:translateY(-2px); box-shadow:var(--sombra)}
 .dest-topo{display:flex; justify-content:space-between; align-items:flex-start; gap:1rem}
 .dest h3{font-size:1.5rem}
 .dest h3 a{color:var(--gelo)}
@@ -133,16 +157,18 @@ footer.rodape b{color:var(--gelo)}
   color:var(--nevoa); font-size:.95rem}
 
 /* ---------- blocos genéricos ---------- */
-section.bloco{padding:clamp(2.4rem,5vw,3.6rem) 0; display:flex;
-  flex-direction:column; gap:1.2rem}
+section.bloco{padding:clamp(1.8rem,3.5vw,2.6rem) 0; display:flex;
+  flex-direction:column; gap:1.15rem}
 .bloco-head{display:flex; flex-direction:column; gap:.45rem}
 .bloco-head h2{font-size:clamp(1.5rem,1.2rem+1.3vw,2.2rem)}
 .bloco-head p{color:var(--nevoa); max-width:62ch}
 
 .painel{display:grid; grid-template-columns:repeat(auto-fit,minmax(12rem,1fr));
-  gap:1px; background:var(--rule); border:1px solid var(--rule)}
-.pcel{background:var(--noite); padding:1rem 1.15rem; display:flex;
-  flex-direction:column; gap:.25rem}
+  gap:.9rem}
+.pcel{background:var(--noite); border:1px solid var(--rule);
+  border-left:3px solid var(--ambar); padding:1rem 1.15rem;
+  display:flex; flex-direction:column; gap:.25rem}
+.pcel:nth-child(even){border-left-color:var(--ciano)}
 .pcel .rotp{font-family:"IBM Plex Mono",monospace; font-size:.64rem; letter-spacing:.18em;
   text-transform:uppercase; color:var(--nevoa)}
 .pcel .big{font-family:"Archivo Black","Arial Black",sans-serif; font-size:1.65rem;
@@ -256,10 +282,11 @@ tfoot td{padding:.7rem .85rem; border-top:2px solid var(--ambar);
 .bv{font-family:"IBM Plex Mono",monospace; font-size:.72rem; letter-spacing:.08em;
   padding:.5rem .8rem; border:1px dashed var(--rule); color:var(--nevoa)}
 
-.campos-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(13rem,1fr));
-  gap:1px; background:var(--rule); border:1px solid var(--rule)}
-.cp{background:var(--noite); padding:.95rem 1.1rem; display:flex;
-  flex-direction:column; gap:.2rem}
+.campos-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(13.5rem,1fr));
+  gap:.9rem}
+.cp{background:var(--noite); border:1px solid var(--rule);
+  border-top:2px solid var(--ambar); padding:.95rem 1.1rem;
+  display:flex; flex-direction:column; gap:.2rem}
 .cp .n{font-family:"IBM Plex Mono",monospace; font-size:.66rem; color:var(--ambar)}
 .cp .t{font-size:.94rem; font-weight:600}
 .cp .d{font-size:.82rem; color:var(--nevoa); line-height:1.45}
