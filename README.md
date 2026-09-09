@@ -16,7 +16,7 @@ Não é preciso comando de build. A raiz do repositório vira a raiz do site.
 ```
 index.html                                  home, com busca de destinos
 destinos/index.html                         índice completo
-destinos/nova-york/index.html               guia dos 16 pontos
+destinos/nova-york/index.html               guia dos 17 pontos
 destinos/nova-york/quanto-custa/index.html  ficha de custos
 destinos/nova-york/roteiro-7-dias/index.html
 sobre/index.html
