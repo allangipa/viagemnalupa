@@ -26,13 +26,26 @@ ErrorDocument 404 /404.html
   ExpiresByType image/webp "access plus 1 year"
   ExpiresByType image/jpeg "access plus 1 year"
   ExpiresByType image/png "access plus 1 year"
-  ExpiresByType text/html "access plus 1 hour"
+  # HTML: nada de cache. Os arquivos com ?v=hash podem ficar um ano no
+  # navegador porque o nome muda quando o conteúdo muda. O HTML não tem
+  # hash — se ele ficar cacheado, o leitor continua vendo a página velha
+  # depois do deploy, e foi exatamente isso que aconteceu.
+  ExpiresByType text/html "access plus 0 seconds"
 </IfModule>
 
 # segurança básica
 <IfModule mod_headers.c>
   Header set X-Content-Type-Options "nosniff"
   Header set Referrer-Policy "strict-origin-when-cross-origin"
+  # revalida o HTML a cada visita; o navegador ainda economiza banda com
+  # o ETag, mas nunca serve conteúdo vencido sem perguntar ao servidor
+  <FilesMatch "\.(html)$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+  # os estáticos versionados podem ficar parados um ano, com segurança
+  <FilesMatch "\.(css|js|webp|jpg|jpeg|png|svg|woff2)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
 </IfModule>
 
 Options -Indexes
