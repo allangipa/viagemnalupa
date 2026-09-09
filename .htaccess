@@ -5,9 +5,9 @@ RewriteEngine On
 RewriteCond %{HTTPS} !=on
 RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
 
-# canônico com www
-RewriteCond %{HTTP_HOST} ^viagemnalupa\.com\.br$ [NC]
-RewriteRule ^(.*)$ https://www.viagemnalupa.com.br/$1 [R=301,L]
+# canônico SEM www: www.viagemnalupa.com.br -> viagemnalupa.com.br
+RewriteCond %{HTTP_HOST} ^www\.viagemnalupa\.com\.br$ [NC]
+RewriteRule ^(.*)$ https://viagemnalupa.com.br/$1 [R=301,L]
 
 # página de erro
 ErrorDocument 404 /404.html
