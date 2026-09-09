@@ -275,3 +275,11 @@ tfoot td{padding:.7rem .85rem; border-top:2px solid var(--ambar);
 @media (prefers-reduced-motion:reduce){
   *{animation-duration:.01ms !important; transition-duration:.01ms !important}
 }
+
+/* ---------- link para o Google Maps ---------- */
+.mapa{display:inline-flex;align-items:center;gap:.4rem;margin-top:.5rem;
+  font-family:"IBM Plex Mono",monospace;font-size:.72rem;letter-spacing:.08em;
+  text-transform:uppercase;color:var(--ciano);border:1px solid var(--ciano);
+  padding:.32rem .6rem}
+.mapa:hover{background:var(--ciano);color:var(--tinta);text-decoration:none}
+.mapa svg{flex-shrink:0}
