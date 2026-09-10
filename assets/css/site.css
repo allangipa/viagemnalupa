@@ -438,3 +438,23 @@ a.cc:hover{border-color:var(--ambar); color:var(--ambar); text-decoration:none}
 .calc-abas{gap:.55rem}
 .calc-abas .cc{cursor:pointer; font-family:"IBM Plex Mono",monospace}
 .dq-alt{font-size:.85rem; color:var(--nevoa); margin-top:.55rem}
+
+/* ---------- escolha de destino na página da calculadora ---------- */
+.escolha{background:var(--noite); border:1px solid var(--rule);
+  border-left:4px solid var(--ambar); padding:clamp(1.2rem,3vw,1.9rem);
+  display:flex; flex-direction:column; gap:1.1rem}
+.calc-abas{display:grid; gap:.7rem;
+  grid-template-columns:repeat(auto-fit,minmax(10.5rem,1fr))}
+.cc-big{display:flex; flex-direction:column; gap:.3rem; text-align:left;
+  cursor:pointer; padding:.95rem 1.1rem; background:var(--tinta);
+  border:1px solid var(--rule); border-left:3px solid var(--rule);
+  font-family:inherit; transition:border-color .12s, background .12s}
+.cc-big b{font-family:"Archivo","Helvetica Neue",Arial,sans-serif; font-weight:700;
+  font-size:1.12rem; letter-spacing:-.01em; color:var(--gelo); line-height:1.15}
+.cc-big span{font-family:"IBM Plex Mono",monospace; font-size:.7rem; letter-spacing:.06em;
+  color:var(--nevoa); font-variant-numeric:tabular-nums}
+.cc-big:hover{border-color:var(--ambar); border-left-color:var(--ambar)}
+.cc-big:hover b{color:var(--ambar)}
+.cc-big.atual{background:var(--ambar); border-color:var(--ambar)}
+.cc-big.atual b,.cc-big.atual span{color:var(--tinta)}
+.cc-big.atual span{opacity:.78}
