@@ -6,9 +6,42 @@
    Sem JavaScript a página continua correta e indexável — a tabela é a ficha
    apurada, e os controles ficam escondidos até o script assumir. */
 (function () {
-  var tab = document.getElementById("tab-ficha");
-  var calc = document.getElementById("calc");
-  var raw = document.getElementById("calc-cfg");
+  [].slice.call(document.querySelectorAll(".ficha-calc")).forEach(iniciar);
+  abasDaPagina();
+
+  /* Troca de cidade sem recarregar, quando a página tem mais de uma ficha
+     (é o caso de /calculadora/). Nas páginas de destino não existe nada
+     disso: lá cada ficha mora na sua própria página. */
+  function abasDaPagina() {
+    var botoes = [].slice.call(document.querySelectorAll("[data-troca]"));
+    if (!botoes.length) return;
+    var fichas = [].slice.call(document.querySelectorAll(".ficha-calc"));
+    function mostrar(slug, empurraURL) {
+      fichas.forEach(function (f) { f.hidden = f.dataset.cidade !== slug; });
+      botoes.forEach(function (b) {
+        var on = b.dataset.troca === slug;
+        b.classList.toggle("atual", on);
+        b.setAttribute("aria-current", on ? "true" : "false");
+      });
+      if (empurraURL) history.replaceState(null, "", "#" + slug);
+    }
+    botoes.forEach(function (b) {
+      b.addEventListener("click", function (e) { e.preventDefault(); mostrar(b.dataset.troca, true); });
+    });
+    function doHash() {
+      var h = location.hash.replace("#", "");
+      mostrar(fichas.some(function (f) { return f.dataset.cidade === h; })
+              ? h : fichas[0].dataset.cidade, false);
+    }
+    // link compartilhado, botão voltar, ou hash digitado na barra
+    addEventListener("hashchange", doHash);
+    doHash();
+  }
+
+  function iniciar(raiz) {
+  var tab = raiz.querySelector(".tab-ficha");
+  var calc = raiz.querySelector(".calc");
+  var raw = raiz.querySelector(".calc-cfg");
   if (!tab || !calc || !raw) return;
 
   var CFG;
@@ -54,16 +87,16 @@
     td.appendChild(lab);
   });
 
-  var cIda = document.getElementById("c-ida");
-  var cVolta = document.getElementById("c-volta");
-  var cPes = document.getElementById("c-pes");
-  var cHosp = document.getElementById("c-hosp");
-  var cDur = document.getElementById("c-dur");
-  var cAlertas = document.getElementById("c-alertas");
-  var cRes = document.getElementById("res");
-  var totRot = document.getElementById("tot-rot");
-  var totVal = document.getElementById("tot-val");
-  var totDia = document.getElementById("tot-dia");
+  var cIda = raiz.querySelector(".c-ida");
+  var cVolta = raiz.querySelector(".c-volta");
+  var cPes = raiz.querySelector(".c-pes");
+  var cHosp = raiz.querySelector(".c-hosp");
+  var cDur = raiz.querySelector(".c-dur");
+  var cAlertas = raiz.querySelector(".c-alertas");
+  var cRes = raiz.querySelector(".res");
+  var totRot = raiz.querySelector(".tot-rot");
+  var totVal = raiz.querySelector(".tot-val");
+  var totDia = raiz.querySelector(".tot-dia");
   [cIda, cVolta, cPes, cHosp].forEach(function (el) {
     if (el) { el.addEventListener("input", render); el.addEventListener("change", render); }
   });
@@ -82,7 +115,7 @@
     } catch (e) { /* URL estranha não pode derrubar a página */ }
   })();
 
-  var abas = [].slice.call(document.querySelectorAll(".calc-cidades a.cc"));
+  var abas = [].slice.call(raiz.querySelectorAll(".calc-cidades a.cc"));
   function levarViagem() {
     var q = "?d=" + encodeURIComponent(cIda.value) +
             "&v=" + encodeURIComponent(cVolta.value) +
@@ -226,4 +259,5 @@
 
   calc.hidden = false;
   render();
+  }
 })();

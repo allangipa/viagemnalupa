@@ -18,7 +18,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="../../../assets/css/site.css?v=84f10ddc">
+<link rel="stylesheet" href="../../../assets/css/site.css?v=3b11cee6">
 </head>
 <body>
 <a class="pular" href="#conteudo">Pular para o conteúdo</a>
@@ -28,7 +28,7 @@
   <path d="M491 481 L648 638" stroke="#FFB703" stroke-width="64" stroke-linecap="round"></path>
   <path d="M282 396 L336 320 L392 372 L446 268" stroke="#2EC4B6" stroke-width="30" stroke-linecap="round" stroke-linejoin="round"></path>
 </svg><span>VIAGEM NA LUPA</span></a>
-<nav><a href="../../../destinos/" aria-current="page">Destinos</a><a href="../../../sobre/">Sobre</a><a class="externo" href="https://www.youtube.com/@viagemnalupa" target="_blank" rel="noopener">YouTube<span class="so-leitor"> (abre em outra aba)</span><svg class="seta-ext" width="11" height="11" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17 L17 7 M9 7h8v8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></nav>
+<nav><a href="../../../destinos/" aria-current="page">Destinos</a><a href="../../../calculadora/">Calculadora</a><a href="../../../sobre/">Sobre</a><a class="externo" href="https://www.youtube.com/@viagemnalupa" target="_blank" rel="noopener">YouTube<span class="so-leitor"> (abre em outra aba)</span><svg class="seta-ext" width="11" height="11" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17 L17 7 M9 7h8v8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></nav>
 </div></header>
 <main id="conteudo">
 <div class="faixa"><div class="wrap wrap-estreito">
@@ -41,6 +41,7 @@
 </div></div>
 
 <div class="wrap wrap-estreito">
+<div class="ficha-calc" data-cidade="santiago">
 
 <section class="bloco" id="calculadora">
   <div class="bloco-head">
@@ -50,34 +51,31 @@
        Mude as datas, o número de pessoas e a categoria de hospedagem, desmarque o que
        você não vai fazer, e a conta se refaz na hora.</p>
   </div>
-  <nav class="calc-cidades" aria-label="Calculadora de outro destino">
-    <span class="cc-rot">Calcular para</span>
-    <a class="cc" href="../../nova-york/quanto-custa/#calculadora">Nova York</a><span class="cc atual" aria-current="page">Santiago</span><a class="cc" href="../../buenos-aires/quanto-custa/#calculadora">Buenos Aires</a><a class="cc" href="../../maceio/quanto-custa/#calculadora">Maceió</a>
-  </nav>
-  <div class="calc" id="calc" hidden>
+  <nav class="calc-cidades" aria-label="Calculadora de outro destino"><span class="cc-rot">Calcular para</span><a class="cc" href="../../nova-york/quanto-custa/#calculadora">Nova York</a><span class="cc atual" aria-current="page">Santiago</span><a class="cc" href="../../buenos-aires/quanto-custa/#calculadora">Buenos Aires</a><a class="cc" href="../../maceio/quanto-custa/#calculadora">Maceió</a></nav>
+  <div class="calc" class="calc" hidden>
     <span class="t">Sua viagem</span>
     <div class="calc-ctrl">
       <label>Chegada
-        <input type="date" id="c-ida" value="2026-11-10" min="2026-09-09" max="2028-12-31"></label>
+        <input type="date" class="c-ida" value="2026-11-10" min="2026-09-09" max="2028-12-31"></label>
       <label>Volta
-        <input type="date" id="c-volta" value="2026-11-14" min="2026-09-09" max="2028-12-31"></label>
+        <input type="date" class="c-volta" value="2026-11-14" min="2026-09-09" max="2028-12-31"></label>
       <label>Pessoas
-        <input type="number" id="c-pes" min="1" max="8" step="1" value="1" inputmode="numeric"></label>
+        <input type="number" class="c-pes" min="1" max="8" step="1" value="1" inputmode="numeric"></label>
       <label>Hospedagem
-        <select id="c-hosp"><option value="economico">Econômico</option><option value="intermediario" selected>Intermediário</option><option value="media">Média geral da amostra</option><option value="oficial">Diária média oficial (ADR)</option><option value="luxo">Luxo</option></select></label>
+        <select class="c-hosp"><option value="economico">Econômico</option><option value="intermediario" selected>Intermediário</option><option value="media">Média geral da amostra</option><option value="oficial">Diária média oficial (ADR)</option><option value="luxo">Luxo</option></select></label>
     </div>
-    <p class="calc-dur" id="c-dur"></p>
-    <div id="c-alertas"></div>
+    <p class="calc-dur c-dur"></p>
+    <div class="c-alertas"></div>
     <p class="calc-nota">As noites saem das suas datas. Hospedagem por quarto, 2 pessoas por quarto. O metrô foi apurado como 18 viagens em 5 dias e escala proporcional aos dias; a isenção de IVA acompanha a hospedagem. Os valores unitários são os apurados em 9 de setembro de 2026
        e estão na tabela abaixo — <b style="color:var(--gelo)">o que muda aqui é só a
        aritmética, não a fonte</b>. Linhas marcadas como não encontradas continuam fora
        da conta.</p>
-    <div class="painel" id="res"></div>
+    <div class="painel res"></div>
   </div>
-  <script type="application/json" id="calc-cfg">{"moeda": "US$", "dec": 2, "dias": 5, "pessoas": 1, "hosp": [{"k": "economico", "rot": "Econômico", "ref": 42, "mn": 42, "mx": 42}, {"k": "intermediario", "rot": "Intermediário", "ref": 73, "mn": 73, "mx": 73}, {"k": "media", "rot": "Média geral da amostra", "ref": 70, "mn": 64, "mx": 70}, {"k": "oficial", "rot": "Diária média oficial (ADR)", "ref": 100.4, "mn": 100.4, "mx": 100.4}, {"k": "luxo", "rot": "Luxo", "ref": 128, "mn": 128, "mx": 128}], "hospPadrao": "intermediario", "janela": null, "eventos": []}</script>
+  <script type="application/json" class="calc-cfg">{"moeda": "US$", "dec": 2, "dias": 5, "pessoas": 1, "hosp": [{"k": "economico", "rot": "Econômico", "ref": 42, "mn": 42, "mx": 42}, {"k": "intermediario", "rot": "Intermediário", "ref": 73, "mn": 73, "mx": 73}, {"k": "media", "rot": "Média geral da amostra", "ref": 70, "mn": 64, "mx": 70}, {"k": "oficial", "rot": "Diária média oficial (ADR)", "ref": 100.4, "mn": 100.4, "mx": 100.4}, {"k": "luxo", "rot": "Luxo", "ref": 128, "mn": 128, "mx": 128}], "hospPadrao": "intermediario", "janela": null, "eventos": []}</script>
 </section>
 <section class="bloco">
-  <div class="tabwrap"><table id="tab-ficha"><thead><tr><th>Item</th><th>Valor</th><th>Observação</th></tr></thead><tbody><tr data-tipo="hosp"><td>Hospedagem, 4 noites, faixa intermediária</td><td class="n">US$ 292,00 · ≈ 272.800 CLP</td><td>US$ 73 por noite × 4 noites (budgetyourtrip, 164 hotéis, 8/set/2026).
+  <div class="tabwrap"><table class="tab-ficha"><thead><tr><th>Item</th><th>Valor</th><th>Observação</th></tr></thead><tbody><tr data-tipo="hosp"><td>Hospedagem, 4 noites, faixa intermediária</td><td class="n">US$ 292,00 · ≈ 272.800 CLP</td><td>US$ 73 por noite × 4 noites (budgetyourtrip, 164 hotéis, 8/set/2026).
          <span class="flag">Fonte não oficial</span> — a média oficial do SIET/Sernatur
          é bem mais alta, 93.776 CLP a diária.</td></tr><tr data-tipo="pct" data-base="hosp" data-p="-0.1596639"><td>Isenção de 19% de IVA na hospedagem</td><td class="n">− US$ 46,62 · ≈ − 43.560 CLP</td><td>Art. 12° letra E) N°17 da LIVS, fonte SII, para estrangeiro sem residência
          no Chile que paga em moeda estrangeira. <span class="flag">Estimativa</span>
@@ -100,7 +98,7 @@
          Uma tarifa dá direito a até 2 transferências em 120 minutos.</td></tr><tr data-tipo="fixo" data-v="4.3900"><td>Aeroporto SCL, ida e volta de Centropuerto</td><td class="n">4.100 CLP · US$ 4,39 · ≈ R$ 23</td><td>Ônibus até a estação Los Héroes (Linhas 1 e 2).
          <span class="flag">Fontes divergem</span> o airporttransferportal.com publica
          2.400 CLP a ida e 4.100 a ida e volta; o viajarxchile.cl fala em ~1.800 CLP.
-         Nenhuma das duas é o site oficial. Não há metrô até o aeroporto em 2026.</td></tr></tbody><tfoot><tr><td id="tot-rot">Total por pessoa</td><td class="n" id="tot-val">US$ 388</td><td id="tot-dia">US$ 78 por dia · ≈ 362.300 CLP · ≈ R$ 2.043 (soma exata US$ 387,74)</td></tr></tfoot></table></div>
+         Nenhuma das duas é o site oficial. Não há metrô até o aeroporto em 2026.</td></tr></tbody><tfoot><tr><td class="tot-rot">Total por pessoa</td><td class="n tot-val">US$ 388</td><td class="tot-dia">US$ 78 por dia · ≈ 362.300 CLP · ≈ R$ 2.043 (soma exata US$ 387,74)</td></tr></tfoot></table></div>
   <p style="color:var(--nevoa);font-size:.92rem">A conta soma o que o roteiro de 5 dias efetivamente usa: os ingressos
 dos seis pontos pagos, o transporte urbano, o traslado do aeroporto e quatro noites de
 hospedagem na faixa intermediária, já com a isenção de 19% de IVA aplicada.
@@ -112,6 +110,7 @@ Metropolitana, Mercado Central, Museo de la Memoria y los Derechos Humanos, Cent
 Cultural La Moneda, as visitas guiadas ao Palacio de La Moneda, a troca da guarda e os
 bairros Lastarria e Bellavista.</p>
 </section>
+</div>
 <section class="bloco">
   <div class="bloco-head"><span class="eyebrow">Hospedagem</span><h2>Quanto custa a diária</h2></div>
   <p style="color:var(--nevoa)">O dado oficial mais confiável é a <b>tarifa média diária (ADR)
@@ -154,7 +153,7 @@ tarjeta de turismo.</p>
   <a class="pg" href="../roteiro-5-dias/">Roteiro de 5 dias</a>
 </div></section>
 </div>
-<script src="../../../assets/js/ficha.js?v=25b6aa5c" defer></script>
+<script src="../../../assets/js/ficha.js?v=1643896d" defer></script>
 </main>
 <footer class="rodape"><div class="wrap cols">
 <p><b>Preços verificados em 9 de setembro de 2026.</b> Cada página traz a data da própria apuração. Atrações com preço dinâmico podem variar conforme a data escolhida — reconfira no checkout.</p>

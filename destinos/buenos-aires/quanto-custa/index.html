@@ -18,7 +18,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="../../../assets/css/site.css?v=84f10ddc">
+<link rel="stylesheet" href="../../../assets/css/site.css?v=3b11cee6">
 </head>
 <body>
 <a class="pular" href="#conteudo">Pular para o conteúdo</a>
@@ -28,7 +28,7 @@
   <path d="M491 481 L648 638" stroke="#FFB703" stroke-width="64" stroke-linecap="round"></path>
   <path d="M282 396 L336 320 L392 372 L446 268" stroke="#2EC4B6" stroke-width="30" stroke-linecap="round" stroke-linejoin="round"></path>
 </svg><span>VIAGEM NA LUPA</span></a>
-<nav><a href="../../../destinos/" aria-current="page">Destinos</a><a href="../../../sobre/">Sobre</a><a class="externo" href="https://www.youtube.com/@viagemnalupa" target="_blank" rel="noopener">YouTube<span class="so-leitor"> (abre em outra aba)</span><svg class="seta-ext" width="11" height="11" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17 L17 7 M9 7h8v8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></nav>
+<nav><a href="../../../destinos/" aria-current="page">Destinos</a><a href="../../../calculadora/">Calculadora</a><a href="../../../sobre/">Sobre</a><a class="externo" href="https://www.youtube.com/@viagemnalupa" target="_blank" rel="noopener">YouTube<span class="so-leitor"> (abre em outra aba)</span><svg class="seta-ext" width="11" height="11" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17 L17 7 M9 7h8v8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></nav>
 </div></header>
 <main id="conteudo">
 <div class="faixa"><div class="wrap wrap-estreito">
@@ -41,6 +41,7 @@
 </div></div>
 
 <div class="wrap wrap-estreito">
+<div class="ficha-calc" data-cidade="buenos-aires">
 
 <section class="bloco" id="calculadora">
   <div class="bloco-head">
@@ -50,34 +51,31 @@
        Mude as datas, o número de pessoas e a categoria de hospedagem, desmarque o que
        você não vai fazer, e a conta se refaz na hora.</p>
   </div>
-  <nav class="calc-cidades" aria-label="Calculadora de outro destino">
-    <span class="cc-rot">Calcular para</span>
-    <a class="cc" href="../../nova-york/quanto-custa/#calculadora">Nova York</a><a class="cc" href="../../santiago/quanto-custa/#calculadora">Santiago</a><span class="cc atual" aria-current="page">Buenos Aires</span><a class="cc" href="../../maceio/quanto-custa/#calculadora">Maceió</a>
-  </nav>
-  <div class="calc" id="calc" hidden>
+  <nav class="calc-cidades" aria-label="Calculadora de outro destino"><span class="cc-rot">Calcular para</span><a class="cc" href="../../nova-york/quanto-custa/#calculadora">Nova York</a><a class="cc" href="../../santiago/quanto-custa/#calculadora">Santiago</a><span class="cc atual" aria-current="page">Buenos Aires</span><a class="cc" href="../../maceio/quanto-custa/#calculadora">Maceió</a></nav>
+  <div class="calc" class="calc" hidden>
     <span class="t">Sua viagem</span>
     <div class="calc-ctrl">
       <label>Chegada
-        <input type="date" id="c-ida" value="2026-11-10" min="2026-09-09" max="2028-12-31"></label>
+        <input type="date" class="c-ida" value="2026-11-10" min="2026-09-09" max="2028-12-31"></label>
       <label>Volta
-        <input type="date" id="c-volta" value="2026-11-14" min="2026-09-09" max="2028-12-31"></label>
+        <input type="date" class="c-volta" value="2026-11-14" min="2026-09-09" max="2028-12-31"></label>
       <label>Pessoas
-        <input type="number" id="c-pes" min="1" max="8" step="1" value="2" inputmode="numeric"></label>
+        <input type="number" class="c-pes" min="1" max="8" step="1" value="2" inputmode="numeric"></label>
       <label>Hospedagem
-        <select id="c-hosp"><option value="dorm">Cama em dormitório de hostel</option><option value="privativo">Quarto privativo em hostel</option><option value="apto" selected>Apartamento de 1 quarto</option><option value="quatro">Hotel 4 estrelas (estimativa)</option><option value="boutique">Hotel boutique</option><option value="luxo">Hotel de luxo</option></select></label>
+        <select class="c-hosp"><option value="dorm">Cama em dormitório de hostel</option><option value="privativo">Quarto privativo em hostel</option><option value="apto" selected>Apartamento de 1 quarto</option><option value="quatro">Hotel 4 estrelas (estimativa)</option><option value="boutique">Hotel boutique</option><option value="luxo">Hotel de luxo</option></select></label>
     </div>
-    <p class="calc-dur" id="c-dur"></p>
-    <div id="c-alertas"></div>
+    <p class="calc-dur c-dur"></p>
+    <div class="c-alertas"></div>
     <p class="calc-nota">As noites saem das suas datas. Hospedagem por quarto, 2 pessoas por quarto, já com a devolução de 21% de IVA para quem paga com cartão emitido no exterior. O subte foi apurado como 10 viagens em 5 dias e escala proporcional aos dias; o IOF de 3,5% recalcula sobre o total. Os valores unitários são os apurados em 9 de setembro de 2026
        e estão na tabela abaixo — <b style="color:var(--gelo)">o que muda aqui é só a
        aritmética, não a fonte</b>. Linhas marcadas como não encontradas continuam fora
        da conta.</p>
-    <div class="painel" id="res"></div>
+    <div class="painel res"></div>
   </div>
-  <script type="application/json" id="calc-cfg">{"moeda": "US$", "dec": 2, "dias": 5, "pessoas": 2, "hosp": [{"k": "dorm", "rot": "Cama em dormitório de hostel", "ref": 18, "mn": 15, "mx": 21, "pessoa": true, "desc": 0.174}, {"k": "privativo", "rot": "Quarto privativo em hostel", "ref": 65.5, "mn": 55, "mx": 76, "desc": 0.174}, {"k": "apto", "rot": "Apartamento de 1 quarto", "ref": 80, "mn": 80, "mx": 80, "desc": 0.174}, {"k": "quatro", "rot": "Hotel 4 estrelas (estimativa)", "ref": 140, "mn": 100, "mx": 180, "desc": 0.174}, {"k": "boutique", "rot": "Hotel boutique", "ref": 276, "mn": 255, "mx": 297, "desc": 0.174}, {"k": "luxo", "rot": "Hotel de luxo", "ref": 569, "mn": 500, "mx": 638, "desc": 0.174}], "hospPadrao": "apto", "janela": null, "eventos": []}</script>
+  <script type="application/json" class="calc-cfg">{"moeda": "US$", "dec": 2, "dias": 5, "pessoas": 2, "hosp": [{"k": "dorm", "rot": "Cama em dormitório de hostel", "ref": 18, "mn": 15, "mx": 21, "pessoa": true, "desc": 0.174}, {"k": "privativo", "rot": "Quarto privativo em hostel", "ref": 65.5, "mn": 55, "mx": 76, "desc": 0.174}, {"k": "apto", "rot": "Apartamento de 1 quarto", "ref": 80, "mn": 80, "mx": 80, "desc": 0.174}, {"k": "quatro", "rot": "Hotel 4 estrelas (estimativa)", "ref": 140, "mn": 100, "mx": 180, "desc": 0.174}, {"k": "boutique", "rot": "Hotel boutique", "ref": 276, "mn": 255, "mx": 297, "desc": 0.174}, {"k": "luxo", "rot": "Hotel de luxo", "ref": 569, "mn": 500, "mx": 638, "desc": 0.174}], "hospPadrao": "apto", "janela": null, "eventos": []}</script>
 </section>
 <section class="bloco">
-  <div class="tabwrap"><table id="tab-ficha"><thead><tr><th>Item</th><th>Valor</th><th>Observação</th></tr></thead><tbody><tr data-tipo="ingresso" data-v="15.7000"><td>Cemitério da Recoleta</td><td class="n">ARS 24.030 · US$ 15,70 · R$ 80</td><td>Preço de estrangeiro, dado de agosto de 2026, confirmado por duas fontes independentes (loomi.fun e
+  <div class="tabwrap"><table class="tab-ficha"><thead><tr><th>Item</th><th>Valor</th><th>Observação</th></tr></thead><tbody><tr data-tipo="ingresso" data-v="15.7000"><td>Cemitério da Recoleta</td><td class="n">ARS 24.030 · US$ 15,70 · R$ 80</td><td>Preço de estrangeiro, dado de agosto de 2026, confirmado por duas fontes independentes (loomi.fun e
          buenosaires123). Residente argentino não paga. <span class="flag">Divergência</span> A página oficial de
          turismo da cidade ainda diz "entrada gratuita" e está desatualizada — a cobrança de estrangeiros vigora
          desde 2022.</td></tr><tr data-tipo="ingresso" data-v="22.2000"><td>Teatro Colón, visita guiada</td><td class="n">ARS 34.000 · US$ 22,20 · R$ 114</td><td>Tarifa geral/estrangeiro no site oficial em 8/9/2026. Residente argentino paga ARS 17.000, exatamente
@@ -107,7 +105,7 @@
          Alguns bancos isentam ou devolvem (BTG Pactual isenta; Porto Bank, Nubank Ultravioleta, Caixa e Banco do
          Brasil têm condições especiais). Fonte: cartoesdecredito.me, 2026.</td></tr><tr><td>Museo de Arte de Tigre, se entrar</td><td class="n"><span class="flag">Não encontrado</span></td><td>O preço para argentinos é ARS 7.650 (US$ 5,00); o preço para estrangeiro não foi localizado, e vários
          museus argentinos cobram mais de estrangeiro. Fora do total por isso. O Museo de la Reconquista, na mesma
-         cidade, é gratuito.</td></tr></tbody><tfoot><tr><td id="tot-rot">Total por pessoa, sem alimentação</td><td class="n" id="tot-val">US$ 232</td><td id="tot-dia">US$ 46 por dia · ARS 354.960 · R$ 1.189</td></tr></tfoot></table></div>
+         cidade, é gratuito.</td></tr></tbody><tfoot><tr><td class="tot-rot">Total por pessoa, sem alimentação</td><td class="n tot-val">US$ 232</td><td class="tot-dia">US$ 46 por dia · ARS 354.960 · R$ 1.189</td></tr></tfoot></table></div>
   <p style="color:var(--nevoa);font-size:.92rem"><b>O que está dentro:</b> os cinco ingressos que o roteiro efetivamente usa, o traslado de ida e
     volta a Ezeiza, dez viagens de subte, o trem de Tigre, o ônibus de La Boca, quatro noites de hospedagem já com
     a devolução do IVA e o IOF de 3,5% sobre o total. Conversão a <b>US$ 1 = ARS 1.530</b> (oficial de venda do
@@ -120,6 +118,7 @@
     Nacional de Bellas Artes, Bosques de Palermo, Rosedal, Reserva Ecológica Costanera Sur, Puerto de Frutos,
     Museo de la Reconquista e a Museo Casa Sarmiento em Tigre.</p>
 </section>
+</div>
 <section class="bloco">
   <div class="bloco-head"><span class="eyebrow">Hospedagem</span><h2>Quanto custa a diária</h2></div>
   <p style="color:var(--nevoa)"><b>Esta é a parte mais fraca deste levantamento, e vale dizer isso na cara.</b> Não existe
@@ -169,7 +168,7 @@
   <a class="pg" href="../roteiro-5-dias/">Roteiro de 5 dias</a>
 </div></section>
 </div>
-<script src="../../../assets/js/ficha.js?v=25b6aa5c" defer></script>
+<script src="../../../assets/js/ficha.js?v=1643896d" defer></script>
 </main>
 <footer class="rodape"><div class="wrap cols">
 <p><b>Preços verificados em 9 de setembro de 2026.</b> Cada página traz a data da própria apuração. Atrações com preço dinâmico podem variar conforme a data escolhida — reconfira no checkout.</p>

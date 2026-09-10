@@ -428,3 +428,13 @@ nav a.externo:hover .seta-ext{opacity:1}
   color:var(--nevoa); background:var(--noite)}
 a.cc:hover{border-color:var(--ambar); color:var(--ambar); text-decoration:none}
 .cc.atual{border-color:var(--ambar); color:var(--tinta); background:var(--ambar)}
+.dq-cidades{margin-top:.5rem}
+.dq-cidades .cc{font-size:.7rem; padding:.55rem .85rem}
+.dq-cidades .cc:first-of-type{border-color:var(--ambar); color:var(--ambar)}
+
+/* O cabeçalho é fixo no topo. Sem isto, todo link de âncora (#calculadora,
+   os 17 pontos do índice) para com o título escondido atrás da barra. */
+[id]{scroll-margin-top:5.5rem}
+.calc-abas{gap:.55rem}
+.calc-abas .cc{cursor:pointer; font-family:"IBM Plex Mono",monospace}
+.dq-alt{font-size:.85rem; color:var(--nevoa); margin-top:.55rem}

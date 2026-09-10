@@ -18,7 +18,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Archivo+Black&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="../../../assets/css/site.css?v=84f10ddc">
+<link rel="stylesheet" href="../../../assets/css/site.css?v=3b11cee6">
 </head>
 <body>
 <a class="pular" href="#conteudo">Pular para o conteúdo</a>
@@ -28,7 +28,7 @@
   <path d="M491 481 L648 638" stroke="#FFB703" stroke-width="64" stroke-linecap="round"></path>
   <path d="M282 396 L336 320 L392 372 L446 268" stroke="#2EC4B6" stroke-width="30" stroke-linecap="round" stroke-linejoin="round"></path>
 </svg><span>VIAGEM NA LUPA</span></a>
-<nav><a href="../../../destinos/" aria-current="page">Destinos</a><a href="../../../sobre/">Sobre</a><a class="externo" href="https://www.youtube.com/@viagemnalupa" target="_blank" rel="noopener">YouTube<span class="so-leitor"> (abre em outra aba)</span><svg class="seta-ext" width="11" height="11" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17 L17 7 M9 7h8v8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></nav>
+<nav><a href="../../../destinos/" aria-current="page">Destinos</a><a href="../../../calculadora/">Calculadora</a><a href="../../../sobre/">Sobre</a><a class="externo" href="https://www.youtube.com/@viagemnalupa" target="_blank" rel="noopener">YouTube<span class="so-leitor"> (abre em outra aba)</span><svg class="seta-ext" width="11" height="11" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17 L17 7 M9 7h8v8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></nav>
 </div></header>
 <main id="conteudo">
 <div class="faixa"><div class="wrap wrap-estreito">
@@ -41,6 +41,7 @@
 </div></div>
 
 <div class="wrap wrap-estreito">
+<div class="ficha-calc" data-cidade="maceio">
 
 <section class="bloco" id="calculadora">
   <div class="bloco-head">
@@ -50,36 +51,34 @@
        Mude as datas, o número de pessoas e a categoria de hospedagem, desmarque o que
        você não vai fazer, e a conta se refaz na hora.</p>
   </div>
-  <nav class="calc-cidades" aria-label="Calculadora de outro destino">
-    <span class="cc-rot">Calcular para</span>
-    <a class="cc" href="../../nova-york/quanto-custa/#calculadora">Nova York</a><a class="cc" href="../../santiago/quanto-custa/#calculadora">Santiago</a><a class="cc" href="../../buenos-aires/quanto-custa/#calculadora">Buenos Aires</a><span class="cc atual" aria-current="page">Maceió</span>
-  </nav>
-  <div class="calc" id="calc" hidden>
+  <nav class="calc-cidades" aria-label="Calculadora de outro destino"><span class="cc-rot">Calcular para</span><a class="cc" href="../../nova-york/quanto-custa/#calculadora">Nova York</a><a class="cc" href="../../santiago/quanto-custa/#calculadora">Santiago</a><a class="cc" href="../../buenos-aires/quanto-custa/#calculadora">Buenos Aires</a><span class="cc atual" aria-current="page">Maceió</span></nav>
+  <div class="calc" class="calc" hidden>
     <span class="t">Sua viagem</span>
     <div class="calc-ctrl">
       <label>Chegada
-        <input type="date" id="c-ida" value="2026-11-10" min="2026-09-09" max="2028-12-31"></label>
+        <input type="date" class="c-ida" value="2026-11-10" min="2026-09-09" max="2028-12-31"></label>
       <label>Volta
-        <input type="date" id="c-volta" value="2026-11-15" min="2026-09-09" max="2028-12-31"></label>
+        <input type="date" class="c-volta" value="2026-11-15" min="2026-09-09" max="2028-12-31"></label>
       <label>Pessoas
-        <input type="number" id="c-pes" min="1" max="8" step="1" value="1" inputmode="numeric"></label>
+        <input type="number" class="c-pes" min="1" max="8" step="1" value="1" inputmode="numeric"></label>
       <label>Hospedagem
-        <select id="c-hosp"><option value="economica">Faixa econômica, a partir de</option><option value="pajucara">Pajuçara, a partir de</option><option value="jatiuca">Jatiúca, a partir de</option><option value="cruz">Cruz das Almas, a partir de</option><option value="media" selected>Faixa média</option><option value="pontaverde">Ponta Verde, a partir de</option><option value="luxo">Faixa luxo, a partir de</option></select></label>
+        <select class="c-hosp"><option value="economica">Faixa econômica, a partir de</option><option value="pajucara">Pajuçara, a partir de</option><option value="jatiuca">Jatiúca, a partir de</option><option value="cruz">Cruz das Almas, a partir de</option><option value="media" selected>Faixa média</option><option value="pontaverde">Ponta Verde, a partir de</option><option value="luxo">Faixa luxo, a partir de</option></select></label>
     </div>
-    <p class="calc-dur" id="c-dur"></p>
-    <div id="c-alertas"></div>
+    <p class="calc-dur c-dur"></p>
+    <div class="c-alertas"></div>
     <p class="calc-nota">As noites saem das suas datas. Hospedagem por quarto, 2 pessoas por quarto. O <b>carro é um só para o grupo</b> — não multiplica por pessoa. Alimentação e transfer são por pessoa. Os valores unitários são os apurados em 9 de setembro de 2026
        e estão na tabela abaixo — <b style="color:var(--gelo)">o que muda aqui é só a
        aritmética, não a fonte</b>. Linhas marcadas como não encontradas continuam fora
        da conta.</p>
-    <div class="painel" id="res"></div>
+    <div class="painel res"></div>
   </div>
-  <script type="application/json" id="calc-cfg">{"moeda": "R$", "dec": 0, "dias": 6, "pessoas": 1, "hosp": [{"k": "economica", "rot": "Faixa econômica, a partir de", "ref": 94, "mn": 94, "mx": 94}, {"k": "pajucara", "rot": "Pajuçara, a partir de", "ref": 199, "mn": 199, "mx": 199}, {"k": "jatiuca", "rot": "Jatiúca, a partir de", "ref": 224, "mn": 224, "mx": 224}, {"k": "cruz", "rot": "Cruz das Almas, a partir de", "ref": 299, "mn": 299, "mx": 299}, {"k": "media", "rot": "Faixa média", "ref": 300, "mn": 200, "mx": 500}, {"k": "pontaverde", "rot": "Ponta Verde, a partir de", "ref": 365, "mn": 365, "mx": 365}, {"k": "luxo", "rot": "Faixa luxo, a partir de", "ref": 747, "mn": 747, "mx": 747}], "hospPadrao": "media", "janela": null, "eventos": []}</script>
+  <script type="application/json" class="calc-cfg">{"moeda": "R$", "dec": 0, "dias": 6, "pessoas": 1, "hosp": [{"k": "economica", "rot": "Faixa econômica, a partir de", "ref": 94, "mn": 94, "mx": 94}, {"k": "pajucara", "rot": "Pajuçara, a partir de", "ref": 199, "mn": 199, "mx": 199}, {"k": "jatiuca", "rot": "Jatiúca, a partir de", "ref": 224, "mn": 224, "mx": 224}, {"k": "cruz", "rot": "Cruz das Almas, a partir de", "ref": 299, "mn": 299, "mx": 299}, {"k": "media", "rot": "Faixa média", "ref": 300, "mn": 200, "mx": 500}, {"k": "pontaverde", "rot": "Ponta Verde, a partir de", "ref": 365, "mn": 365, "mx": 365}, {"k": "luxo", "rot": "Faixa luxo, a partir de", "ref": 747, "mn": 747, "mx": 747}], "hospPadrao": "media", "janela": null, "eventos": []}</script>
 </section>
 <section class="bloco">
-  <div class="tabwrap"><table id="tab-ficha"><thead><tr><th>Item</th><th>Valor</th><th>Observação</th></tr></thead><tbody><tr data-tipo="hosp"><td>Hospedagem, 5 noites</td><td class="n">R$ 1.500</td><td>Faixa intermediária a R$ 300 a diária, fora da alta temporada</td></tr><tr data-tipo="dia" data-v="150.0000" data-grupo="1" data-rot="Aluguel de carro, {d} dias"><td>Aluguel de carro, 6 dias</td><td class="n">R$ 900</td><td>R$ 150/dia com seguro. Indispensável se for ao litoral norte</td></tr><tr data-tipo="fixo" data-v="190.0000"><td>Transfer do aeroporto, ida e volta</td><td class="n">R$ 190</td><td>Aplicativo. Ônibus executivo sai por R$ 15 a 25 o trecho</td></tr><tr data-tipo="ingresso" data-v="50.0000"><td>Jangada em Pajuçara</td><td class="n">R$ 50</td><td>Preço negociado na areia, faixa de R$ 40 a 60</td></tr><tr data-tipo="ingresso" data-v="50.0000"><td>Praia do Gunga, excursão</td><td class="n">R$ 50</td><td>Com transporte e guia, sem almoço. Barco e taxa de entrada à parte</td></tr><tr data-tipo="ingresso" data-v="100.0000"><td>Gunga: barco, entrada e cadeira</td><td class="n">R$ 100</td><td>Somando os menores valores de cada item</td></tr><tr data-tipo="ingresso" data-v="100.0000"><td>Maragogi, catamarã às Galés</td><td class="n">R$ 100</td><td>Taxa ambiental municipal de R$ 7 normalmente já embutida</td></tr><tr data-tipo="ingresso" data-v="85.0000"><td>Paripueira, catamarã</td><td class="n">R$ 85</td><td>De lancha sai R$ 115</td></tr><tr data-tipo="ingresso" data-v="80.0000"><td>São Miguel dos Milagres, excursão</td><td class="n">R$ 80</td><td>Transporte e guia; jangada às piscinas custa R$ 100 à parte</td></tr><tr data-tipo="ingresso" data-v="145.0000"><td>Passeio das Nove Ilhas</td><td class="n">R$ 145</td><td>Inclui transporte, almoço e guia. Day use na Ilha do Carlito: +R$ 20</td></tr><tr data-tipo="dia" data-v="120.0000" data-rot="Alimentação, {d} dias"><td>Alimentação, 6 dias</td><td class="n">R$ 720</td><td>R$ 120/dia. Estimativa própria, não apurada — ajuste ao seu padrão</td></tr></tbody><tfoot><tr><td id="tot-rot">Total por pessoa</td><td class="n" id="tot-val">R$ 3.920</td><td id="tot-dia">R$ 653 por dia</td></tr></tfoot></table></div>
+  <div class="tabwrap"><table class="tab-ficha"><thead><tr><th>Item</th><th>Valor</th><th>Observação</th></tr></thead><tbody><tr data-tipo="hosp"><td>Hospedagem, 5 noites</td><td class="n">R$ 1.500</td><td>Faixa intermediária a R$ 300 a diária, fora da alta temporada</td></tr><tr data-tipo="dia" data-v="150.0000" data-grupo="1" data-rot="Aluguel de carro, {d} dias"><td>Aluguel de carro, 6 dias</td><td class="n">R$ 900</td><td>R$ 150/dia com seguro. Indispensável se for ao litoral norte</td></tr><tr data-tipo="fixo" data-v="190.0000"><td>Transfer do aeroporto, ida e volta</td><td class="n">R$ 190</td><td>Aplicativo. Ônibus executivo sai por R$ 15 a 25 o trecho</td></tr><tr data-tipo="ingresso" data-v="50.0000"><td>Jangada em Pajuçara</td><td class="n">R$ 50</td><td>Preço negociado na areia, faixa de R$ 40 a 60</td></tr><tr data-tipo="ingresso" data-v="50.0000"><td>Praia do Gunga, excursão</td><td class="n">R$ 50</td><td>Com transporte e guia, sem almoço. Barco e taxa de entrada à parte</td></tr><tr data-tipo="ingresso" data-v="100.0000"><td>Gunga: barco, entrada e cadeira</td><td class="n">R$ 100</td><td>Somando os menores valores de cada item</td></tr><tr data-tipo="ingresso" data-v="100.0000"><td>Maragogi, catamarã às Galés</td><td class="n">R$ 100</td><td>Taxa ambiental municipal de R$ 7 normalmente já embutida</td></tr><tr data-tipo="ingresso" data-v="85.0000"><td>Paripueira, catamarã</td><td class="n">R$ 85</td><td>De lancha sai R$ 115</td></tr><tr data-tipo="ingresso" data-v="80.0000"><td>São Miguel dos Milagres, excursão</td><td class="n">R$ 80</td><td>Transporte e guia; jangada às piscinas custa R$ 100 à parte</td></tr><tr data-tipo="ingresso" data-v="145.0000"><td>Passeio das Nove Ilhas</td><td class="n">R$ 145</td><td>Inclui transporte, almoço e guia. Day use na Ilha do Carlito: +R$ 20</td></tr><tr data-tipo="dia" data-v="120.0000" data-rot="Alimentação, {d} dias"><td>Alimentação, 6 dias</td><td class="n">R$ 720</td><td>R$ 120/dia. Estimativa própria, não apurada — ajuste ao seu padrão</td></tr></tbody><tfoot><tr><td class="tot-rot">Total por pessoa</td><td class="n tot-val">R$ 3.920</td><td class="tot-dia">R$ 653 por dia</td></tr></tfoot></table></div>
   <p style="color:var(--nevoa);font-size:.92rem"><b>Não inclui passagem aérea nem seguro.</b> É o custo de fazer Alagoas, não o de chegar nela. Praias e centros históricos são gratuitos — o que se paga são os passeios de barco, as taxas de acesso e o deslocamento. Se você cortar o Cânion do Xingó e o carro alugado, ficando só na orla urbana e no litoral sul por excursão, o total cai para algo perto de R$ 2.600.</p>
 </section>
+</div>
 <section class="bloco">
   <div class="bloco-head"><span class="eyebrow">Hospedagem</span><h2>Quanto custa a diária</h2></div>
   <p style="color:var(--nevoa)">Alagoas passou de 42.488 leitos em 2022 para <b>54.616 em 2025</b>, crescimento de mais de 28% em três anos, com outros 9.000 previstos até 2029 (Setur/AL, maio de 2026). Maceió sozinha tem cerca de 22 mil leitos hoteleiros e 10 mil unidades de aluguel por temporada. Isso significa oferta grande e preço competitivo fora da alta temporada. <span class="flag">Ressalva</span> os valores abaixo são <i>a partir de</i> — preços de entrada, não médias — e vêm de guia comercial, não de fonte oficial. Nenhum órgão publica diária média por bairro em Maceió.</p>
@@ -102,7 +101,7 @@
   <a class="pg" href="../roteiro-6-dias/">Roteiro de 6 dias</a>
 </div></section>
 </div>
-<script src="../../../assets/js/ficha.js?v=25b6aa5c" defer></script>
+<script src="../../../assets/js/ficha.js?v=1643896d" defer></script>
 </main>
 <footer class="rodape"><div class="wrap cols">
 <p><b>Preços verificados em 9 de setembro de 2026.</b> Cada página traz a data da própria apuração. Atrações com preço dinâmico podem variar conforme a data escolhida — reconfira no checkout.</p>
