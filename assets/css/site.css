@@ -575,3 +575,44 @@ figure.foto img{border-radius:var(--raio-s)}
 .dest .paginas .pg{position:relative}
 .dest-capa h3 a{position:relative; z-index:2}
 .dest:focus-within{border-color:var(--ambar)}
+
+/* ---------- Ver na rua: botão e modal do Street View ---------- */
+.sv-btn{display:inline-flex; align-items:center; gap:.5rem; margin:.1rem 0 1rem;
+  padding:.6rem .95rem; background:transparent; color:var(--gelo);
+  border:1px solid var(--rule); border-radius:var(--raio-s);
+  font:inherit; font-size:.85rem; line-height:1.2; cursor:pointer;
+  transition:border-color .15s, color .15s, background .15s}
+.sv-btn:hover{border-color:var(--ambar); color:var(--ambar)}
+.sv-btn:focus-visible{outline:2px solid var(--ambar); outline-offset:2px}
+.sv-btn svg{flex:0 0 auto}
+.sv-btn .sv-sub{color:var(--nevoa); font-size:.78rem}
+.sv-btn:hover .sv-sub{color:inherit}
+
+.sv-modal[hidden]{display:none!important}
+.sv-modal{position:fixed; inset:0; z-index:90; display:flex;
+  align-items:center; justify-content:center; padding:clamp(.6rem,3vw,2rem)}
+.sv-fundo{position:absolute; inset:0; background:rgba(4,10,16,.86)}
+.sv-cx{position:relative; width:min(1100px,100%); max-height:100%;
+  display:flex; flex-direction:column; background:var(--noite);
+  border:1px solid var(--rule); border-radius:var(--raio); box-shadow:var(--sombra);
+  overflow:hidden}
+.sv-topo{display:flex; align-items:flex-start; gap:1rem; padding:.85rem 1rem .7rem}
+.sv-topo h4{margin:0; font-family:"Fraunces","Iowan Old Style",Georgia,serif;
+  font-weight:600; font-size:1.05rem; line-height:1.2; color:var(--gelo)}
+.sv-topo p{margin:.25rem 0 0; font-size:.8rem; color:var(--nevoa); line-height:1.35}
+.sv-fechar{margin-left:auto; flex:0 0 auto; width:2rem; height:2rem;
+  display:grid; place-items:center; background:transparent; color:var(--nevoa);
+  border:1px solid var(--rule); border-radius:var(--raio-s); cursor:pointer}
+.sv-fechar:hover{color:var(--gelo); border-color:var(--gelo)}
+.sv-fechar:focus-visible{outline:2px solid var(--ambar); outline-offset:2px}
+.sv-quadro{position:relative; width:100%; aspect-ratio:16/9; background:var(--tinta)}
+.sv-quadro iframe{position:absolute; inset:0; width:100%; height:100%; border:0; display:block}
+.sv-carregando{position:absolute; inset:0; display:grid; place-items:center;
+  font-family:"IBM Plex Mono",monospace; font-size:.75rem; letter-spacing:.08em;
+  color:var(--nevoa)}
+.sv-rodape{padding:.7rem 1rem .9rem; font-size:.78rem; color:var(--nevoa); line-height:1.45}
+.sv-rodape a{color:var(--gelo)}
+@media (max-width:560px){
+  .sv-quadro{aspect-ratio:4/3}
+  .sv-topo h4{font-size:.98rem}
+}
