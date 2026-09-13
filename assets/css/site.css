@@ -1,26 +1,27 @@
 /* ============================================================
-   Viagem na Lupa — sistema visual
-   Azul-tinta e âmbar. Archivo Black / Archivo / IBM Plex Mono.
+   Viagem na Lupa — sistema visual 2026
+   Fraunces (editorial) · Archivo (interface) · IBM Plex Mono (dados)
    ============================================================ */
 
 :root{
-  --tinta:#0F1B2D; --noite:#16253C; --card:#1B2A42;
-  --ambar:#FFB703; --ciano:#2EC4B6; --coral:#E4572E;
-  --gelo:#EEF2F6; --nevoa:#8496AE; --rule:#2A3F60;
-  --sombra: 0 1px 2px rgba(0,0,0,.35), 0 10px 30px -20px rgba(0,0,0,.8);
+  --tinta:#0B1622; --noite:#122334; --card:#18304A;
+  --ambar:#FFB703; --ciano:#43D3C2; --coral:#FF6B4A;
+  --gelo:#E9EFED; --nevoa:#94A8B6; --rule:#23405C;
+  --raio:14px; --raio-s:9px;
+  --sombra: 0 1px 2px rgba(0,0,0,.4), 0 20px 46px -30px rgba(0,0,0,.9);
 }
 :root[data-theme="light"]{
-  --tinta:#EDF0EA; --noite:#FFFFFF; --card:#F6F8F3;
-  --ambar:#A96C00; --ciano:#0C6A5F; --coral:#9A3116;
-  --gelo:#0E1A26; --nevoa:#5A6A76; --rule:#CBD5DC;
-  --sombra: 0 1px 2px rgba(16,28,41,.06), 0 10px 30px -22px rgba(16,28,41,.35);
+  --tinta:#EDF1F0; --noite:#FFFFFF; --card:#E2E9E7;
+  --ambar:#A96604; --ciano:#0B6055; --coral:#9A3116;
+  --gelo:#10202C; --nevoa:#59696F; --rule:#C7D3D1;
+  --sombra: 0 1px 2px rgba(16,32,44,.05), 0 18px 40px -28px rgba(16,32,44,.45);
 }
 @media (prefers-color-scheme: light){
   :root:not([data-theme="dark"]){
-    --tinta:#EDF0EA; --noite:#FFFFFF; --card:#F6F8F3;
-    --ambar:#A96C00; --ciano:#0C6A5F; --coral:#9A3116;
-    --gelo:#0E1A26; --nevoa:#5A6A76; --rule:#CBD5DC;
-    --sombra: 0 1px 2px rgba(16,28,41,.06), 0 10px 30px -22px rgba(16,28,41,.35);
+    --tinta:#EDF1F0; --noite:#FFFFFF; --card:#E2E9E7;
+    --ambar:#A96604; --ciano:#0B6055; --coral:#9A3116;
+    --gelo:#10202C; --nevoa:#59696F; --rule:#C7D3D1;
+    --sombra: 0 1px 2px rgba(16,32,44,.05), 0 18px 40px -28px rgba(16,32,44,.45);
   }
 }
 
@@ -39,8 +40,9 @@ a:hover{text-decoration:underline}
 a:focus-visible,input:focus-visible,button:focus-visible{
   outline:2px solid var(--ambar); outline-offset:3px; border-radius:2px}
 h1,h2,h3{
-  font-family:"Archivo Black","Arial Black",sans-serif; font-weight:400;
-  line-height:1.05; letter-spacing:-.028em; margin:0; text-wrap:balance}
+  font-family:"Fraunces","Iowan Old Style",Georgia,serif; font-weight:600;
+  font-variation-settings:"SOFT" 0,"WONK" 1;
+  line-height:1.06; letter-spacing:-.015em; margin:0; text-wrap:balance}
 p{margin:0; max-width:70ch}
 .mono{font-family:"IBM Plex Mono",ui-monospace,Menlo,monospace;font-variant-numeric:tabular-nums}
 .wrap{max-width:70rem; margin:0 auto; padding:0 clamp(1rem,4vw,2.4rem)}
@@ -58,8 +60,8 @@ p{margin:0; max-width:70ch}
   gap:1.5rem; padding:.8rem 0; flex-wrap:wrap}
 .marca{display:flex; align-items:center; gap:.6rem}
 .marca:hover{text-decoration:none}
-.marca span{font-family:"Archivo Black","Arial Black",sans-serif; font-size:1rem;
-  letter-spacing:.02em; color:var(--gelo)}
+.marca span{font-family:"Archivo",sans-serif; font-weight:700; font-size:.95rem;
+  letter-spacing:.01em; color:var(--gelo)}
 nav{display:flex; gap:1.2rem; flex-wrap:wrap}
 nav a{font-family:"IBM Plex Mono",monospace; font-size:.7rem; letter-spacing:.14em;
   text-transform:uppercase; color:var(--nevoa)}
@@ -87,11 +89,11 @@ footer.rodape b{color:var(--gelo)}
 /* ---------- faixa escura do topo ----------
    Sempre azul-tinta, nos dois temas. É a âncora visual da marca:
    sem ela o site fica lavado no tema claro. */
-.faixa{background:#0F1B2D; color:#EEF2F6; border-bottom:4px solid #FFB703}
+.faixa{background:#0B1622; color:#E9EFED; border-bottom:3px solid #FFB703}
 .faixa .hero h1{color:#EEF2F6}
 .faixa .hero h1 em{color:#FFB703}
 .faixa .hero p{color:#8496AE}
-.faixa .campo{background:#16253C; border-color:#2A3F60}
+.faixa .campo{background:#122334; border-color:#23405C}
 .faixa .campo input{color:#EEF2F6}
 .faixa .campo input::placeholder{color:#8496AE}
 .faixa .campo svg{color:#8496AE}
@@ -143,7 +145,7 @@ footer.rodape b{color:var(--gelo)}
 .num-b{display:flex; flex-direction:column; gap:.1rem}
 .num-b .r{font-family:"IBM Plex Mono",monospace; font-size:.6rem; letter-spacing:.14em;
   text-transform:uppercase; color:var(--nevoa)}
-.num-b .v{font-family:"Archivo Black","Arial Black",sans-serif; font-size:1.22rem;
+.num-b .v{font-family:"IBM Plex Mono",monospace; font-weight:500; font-size:1.18rem;
   color:var(--ambar); font-variant-numeric:tabular-nums; line-height:1.15}
 .num-b .v.c{color:var(--ciano); font-size:1.05rem}
 .achado{border-left:3px solid var(--ciano); padding-left:.85rem; font-size:.9rem;
@@ -171,7 +173,7 @@ section.bloco{padding:clamp(1.8rem,3.5vw,2.6rem) 0; display:flex;
 .pcel:nth-child(even){border-left-color:var(--ciano)}
 .pcel .rotp{font-family:"IBM Plex Mono",monospace; font-size:.64rem; letter-spacing:.18em;
   text-transform:uppercase; color:var(--nevoa)}
-.pcel .big{font-family:"Archivo Black","Arial Black",sans-serif; font-size:1.65rem;
+.pcel .big{font-family:"IBM Plex Mono",monospace; font-weight:500; font-size:1.5rem;
   line-height:1.1; color:var(--ambar); font-variant-numeric:tabular-nums}
 .pcel .big.c{color:var(--ciano)}
 .pcel .sub{font-size:.84rem; color:var(--nevoa); line-height:1.45}
@@ -204,7 +206,7 @@ tbody td{padding:.6rem .85rem; border-bottom:1px solid var(--rule); vertical-ali
 tbody tr:last-child td{border-bottom:0}
 td.n{font-family:"IBM Plex Mono",monospace; font-variant-numeric:tabular-nums; white-space:nowrap}
 tfoot td{padding:.7rem .85rem; border-top:2px solid var(--ambar);
-  font-family:"Archivo Black","Arial Black",sans-serif; color:var(--ambar)}
+  font-family:"IBM Plex Mono",monospace; font-weight:600; color:var(--ambar)}
 
 /* ---------- ficha de ponto turístico ---------- */
 .grupo{margin-top:3.4rem; display:flex; flex-direction:column; gap:1.3rem}
@@ -223,7 +225,7 @@ tfoot td{padding:.7rem .85rem; border-top:2px solid var(--ambar);
 .tag{font-family:"IBM Plex Mono",monospace; font-size:.62rem; letter-spacing:.16em;
   text-transform:uppercase; color:var(--nevoa)}
 .preco{display:flex; flex-direction:column; align-items:flex-end; gap:.1rem; flex-shrink:0}
-.preco-val{font-family:"Archivo Black","Arial Black",sans-serif; font-size:1.35rem;
+.preco-val{font-family:"IBM Plex Mono",monospace; font-weight:500; font-size:1.28rem;
   color:var(--ambar); font-variant-numeric:tabular-nums; line-height:1.1}
 .preco-nota{font-family:"IBM Plex Mono",monospace; font-size:.62rem; letter-spacing:.1em;
   text-transform:uppercase; color:var(--nevoa)}
@@ -408,8 +410,8 @@ nav a.externo:hover .seta-ext{opacity:1}
 .dqc span,.dqt span{font-family:"IBM Plex Mono",monospace; font-size:.62rem;
   letter-spacing:.14em; text-transform:uppercase; color:var(--nevoa)}
 .dqc b{font-size:.92rem; color:var(--gelo); font-weight:600}
-.dqt b{font-family:"Archivo Black","Arial Black",sans-serif; font-weight:400;
-  font-size:1.35rem; color:var(--ambar); font-variant-numeric:tabular-nums}
+.dqt b{font-family:"IBM Plex Mono",monospace; font-weight:500;
+  font-size:1.3rem; color:var(--ambar); font-variant-numeric:tabular-nums}
 @media(max-width:48rem){.destaque{grid-template-columns:1fr}}
 
 /* A faixa é sempre escura, nos dois temas. Então nada de variável de tema
@@ -458,3 +460,107 @@ a.cc:hover{border-color:var(--ambar); color:var(--ambar); text-decoration:none}
 .cc-big.atual{background:var(--ambar); border-color:var(--ambar)}
 .cc-big.atual b,.cc-big.atual span{color:var(--tinta)}
 .cc-big.atual span{opacity:.78}
+
+/* ============================================================
+   CAMADA 2026 — cantos, profundidade e a home com foto
+   Vem depois de propósito: refina o que já existe acima
+   sem exigir reescrita das páginas internas.
+   ============================================================ */
+
+/* ---------- cantos e superfícies ---------- */
+.dest,.ponto,.pcel,.aviso,.tabwrap,.destaque,.reserva,.escolha,
+.calc,.foto-slot,.parceiro,.cc-big,.vazio{border-radius:var(--raio)}
+.chip,.bv,.selo,.tag-pub{border-radius:999px}
+.pg,.btn,.campo,.mapa,.foto-btn,.parada,.cc,.flag,
+.calc-ctrl input,.calc-ctrl select{border-radius:var(--raio-s)}
+.ponto{overflow:hidden}
+.ponto-topo{background:var(--card)}
+figure.foto img{border-radius:var(--raio-s)}
+
+.dest:hover,.parceiro:hover,.cc-big:hover{box-shadow:var(--sombra)}
+
+/* botão: sem caixa-alta espremida, com mais presença */
+.btn{font-family:"Archivo",sans-serif; font-size:.88rem; font-weight:600;
+  letter-spacing:0; text-transform:none; padding:.7rem 1.1rem}
+
+/* ---------- hero da home: foto + painel ---------- */
+.hero-bento{display:grid; grid-template-columns:repeat(12,1fr); gap:14px;
+  padding-block:clamp(1.2rem,3vw,2rem)}
+.hero-foto{grid-column:span 8; position:relative; border-radius:var(--raio);
+  overflow:hidden; min-height:clamp(23rem,46vw,31rem);
+  display:flex; align-items:flex-end; isolation:isolate; margin:0}
+.hero-foto>img{position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; z-index:-2; border-radius:0}
+.hero-foto::after{content:""; position:absolute; inset:0; z-index:-1;
+  background:linear-gradient(180deg, rgba(6,14,20,.05) 0%, rgba(6,14,20,.34) 34%,
+    rgba(6,14,20,.78) 62%, rgba(6,14,20,.94) 100%)}
+.hero-txt{padding:clamp(1.2rem,3vw,2.1rem); width:100%; color:#F4F7F6}
+.hero-txt .eyebrow{color:#FFC94A}
+.hero-txt h1{font-size:clamp(1.75rem,3.8vw,2.85rem); color:#fff;
+  margin-block:.45rem .65rem; text-shadow:0 1px 24px rgba(4,10,16,.5)}
+.hero-txt h1 em{font-style:normal; color:#FFC94A}
+.hero-txt p{max-width:46ch; color:#DCE4E4; font-size:clamp(.95rem,1.3vw,1.05rem)}
+
+.leituras{display:flex; flex-wrap:wrap; margin-top:1.3rem;
+  border-top:1px solid rgba(255,255,255,.28)}
+.leitura{flex:1 1 8rem; padding:.75rem 1rem .1rem 0;
+  border-right:1px solid rgba(255,255,255,.18)}
+.leitura:last-child{border-right:0}
+.leitura .r{display:block; font-family:"IBM Plex Mono",monospace; font-size:.6rem;
+  letter-spacing:.16em; text-transform:uppercase; color:#B8C8CF}
+.leitura .v{display:block; font-family:"IBM Plex Mono",monospace; font-size:1.18rem;
+  font-weight:500; color:#fff; font-variant-numeric:tabular-nums; margin-top:.15rem}
+
+.hero-lado{grid-column:span 4; display:grid; gap:14px; grid-template-rows:auto 1fr}
+.cartao{background:var(--noite); border:1px solid var(--rule);
+  border-radius:var(--raio); padding:1.15rem 1.2rem; box-shadow:var(--sombra)}
+.cartao h2{font-size:1.05rem; margin-bottom:.55rem}
+.cartao .campo{max-width:none; background:var(--tinta); padding:.6rem .8rem; gap:.6rem}
+.cartao .campo input{font-size:.9rem; padding:0}
+.cartao .contagem{margin-top:.7rem; display:block}
+
+.selo-apur{display:flex; flex-direction:column; justify-content:center; gap:.55rem;
+  background:var(--card); border:1px solid var(--rule); border-radius:var(--raio);
+  padding:1.15rem 1.2rem}
+.selo-apur .marca-v{display:flex; align-items:center; gap:.45rem; color:var(--ciano);
+  font-family:"IBM Plex Mono",monospace; font-size:.66rem; letter-spacing:.16em;
+  text-transform:uppercase}
+.selo-apur b{font-family:"Fraunces",Georgia,serif; font-weight:600; font-size:1.35rem;
+  line-height:1.15; color:var(--gelo)}
+.selo-apur p{color:var(--nevoa); font-size:.82rem; line-height:1.5}
+
+/* ---------- cards de destino com foto ---------- */
+.grade{grid-template-columns:repeat(auto-fit,minmax(22rem,1fr)); gap:14px}
+.dest{padding:0; gap:0; overflow:hidden;
+  transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease}
+.dest:hover{transform:translateY(-3px)}
+.dest-capa{position:relative; aspect-ratio:16/9; overflow:hidden;
+  background:var(--card); margin:0}
+.dest-capa img{width:100%; height:100%; object-fit:cover; border-radius:0;
+  transition:transform .5s cubic-bezier(.2,.7,.3,1)}
+.dest:hover .dest-capa img{transform:scale(1.045)}
+.dest-capa figcaption{position:absolute; inset:auto 0 0 0; padding:.9rem 1.05rem .8rem;
+  background:linear-gradient(180deg,transparent 0%,rgba(6,14,20,.55) 45%,rgba(6,14,20,.92) 100%);
+  display:flex; align-items:flex-end; justify-content:space-between; gap:1rem}
+.dest-capa h3{font-size:1.5rem; line-height:1}
+.dest-capa h3 a{color:#fff}
+.dest-capa h3 a:hover{color:#FFC94A; text-decoration:none}
+.dest-capa .pais{color:#C4D2D6; margin-top:.35rem}
+.tag-pub{flex:none; font-family:"IBM Plex Mono",monospace; font-size:.6rem;
+  letter-spacing:.14em; text-transform:uppercase; padding:.22rem .55rem;
+  border:1px solid rgba(255,255,255,.5); color:#fff; white-space:nowrap}
+
+.dest .numeros{display:grid; grid-template-columns:1fr 1fr; gap:0;
+  border-bottom:1px solid var(--rule)}
+.dest .num-b{padding:.8rem 1.05rem; gap:.2rem}
+.dest .num-b+.num-b{border-left:1px solid var(--rule)}
+.dest .achado{border-left:0; padding:1rem 1.05rem; color:var(--nevoa); flex:1}
+.dest .achado b{color:var(--gelo)}
+.dest .paginas{padding:0 1.05rem 1.05rem; align-items:center; gap:.4rem}
+.pg-hotel{margin-left:auto; border-color:var(--ambar); color:var(--ambar);
+  font-weight:600; display:inline-flex; align-items:center; gap:.35rem}
+.pg-hotel:hover{background:var(--ambar); color:var(--tinta)}
+
+@media (max-width:56rem){
+  .hero-foto,.hero-lado{grid-column:1 / -1}
+}
