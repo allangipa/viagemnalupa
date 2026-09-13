@@ -1,2 +1,13 @@
 .DS_Store
 Thumbs.db
+
+# Credenciais — nunca versionar
+*.json.key
+client_secret*.json
+*credenciais*.json
+*Chave secreta*.json
+.env
+.env.*
+
+# Saídas de trabalho que não fazem parte do site
+Claude outputs/
