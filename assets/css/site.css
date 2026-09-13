@@ -564,3 +564,14 @@ figure.foto img{border-radius:var(--raio-s)}
 @media (max-width:56rem){
   .hero-foto,.hero-lado{grid-column:1 / -1}
 }
+
+/* ---------- cartão inteiro clicável ----------
+   Um link invisível cobre o cartão. O link do título continua sendo
+   o que leitor de tela e teclado enxergam; este aqui é só para o mouse,
+   por isso tabindex=-1 e aria-hidden. Os links de página ficam acima. */
+.dest{position:relative}
+.dest-link{position:absolute; inset:0; z-index:1}
+.dest .paginas{position:relative; z-index:2}
+.dest .paginas .pg{position:relative}
+.dest-capa h3 a{position:relative; z-index:2}
+.dest:focus-within{border-color:var(--ambar)}
