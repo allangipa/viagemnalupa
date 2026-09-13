@@ -134,6 +134,7 @@ FOOT = """<section class="bloco">
 </div></footer>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "a2b63bb9c39147728b617fa302c981dc"}'></script><!-- End Cloudflare Web Analytics -->
 
+<script src="../../assets/js/streetview.js" defer></script>
 </body>
 </html>
 """

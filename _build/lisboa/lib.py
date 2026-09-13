@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import html, re, urllib.parse
+import sv
 
 def mapa(nome, q=None):
     q = q or (nome + ", Rio de Janeiro, Brasil")
@@ -47,6 +48,7 @@ def ficha(num, p, cred):
     campos = "".join(
         '\n    <div class="campo-l"><div class="rot">%s</div><div class="val">%s</div></div>'
         % (r, p["campos"][r]) for r in ROTULOS)
+    botao = sv.botao(p["id"])
     nota = ('\n  <p class="foto-nota">%s</p>' % p["fotonota"]) if p.get("fotonota") else ""
     return """<article class="ponto" id="%(id)s">
   <div class="ponto-topo">
@@ -55,9 +57,9 @@ def ficha(num, p, cred):
     <div class="preco"><span class="preco-val">%(preco)s</span>
       <span class="preco-nota">%(preconota)s</span></div>
   </div>
-  <figure class="foto"><img src="../../assets/img/lisboa/%(img)s.webp" alt="%(alt)s" width="1200" height="675" loading="lazy" decoding="async"><figcaption><p class="foto-cred">%(cred)s</p></figcaption></figure>%(nota)s
+  <figure class="foto"><img src="../../assets/img/lisboa/%(img)s.webp" alt="%(alt)s" width="1200" height="675" loading="lazy" decoding="async"><figcaption><p class="foto-cred">%(cred)s</p></figcaption></figure>%(nota)s%(botao)s
   <div class="campos">%(campos)s
   </div>
 </article>""" % dict(id=p["id"], num=num, nome=p["nome"], tag=p["tag"], preco=p["preco"],
                      preconota=p["preconota"], img=p["img"], alt=html.escape(c["alt"], quote=True),
-                     cred=credito, nota=nota, campos=campos)
+                     cred=credito, nota=nota, botao=botao, campos=campos)
