@@ -1,0 +1,66 @@
+{
+ "_nota": "Registro dos panoramas do Street View usados no site. tipo: car (!2e0, carro do Google) ou photosphere (!2e10, foto 360 de colaborador). Sem cobertura decente => sem botao.",
+ "rio/theatro-municipal": {
+  "tipo": "car",
+  "pano": "mGQzmv1NOWXmYbyI_d8E5g",
+  "em": "-22.9094755,-43.176697",
+  "endereco": "155 Av. Treze de Maio",
+  "captura": "jun/2024",
+  "head": 0,
+  "pitch": 8,
+  "fov": 90,
+  "confere": "fachada lateral na Av. 13 de Maio, com a grade e a entrada da visita guiada",
+  "descartado": "Edz5-ZCEP2KWL15RkSYSiw - pano dentro de loja no subsolo do metro"
+ },
+ "lisboa/torre-de-belem": {
+  "tipo": "photosphere",
+  "loc": "38.692180,-9.215300",
+  "autor": "Zdenek Janacek",
+  "captura": "jan/2021",
+  "head": 225,
+  "pitch": 0,
+  "fov": 90,
+  "confere": "torre inteira a partir do passeio, antes da passarela"
+ },
+ "rio/copacabana": {
+  "tipo": "foto",
+  "loc": "-22.9758906,-43.1864163",
+  "autor": "Just Walk",
+  "head": 338,
+  "pitch": 0,
+  "fov": 95,
+  "confere": "areia, calcadao e predios ate o Leme",
+  "status": "aprovado"
+ },
+ "rio/real-gabinete": {
+  "tipo": "foto",
+  "loc": "-22.9053704,-43.182216",
+  "autor": "Paulo Coutinho",
+  "head": 298,
+  "pitch": 0,
+  "fov": 95,
+  "confere": "salao de leitura com as estantes e o lustre",
+  "status": "aprovado"
+ },
+ "lisboa/mosteiro-jeronimos": {
+  "tipo": "car",
+  "loc": "38.697100,-9.205800",
+  "head": 0,
+  "pitch": 8,
+  "fov": 95,
+  "confere": "fachada inteira vista da Praca do Imperio",
+  "status": "aprovado"
+ },
+ "_reprovados": {
+  "rio/parque-lage": "coordenada do Nominatim cai na mata, nao no palacete (~200 m de erro); panorama mais proximo e trilha",
+  "rio/ipanema-arpoador": "h102 mostra areia vazia; falta a pedra e os Dois Irmaos",
+  "lisboa/elevador-santa-justa": "h304 mostra a passarela do topo, nao identifica a torre de ferro",
+  "lisboa/miradouros-alfama": "h247 aponta para a rua, nao para os telhados e o rio",
+  "lisboa/eletrico-28": "panorama na Graca sem nenhum electrico no quadro",
+  "lisboa/oceanario": "foto interna escura com rosto de pessoa",
+  "lisboa/palacio-da-pena": "foto de sala interna; falta o exterior colorido",
+  "lisboa/cabo-da-roca": "so ceu e mar estourado, sem falesia nem farol",
+  "lisboa/praca-do-comercio": "h19 bom mas o arco fica na borda; centralizar"
+ },
+ "_metodo": "Melhor resultado vem do panorama do carro do Google numa rua/praca ao redor, com heading calculado de volta ao monumento (funcao __orbita). Panorama 'mais proximo' do centroide quase sempre e foto de interior ou instantaneo aleatorio. IDs CIHM0.../CIABIh... (fotos 360 de colaborador) NAO funcionam no parametro pano= do Embed: usar location= com a coordenada do panorama."
+}

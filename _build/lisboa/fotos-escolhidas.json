@@ -1,0 +1,27 @@
+{
+ "_nota": "Escolhas conferidas em contato visual, 13/set/2026. Storyblocks: asset SBI-<id>.",
+ "_status": "escolhidas, NAO baixadas — link com o computador caiu antes do download",
+ "storyblocks": {
+  "jeronimos":   {"id":357381505,"t":"The Empire Square and the Jeronimos Monastery"},
+  "belemtower":  {"id":355763620,"t":"Famous Belem Tower In Lisbon, Portugal"},
+  "padrao":      {"id":355669213,"t":"Discoveries Monument At Lisbon"},
+  "castelo":     {"id":357621577,"t":"Sao Jorge Castle At Lisbon"},
+  "santajusta":  {"id":358009751,"t":"Carmo street with the Santa Justa Lift"},
+  "comercio":    {"id":349450339,"t":"The Triumphal Arch of Praca do Comercio / Arco da Rua Augusta"},
+  "miradouros":  {"id":357439737,"t":"View of Lisbon from Miradouro de Santa Luzia viewpoint"},
+  "tram28":      {"id":351476296,"t":"Trams passing by in the old town of Lisbon"},
+  "pena":        {"id":350503827,"t":"Aerial view of Pena Palace (Palacio da Pena) in Sintra"},
+  "regaleira":   {"id":351566895,"t":"Looking up from the base of a moss-covered stone well"},
+  "caboroca":    {"id":351551599,"t":"Aerial view of lighthouse at Cape Roca at sunset","rever":"thumb mostra sobretudo mar e sol; conferir 351430392 e 351413634"}
+ },
+ "commons_pendente": {
+  "coches":     "Museu Nacional dos Coches — sem acervo no Storyblocks",
+  "gulbenkian": "Museu Calouste Gulbenkian — sem acervo",
+  "timeout":    "Time Out Market — sem acervo",
+  "mouros":     "Castelo dos Mouros — busca devolve so Pena",
+  "oceanario":  "Oceanario — so havia aquario generico, nao identificavel como Lisboa; melhor Commons"
+ },
+ "evitar": {
+  "elevador_da_bica": "IDs 350193959 e 350450192 sao o Elevador da Bica, que esta FECHADO desde set/2025 — nao usar"
+ }
+}

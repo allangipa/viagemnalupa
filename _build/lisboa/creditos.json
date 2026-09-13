@@ -1,0 +1,97 @@
+{
+ "jeronimos": {
+  "fonte": "storyblocks",
+  "sbi": "357381505",
+  "alt": "Praça do Império com a fachada do Mosteiro dos Jerónimos ao fundo"
+ },
+ "torrebelem": {
+  "fonte": "storyblocks",
+  "sbi": "355763620",
+  "alt": "Torre de Belém sobre o Tejo, com visitantes no passadiço de acesso"
+ },
+ "padrao": {
+  "fonte": "storyblocks",
+  "sbi": "355669213",
+  "alt": "Padrão dos Descobrimentos visto do alto, em forma de proa sobre o Tejo"
+ },
+ "coches": {
+  "fonte": "commons",
+  "autor": "GualdimG",
+  "lic": "CC BY-SA 4.0",
+  "licurl": "https://creativecommons.org/licenses/by-sa/4.0/deed.pt",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Museu_Nacional_dos_Coches_Lisboa_04.jpg",
+  "alt": "Galeria do Museu Nacional dos Coches, no edifício novo, com as viaturas de gala em exposição"
+ },
+ "castelo": {
+  "fonte": "storyblocks",
+  "sbi": "357621577",
+  "alt": "Muralhas do Castelo de São Jorge vistas do alto, com o Tejo ao fundo"
+ },
+ "santajusta": {
+  "fonte": "storyblocks",
+  "sbi": "357758599",
+  "alt": "Estrutura de ferro do Elevador de Santa Justa vista de baixo, entre prédios da Baixa"
+ },
+ "comercio": {
+  "fonte": "storyblocks",
+  "sbi": "349450339",
+  "alt": "Arco da Rua Augusta visto da Praça do Comércio"
+ },
+ "miradouros": {
+  "fonte": "storyblocks",
+  "sbi": "357439737",
+  "alt": "Telhados de Alfama vistos do Miradouro de Santa Luzia"
+ },
+ "tram28": {
+  "fonte": "storyblocks",
+  "sbi": "351476296",
+  "alt": "Elétrico amarelo numa rua estreita da cidade velha de Lisboa"
+ },
+ "gulbenkian": {
+  "fonte": "commons",
+  "autor": "Julien Chatelain",
+  "lic": "CC BY-SA 2.0",
+  "licurl": "https://creativecommons.org/licenses/by-sa/2.0/deed.pt",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Museu_Calouste_Gulbenkian_(42890142000).jpg",
+  "alt": "Galeria do Museu Calouste Gulbenkian, com pinturas nas paredes revestidas a madeira"
+ },
+ "oceanario": {
+  "fonte": "commons",
+  "autor": "Ø11",
+  "lic": "CC BY-SA 4.0",
+  "licurl": "https://creativecommons.org/licenses/by-sa/4.0/deed.pt",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Ocean%C3%A1rio_de_Lisboa_-_Lisbon.jpg",
+  "alt": "Edifício do Oceanário de Lisboa sobre a água, na Doca dos Olivais"
+ },
+ "timeout": {
+  "fonte": "commons",
+  "autor": "Vitor Oliveira",
+  "lic": "CC BY-SA 2.0",
+  "licurl": "https://creativecommons.org/licenses/by-sa/2.0/deed.pt",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Mercado_da_Ribeira_(Time_Out_Market)_-_Lisboa_-_Portugal_(25853697817).jpg",
+  "alt": "Salão do Time Out Market, no Mercado da Ribeira, com as mesas comunitárias cheias"
+ },
+ "pena": {
+  "fonte": "storyblocks",
+  "sbi": "350503827",
+  "alt": "Palácio Nacional da Pena visto do alto, com as alas vermelha e amarela sobre a serra de Sintra"
+ },
+ "regaleira": {
+  "fonte": "storyblocks",
+  "sbi": "351566895",
+  "alt": "Poço Iniciático da Quinta da Regaleira visto do fundo, com a claraboia de vegetação no topo"
+ },
+ "mouros": {
+  "fonte": "commons",
+  "autor": "Diego Delso",
+  "lic": "CC BY-SA 4.0",
+  "licurl": "https://creativecommons.org/licenses/by-sa/4.0/deed.pt",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Castelo_dos_Mouros,_Sintra,_Portugal,_2019-05-25,_DD_74.jpg",
+  "alt": "Muralhas do Castelo dos Mouros serpenteando o cume arborizado da Serra de Sintra"
+ },
+ "caboroca": {
+  "fonte": "storyblocks",
+  "sbi": "351413634",
+  "alt": "Promontório do Cabo da Roca ao pôr do sol, com o farol no alto e o Atlântico à frente"
+ }
+}

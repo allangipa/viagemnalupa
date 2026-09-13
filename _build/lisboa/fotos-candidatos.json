@@ -1,0 +1,19 @@
+{
+ "_nota": "Busca no Storyblocks em 13/set/2026. IDs sao stockItem.id; o asset e SBI-<id>.",
+ "jeronimos":   {"q":"monastery-lisbon","ok":true,"ids":[357381505,357232461,358010124,355616010,357568941,351307857]},
+ "belemtower":  {"q":"belem-tower","ok":true,"ids":[350502807,355763620,356844131,355635584,357987279,349967287]},
+ "padrao":      {"q":"discoveries-monument","ok":true,"ids":[355588581,350554581,351474630,355669213,351176911]},
+ "coches":      {"q":"coach-museum-lisbon","ok":false,"fallback":"commons"},
+ "castelo":     {"q":"lisbon-castle","ok":true,"ids":[357621577,357352316,357520918,355515583,356292715]},
+ "santajusta":  {"q":"santa-justa","ok":true,"ids":[358009751,357878163,357758599,357747374,350924170]},
+ "comercio":    {"q":"praca-do-comercio","ok":true,"ids":[349450339,350141547,357528975,356725859]},
+ "miradouros":  {"q":"miradouro-lisbon","ok":true,"ids":[357439737,356627760,350747098,351332472]},
+ "tram28":      {"q":"lisbon-tram","ok":true,"ids":[355507322,351476296,356407664,357239937,357388836]},
+ "gulbenkian":  {"q":"gulbenkian","ok":false,"fallback":"commons"},
+ "oceanario":   {"q":"lisbon-oceanarium","ok":true,"ids":[356004395,351161880,349504086,356898887,351348092]},
+ "timeout":     {"q":"time-out-market","ok":false,"fallback":"commons"},
+ "pena":        {"q":"pena-palace","ok":true,"ids":[356951739,357762166,356225567,357071570,350503827]},
+ "regaleira":   {"q":"quinta-da-regaleira","ok":true,"ids":[351556782,351502343,351473915,351118377,351048290]},
+ "mouros":      {"q":"moorish-castle-sintra","ok":"duvidoso","nota":"retorna quase so Pena; conferir visualmente ou ir de Commons"},
+ "caboroca":    {"q":"cabo-da-roca","ok":true,"ids":[351551599,351430392,351413634]}
+}
