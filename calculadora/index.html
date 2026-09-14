@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="google-site-verification" content="IpjUvTgAQF5LxYdxAXXj2g3Qi-qh1KldEl7RelcQ9bo">
-<title>Calculadora de custos de viagem: Nova York, Santiago, Buenos Aires e Maceió</title>
+<title>Calculadora de custos de viagem: Rio, Lisboa, Nova York e mais três destinos</title>
 <meta name="description" content="Calcule quanto custa a sua viagem: escolha o destino, as datas, quantas pessoas e a categoria de hospedagem. Preços apurados em fonte oficial, com a data da apuração.">
 <link rel="canonical" href="https://viagemnalupa.com.br/calculadora/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Viagem na Lupa">
-<meta property="og:title" content="Calculadora de custos de viagem: Nova York, Santiago, Buenos Aires e Maceió">
+<meta property="og:title" content="Calculadora de custos de viagem: Rio, Lisboa, Nova York e mais três destinos">
 <meta property="og:description" content="Calcule quanto custa a sua viagem: escolha o destino, as datas, quantas pessoas e a categoria de hospedagem. Preços apurados em fonte oficial, com a data da apuração.">
 <meta property="og:url" content="https://viagemnalupa.com.br/calculadora/">
 <meta property="og:locale" content="pt_BR">
@@ -18,7 +18,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Archivo:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="../assets/css/site.css?v=e81917c7">
+<link rel="stylesheet" href="../assets/css/site.css?v=68fde8e7">
 </head>
 <body>
 <a class="pular" href="#conteudo">Pular para o conteúdo</a>
@@ -51,7 +51,7 @@
       <p>Os valores abaixo de cada cidade são a nossa apuração fechada — o cenário
          padrão que você vai ajustar em seguida.</p>
     </div>
-    <nav class="calc-abas" aria-label="Escolher destino"><button type="button" class="cc-big" data-troca="nova-york"><b>Nova York</b><span>US$ 2.181 por pessoa &middot; 7 dias</span></button><button type="button" class="cc-big" data-troca="santiago"><b>Santiago</b><span>US$ 388 por pessoa &middot; 5 dias</span></button><button type="button" class="cc-big" data-troca="buenos-aires"><b>Buenos Aires</b><span>US$ 232 por pessoa &middot; 5 dias</span></button><button type="button" class="cc-big" data-troca="maceio"><b>Maceió</b><span>R$ 3.920 por pessoa &middot; 6 dias</span></button></nav>
+    <nav class="calc-abas" aria-label="Escolher destino"><button type="button" class="cc-big" data-troca="nova-york"><b>Nova York</b><span>US$ 2.181 por pessoa &middot; 7 dias</span></button><button type="button" class="cc-big" data-troca="santiago"><b>Santiago</b><span>US$ 388 por pessoa &middot; 5 dias</span></button><button type="button" class="cc-big" data-troca="buenos-aires"><b>Buenos Aires</b><span>US$ 232 por pessoa &middot; 5 dias</span></button><button type="button" class="cc-big" data-troca="maceio"><b>Maceió</b><span>R$ 3.920 por pessoa &middot; 6 dias</span></button><button type="button" class="cc-big" data-troca="rio-de-janeiro"><b>Rio de Janeiro</b><span>R$ 3.696 por pessoa &middot; 6 dias</span></button><button type="button" class="cc-big" data-troca="lisboa"><b>Lisboa</b><span>€ 936,14 por pessoa &middot; 6 dias</span></button></nav>
   </div>
 </section>
 <div class="ficha-calc" data-cidade="nova-york">
@@ -290,8 +290,81 @@ bairros Lastarria e Bellavista.</p>
     <a class="pg" href="../sobre/">Como apuramos os preços</a>
   </div>
 </section>
+<div class="ficha-calc" data-cidade="rio-de-janeiro" hidden>
+
+<section class="bloco" id="calculadora">
+  <div class="bloco-head">
+    <span class="eyebrow">Calculadora</span>
+    <h2>Faça a conta da <em style="font-style:normal;color:var(--ambar)">sua</em> viagem</h2>
+    <p>A tabela abaixo é a nossa apuração: 6 dias, 1 pessoa.
+       Mude as datas, o número de pessoas e a categoria de hospedagem, desmarque o que
+       você não vai fazer, e a conta se refaz na hora.</p>
+  </div>
+
+  <div class="calc" hidden>
+    <span class="t">Sua viagem</span>
+    <div class="calc-ctrl">
+      <label>Chegada
+        <input type="date" class="c-ida" value="2026-11-10" min="2026-09-14" max="2028-12-31"></label>
+      <label>Volta
+        <input type="date" class="c-volta" value="2026-11-15" min="2026-09-14" max="2028-12-31"></label>
+      <label>Pessoas
+        <input type="number" class="c-pes" min="1" max="8" step="1" value="1" inputmode="numeric"></label>
+      <label>Hospedagem
+        <select class="c-hosp"><option value="hostel">Cama em dormitório (amostra)</option><option value="economico">Econômico (FOHB)</option><option value="midscale">Intermediário (FOHB)</option><option value="media" selected>Média da cidade (ADR)</option><option value="upscale">Upscale (FOHB)</option></select></label>
+    </div>
+    <p class="calc-dur c-dur"></p>
+    <div class="c-alertas"></div>
+    <p class="calc-nota">As noites saem das suas datas. Hospedagem por quarto, duas pessoas por quarto; dormitório de hostel é por pessoa. O metrô é contado a duas viagens por dia, por pessoa. A diária vem da média do ano de 2025 — <b>o Carnaval e o Réveillon custam muito mais, e a conta avisa mas não multiplica</b>, porque ninguém publica o fator. Os valores unitários são os apurados e estão na tabela
+       abaixo — <b style="color:var(--gelo)">o que muda aqui é só a aritmética, não a
+       fonte</b>. Linhas marcadas como não encontradas continuam fora da conta.</p>
+    <div class="painel res"></div>
+  </div>
+  <script type="application/json" class="calc-cfg">{"moeda": "R$", "dec": 0, "dias": 6, "pessoas": 1, "hosp": [{"k": "hostel", "rot": "Cama em dormitório (amostra)", "ref": 106, "mn": 87, "mx": 126, "pessoa": true}, {"k": "economico", "rot": "Econômico (FOHB)", "ref": 373, "mn": 373, "mx": 373}, {"k": "midscale", "rot": "Intermediário (FOHB)", "ref": 533, "mn": 533, "mx": 533}, {"k": "media", "rot": "Média da cidade (ADR)", "ref": 610, "mn": 534, "mx": 750}, {"k": "upscale", "rot": "Upscale (FOHB)", "ref": 1117, "mn": 1117, "mx": 1117}], "hospPadrao": "media", "janela": null, "eventos": [["2026-12-28", "2027-01-02", "", "Sua viagem pega o Réveillon de Copacabana", "A ocupação hoteleira da virada foi de <b>90,58%</b> na última medição. <b>Não existe diária publicada só da noite do Réveillon</b> — a média de dezembro (R$ 732) dilui a virada em 31 dias e a subestima. A conta abaixo usa a diária normal."], ["2027-02-05", "2027-02-10", "", "Sua viagem pega o Carnaval", "No Carnaval de 2026 a diária média do mês foi a <b>R$ 1.312</b> e a noite de pico a <b>R$ 2.657</b>, contra R$ 610 de média anual. <b>A conta abaixo não embute essa alta.</b> Se a data for flexível, sair desta semana é a maior economia possível na viagem."]]}</script>
+</section>
+<section class="bloco"><div class="tabwrap"><table class="tab-ficha"><thead><tr><th>Item</th><th>Valor</th><th>Observação</th></tr></thead><tbody><tr data-tipo="ingresso" data-v="87.0000"><td>Cristo Redentor</td><td class="n">R$ 87</td><td>Van oficial saindo das Paineiras; R$ 132 de Copacabana</td></tr><tr data-tipo="ingresso" data-v="205.0000"><td>Pão de Açúcar</td><td class="n">R$ 205</td><td>Inteira; R$ 89 morando no Rio de Janeiro</td></tr><tr data-tipo="ingresso" data-v="115.0000"><td>Maracanã</td><td class="n">R$ 115</td><td>Tour; horário muda em dia de jogo</td></tr><tr data-tipo="ingresso" data-v="40.0000"><td>Jardim Botânico</td><td class="n">R$ 40</td><td>Residente no Brasil; R$ 80 estrangeiro</td></tr><tr data-tipo="ingresso" data-v="40.0000"><td>Museu do Amanhã</td><td class="n">R$ 40</td><td>R$ 10 todo dia 10; grátis em feriado nacional</td></tr><tr data-tipo="ingresso" data-v="20.0000"><td>MAR — Museu de Arte do Rio</td><td class="n">R$ 20</td><td>Terça é grátis para todos</td></tr><tr data-tipo="ingresso" data-v="20.0000"><td>Theatro Municipal</td><td class="n">R$ 20</td><td>Visita guiada; só na bilheteria, no dia</td></tr><tr data-tipo="ingresso" data-v="20.0000"><td>Bonde de Santa Teresa</td><td class="n">R$ 20</td><td>Ida e volta no mesmo dia; passa sobre os Arcos</td></tr><tr data-tipo="dia" data-v="15.8000" data-rot="Metrô, {d} dias"><td>Metrô, 6 dias</td><td class="n">R$ 95</td><td>R$ 7,90 a viagem, duas por dia. Não existe passe diário nem turístico no Rio</td></tr><tr data-tipo="fixo" data-v="4.0000"><td>Cartão Giro do metrô</td><td class="n">R$ 4</td><td>Depósito do cartão, cobrado uma vez</td></tr><tr data-tipo="hosp"><td>Hospedagem, 5 noites</td><td class="n">R$ 3.050</td><td>Média da cidade (ADR), R$ 610 a diária</td></tr></tbody><tfoot><tr><td class="tot-rot">Total por pessoa</td><td class="n tot-val">R$ 3.696</td><td class="tot-dia">R$ 616 por pessoa por dia</td></tr></tfoot></table></div>
+<p style="color:var(--nevoa);font-size:.92rem">Oito dos dezesseis pontos não cobram entrada: Vista Chinesa, Parque Lage, Copacabana, Ipanema e o Arpoador, Floresta da Tijuca, Real Gabinete Português de Leitura, Escadaria Selarón e os Arcos da Lapa. <b>Não inclui passagem aérea, alimentação nem seguro</b> — é o custo de fazer Rio de Janeiro, não o de chegar nela.</p>
+<p style="color:var(--nevoa);font-size:.92rem">Fontes: MetrôRio (tarifa) e as fichas dos 16 pontos, apuradas em 13 de setembro de 2026. Hospedagem: FOHB/HotelInvest, Panorama da Hotelaria Brasileira, 20ª edição, ano de 2025.</p>
+<div class="paginas"><a class="pg" href="../destinos/rio-de-janeiro/">Os 16 pontos de Rio de Janeiro, com preço, horário e fonte</a></div></section>
+</div><div class="ficha-calc" data-cidade="lisboa" hidden>
+
+<section class="bloco" id="calculadora">
+  <div class="bloco-head">
+    <span class="eyebrow">Calculadora</span>
+    <h2>Faça a conta da <em style="font-style:normal;color:var(--ambar)">sua</em> viagem</h2>
+    <p>A tabela abaixo é a nossa apuração: 6 dias, 1 pessoa.
+       Mude as datas, o número de pessoas e a categoria de hospedagem, desmarque o que
+       você não vai fazer, e a conta se refaz na hora.</p>
+  </div>
+
+  <div class="calc" hidden>
+    <span class="t">Sua viagem</span>
+    <div class="calc-ctrl">
+      <label>Chegada
+        <input type="date" class="c-ida" value="2026-11-10" min="2026-09-14" max="2028-12-31"></label>
+      <label>Volta
+        <input type="date" class="c-volta" value="2026-11-15" min="2026-09-14" max="2028-12-31"></label>
+      <label>Pessoas
+        <input type="number" class="c-pes" min="1" max="8" step="1" value="1" inputmode="numeric"></label>
+      <label>Hospedagem
+        <select class="c-hosp"><option value="hostel">Cama em dormitório (amostra)</option><option value="economico">Hotel económico (amostra)</option><option value="alojamento">Alojamento local (amostra)</option><option value="media" selected>Média oficial (ADR)</option></select></label>
+    </div>
+    <p class="calc-dur c-dur"></p>
+    <div class="c-alertas"></div>
+    <p class="calc-nota">As noites saem das suas datas. Hospedagem por quarto, duas pessoas por quarto; dormitório de hostel é por pessoa. A média oficial é da <b>Grande Lisboa</b>, que inclui Sintra e Cascais — <b>não existe ADR publicado só do município de Lisboa</b>. Janeiro custou € 109,60 e julho € 154,60: a época pesa mais que a categoria. <b>A viagem de comboio até Sintra não está na conta</b>, porque não apuramos a tarifa. Os valores unitários são os apurados e estão na tabela
+       abaixo — <b style="color:var(--gelo)">o que muda aqui é só a aritmética, não a
+       fonte</b>. Linhas marcadas como não encontradas continuam fora da conta.</p>
+    <div class="painel res"></div>
+  </div>
+  <script type="application/json" class="calc-cfg">{"moeda": "€", "dec": 2, "dias": 6, "pessoas": 1, "hosp": [{"k": "hostel", "rot": "Cama em dormitório (amostra)", "ref": 25, "mn": 15, "mx": 35, "pessoa": true}, {"k": "economico", "rot": "Hotel económico (amostra)", "ref": 75, "mn": 50, "mx": 100}, {"k": "alojamento", "rot": "Alojamento local (amostra)", "ref": 118, "mn": 118, "mx": 118}, {"k": "media", "rot": "Média oficial (ADR)", "ref": 144.4, "mn": 109.6, "mx": 154.6}], "hospPadrao": "media", "janela": null, "eventos": []}</script>
+</section>
+<section class="bloco"><div class="tabwrap"><table class="tab-ficha"><thead><tr><th>Item</th><th>Valor</th><th>Observação</th></tr></thead><tbody><tr data-tipo="ingresso" data-v="18.0000"><td>Mosteiro dos Jerónimos</td><td class="n">€ 18,00</td><td>O mais caro da rede de monumentos nacionais</td></tr><tr data-tipo="ingresso" data-v="17.0000"><td>Castelo de São Jorge</td><td class="n">€ 17,00</td><td>Acabou a gratuidade para morador de Lisboa</td></tr><tr data-tipo="ingresso" data-v="16.0000"><td>Museu Calouste Gulbenkian</td><td class="n">€ 16,00</td><td>Reabriu em julho de 2026</td></tr><tr data-tipo="ingresso" data-v="15.0000"><td>Torre de Belém</td><td class="n">€ 15,00</td><td>Teto de 900 visitantes por dia</td></tr><tr data-tipo="ingresso" data-v="15.0000"><td>Museu Nacional dos Coches</td><td class="n">€ 15,00</td><td>Picadeiro Real fechado desde setembro de 2025</td></tr><tr data-tipo="ingresso" data-v="25.0000"><td>Oceanário de Lisboa</td><td class="n">€ 25,00</td><td>A partir de; vai a € 29 conforme a hora</td></tr><tr data-tipo="ingresso" data-v="20.0000"><td>Palácio Nacional da Pena</td><td class="n">€ 20,00</td><td>Hora marcada, sem tolerância de atraso</td></tr><tr data-tipo="ingresso" data-v="20.0000"><td>Quinta da Regaleira</td><td class="n">€ 20,00</td><td>Uma hora de tolerância no bilhete</td></tr><tr data-tipo="ingresso" data-v="12.0000"><td>Castelo dos Mouros</td><td class="n">€ 12,00</td><td>Sem hora marcada — o plano B da Pena</td></tr><tr data-tipo="ingresso" data-v="10.0000"><td>Padrão dos Descobrimentos</td><td class="n">€ 10,00</td><td>Completo; € 5 só a exposição</td></tr><tr data-tipo="ingresso" data-v="5.0000"><td>Farol do Cabo da Roca</td><td class="n">€ 5,00</td><td>Abriu em julho de 2026; o cabo em si é grátis</td></tr><tr data-tipo="dia" data-v="3.4400" data-rot="Transporte, {d} dias"><td>Transporte, 6 dias</td><td class="n">€ 20,64</td><td>Zapping a € 1,72 a viagem, duas por dia. <b>O elétrico 28 entra aqui</b> — pago a bordo custaria € 3,30</td></tr><tr data-tipo="taxa" data-noite="4.0000" data-teto="7" data-rot="Taxa municipal turística, {n}"><td>Taxa municipal turística, 5 noites</td><td class="n">€ 20,00</td><td>€ 4 por pessoa por noite, no máximo 7 noites. <b>Não vem no preço da reserva</b> — paga-se no alojamento</td></tr><tr data-tipo="fixo" data-v="0.5000"><td>Cartão Navegante Ocasional</td><td class="n">€ 0,50</td><td>Suporte físico, válido um ano, pago uma vez</td></tr><tr data-tipo="hosp"><td>Hospedagem, 5 noites</td><td class="n">€ 722,00</td><td>Média oficial (ADR), € 144,40 a diária</td></tr></tbody><tfoot><tr><td class="tot-rot">Total por pessoa</td><td class="n tot-val">€ 936,14</td><td class="tot-dia">€ 156 por pessoa por dia</td></tr></tfoot></table></div>
+<p style="color:var(--nevoa);font-size:.92rem">Quatro dos dezesseis pontos não cobram entrada: Praça do Comércio, os miradouros de Alfama, o Time Out Market e o Cabo da Roca. O Elevador de Santa Justa está fechado, sem data de reabertura, e por isso ficou fora da conta. <b>Não inclui passagem aérea, alimentação nem seguro</b> — é o custo de fazer Lisboa, não o de chegar nela.</p>
+<p style="color:var(--nevoa);font-size:.92rem">Fontes: Carris e Metropolitano de Lisboa (tarifário de 1 de janeiro de 2026) e as fichas dos 16 pontos, apuradas em 13 de setembro de 2026. Hospedagem: INE, série mensal de janeiro a julho de 2026.</p>
+<div class="paginas"><a class="pg" href="../destinos/lisboa/">Os 16 pontos de Lisboa, com preço, horário e fonte</a></div></section>
 </div>
-<script src="../assets/js/ficha.js?v=1643896d" defer></script>
+</div>
+<script src="../assets/js/ficha.js?v=0da5dc36" defer></script>
 </main>
 <footer class="rodape"><div class="wrap cols">
 <p><b>Preços verificados em 9 de setembro de 2026.</b> Cada página traz a data da própria apuração. Atrações com preço dinâmico podem variar conforme a data escolhida — reconfira no checkout.</p>

@@ -186,6 +186,16 @@
         tr.cells[0].textContent = (d * pd >= teto * Math.ceil(d / 7))
           ? "Metrô, teto semanal" : "Metrô, " + plural(d, "dia", "dias");
         tr.cells[1].textContent = moeda(mp);
+      } else if (t === "taxa") {
+        /* Taxa municipal por pessoa por noite, com teto de noites cobradas
+           (Lisboa: EUR 4, no maximo 7 noites). Nao entra no preco da reserva. */
+        var pn = parseFloat(tr.dataset.noite), tn = parseFloat(tr.dataset.teto);
+        var nc = isNaN(tn) ? noites : Math.min(noites, tn);
+        var st = pn * nc * p;
+        outros += st;
+        if (tr.dataset.rot) tr.cells[0].textContent =
+          tr.dataset.rot.replace("{n}", plural(nc, "noite", "noites"));
+        tr.cells[1].textContent = moeda(st);
       } else if (t === "pct") {
         pcts.push(tr);
       }
