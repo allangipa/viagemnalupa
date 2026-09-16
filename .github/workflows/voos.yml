@@ -7,6 +7,14 @@ on:
   schedule:
     - cron: "30 18 * * *"   # 18h30 UTC = 15h30 BRT, meia hora depois do cambio
   workflow_dispatch:         # botao para rodar na mao
+  # Gatilho de teste: roda quando o proprio coletor ou este arquivo mudam.
+  # Serve para validar o secret sem depender do botao do GitHub, que as
+  # vezes demora a aparecer em workflow recem-criado. Nao dispara em push
+  # de conteudo do site, so nestes dois caminhos.
+  push:
+    paths:
+      - ".github/workflows/voos.yml"
+      - "_build/voos/**"
 
 permissions:
   contents: write
