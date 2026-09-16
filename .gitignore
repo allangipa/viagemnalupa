@@ -11,3 +11,7 @@ client_secret*.json
 
 # Saídas de trabalho que não fazem parte do site
 Claude outputs/
+
+# Cache do Python, criado ao rodar os geradores
+__pycache__/
+*.pyc
