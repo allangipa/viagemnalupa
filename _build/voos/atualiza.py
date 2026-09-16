@@ -55,7 +55,18 @@ CIAS = {
     "SQ": "Singapore", "ET": "Ethiopian", "MS": "EgyptAir", "SU": "Aeroflot",
 }
 
-MARCADOR = "775563"   # marcador de afiliado; e publico por natureza
+# Marcador de afiliado. E publico por natureza - nao e segredo, ao
+# contrario do token da API.
+#
+# VERIFICADO resolvendo um link gerado pela propria ferramenta deles:
+# https://aviasales.tp.st/... aterrissa em
+# https://www.aviasales.com/?marker=775563.<subid>
+# Ou seja: o parametro e "marker" e o ID da conta e 775563.
+#
+# O sufixo depois do ponto e o SUB-ID, que serve para separar a origem do
+# clique nos relatorios. Usamos um sub-id por destino, para o painel
+# mostrar qual ficha converte - em vez de um numero unico e cego.
+MARCADOR = "775563"
 
 
 def companhia(cod):
@@ -113,7 +124,7 @@ def por_extenso(iso):
         return iso[:10]
 
 
-def bloco(nome, v, hoje):
+def bloco(nome, v, hoje, subid):
     if v is None:
         return ('<!-- voo:inicio -->\n'
                 '<section class="bloco" id="voo">\n'
@@ -166,7 +177,9 @@ def bloco(nome, v, hoje):
     caminho = v.get("link") or ""
     if caminho:
         sep = "&" if "?" in caminho else "?"
-        url = "https://www.aviasales.com" + caminho + sep + "marker=" + MARCADOR
+        # sub-id por destino: no relatorio aparece qual ficha gerou o clique
+        url = ("https://www.aviasales.com" + caminho + sep +
+               "marker=" + MARCADOR + "." + subid)
         txt_link = ('  <div class="reserva"><div class="reserva-topo">'
                     '<h3>Ver esta rota com as suas datas</h3>'
                     '<p>O preço acima é do cache. Para ver o valor das <b>suas</b> datas, a busca '
@@ -229,7 +242,7 @@ def main():
                      v.get("airline"), (v.get("departure_at") or "")[:10]))
 
         html = io.open(caminho, encoding="utf-8").read()
-        novo_bloco = bloco(nome, v, hoje)
+        novo_bloco = bloco(nome, v, hoje, 'vnl-' + slug)
 
         if marcado.search(html):
             html = marcado.sub(lambda _: novo_bloco, html)
