@@ -163,6 +163,27 @@ def confere_contadores(real):
                 anota("%s: cartao de %s diz %d dias, o roteiro descreve %d"
                       % (idx, rotulo, n, dias))
 
+    # 1c. O placar da home: "Pontos apurados". Ja esteve em 86 quando eram
+    # 101 - era a conta de antes de Montevideu e Orlando entrarem. E o
+    # numero mais visivel do site, o primeiro que o leitor ve.
+    print()
+    print("=== placar da home ===")
+    soma = sum(real.values())
+    ph = os.path.join(RAIZ, "index.html")
+    if os.path.isfile(ph):
+        h = le(ph)
+        m = re.search(r'<span class="r">Pontos apurados</span>'
+                      r'<span class="v">(\d+)</span>', h)
+        if m:
+            diz = int(m.group(1))
+            print("   pontos apurados: diz %d  real %d  %s"
+                  % (diz, soma, "ok" if diz == soma else "<<<"))
+            if diz != soma:
+                anota("index.html: o placar diz %d pontos apurados, somam %d"
+                      % (diz, soma))
+        else:
+            print("   (placar nao encontrado - o formato mudou?)")
+
     # 2. numero de destinos que o site diz ter.
     #
     # So conta a frase que declara o acervo inteiro. "Rio, Lisboa, Nova York

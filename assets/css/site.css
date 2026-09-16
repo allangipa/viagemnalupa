@@ -628,3 +628,70 @@ figure.foto img{border-radius:var(--raio-s)}
   .sv-quadro{aspect-ratio:4/3}
   .sv-topo h4{font-size:.98rem}
 }
+
+/* =================================================================
+   O QUE ABRE
+   A ficha de Lisboa media 111,9 telas de rolagem no celular. Não por
+   excesso de assunto: 36,5 telas eram os 64 campos de fundo espalhados
+   pelos 16 pontos — visitação, curiosidades, fatos históricos. É o que
+   dá autoridade à página e não sai; é também o que ninguém lê enquanto
+   procura quanto custa o Jerónimos. Então fica, atrás de um clique.
+   <details> é do próprio HTML: funciona sem JavaScript, o buscador
+   continua lendo o que está dentro, e o Ctrl+F do navegador abre
+   sozinho o bloco fechado.
+   ================================================================= */
+
+/* --- avisos: o título já afirma a conclusão, o corpo é a prova --- */
+details.aviso{display:block}
+details.aviso>summary{cursor:pointer; list-style:none; display:flex;
+  align-items:flex-start; gap:.7rem;
+  font-family:"Archivo",system-ui,-apple-system,sans-serif;
+  font-size:.95rem; font-weight:600; line-height:1.4; letter-spacing:0;
+  text-transform:none}
+details.aviso>summary::-webkit-details-marker{display:none}
+/* o sinal fica no fim da linha, alinhado à direita, e não some no wrap */
+details.aviso>summary::after{content:"+"; margin-left:auto; flex:0 0 auto;
+  font-family:"IBM Plex Mono",monospace; font-size:1.15rem; line-height:1.2;
+  opacity:.6}
+details.aviso[open]>summary::after{content:"\2212"}
+details.aviso>summary:hover{text-decoration:underline}
+details.aviso>summary:focus-visible{outline:2px solid var(--ambar);
+  outline-offset:3px}
+details.aviso>*:not(summary){margin-top:.55rem}
+
+/* --- o fundo de cada ponto, ao pé dos campos --- */
+details.fundo{border-top:1px solid var(--rule)}
+details.fundo>summary{cursor:pointer; list-style:none; padding:.75rem 0;
+  font-family:"IBM Plex Mono",monospace; font-size:.7rem; letter-spacing:.16em;
+  text-transform:uppercase; color:var(--nevoa);
+  display:flex; align-items:center; gap:.6rem}
+details.fundo>summary::-webkit-details-marker{display:none}
+details.fundo>summary::after{content:"+"; margin-left:auto; flex:0 0 auto;
+  font-size:1.05rem; opacity:.7}
+details.fundo[open]>summary::after{content:"\2212"}
+details.fundo>summary:hover{color:var(--ambar)}
+details.fundo>summary:focus-visible{outline:2px solid var(--ambar);
+  outline-offset:2px}
+details.fundo .campo-l:first-of-type{border-top:0}
+details.fundo .conta{font-family:"IBM Plex Mono",monospace; letter-spacing:.1em;
+  opacity:.6}
+
+/* --- o índice, que agora abre a página --- */
+/* Só gruda onde há altura para isso. Num celular deitado, um índice
+   preso ao topo come metade da tela e atrapalha mais do que ajuda. */
+@media (min-width:1080px) and (min-height:720px){
+  .idx-fixo{position:sticky; top:1rem; z-index:5}
+}
+.idx-atalho{display:flex; gap:.5rem; flex-wrap:wrap; margin-top:1rem;
+  padding-top:.9rem; border-top:1px solid var(--rule)}
+.idx-atalho a{font-family:"IBM Plex Mono",monospace; font-size:.72rem;
+  letter-spacing:.1em; text-transform:uppercase; padding:.4rem .75rem;
+  border:1px solid var(--rule); color:var(--nevoa)}
+.idx-atalho a:hover{border-color:var(--ambar); color:var(--ambar);
+  text-decoration:none}
+.idx-atalho a:focus-visible{outline:2px solid var(--ambar); outline-offset:2px}
+
+/* Quem pediu menos movimento não deve ganhar animação de abertura. */
+@media (prefers-reduced-motion:reduce){
+  details.aviso, details.fundo{transition:none}
+}
