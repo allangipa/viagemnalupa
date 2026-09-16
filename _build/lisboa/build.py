@@ -123,7 +123,7 @@ HEAD = """<!doctype html>
 
 FOOT = """<section class="bloco">
   <div class="bloco-head"><span class="eyebrow">Continue</span><h2>As outras páginas de Lisboa</h2></div>
-  <div class="breve"><span class="bv">Quanto custa 5 dias em Lisboa — em apuração</span><span class="bv">Roteiro dia a dia — em apuração</span></div>
+  <div class="paginas"> <a class="pg" href="quanto-custa/">Quanto custa 6 dias em Lisboa</a> <a class="pg" href="roteiro-6-dias/">Roteiro de 6 dias, dia a dia</a> </div>
 </section>
 </div>
 </main>
