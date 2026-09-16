@@ -9,7 +9,7 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
 # Hostinger, então _build/ e .github/ ficariam acessíveis por URL direta —
 # e ficavam: /_build/lisboa/build.py devolvia 200. Sem segredo hoje, mas é
 # onde uma chave de API acabaria morando amanhã.
-RewriteRule ^(_build|\.github)/ - [F,L]
+RewriteRule ^(_build|\.github|\.claude)/ - [F,L]
 
 # canônico SEM www: www.viagemnalupa.com.br -> viagemnalupa.com.br
 RewriteCond %{HTTP_HOST} ^www\.viagemnalupa\.com\.br$ [NC]

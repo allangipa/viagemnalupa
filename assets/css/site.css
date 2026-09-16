@@ -676,14 +676,42 @@ details.fundo .campo-l:first-of-type{border-top:0}
 details.fundo .conta{font-family:"IBM Plex Mono",monospace; letter-spacing:.1em;
   opacity:.6}
 
-/* --- o índice, que agora abre a página --- */
-/* Aqui houve um índice grudado ao topo (position:sticky) e ele quebrou a
-   página no ar: o bloco é transparente, tem 606px — 76% de uma tela de
-   800 — e o pai dele tem 38.518px, então grudava pela página inteira com
-   todo o conteúdo passando por trás. Dava salada de texto sob o menu.
-   Não é caso de pintar um fundo: um índice de 76% da tela não pode ficar
-   preso, pintado ou não. Um atalho fixo teria de ser uma barra fina e
-   própria, não este bloco. Fica para quando for feito direito. */
+/* =================================================================
+   O ÍNDICE AO LADO
+   Uma primeira tentativa grudou este índice no topo sendo ele de largura
+   inteira. Quebrou a página no ar: bloco transparente de 606px — 76% de
+   uma tela de 800 — preso por 38.518px, com todo o conteúdo desfilando
+   por trás. Salada de texto sob o menu.
+   O erro não era a transparência nem o sticky: era não haver segunda
+   coluna. A viajenaviagem.com faz isto direito e foi de lá que veio a
+   correção — o menu fixo deles também é transparente, mas mora num
+   <aside> ao lado, então nada passa atrás.
+   Só a partir de 1080px de largura E 720px de altura. No celular vira
+   uma coluna só e tudo fica exatamente como era.
+   ================================================================= */
+.com-lateral{display:block}
+@media (min-width:1080px) and (min-height:720px){
+  .com-lateral{display:grid; grid-template-columns:16rem minmax(0,1fr);
+    gap:clamp(1.5rem,2.5vw,2.75rem); align-items:start}
+  .lateral{position:sticky; top:1rem;
+    /* nunca mais alto que a tela: o que não couber rola aqui dentro,
+       em vez de transbordar por cima do que vem depois */
+    max-height:calc(100vh - 2rem); overflow-y:auto; overscroll-behavior:contain}
+  .lateral .bloco{margin:0}
+  /* dentro de 16rem não cabe grade de colunas: vira lista */
+  .lateral .idx-cols{grid-template-columns:1fr; gap:.9rem}
+  .lateral .idx-item{padding:.28rem 0}
+  .lateral .idx-nome{font-size:.86rem}
+  .lateral .bloco-head h2{font-size:1.15rem}
+  .lateral .idx-atalho{display:none}   /* redundante ao lado da lista */
+  .miolo{min-width:0}                  /* deixa a tabela larga rolar sozinha */
+}
+/* Barra fina de rolagem, para o índice não parecer uma janela dentro da
+   página quando a lista não couber. */
+.lateral{scrollbar-width:thin}
+.lateral::-webkit-scrollbar{width:6px}
+.lateral::-webkit-scrollbar-thumb{background:var(--rule); border-radius:3px}
+
 .idx-atalho{display:flex; gap:.5rem; flex-wrap:wrap; margin-top:1rem;
   padding-top:.9rem; border-top:1px solid var(--rule)}
 .idx-atalho a{font-family:"IBM Plex Mono",monospace; font-size:.72rem;

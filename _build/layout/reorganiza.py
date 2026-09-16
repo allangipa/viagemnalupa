@@ -225,6 +225,53 @@ def sobe_indice(html):
     return sem[:corte] + indice + sem[corte:], True
 
 
+def envolve_lateral(html):
+    """Poe o indice numa coluna propria, ao lado dos grupos.
+
+    Este e o passo que a primeira tentativa errou. Grudar o indice no topo
+    sendo ele de largura inteira faz o conteudo desfilar por tras - e ele e
+    transparente, entao da salada de texto. A viajenaviagem.com resolve
+    isso do jeito certo e foi de la que veio a ideia: o menu fixo deles
+    tambem e transparente, mas vive dentro de um <aside> numa segunda
+    coluna, entao nada passa atras.
+
+    Estrutura resultante:
+
+        <div class="com-lateral">
+          <aside class="lateral">  indice  </aside>
+          <div class="miolo">  avisos + grupos + pontos  </div>
+        </div>
+
+    O indice fica ANTES no HTML, entao no celular - onde isto vira uma
+    coluna so - a ordem de leitura continua a de hoje: indice, avisos,
+    pontos. Nada muda no telefone.
+    """
+    if 'class="com-lateral"' in html:
+        return html, False
+
+    m_idx = re.search(
+        r'<section class="bloco">\s*<div class="bloco-head">'
+        r'.*?<div class="idx-cols">.*?</section>', html, re.S)
+    if not m_idx:
+        return html, False               # ficha sem indice: nada a fazer
+
+    grupos = list(re.finditer(
+        r'<section class="grupo"[^>]*>.*?</section>', html, re.S))
+    if not grupos:
+        return html, False
+    fim = grupos[-1].end()
+    if fim <= m_idx.end():
+        return html, False               # ordem inesperada: nao mexe
+
+    indice = m_idx.group(0)
+    miolo = html[m_idx.end():fim]
+    novo = ('<div class="com-lateral">'
+            '<aside class="lateral">%s</aside>'
+            '<div class="miolo">%s</div>'
+            '</div>' % (indice, miolo))
+    return html[:m_idx.start()] + novo + html[fim:], True
+
+
 def ancora_grupos(html):
     if re.search(r'<section class="grupo" id="g\d+">', html):
         return html, 0
@@ -248,12 +295,14 @@ def uma_ficha(slug, aplica):
     h, n_av = avisos_em_details(h)
     h, n_pt = reorganiza_campos(h)
     h, n_gr = ancora_grupos(h)
+    h, lado = envolve_lateral(h)
 
     if h == h0:
         print("  %-16s nada a fazer (ja reorganizada)" % slug)
         return False
-    print("  %-16s indice%s  avisos:%d  pontos:%d  grupos:%d"
-          % (slug, " sobe" if subiu else " ja", n_av, n_pt, n_gr))
+    print("  %-16s indice%s  avisos:%d  pontos:%d  grupos:%d  lateral:%s"
+          % (slug, " sobe" if subiu else " ja", n_av, n_pt, n_gr,
+             "sim" if lado else "nao"))
     if aplica:
         escreve(p, h)
     return True
