@@ -239,23 +239,44 @@
     if (totRot) {
       totRot.textContent = p === 1 ? "Total por pessoa"
                                    : "Total do grupo, " + plural(p, "pessoa", "pessoas");
-      totVal.textContent = moeda(total);
-      totDia.textContent = m0(total / p / d) + " por pessoa por dia";
+      /* Sem centavos: quando três quartos do total é estimativa, exibir
+         "936,14" promete uma exatidão que a conta não tem. */
+      totVal.textContent = m0(total);
+      totDia.innerHTML = m0(total / p / d) + " por pessoa por dia<br>" +
+        '<span style="opacity:.72">' + m0(total - hRef) + " de tarifa publicada · " +
+        m0(hRef) + " de estimativa de hospedagem</span>";
     }
 
+    /* Faixa de valor único repetiria a célula da estimativa. Nesse caso a
+       quarta célula vira o por-pessoa, que é informação nova. */
     var faixa = (Math.round(tMin) === Math.round(tMax))
-      ? ["Hospedagem", m0(hRef), "Esta categoria tem valor único apurado, sem faixa observada."]
+      ? ["Por pessoa", m0(total / p),
+         "Esta categoria de hospedagem tem <b>valor único apurado</b>, sem faixa " +
+         "observada — por isso não há intervalo a mostrar."]
       : ["Faixa da hospedagem", m0(tMin) + "–" + num0(tMax),
          "A diária observada varia entre " + m0(h.mn) + " e " + m0(h.mx) +
-         ". Este é o total do grupo nos dois extremos."];
+         ". <b>Esta faixa cobre a variação ao longo do ano</b>, não a diferença " +
+         "entre uma propriedade e outra na mesma noite — essa é maior."];
+
+    /* Duas naturezas de número, e a ficha não pode exibir as duas com a
+       mesma autoridade. Ingresso, transporte e taxa são TARIFA PUBLICADA:
+       quem for, paga exatamente aquilo. Hospedagem é ESTIMATIVA: é amostra
+       de uma distribuição que muda por data e por propriedade, e costuma
+       ser 75% a 85% do total. Exibir "R$ 3.696" sem essa distinção é dar
+       precisão falsa ao número menos confiável da conta. */
+    var publicado = total - hRef;
+    var fatia = Math.round(hRef / total * 100);
 
     cRes.innerHTML =
       cel("Total do grupo", m0(total), plural(d, "dia", "dias") + " · " +
-          plural(p, "pessoa", "pessoas") + " · " + plural(noites, "noite", "noites") + " de hospedagem", "") +
-      cel("Por pessoa", m0(total / p), "Hospedagem " + m0(hRef / p) +
-          " · o resto " + m0((total - hRef) / p), "c") +
-      cel("Por pessoa por dia", m0(total / p / d),
-          "Só o que está nesta ficha. O que não foi apurado continua de fora.", "") +
+          plural(p, "pessoa", "pessoas") + " · " + plural(noites, "noite", "noites") +
+          " de hospedagem · " + m0(total / p / d) + " por pessoa por dia", "") +
+      cel("Tarifa publicada", m0(publicado),
+          "Ingressos, transporte e taxas. <b>Valor exato</b> — é o que está na " +
+          "bilheteria e no tarifário, com a data da apuração.", "") +
+      cel("Estimativa de mercado", m0(hRef),
+          "Só a hospedagem, e <b>" + fatia + "% do total</b>. Não existe " +
+          "“o preço”: muda por data, por antecedência e por propriedade.", "c") +
       cel(faixa[0], faixa[1], faixa[2], "c");
 
     levarViagem();
