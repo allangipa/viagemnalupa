@@ -41,6 +41,28 @@ DESTINOS = {
 MESES = ("janeiro fevereiro março abril maio junho julho agosto setembro "
          "outubro novembro dezembro").split()
 
+# A API devolve o codigo IATA de duas letras da companhia. "pela AT" nao
+# diz nada a ninguem, entao traduzimos o que aparece com frequencia nas
+# rotas deste site e caimos no proprio codigo quando nao conhecemos.
+CIAS = {
+    "AD": "Azul", "G3": "Gol", "JJ": "LATAM", "LA": "LATAM", "O6": "Avianca",
+    "AV": "Avianca", "CM": "Copa", "AR": "Aerolíneas Argentinas", "H2": "Sky Airline",
+    "JA": "JetSmart", "WJ": "JetSmart", "AA": "American", "UA": "United", "DL": "Delta",
+    "TP": "TAP", "IB": "Iberia", "UX": "Air Europa", "AF": "Air France", "KL": "KLM",
+    "LH": "Lufthansa", "AZ": "ITA Airways", "TK": "Turkish", "EK": "Emirates",
+    "QR": "Qatar", "AT": "Royal Air Maroc", "DM": "Arajet", "B6": "JetBlue",
+    "F9": "Frontier", "NK": "Spirit", "WN": "Southwest", "AC": "Air Canada",
+    "SQ": "Singapore", "ET": "Ethiopian", "MS": "EgyptAir", "SU": "Aeroflot",
+}
+
+MARCADOR = "775563"   # marcador de afiliado; e publico por natureza
+
+
+def companhia(cod):
+    if not cod:
+        return None, None
+    return CIAS.get(cod), cod
+
 
 def token():
     t = os.environ.get("AVIASALES_TOKEN", "").strip()
@@ -102,13 +124,62 @@ def bloco(nome, v, hoje):
                 'procurado. Voltamos a consultar todo dia, e o valor aparece aqui quando existir.</p>\n'
                 '</section>\n<!-- voo:fim -->' % nome)
 
-    escalas = v.get("transfers")
-    txt_escalas = ("sem escala" if escalas == 0 else
-                   "1 escala" if escalas == 1 else "%s escalas" % escalas)
-    dur = v.get("duration")
+    # A API separa ida e volta: "transfers" e SO da ida, e "return_transfers"
+    # da volta. Ler so o primeiro faz anunciar "sem escala" um voo cuja volta
+    # para noutro pais - foi o que quase aconteceu com Montevideu.
+    def conta(n):
+        if n == 0:
+            return "sem escala"
+        if n == 1:
+            return "1 escala"
+        return "%s escalas" % n
+
+    ida, volta = v.get("transfers"), v.get("return_transfers")
+    if ida == volta:
+        txt_escalas = "%s nos dois trechos" % conta(ida) if ida == 0 else \
+                      "%s em cada trecho" % conta(ida)
+    else:
+        txt_escalas = "ida %s, volta com %s" % (conta(ida), conta(volta))
+
+    nome_cia, cod_cia = companhia(v.get("airline"))
+    if nome_cia:
+        txt_cia = "pela <b>%s</b>" % nome_cia
+    elif cod_cia:
+        txt_cia = "pela companhia de código <b>%s</b>" % cod_cia
+    else:
+        txt_cia = "companhia não informada"
+
+    # Usamos duration_to e duration_back, que a documentacao define como o
+    # tempo de cada voo. O campo "duration" devolve um numero que nao e a
+    # soma dos dois e que nao conseguimos explicar - entao nao exibimos.
+    def hm(m):
+        return "%dh%02d" % (m // 60, m % 60)
+
+    dt, db = v.get("duration_to"), v.get("duration_back")
     txt_dur = ""
-    if dur:
-        txt_dur = " Duração total de ida e volta: <b>%dh%02d</b>." % (dur // 60, dur % 60)
+    if dt and db:
+        txt_dur = " <b>%s</b> na ida e <b>%s</b> na volta." % (hm(dt), hm(db))
+    elif dt:
+        txt_dur = " <b>%s</b> na ida." % hm(dt)
+
+    # o campo link vem como caminho relativo; o marcador faz a atribuicao
+    caminho = v.get("link") or ""
+    if caminho:
+        sep = "&" if "?" in caminho else "?"
+        url = "https://www.aviasales.com" + caminho + sep + "marker=" + MARCADOR
+        txt_link = ('  <div class="reserva"><div class="reserva-topo">'
+                    '<h3>Ver esta rota com as suas datas</h3>'
+                    '<p>O preço acima é do cache. Para ver o valor das <b>suas</b> datas, a busca '
+                    'é aqui. <b>Este link dá comissão ao site</b>, e você paga o mesmo preço. '
+                    '<a href="../../../sobre/">Como isso funciona</a>.</p></div>'
+                    '<div class="reserva-lista"><a class="parceiro" href="%s" target="_blank" '
+                    'rel="noopener sponsored"><span class="p-nome">Aviasales'
+                    '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true">'
+                    '<path d="M7 17 L17 7 M9 7h8v8" stroke="currentColor" stroke-width="2" '
+                    'stroke-linecap="round" stroke-linejoin="round"></path></svg></span>'
+                    '<span class="p-nota">passagens aéreas</span></a></div></div>\n') % url
+    else:
+        txt_link = ""
 
     return ('<!-- voo:inicio -->\n'
             '<section class="bloco" id="voo">\n'
@@ -117,20 +188,24 @@ def bloco(nome, v, hoje):
             'e costuma ser, junto com a hospedagem, o maior gasto da viagem. Então aqui está a '
             'referência que conseguimos, separada do total:</p>\n'
             '  <div class="painel"><div class="pcel"><span class="rotp">São Paulo → %s</span>'
-            '<span class="big c">%s</span><span class="sub">Ida e volta, %s, pela %s.%s</span></div></div>\n'
+            '<span class="big c">%s</span><span class="sub">Ida e volta %s — %s.%s</span></div></div>\n'
             '  <div class="aviso a"><span class="t">Leia o que este número é, e o que ele não é</span>'
             '<p><b>Não é uma cotação.</b> É o menor preço que <b>usuários reais encontraram nas '
             'últimas 48 horas</b> buscando essa rota, guardado em cache. Quando você buscar, o valor '
             'pode estar diferente — para mais ou para menos.</p>'
+            '<p><b>A data de partida abaixo não é recomendação nossa</b> — é simplesmente o dia em que '
+            'a passagem mais barata foi encontrada. Preço de voo depende tanto da data que ele diz '
+            'mais sobre o calendário do que sobre a rota.</p>'
             '<p><b>A origem é São Paulo</b>, que é o maior aeroporto emissor do país. Saindo de outra '
             'cidade, a conta muda, e às vezes muito.</p>'
             '<p><b>Por isso ele não entra no total da ficha.</b> O total soma tarifa publicada e '
             'estimativa de hospedagem; preço de passagem não é nem uma coisa nem outra.</p></div>\n'
+            '%s'
             '  <p style="color:var(--nevoa);font-size:.92rem">Consultado em <b>%s</b>. '
-            'Partida em <b>%s</b>.</p>\n'
+            'A passagem mais barata do cache partia em <b>%s</b>.</p>\n'
             '</section>\n<!-- voo:fim -->'
-            % (nome, brl(v["price"]), txt_escalas, v.get("airline") or "companhia não informada",
-               txt_dur, por_extenso(hoje), por_extenso(v.get("departure_at", ""))))
+            % (nome, brl(v["price"]), txt_cia, txt_escalas, txt_dur, txt_link,
+               por_extenso(hoje), por_extenso(v.get("departure_at", ""))))
 
 
 def main():
@@ -149,9 +224,9 @@ def main():
         if erro:
             print("  %-16s %s" % (slug, erro))
         else:
-            print("  %-16s %s  %s escalas  %s  partida %s"
-                  % (slug, brl(v["price"]), v.get("transfers"), v.get("airline"),
-                     (v.get("departure_at") or "")[:10]))
+            print("  %-16s %-10s ida %s / volta %s escala(s)  %-4s  partida %s"
+                  % (slug, brl(v["price"]), v.get("transfers"), v.get("return_transfers"),
+                     v.get("airline"), (v.get("departure_at") or "")[:10]))
 
         html = io.open(caminho, encoding="utf-8").read()
         novo_bloco = bloco(nome, v, hoje)
