@@ -37,6 +37,11 @@ EXTENSO = {"um": 1, "dois": 2, "tres": 3, "três": 3, "quatro": 4, "cinco": 5,
            "dezesseis": 16, "dezessete": 17, "dezoito": 18, "dezenove": 19,
            "vinte": 20}
 
+# Tipos que descendem de CreativeWork e portanto aceitam inLanguage.
+# Qualquer outro que a traga esta errado - ver a anotacao no confere_schema.
+SO_CRIATIVO = {"WebPage", "WebSite", "WebApplication", "Article",
+               "NewsArticle", "BlogPosting", "CreativeWork", "SoftwareApplication"}
+
 PROBLEMAS = []
 
 
@@ -293,6 +298,13 @@ def confere_schema():
                 tipos[t] = tipos.get(t, 0) + 1
                 if "@context" not in x:
                     anota("%s: bloco %s sem @context" % (rel, t))
+                # inLanguage e de CreativeWork. Posta num Place ou num
+                # Intangible, o validador do schema.org avisa. Ja aconteceu:
+                # os blocos originais de Lisboa e do Rio traziam isso e o
+                # gerador copiou para mais dez antes de alguem reparar.
+                if "inLanguage" in x and t not in SO_CRIATIVO:
+                    anota("%s: %s nao aceita inLanguage (e de CreativeWork)"
+                          % (rel, t))
             anda(o, rel)
         (com if achou else sem).append(rel)
 

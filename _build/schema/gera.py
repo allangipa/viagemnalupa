@@ -189,12 +189,15 @@ def main(aplica):
         url_d = "%s/destinos/%s/" % (SITE, slug)
 
         if "TouristDestination" not in tem:
+            # Sem inLanguage: e propriedade de CreativeWork, e
+            # TouristDestination herda de Place. O validador do schema.org
+            # avisa. O idioma ja esta no lang="pt-BR" do <html>, que e onde
+            # vale para um lugar.
             d = {
                 "@context": "https://schema.org",
                 "@type": "TouristDestination",
                 "name": nome,
                 "url": url_d,
-                "inLanguage": "pt-BR",
             }
             desc = campo(htm, r'<meta name="description" content="([^"]*)"')
             if desc:
@@ -255,12 +258,13 @@ def main(aplica):
             if sub.startswith("roteiro") and "TouristTrip" not in tem2:
                 dias = [texto(m.group(1))
                         for m in re.finditer(r"<h3[^>]*>(.*?)</h3>", h2, re.S)]
+                # Sem inLanguage, pelo mesmo motivo: TouristTrip herda de
+                # Intangible, que tambem nao tem essa propriedade.
                 t = {
                     "@context": "https://schema.org",
                     "@type": "TouristTrip",
                     "name": h1,
                     "url": url_p,
-                    "inLanguage": "pt-BR",
                 }
                 if desc:
                     t["description"] = desc
