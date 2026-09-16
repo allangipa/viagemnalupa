@@ -5,6 +5,12 @@ RewriteEngine On
 RewriteCond %{HTTPS} !=on
 RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
 
+# bastidores não se servem. O repositório inteiro vira public_html na
+# Hostinger, então _build/ e .github/ ficariam acessíveis por URL direta —
+# e ficavam: /_build/lisboa/build.py devolvia 200. Sem segredo hoje, mas é
+# onde uma chave de API acabaria morando amanhã.
+RewriteRule ^(_build|\.github)/ - [F,L]
+
 # canônico SEM www: www.viagemnalupa.com.br -> viagemnalupa.com.br
 RewriteCond %{HTTP_HOST} ^www\.viagemnalupa\.com\.br$ [NC]
 RewriteRule ^(.*)$ https://viagemnalupa.com.br/$1 [R=301,L]

@@ -1,0 +1,40 @@
+name: Câmbio (PTAX do Banco Central)
+
+# A PTAX de fechamento sai por volta das 13h10 de Brasília. Rodamos às 15h,
+# com folga, em dia útil. O push na main dispara o auto-deploy da Hostinger.
+on:
+  schedule:
+    - cron: "0 18 * * 1-5"   # 18h UTC = 15h BRT
+  workflow_dispatch:          # e um botão para rodar na mão
+
+permissions:
+  contents: write
+
+concurrency:
+  group: cambio
+  cancel-in-progress: false
+
+jobs:
+  atualiza:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Buscar a PTAX e recalcular as conversões
+        run: python _build/cambio/atualiza.py
+
+      - name: Publicar, se algum número mudou
+        run: |
+          if [ -z "$(git status --porcelain)" ]; then
+            echo "Nenhuma conversão mudou hoje. Nada a publicar."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Câmbio: PTAX do dia"
+          git push
