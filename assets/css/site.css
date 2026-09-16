@@ -677,11 +677,13 @@ details.fundo .conta{font-family:"IBM Plex Mono",monospace; letter-spacing:.1em;
   opacity:.6}
 
 /* --- o índice, que agora abre a página --- */
-/* Só gruda onde há altura para isso. Num celular deitado, um índice
-   preso ao topo come metade da tela e atrapalha mais do que ajuda. */
-@media (min-width:1080px) and (min-height:720px){
-  .idx-fixo{position:sticky; top:1rem; z-index:5}
-}
+/* Aqui houve um índice grudado ao topo (position:sticky) e ele quebrou a
+   página no ar: o bloco é transparente, tem 606px — 76% de uma tela de
+   800 — e o pai dele tem 38.518px, então grudava pela página inteira com
+   todo o conteúdo passando por trás. Dava salada de texto sob o menu.
+   Não é caso de pintar um fundo: um índice de 76% da tela não pode ficar
+   preso, pintado ou não. Um atalho fixo teria de ser uma barra fina e
+   própria, não este bloco. Fica para quando for feito direito. */
 .idx-atalho{display:flex; gap:.5rem; flex-wrap:wrap; margin-top:1rem;
   padding-top:.9rem; border-top:1px solid var(--rule)}
 .idx-atalho a{font-family:"IBM Plex Mono",monospace; font-size:.72rem;

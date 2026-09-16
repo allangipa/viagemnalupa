@@ -174,9 +174,10 @@ def sobe_indice(html):
                           for i, g in enumerate(grupos, 1))
         indice = indice.replace("</section>",
                                 '<div class="idx-atalho">%s</div></section>' % atalhos, 1)
-    indice = indice.replace('<section class="bloco">',
-                            '<section class="bloco idx-fixo">', 1)
-
+    # Nao marcar como fixo. A primeira versao grudava o indice no topo com
+    # position:sticky e quebrou a pagina no ar: bloco transparente de 606px
+    # - 76% de uma tela de 800 - grudado por 38.518px, com o conteudo
+    # passando por tras. Um indice deste tamanho nao pode ficar preso.
     sem = html[:m_idx.start()] + html[m_idx.end():]
     corte = re.search(r'<section class="bloco"><div class="aviso', sem).start()
     return sem[:corte] + indice + sem[corte:], True
