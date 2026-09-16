@@ -51,15 +51,19 @@ if hasattr(sys.stdout, "buffer"):
 # nesta ordem: preco e fecho primeiro, porque sao os que decidem a visita.
 ABERTOS = [
     "Valor da entrada",
+    "Quando é barato e quando é caro",
     "Dias em que não funciona",
+    "Dias e horários",
     "Endereço",
     "Onde fica",
-    "Dias e horários",
+    # cada cidade chama o transporte do seu jeito, e os tres ocupam o
+    # mesmo lugar na leitura
     "Metrô mais próximo",
+    "Subte mais próximo",
+    "Como chegar",
+    "Estacionamento",
     "Pontos de referência",
     "Pontos turísticos próximos",
-    "Estacionamento",
-    "Quando é barato e quando é caro",
 ]
 # Leitura de fundo. Continua na pagina, atras de um clique.
 FUNDO = [
@@ -68,7 +72,10 @@ FUNDO = [
     "Curiosidades",
     "Fatos históricos",
 ]
-RESUMO_FUNDO = "Curiosidades, história e visitação"
+# Abaixo disto nao vale colapsar: o resumo ocupa quase o mesmo que o
+# campo e o leitor ganha um clique sem ganhar tela. Montevideu tem so
+# "Fatos historicos" de fundo em cada ponto - fica como esta.
+MINIMO_PARA_COLAPSAR = 2
 
 
 def le(p):
@@ -88,6 +95,29 @@ def so_texto(s):
 def fatia(txt, marca):
     pos = [m.start() for m in re.finditer(re.escape(marca), txt)]
     return [txt[a:b] for a, b in zip(pos, pos[1:] + [len(txt)])]
+
+
+def rotulo_do_fundo(rotulos):
+    """O resumo tem de dizer o que ha la dentro.
+
+    Quando estao os quatro campos, "Curiosidades, historia e visitacao"
+    resume bem e le melhor que a lista. Quando faltam campos, listar os
+    que existem e a unica forma de o rotulo continuar verdadeiro - um
+    resumo que promete curiosidades e so entrega historia e uma pequena
+    mentira repetida em cada ponto da pagina.
+    """
+    if set(rotulos) == set(FUNDO):
+        return "Curiosidades, história e visitação"
+    curto = {"Visitantes por ano": "visitação",
+             "Menor visitação e temperatura": "quando ir",
+             "Curiosidades": "curiosidades",
+             "Fatos históricos": "história"}
+    nomes = [curto.get(r, r.lower()) for r in rotulos]
+    if len(nomes) == 1:
+        miolo = nomes[0]
+    else:
+        miolo = ", ".join(nomes[:-1]) + " e " + nomes[-1]
+    return miolo[0].upper() + miolo[1:]
 
 
 # --------------------------------------------------------------- avisos
@@ -133,10 +163,11 @@ def reorganiza_campos(html):
             por_rotulo[rot] = c
             ordem.append(rot)
 
-        fundo = [por_rotulo[k] for k in FUNDO if k in por_rotulo]
-        if not fundo:
-            return m.group(0)               # nada a colapsar aqui
+        tem_fundo = [k for k in FUNDO if k in por_rotulo]
+        if len(tem_fundo) < MINIMO_PARA_COLAPSAR:
+            return m.group(0)               # nao compensa esconder
 
+        fundo = [por_rotulo[k] for k in tem_fundo]
         abertos = [por_rotulo[k] for k in ABERTOS if k in por_rotulo]
         conhecidos = set(ABERTOS) | set(FUNDO)
         # campo que este destino tem e os outros nao: mantem onde estava,
@@ -145,13 +176,24 @@ def reorganiza_campos(html):
 
         n[0] += 1
         resumo = ('<details class="fundo"><summary>%s '
-                  '<span class="conta">%d campos</span></summary>%s</details>'
-                  % (RESUMO_FUNDO, len(fundo), "".join(fundo)))
+                  '<span class="conta">%d %s</span></summary>%s</details>'
+                  % (rotulo_do_fundo(tem_fundo), len(fundo),
+                     "campo" if len(fundo) == 1 else "campos", "".join(fundo)))
         return ('<div class="campos">%s%s%s</div>'
                 % ("".join(abertos), "".join(sobra), resumo))
 
-    saida = re.sub(r'<div class="campos">(.*?)</div>\s*</article>',
-                   lambda m: um_bloco(m) + "</article>", html, flags=re.S)
+    # O </article> fica FORA do casamento, em lookahead.
+    #
+    # A primeira versao casava ".../div>\s*</article>" e o lambda
+    # recolocava o "</article>" na saida. Funcionava enquanto todo ponto
+    # era transformado - mas quando um_bloco desiste e devolve m.group(0),
+    # que ja termina em </article>, o lambda somava outro. Montevideu
+    # passou de 9 para 18 fechamentos e Orlando de 6 para 12, HTML
+    # invalido nas duas, justamente nas fichas que mandei pular.
+    # Com lookahead nao ha nada para recolocar, e o caso de desistir volta
+    # a ser inofensivo por construcao.
+    saida = re.sub(r'<div class="campos">(.*?)</div>(?=\s*</article>)',
+                   um_bloco, html, flags=re.S)
     return saida, n[0]
 
 

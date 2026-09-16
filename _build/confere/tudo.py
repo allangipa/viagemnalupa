@@ -299,6 +299,20 @@ def confere_schema():
             anota("%s: <head> desbalanceado" % rel)
         if ("tp-drive:inicio" in h) != ("tp-drive:fim" in h):
             anota("%s: marcador do Travelpayouts quebrado" % rel)
+        # Tag de bloco aberta e fechada em numero diferente.
+        #
+        # Entrou porque aconteceu: um script de reorganizacao duplicou o
+        # </article> de Montevideu (9 abriam, 18 fechavam) e de Orlando
+        # (6 e 12). HTML invalido nao da erro em lugar nenhum - o
+        # navegador conserta em silencio, cada um do seu jeito, e o
+        # estrago so aparece num layout torto que ninguem sabe explicar.
+        for tag in ("article", "section", "details", "summary", "figure",
+                    "main", "header", "footer", "table"):
+            abre = len(re.findall(r"<%s[\s>]" % tag, h))
+            fecha = len(re.findall(r"</%s>" % tag, h))
+            if abre != fecha:
+                anota("%s: <%s> abre %d e fecha %d"
+                      % (rel, tag, abre, fecha))
 
         fim = h.find("</head>")
         achou = 0
