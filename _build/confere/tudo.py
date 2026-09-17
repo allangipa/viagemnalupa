@@ -150,8 +150,16 @@ def confere_contadores(real):
             existe = os.path.isfile(os.path.join(pasta, "index.html"))
             dias = 0
             if existe:
+                # Contar <span class="dia-n">, nao <h3>.
+                #
+                # Contava h3 - um por dia, e funcionava por acaso. Ate o
+                # bloco de parceiros entrar no roteiro trazendo o seu
+                # proprio h3: a pagina de Nova York passou a "descrever 8
+                # dias". O h3 e so o titulo do dia; quem marca o dia e o
+                # dia-n, e esse nao aparece em mais lugar nenhum.
                 dias = len(re.findall(
-                    r"<h3[^>]*>", le(os.path.join(pasta, "index.html"))))
+                    r'<span class="dia-n">',
+                    le(os.path.join(pasta, "index.html"))))
             bate = existe and dias == n
             print("   %-22s %-16s diz %d dias  pasta=%-3s h3=%-3s %s"
                   % (idx, rotulo, n, "ok" if existe else "NAO", dias,
@@ -373,10 +381,66 @@ def confere_schema():
         print("      %-22s %d" % (t, q))
 
 
+def confere_parceiros():
+    """A copia do link de parceiro bate com a ficha de custos?
+
+    A ficha de destino e o roteiro trazem uma copia dos links de
+    Aviasales e Booking que vivem na ficha de custos. So o sub-id muda,
+    para o painel separar de qual pagina veio o clique.
+
+    O coletor de voos reescreve a ficha de custos todo dia. Se o passo de
+    propagacao falhar ou for esquecido, as copias apontam para a busca de
+    ontem - e nada na pagina denuncia isso. Aqui denuncia.
+    """
+    print()
+    print("=== links de parceiro: a copia bate com a ficha de custos? ===")
+    base = os.path.join(RAIZ, "destinos")
+    sem_subid = lambda u: re.sub(r"(marker=\d+\.|[?&]sid=)[^&]*", r"\1", u)
+    olhadas = 0
+    for slug in sorted(os.listdir(base)):
+        d = os.path.join(base, slug)
+        fonte = os.path.join(d, "quanto-custa", "index.html")
+        if not os.path.isfile(fonte):
+            continue
+        hf = le(fonte)
+        alvos = [("ficha", os.path.join(d, "index.html"))]
+        for sub in sorted(os.listdir(d)):
+            if re.fullmatch(r"roteiro-\d+-dias", sub):
+                p = os.path.join(d, sub, "index.html")
+                if os.path.isfile(p):
+                    alvos.append(("roteiro", p))
+        for rotulo, p in alvos:
+            h = le(p)
+            if "<!-- parceiros:espalhados -->" not in h:
+                anota("destinos/%s (%s): sem o bloco de parceiros "
+                      "(rode _build/parceiros/espalha.py --aplica)"
+                      % (slug, rotulo))
+                continue
+            for quem, marca in (("Aviasales", "aviasales"),
+                                ("Booking", "jdoqocy")):
+                na_fonte = re.search(
+                    r'<a class="parceiro" href="([^"]*%s[^"]*)"' % marca, hf)
+                na_copia = re.search(
+                    r'<a class="parceiro" href="([^"]*%s[^"]*)"' % marca, h)
+                if not na_fonte:
+                    continue
+                if not na_copia:
+                    anota("destinos/%s (%s): sem o link de %s"
+                          % (slug, rotulo, quem))
+                    continue
+                olhadas += 1
+                if sem_subid(na_fonte.group(1)) != sem_subid(na_copia.group(1)):
+                    anota("destinos/%s (%s): o link de %s difere do da ficha "
+                          "de custos (rode _build/parceiros/espalha.py "
+                          "--aplica)" % (slug, rotulo, quem))
+    print("   copias conferidas: %d" % olhadas)
+
+
 def main():
     real = pontos_reais()
     confere_contadores(real)
     confere_schema()
+    confere_parceiros()
     print()
     if PROBLEMAS:
         print("!!! %d problema(s):" % len(PROBLEMAS))

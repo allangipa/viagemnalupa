@@ -44,6 +44,16 @@ jobs:
           fi
           python _build/voos/atualiza.py --aplica
 
+      # A ficha de destino e o roteiro trazem uma copia do link de busca
+      # de passagem, com sub-id proprio. O coletor acima so reescreve a
+      # ficha de custos - sem este passo, as duas copias apontariam para
+      # a busca de ontem para sempre.
+      - name: Propagar o link para a ficha de destino e o roteiro
+        run: python _build/parceiros/espalha.py --aplica
+
+      - name: Conferir antes de publicar
+        run: python _build/confere/tudo.py
+
       - name: Publicar, se algum preco mudou
         run: |
           if [ -z "$(git status --porcelain)" ]; then
