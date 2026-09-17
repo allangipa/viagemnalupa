@@ -36,7 +36,28 @@ DESTINOS = {
     "maceio":         ("MCZ", "Maceió"),
     "montevideu":     ("MVD", "Montevidéu"),
     "orlando":        ("MCO", "Orlando"),
+    "cancun":         ("CUN", "Cancún"),
+    "fortaleza":      ("FOR", "Fortaleza"),
 }
+
+
+def _confere_lista():
+    """Destino novo que nao entre aqui fica sem camada de voos, e sem erro
+    em lugar nenhum. Aconteceu: Cancun e Fortaleza foram publicadas e a
+    ficha de custos das duas saiu sem o bloco de passagem, porque esta
+    lista e escrita a mao. Agora o script para e diz qual falta."""
+    base = os.path.join(RAIZ, "destinos")
+    if not os.path.isdir(base):
+        return
+    faltam = sorted(
+        d for d in os.listdir(base)
+        if os.path.isfile(os.path.join(base, d, "quanto-custa", "index.html"))
+        and d not in DESTINOS)
+    if faltam:
+        raise SystemExit(
+            "Ficha de custos sem rota nesta lista: %s\n"
+            "Acrescente o codigo IATA em DESTINOS, no topo de "
+            "_build/voos/atualiza.py." % ", ".join(faltam))
 
 MESES = ("janeiro fevereiro março abril maio junho julho agosto setembro "
          "outubro novembro dezembro").split()
@@ -223,6 +244,7 @@ def bloco(nome, v, hoje, subid):
 
 def main():
     aplica = "--aplica" in sys.argv
+    _confere_lista()
     tk = token()
     hoje = date.today().isoformat()
     marcado = re.compile(r"<!-- voo:inicio -->.*?<!-- voo:fim -->", re.S)

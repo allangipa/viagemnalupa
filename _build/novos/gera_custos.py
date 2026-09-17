@@ -103,6 +103,10 @@ FICHAS = {
             "<b>Não estão incluídos</b>: passagem aérea, refeições, compras, seguro "
             "viagem, traslado do aeroporto, transporte urbano e o ingresso do Xcaret, que "
             "não tem preço fechado. É o custo de fazer Cancún, não o de chegar nela."),
+        "parceiros": [
+            ("https://www.booking.com/", "Booking.com", "hotéis e pousadas"),
+            ("https://www.getyourguide.com/", "GetYourGuide", "ingressos e passeios"),
+        ],
         "fontes": (
             "Apuração de 17 de setembro de 2026. Fontes: páginas oficiais do INAH para "
             "Chichén Itzá, Tulum e o Museo Maya de Cancún; tabela de tarifas da Ultramar "
@@ -186,6 +190,10 @@ FICHAS = {
             "<b>Não estão incluídos</b>: hospedagem, passagem aérea, refeições, compras, "
             "seguro viagem, transporte urbano e os traslados. É o custo dos ingressos de "
             "Fortaleza, não o da viagem inteira — e o rótulo do total diz isso."),
+        "parceiros": [
+            ("https://www.booking.com/", "Booking.com", "hotéis e pousadas"),
+            ("https://www.getyourguide.com/", "GetYourGuide", "ingressos e passeios"),
+        ],
         "fontes": (
             "Apuração de 17 de setembro de 2026. Fontes: site oficial de ingressos do "
             "Beach Park; Instituto Dragão do Mar; Arquidiocese de Fortaleza; Prefeitura de "
@@ -219,6 +227,57 @@ def seletor_hosp(f):
                   for h in f["hosp"])
     return ('\n      <label>Hospedagem\n        <select class="c-hosp">%s</select></label>'
             % ops)
+
+
+SETA = ('<svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true">'
+        '<path d="M7 17 L17 7 M9 7h8v8" stroke="currentColor" stroke-width="2" '
+        'stroke-linecap="round" stroke-linejoin="round"></path></svg>')
+
+
+def bloco_voo(nome):
+    """Espaco reservado entre os marcadores que o coletor da Aviasales
+    procura. O valor real entra na proxima rodada do workflow diario —
+    o token nao fica no repositorio, entao nao da para coletar daqui.
+    Ate la a pagina diz que ainda nao coletou, em vez de ficar sem nada."""
+    return ('<!-- voo:inicio -->\n'
+            '<section class="bloco" id="voo">\n'
+            '  <div class="bloco-head"><span class="eyebrow">Chegar</span>'
+            '<h2>Quanto custa a passagem</h2></div>\n'
+            '  <p style="color:var(--nevoa)">A passagem é o item que esta ficha '
+            '<b>não inclui</b> — e costuma ser, junto com a hospedagem, o maior gasto '
+            'da viagem.</p>\n'
+            '  <p style="color:var(--nevoa)"><span class="flag">Ainda não coletado</span> '
+            'o preço de referência vem do cache de buscas reais da Aviasales e é '
+            'atualizado uma vez por dia. <b>A rota São Paulo → %s entrou no site agora</b>, '
+            'e o primeiro valor aparece aqui na próxima coleta.</p>\n'
+            '</section>\n<!-- voo:fim -->\n' % nome)
+
+
+def bloco_reserva(nome, ondes):
+    """O bloco de parceiros. E tambem a ancora que o coletor de voos usa
+    para saber onde inserir o bloco de passagem quando os marcadores
+    ainda nao existem."""
+    links = "".join(
+        '<a class="parceiro" href="%s" target="_blank" rel="noopener">'
+        '<span class="p-nome">%s%s</span><span class="p-nota">%s</span></a>'
+        % (url, rot, SETA, nota) for url, rot, nota in ondes)
+    return (
+        '<section class="bloco">\n'
+        '  <div class="reserva">\n'
+        '    <div class="reserva-topo">\n'
+        '      <h3>Onde conferimos os preços de %s</h3>\n'
+        '      <p>Foi nestes serviços que checamos os valores desta página. Use-os para '
+        'ver o preço da <b>sua</b> data — preço de viagem muda, e o nosso número é o do '
+        'dia da apuração.</p>\n'
+        '      <p style="color:var(--nevoa);font-size:.9rem"><b>Estes links dão comissão '
+        'ao site.</b> Você paga o mesmo preço que pagaria indo direto, e a comissão '
+        '<b>não altera nenhum número desta ficha</b> — os valores acima saem de fonte '
+        'oficial, com a data da apuração. <a href="../../../sobre/">Como isso '
+        'funciona</a>.</p>\n'
+        '    </div>\n'
+        '    <div class="reserva-lista">%s</div>\n'
+        '  </div>\n'
+        '</section>\n' % (nome, links))
 
 
 def linha(tipo, valor, item, mostra, obs):
@@ -350,6 +409,8 @@ def monta(slug):
            "%s %s" % (f["moeda"], "{:,.0f}".format(total / f["dias"]).replace(",", ".")),
            f["rodape_tabela"]))
 
+    html += bloco_voo(f["nome"])
+    html += bloco_reserva(f["nome"], f["parceiros"])
     html += ('<section class="bloco"><div class="aviso"><span class="t">Onde conferimos '
              'estes preços</span><p>%s</p></div></section>\n' % f["fontes"])
     html += ('<section class="bloco"><div class="paginas">\n'
