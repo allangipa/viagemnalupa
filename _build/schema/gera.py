@@ -46,6 +46,8 @@ if hasattr(sys.stdout, "buffer"):
 # fixar aqui evita que uma mudanca de titulo quebre a trilha em silencio.
 DESTINOS = {
     "buenos-aires":   "Buenos Aires",
+    "cancun":         "Cancún",
+    "fortaleza":      "Fortaleza",
     "lisboa":         "Lisboa",
     "maceio":         "Maceió",
     "montevideu":     "Montevidéu",
@@ -54,6 +56,17 @@ DESTINOS = {
     "rio-de-janeiro": "Rio de Janeiro",
     "santiago":       "Santiago",
 }
+# Destino novo que nao entre aqui sai sem dado estruturado nenhum, e sem
+# erro em lugar nenhum. Aconteceu com Cancun e Fortaleza: a ficha foi ao
+# ar e o gerador passou direto, porque a lista era escrita a mao.
+_faltando = sorted(
+    d for d in os.listdir(os.path.join(RAIZ, "destinos"))
+    if os.path.isdir(os.path.join(RAIZ, "destinos", d)) and d not in DESTINOS)
+if _faltando:
+    raise SystemExit(
+        "Destino sem nome nesta lista: %s\n"
+        "Acrescente em DESTINOS, no topo de _build/schema/gera.py, para a "
+        "ficha receber dado estruturado." % ", ".join(_faltando))
 
 # Cidade e pais de cada ficha. Usado so no containedInPlace do destino -
 # que e a cidade da ficha e portanto sempre verdade - e nunca nos pontos.
@@ -141,13 +154,21 @@ def trilha(degraus):
 
 
 def pontos_da_ficha(htm, slug):
-    """Cada secao com id= que tem titulo vira um TouristAttraction.
+    """Cada <article class="ponto"> vira um TouristAttraction.
+
+    So article.ponto, e nao "qualquer elemento com id e titulo".
+    A primeira versao pegava o largo e funcionou enquanto as secoes de
+    grupo nao tinham ancora. Quando a reorganizacao de layout passou a
+    numerar os grupos com id="g1", "g2", eles viraram pontos turisticos
+    no dado estruturado: Cancun saiu anunciando 8 pontos tendo 6, e
+    Fortaleza 9 tendo 7. As fichas antigas escaparam so porque o schema
+    delas foi gerado antes das ancoras existirem.
 
     A imagem so entra quando a secao realmente tem uma; ponto sem foto sai
     sem o campo, em vez de apontar para um arquivo que nao existe.
     """
     cortes = [(m.group(1), m.start()) for m in re.finditer(
-        r'<(?:section|article|div)[^>]*\bid="([^"]+)"', htm)]
+        r'<article class="ponto"[^>]*\bid="([^"]+)"', htm)]
     saida = []
     for i, (aid, ini) in enumerate(cortes):
         fim = cortes[i + 1][1] if i + 1 < len(cortes) else len(htm)

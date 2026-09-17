@@ -47,6 +47,17 @@ def acha_git():
 GIT = acha_git()
 
 
+def paginas():
+    """Todo .html publicavel do site, em disco."""
+    for dirp, _, arqs in os.walk(RAIZ):
+        if any(x in dirp for x in ("_build", ".git", "Claude outputs",
+                                   ".claude", "node_modules")):
+            continue
+        for a in arqs:
+            if a.endswith(".html"):
+                yield os.path.join(dirp, a)
+
+
 def arquivo_de(url):
     rel = url[len(SITE):].split("#")[0].split("?")[0].lstrip("/")
     if rel == "" or rel.endswith("/"):
@@ -95,6 +106,35 @@ def main(aplica):
     saida = re.sub(
         r"<url><loc>([^<]+)</loc><lastmod>([^<]+)</lastmod>", troca, xml)
 
+    # Pagina que existe em disco e nao esta no mapa.
+    #
+    # Este script so sabia corrigir data. Quando Cancun e Fortaleza foram
+    # publicadas, as fichas entraram no ar e o sitemap continuou com 29
+    # URLs, sem erro em lugar nenhum - a pagina simplesmente nao existia
+    # para quem le o mapa. Agora ele acrescenta.
+    no_mapa = set(re.findall(r"<loc>([^<]+)</loc>", saida))
+    novas = []
+    for p in sorted(paginas()):
+        rel = os.path.relpath(p, RAIZ).replace(os.sep, "/")
+        if rel == "404.html":
+            continue                      # pagina de erro nao se indexa
+        url = SITE + "/" + (rel[:-len("index.html")] if rel.endswith("index.html")
+                            else rel)
+        if url in no_mapa:
+            continue
+        d = data_do_commit(p) or ""
+        prof = url[len(SITE):].strip("/").count("/")
+        prio = "0.9" if prof <= 1 else ("0.8" if prof == 2 else "0.7")
+        novas.append('<url><loc>%s</loc><lastmod>%s</lastmod>'
+                     '<changefreq>weekly</changefreq><priority>%s</priority></url>'
+                     % (url, d, prio))
+    if novas:
+        print()
+        print("=== entraram no mapa agora ===")
+        for n in novas:
+            print("   " + re.search(r"<loc>([^<]+)</loc>", n).group(1))
+        saida = saida.replace("</urlset>", "\n".join(novas) + "\n</urlset>", 1)
+
     for url, velha, nova in mudou:
         print("  %-52s %s -> %s" % (url[len(SITE):] or "/", velha, nova))
     if faltando:
@@ -104,9 +144,9 @@ def main(aplica):
             print("      " + u)
 
     print()
-    print("%s: %d data(s) atualizada(s), %d ja corretas."
-          % ("Escrito" if aplica else "Faria", len(mudou), iguais))
-    if aplica and mudou:
+    print("%s: %d data(s) atualizada(s), %d ja corretas, %d URL(s) nova(s)."
+          % ("Escrito" if aplica else "Faria", len(mudou), iguais, len(novas)))
+    if aplica and (mudou or novas):
         with open(MAPA, "w", encoding="utf-8", newline="") as f:
             f.write(saida)
     elif not aplica:
