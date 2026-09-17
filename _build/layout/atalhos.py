@@ -53,6 +53,32 @@ def escreve(p, t):
         f.write(t)
 
 
+def fim_do_elemento(h, ini, tag):
+    """Onde termina o elemento aberto em `ini`, contando aninhamento.
+
+    Mesma funcao que esta em sem_moldura.py. Repetida de proposito: os
+    scripts de _build sao avulsos, sem pacote, e um import relativo aqui
+    custaria mais do que estas vinte linhas.
+    """
+    abre = re.compile(r"<%s[\s>]" % tag)
+    fecha = re.compile(r"</%s>" % tag)
+    pos, nivel = ini, 0
+    while pos < len(h):
+        a = abre.search(h, pos)
+        f = fecha.search(h, pos)
+        if not f:
+            return -1
+        if a and a.start() < f.start():
+            nivel += 1
+            pos = a.end()
+            continue
+        nivel -= 1
+        pos = f.end()
+        if nivel == 0:
+            return pos
+    return -1
+
+
 def dias_da_ficha(slug):
     """Quantos dias a ficha de custos usa. Vem da propria configuracao da
     calculadora, nao do titulo - titulo se reescreve, configuracao nao."""
@@ -94,13 +120,48 @@ def topo_da_ficha(aplica):
         if not os.path.isfile(p):
             continue
         h = le(p)
-        if 'class="idx-irmas"' in h:
-            print("   %-16s ja tem" % slug)
-            continue
         irmas = irmas_de(slug)
         if not irmas:
             print("   %-16s sem paginas irmas" % slug)
             continue
+
+        # Se o bloco ja existe, conferir se esta COMPLETO - nao so se
+        # existe. Cancun e Fortaleza ganharam o bloco quando ainda so
+        # tinham roteiro; quando a ficha de custos nasceu, o "ja tem"
+        # barrou a correcao e as duas ficaram meses sem o link de quanto
+        # custa. Foi o Allan quem reparou, duas vezes.
+        ini = h.find('<div class="idx-irmas">')
+        if ini >= 0:
+            # Regex com .*? nao serve: o bloco tem <div> aninhado e o
+            # primeiro </div> nao e o dele. Na primeira tentativa o
+            # casamento atravessou o bloco e enfiou o link dentro do
+            # idx-cols, no meio do indice. Contar aninhamento e o jeito.
+            fim = fim_do_elemento(h, ini, "div")
+            if fim < 0:
+                print("   %-16s idx-irmas sem fechamento" % slug)
+                continue
+            dentro = h[ini + len('<div class="idx-irmas">'):fim - len("</div>")]
+            falta = [(href, tit, sub) for href, tit, sub in irmas
+                     if 'href="%s"' % href not in dentro]
+            if not falta:
+                print("   %-16s completo" % slug)
+                continue
+            # Reescrever o bloco inteiro na ordem de irmas_de(), em vez
+            # de so acrescentar no fim. Acrescentando, Cancun ficaria
+            # "Roteiro, Quanto custa" enquanto as outras oito fichas tem
+            # "Quanto custa, Roteiro" - e o bloco so contem estes links
+            # gerados, entao reescrever nao perde nada.
+            novo = ('<div class="idx-irmas">%s</div>' % "".join(
+                '<a href="%s"><b>%s</b><span>%s</span></a>' % (href, tit, sub)
+                for href, tit, sub in irmas))
+            h = h[:ini] + novo + h[fim:]
+            print("   %-16s +%d  (%s)  <- estava incompleto"
+                  % (slug, len(falta), ", ".join(t for _, t, _ in falta)))
+            n += 1
+            if aplica:
+                escreve(p, h)
+            continue
+
         # entra logo depois do cabecalho do indice
         m = re.search(r'(<div class="bloco-head"><span class="eyebrow">[^<]*'
                       r'</span><h2>Índice</h2></div>)', h)
