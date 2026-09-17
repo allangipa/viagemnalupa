@@ -718,11 +718,29 @@ details.fundo .conta{font-family:"IBM Plex Mono",monospace; letter-spacing:.1em;
     margin-inline:-2.5rem; width:calc(100% + 5rem)}
   .miolo{max-width:46.5rem}
 }
-/* Barra fina de rolagem, para o índice não parecer uma janela dentro da
-   página quando a lista não couber. */
-.lateral{scrollbar-width:thin}
-.lateral::-webkit-scrollbar{width:6px}
-.lateral::-webkit-scrollbar-thumb{background:var(--rule); border-radius:3px}
+/* A barra de rolagem do índice sai de cena.
+   Ela aparecia sempre — medido no Rio: a lista transborda 253px numa tela
+   de 1280x800 e 273px numa de 1440x780 —, e ainda comia 10px de largura
+   do próprio índice. Sumindo com ela, o índice fica mais largo e a coluna
+   para de parecer uma janelinha dentro da página.
+   A rolagem continua: roda do mouse, trackpad e toque seguem funcionando,
+   e o teclado também, porque o elemento permanece focável.
+   Como esconder a barra some com o único aviso de que há mais coisa
+   abaixo, entra um esmaecimento de 1,25rem na borda inferior. É curto de
+   propósito: avisa que continua sem apagar o preço da última linha. */
+.lateral{scrollbar-width:none}
+.lateral::-webkit-scrollbar{width:0; height:0}
+@media (min-width:1080px) and (min-height:720px){
+  .lateral{
+    -webkit-mask-image:linear-gradient(to bottom,#000 calc(100% - 1.25rem),transparent);
+            mask-image:linear-gradient(to bottom,#000 calc(100% - 1.25rem),transparent);
+  }
+}
+/* Quem pediu menos movimento ainda vê tudo; a máscara não anima, mas
+   também não deve cortar conteúdo para quem usa leitor de tela. */
+@supports not (mask-image:linear-gradient(#000,#000)){
+  .lateral{-webkit-mask-image:none; mask-image:none}
+}
 
 /* --- as páginas irmãs, no alto do índice ---------------------------
    Medido antes de mexer: na ficha de Lisboa, no celular, o link para
