@@ -225,6 +225,66 @@ def sobe_indice(html):
     return sem[:corte] + indice + sem[corte:], True
 
 
+def cria_indice(html, slug):
+    """Monta o indice da ficha que nao tem, a partir do que ja esta nela.
+
+    Montevideu e Orlando nasceram sem indice. Sem ele nao ha nem o bloco
+    no topo nem a coluna lateral - sao as duas unicas fichas em que o
+    leitor so chega a um ponto rolando ate ele.
+
+    Nada aqui e escrito a mao nem estimado: o titulo do grupo vem do
+    <h2> do proprio grupo, o nome do ponto vem do <h3>, e o preco vem do
+    <span class="preco-val"> que ja aparece no topo de cada ponto. Se
+    algum ponto nao tiver preco-val, ele entra no indice sem preco, em
+    vez de entrar com um valor inventado.
+    """
+    if '<div class="idx-cols">' in html:
+        return html, 0
+
+    grupos = []
+    n = 0
+    for g in re.finditer(
+            r'<section class="grupo"[^>]*>(.*?)</section>', html, re.S):
+        corpo = g.group(1)
+        tit = re.search(r"<h2[^>]*>(.*?)</h2>", corpo, re.S)
+        itens = []
+        for a in re.finditer(
+                r'<article class="ponto" id="([^"]+)">(.*?)</article>',
+                corpo, re.S):
+            pid, pc = a.group(1), a.group(2)
+            nome = re.search(r"<h3[^>]*>(.*?)</h3>", pc, re.S)
+            if not nome:
+                continue
+            n += 1
+            val = re.search(r'<span class="preco-val">(.*?)</span>', pc, re.S)
+            preco = ('<span class="idx-preco">%s</span>' % so_texto(val.group(1))
+                     if val else "")
+            itens.append(
+                '<a class="idx-item" href="#%s"><span class="idx-num">%02d</span>'
+                '<span class="idx-nome">%s</span>%s</a>'
+                % (pid, n, so_texto(nome.group(1)), preco))
+        if itens:
+            grupos.append((so_texto(tit.group(1)) if tit else "", itens))
+
+    if not grupos or n < 4:
+        return html, 0                  # ficha curta demais para valer indice
+
+    colunas = "".join(
+        '<div><div class="idx-tit">%s</div>%s</div>' % (t, "".join(its))
+        for t, its in grupos)
+    secao = ('<section class="bloco">\n'
+             '  <div class="bloco-head"><span class="eyebrow">Os %d pontos'
+             '</span><h2>Índice</h2></div>\n'
+             '  <div class="idx-cols">%s</div>\n'
+             '</section>\n' % (n, colunas))
+
+    # entra antes do primeiro bloco de aviso, que e onde ele fica nas outras
+    m = re.search(r'<section class="bloco">', html)
+    if not m:
+        return html, 0
+    return html[:m.start()] + secao + html[m.start():], n
+
+
 def envolve_lateral(html):
     """Poe o indice numa coluna propria, ao lado dos grupos.
 
@@ -291,18 +351,21 @@ def uma_ficha(slug, aplica):
         print("  %-16s sem index.html" % slug)
         return False
     h0 = le(p)
-    h, subiu = sobe_indice(h0)
+    # ancorar os grupos vem primeiro: o indice novo aponta para as ancoras
+    h, n_gr = ancora_grupos(h0)
+    h, n_novo = cria_indice(h, slug)
+    h, subiu = sobe_indice(h)
     h, n_av = avisos_em_details(h)
     h, n_pt = reorganiza_campos(h)
-    h, n_gr = ancora_grupos(h)
     h, lado = envolve_lateral(h)
 
     if h == h0:
         print("  %-16s nada a fazer (ja reorganizada)" % slug)
         return False
-    print("  %-16s indice%s  avisos:%d  pontos:%d  grupos:%d  lateral:%s"
-          % (slug, " sobe" if subiu else " ja", n_av, n_pt, n_gr,
-             "sim" if lado else "nao"))
+    print("  %-16s indice:%-10s avisos:%d  pontos:%d  grupos:%d  lateral:%s"
+          % (slug,
+             ("criado(%d)" % n_novo) if n_novo else ("sobe" if subiu else "ja"),
+             n_av, n_pt, n_gr, "sim" if lado else "nao"))
     if aplica:
         escreve(p, h)
     return True
