@@ -47,7 +47,18 @@
   var CFG;
   try { CFG = JSON.parse(raw.textContent); } catch (e) { return; }
   var HOSP = {};
-  CFG.hosp.forEach(function (h) { HOSP[h.k] = h; });
+  (CFG.hosp || []).forEach(function (h) { HOSP[h.k] = h; });
+
+  /* Ficha sem diária apurada.
+     Fortaleza é o primeiro caso: nenhum órgão publica diária média da
+     cidade, e a regra da casa é não estimar. Antes, hosp vazio quebrava
+     o cálculo em CFG.hosp[0] e a calculadora inteira parava de somar —
+     a ficha perdia também os ingressos, que estão apurados.
+     Com a categoria zerada, a hospedagem sai da conta, o seletor some, e
+     o que foi apurado continua somando. O total passa a dizer o que é:
+     a viagem sem a hospedagem. */
+  var SEM_HOSP = !(CFG.hosp && CFG.hosp.length);
+  if (SEM_HOSP) CFG.hosp = [{ k: "_", rot: "", ref: 0, mn: 0, mx: 0 }];
 
   var DIA = 86400000;
   var dec = CFG.dec == null ? 2 : CFG.dec;
@@ -100,6 +111,13 @@
   [cIda, cVolta, cPes, cHosp].forEach(function (el) {
     if (el) { el.addEventListener("input", render); el.addEventListener("change", render); }
   });
+
+  /* Sem diária apurada não há o que escolher: o seletor sai de cena em
+     vez de ficar ali oferecendo uma categoria vazia. */
+  if (SEM_HOSP && cHosp) {
+    var rotHosp = cHosp.closest("label");
+    if (rotHosp) rotHosp.hidden = true;
+  }
 
   /* A viagem acompanha o leitor entre as cidades: os campos entram na URL
      e os links das outras cidades carregam os mesmos parâmetros. Quem clica
@@ -155,7 +173,10 @@
     var pr = periodo();
     var d = pr.d, noites = pr.noites;
     var p = Math.max(1, Math.min(8, parseInt(cPes.value, 10) || 1));
-    var h = HOSP[cHosp.value] || CFG.hosp[0];
+    /* cHosp é nulo quando a ficha não tem diária apurada: o seletor nem
+       chega a existir no HTML. Ler .value dele parava o render() inteiro
+       — o total ficava no valor estático do rodapé e o painel, vazio. */
+    var h = (cHosp && HOSP[cHosp.value]) || CFG.hosp[0];
     var quartos = Math.ceil(p / 2);
     var un = h.pessoa ? p : quartos;
     var fator = 1 - (h.desc || 0);
@@ -225,9 +246,11 @@
       lHosp.cells[1].textContent = moeda(hRef);
     }
 
+    /* Numa ficha sem diária apurada, anunciar "4 noites de hospedagem"
+       contradiz o resto da página, que diz não ter hospedagem na conta. */
     cDur.innerHTML = pr.ok
       ? "<b>" + plural(d, "dia", "dias") + "</b> &middot; " +
-        plural(noites, "noite", "noites") + " de hospedagem &middot; " +
+        (SEM_HOSP ? "" : plural(noites, "noite", "noites") + " de hospedagem &middot; ") +
         brdata(pr.a) + " a " + brdata(pr.b)
       : "<b>" + plural(CFG.dias, "dia", "dias") + "</b> &middot; cenário apurado";
 
@@ -237,14 +260,21 @@
     }).join("");
 
     if (totRot) {
-      totRot.textContent = p === 1 ? "Total por pessoa"
-                                   : "Total do grupo, " + plural(p, "pessoa", "pessoas");
+      var base = p === 1 ? "Total por pessoa"
+                         : "Total do grupo, " + plural(p, "pessoa", "pessoas");
+      /* O rótulo tem de dizer o que o número é. Sem diária apurada, este
+         total não é o custo da viagem: é o custo do que foi apurado. */
+      totRot.textContent = SEM_HOSP ? base + ", sem a hospedagem" : base;
       /* Sem centavos: quando três quartos do total é estimativa, exibir
          "936,14" promete uma exatidão que a conta não tem. */
       totVal.textContent = m0(total);
-      totDia.innerHTML = m0(total / p / d) + " por pessoa por dia<br>" +
-        '<span style="opacity:.72">' + m0(total - hRef) + " de tarifa publicada · " +
-        m0(hRef) + " de estimativa de hospedagem</span>";
+      totDia.innerHTML = SEM_HOSP
+        ? m0(total / p / d) + " por pessoa por dia<br>" +
+          '<span style="opacity:.72">só tarifa publicada · ' +
+          "hospedagem não apurada e fora da conta</span>"
+        : m0(total / p / d) + " por pessoa por dia<br>" +
+          '<span style="opacity:.72">' + m0(total - hRef) + " de tarifa publicada · " +
+          m0(hRef) + " de estimativa de hospedagem</span>";
     }
 
     /* Faixa de valor único repetiria a célula da estimativa. Nesse caso a
@@ -267,17 +297,34 @@
     var publicado = total - hRef;
     var fatia = Math.round(hRef / total * 100);
 
-    cRes.innerHTML =
-      cel("Total do grupo", m0(total), plural(d, "dia", "dias") + " · " +
-          plural(p, "pessoa", "pessoas") + " · " + plural(noites, "noite", "noites") +
-          " de hospedagem · " + m0(total / p / d) + " por pessoa por dia", "") +
-      cel("Tarifa publicada", m0(publicado),
-          "Ingressos, transporte e taxas. <b>Valor exato</b> — é o que está na " +
-          "bilheteria e no tarifário, com a data da apuração.", "") +
-      cel("Estimativa de mercado", m0(hRef),
-          "Só a hospedagem, e <b>" + fatia + "% do total</b>. Não existe " +
-          "“o preço”: muda por data, por antecedência e por propriedade.", "c") +
-      cel(faixa[0], faixa[1], faixa[2], "c");
+    if (SEM_HOSP) {
+      /* Sem hospedagem não há as duas naturezas a separar: tudo o que
+         está na conta é tarifa publicada. E a lacuna é grande demais
+         para virar rodapé — ocupa uma célula inteira do painel. */
+      cRes.innerHTML =
+        cel("Total apurado", m0(total), plural(d, "dia", "dias") + " · " +
+            plural(p, "pessoa", "pessoas") + " · " + m0(total / p / d) +
+            " por pessoa por dia", "") +
+        cel("Tarifa publicada", m0(total),
+            "Ingressos, transporte e taxas. <b>Valor exato</b> — é o que está na " +
+            "bilheteria e no tarifário, com a data da apuração.", "") +
+        cel("Hospedagem", "não apurada",
+            "<b>Nenhum órgão publica diária média desta cidade</b>, e não " +
+            "preenchemos com estimativa. Some a sua reserva por fora: em " +
+            "outras fichas deste site a hospedagem é de 75% a 85% do total.", "c");
+    } else {
+      cRes.innerHTML =
+        cel("Total do grupo", m0(total), plural(d, "dia", "dias") + " · " +
+            plural(p, "pessoa", "pessoas") + " · " + plural(noites, "noite", "noites") +
+            " de hospedagem · " + m0(total / p / d) + " por pessoa por dia", "") +
+        cel("Tarifa publicada", m0(publicado),
+            "Ingressos, transporte e taxas. <b>Valor exato</b> — é o que está na " +
+            "bilheteria e no tarifário, com a data da apuração.", "") +
+        cel("Estimativa de mercado", m0(hRef),
+            "Só a hospedagem, e <b>" + fatia + "% do total</b>. Não existe " +
+            "“o preço”: muda por data, por antecedência e por propriedade.", "c") +
+        cel(faixa[0], faixa[1], faixa[2], "c");
+    }
 
     levarViagem();
   }
