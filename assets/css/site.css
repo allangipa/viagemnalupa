@@ -188,9 +188,19 @@ section.bloco{padding:clamp(1.8rem,3.5vw,2.6rem) 0; display:flex;
 .aviso.a .t{color:var(--ambar)}
 .aviso p{font-size:.94rem; line-height:1.55}
 
-.flag{font-family:"IBM Plex Mono",monospace; font-size:.72em; letter-spacing:.06em;
+/* A tarja nasceu para duas palavras — "Não confirmado" — e por isso
+   tinha white-space:nowrap. Mas 65 delas no site carregam frase inteira,
+   a maior com 76 caracteres, e aí o nowrap fazia uma linha de 360px que
+   não quebrava: no celular estourava a caixa do campo e, como .ponto tem
+   overflow:hidden, o texto era cortado em silêncio, sem barra nenhuma.
+   inline-block mantém a borda inteira quando ela quebra (borda de
+   elemento inline se parte no meio da frase, e fica feio); max-width
+   impede o estouro; e as tarjas curtas continuam numa linha só porque
+   cabem. */
+.flag{display:inline-block; max-width:100%; white-space:normal;
+  font-family:"IBM Plex Mono",monospace; font-size:.72em; letter-spacing:.06em;
   text-transform:uppercase; color:var(--coral); border:1px solid var(--coral);
-  padding:.05em .4em; white-space:nowrap}
+  padding:.05em .4em}
 
 ul.plain,ol.plain{margin:0; padding-left:1.15rem; display:flex; flex-direction:column;
   gap:.45rem; max-width:70ch; font-size:.95rem}
@@ -300,6 +310,7 @@ tfoot td{padding:.7rem .85rem; border-top:2px solid var(--ambar);
   .dia{grid-template-columns:1fr; gap:.3rem}
   .dia-n{padding-top:0}
 }
+
 
 @media (prefers-reduced-motion:reduce){
   *{animation-duration:.01ms !important; transition-duration:.01ms !important}
@@ -776,4 +787,85 @@ details.fundo .conta{font-family:"IBM Plex Mono",monospace; letter-spacing:.1em;
 /* Quem pediu menos movimento não deve ganhar animação de abertura. */
 @media (prefers-reduced-motion:reduce){
   details.aviso, details.fundo{transition:none}
+}
+
+/* =================================================================
+   CELULAR: PISO DE LEITURA E ALVO DE TOQUE
+   FICA NO FIM DO ARQUIVO DE PROPÓSITO. Media query não soma
+   especificidade: escrito no meio da folha, tudo que vem depois
+   ganhava dele — foi o que aconteceu na primeira tentativa, e
+   .foto-cred e o resumo do bloco de fundo continuaram miúdos porque
+   são declarados mais abaixo. Aqui não há "mais abaixo".
+
+   Medido nas páginas a 375x812. O corpo do texto está saudável —
+   campos e parágrafos a 15px, nome do ponto a 18,7px, preço a 20,5px.
+   O problema estava nos RÓTULOS: 40 declarações abaixo de 12px, e as
+   piores carregam informação, não decoração — a ressalva do preço
+   ("grátis na quarta-feira") a 9,92px, o rótulo do campo a 10,56px, o
+   rótulo dos cartões a 9,6px. Quase todos em caixa alta com
+   espaçamento, que lê menor ainda do que mede.
+
+   Piso: 12px para o que informa, 11,5px para o que só rotula.
+   Só no celular — no desktop o desenho continua como está.
+   ================================================================= */
+@media (max-width:44rem){
+
+  /* --- o que informa: piso de 12px --- */
+  .preco-nota,               /* "grátis na quarta-feira" */
+  .rot,                      /* Valor da entrada, Dias em que não funciona */
+  .foto-cred,                /* autor e licença: atribuição, não enfeite */
+  .pg, .idx-tit, .parada, .cc, .migalhas,
+  thead th, .calc-ctrl label, .calc .t, .cc-rot,
+  .dqc span, .dqt span, .cp .n, .parceiro .p-nota,
+  .idx-atalho a{font-size:.75rem}
+
+  /* --- o que só rotula: 11,5px --- */
+  .tag, .tag-pub, .selo, .eyebrow, .chip, .foto-lab, .pcel .rotp,
+  .leitura .r, .num-b .r, .selo-apur .marca-v, .dest .pais,
+  .dq-cidades .cc, .cc-big span, .idx-irmas a span, .idx-num,
+  details.fundo>summary{font-size:.72rem}
+
+  /* A tarja de ressalva aparece 515 vezes no site, sempre no meio de uma
+     frase, marcando o que NÃO foi confirmado. É o selo de honestidade da
+     página; não pode ser a coisa mais difícil de ler.
+     O max() põe piso: medida em em, ela encolhia junto com o parágrafo
+     e chegava a 9,7px dentro de texto menor. */
+  .flag{font-size:max(.78em, 11.5px)}
+
+  /* O aviso só virou <details> nas fichas de destino. Nas páginas de
+     custo e de roteiro ele continua um bloco comum, e o título dele
+     ficou de fora do primeiro conserto — mesmo texto, mesmo papel. */
+  .aviso .t{font-size:.8rem; letter-spacing:.08em; line-height:1.45}
+
+  /* Caixa alta larga cansa e quebra linha: com a fonte maior, o
+     espaçamento pode encolher sem perder o desenho. */
+  .rot, .preco-nota, .tag, .eyebrow, .idx-tit,
+  details.fundo>summary{letter-spacing:.1em}
+
+  /* A manchete de cada aviso virou a interface da página quando os
+     avisos passaram a abrir e fechar: são as linhas que o leitor lê
+     para decidir o que abrir. Estavam em 10,88px, tamanho de etiqueta. */
+  details.aviso>summary.t{font-size:.84rem; letter-spacing:.08em;
+    line-height:1.45}
+
+  nav a{font-size:.75rem}
+
+  /* --- alvo de toque: 44px nos controles --- */
+  /* Vale para controle isolado. Link dentro de frase fica como está:
+     aumentar link de texto corrido esburaca o parágrafo, e a própria
+     regra de acessibilidade abre exceção para ele. */
+  nav a, .chip, .pg, .mapa, .foto-btn, .sv-btn, .idx-atalho a,
+  .cc, .bv{min-height:44px; display:inline-flex; align-items:center}
+  .idx-item{min-height:44px; align-items:center}
+  details.aviso>summary.t, details.fundo>summary{min-height:44px;
+    align-items:center}
+  /* O campo de busca tem 16px de altura, mas o <label> que o envolve
+     tem 38 — e é o label que recebe o toque. Levando o label a 44, o
+     alvo real passa a ser 44 sem mexer na altura visual do input. */
+  .campo{min-height:44px}
+  .marca{min-height:44px; align-items:center}
+  /* Na calculadora, cada item da conta se desmarca por uma caixa de
+     23px de altura. É o controle mais usado da página e o menor dela. */
+  .cx{min-height:44px; display:flex; align-items:center}
+  .calc-ctrl select, .calc-ctrl input{min-height:44px}
 }
