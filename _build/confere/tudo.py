@@ -356,6 +356,16 @@ def confere_schema():
     print("   paginas SEM                  : %d" % len(sem))
     for r in sem:
         print("        %s" % r)
+    # Listar nao bastava. As fichas de custo de Cancun e Fortaleza ficaram
+    # no ar sem nenhum bloco - o gerador sabia monta-las, so nunca foi
+    # rodado depois que as paginas nasceram - e o verificador imprimiu
+    # "Nada divergente" com as duas na lista acima. Agora reclama.
+    #
+    # A 404 e a unica excecao legitima: nao e pagina para indexar.
+    for r in sem:
+        if os.path.basename(r) != "404.html":
+            anota("%s: no ar sem nenhum dado estruturado "
+                  "(rode _build/schema/gera.py --aplica)" % r)
     print("   URLs conferidas              : %d" % len(urls))
     print("   imagens conferidas           : %d" % len(imgs))
     print("   por tipo:")
