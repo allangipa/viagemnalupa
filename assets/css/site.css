@@ -706,6 +706,18 @@ details.fundo .conta{font-family:"IBM Plex Mono",monospace; letter-spacing:.1em;
   .lateral .idx-atalho{display:none}   /* redundante ao lado da lista */
   .miolo{min-width:0}                  /* deixa a tabela larga rolar sozinha */
 }
+/* Tela larga: o espaço que sobra vai para o ÍNDICE, nunca para o texto.
+   Medido a 1750px: o parágrafo já está em 71 caracteres por linha, que é
+   o topo da faixa confortável de leitura. Alargar a coluna de texto
+   pioraria a página em vez de aproveitá-la. Então a grade se estende
+   para os dois lados e o miolo fica travado na medida que já tem — o
+   ganho todo é do índice, onde nomes como "Museo del Fútbol, no Estadio
+   Centenario" estavam quebrando em três linhas. */
+@media (min-width:1500px) and (min-height:720px){
+  .com-lateral{grid-template-columns:21rem minmax(0,1fr);
+    margin-inline:-2.5rem; width:calc(100% + 5rem)}
+  .miolo{max-width:46.5rem}
+}
 /* Barra fina de rolagem, para o índice não parecer uma janela dentro da
    página quando a lista não couber. */
 .lateral{scrollbar-width:thin}
