@@ -64,7 +64,14 @@ import urllib.parse
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-if hasattr(sys.stdout, "buffer"):
+# So troca a saida quando roda como script.
+#
+# Feito no nivel do modulo, isto quebrava quem importa: o espalha.py
+# tambem envolve o sys.stdout, e ao importar este arquivo um SEGUNDO
+# wrapper nascia sobre o mesmo buffer. O primeiro era coletado, fechava o
+# buffer, e o proximo print morria com "I/O operation on closed file" -
+# longe daqui, num lugar que nao tinha nada a ver.
+if __name__ == "__main__" and hasattr(sys.stdout, "buffer"):
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
 
 # CJ Affiliate. Nao e segredo: o identificador viaja na URL que o
@@ -73,6 +80,7 @@ if hasattr(sys.stdout, "buffer"):
 CJ = "https://www.jdoqocy.com/click-101884045-17323525"
 
 BUSCA = {
+    "bariloche":      "San Carlos de Bariloche, Argentina",
     "buenos-aires":   "Buenos Aires, Argentina",
     "cancun":         "Cancún, México",
     "fortaleza":      "Fortaleza, Brasil",
@@ -81,6 +89,7 @@ BUSCA = {
     "montevideu":     "Montevidéu, Uruguai",
     "nova-york":      "Nova York, Estados Unidos",
     "orlando":        "Orlando, Estados Unidos",
+    "punta-cana":     "Punta Cana, República Dominicana",
     "rio-de-janeiro": "Rio de Janeiro, Brasil",
     "santiago":       "Santiago, Chile",
 }

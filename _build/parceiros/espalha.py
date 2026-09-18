@@ -92,11 +92,35 @@ def destinos():
         yield slug, rot
 
 
+def booking_direto(slug):
+    """Monta o link da Booking sem depender da ficha de custos.
+
+    Bariloche e Punta Cana ainda nao tem ficha de custos, e por isso
+    nasceram sem bloco de parceiro nenhum - o Allan reparou que as duas
+    telas estavam diferentes das outras dez.
+
+    O link de hospedagem nao precisa da ficha de custos: depende so do
+    nome da cidade. O de passagem precisa, porque a busca da Aviasales
+    nao funciona sem data e a unica data que o site tem e a da apuracao,
+    que mora la.
+
+    Entao estas duas paginas recebem a Booking agora e a passagem quando
+    a ficha de custos existir.
+    """
+    sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+    from booking import BUSCA, CJ, link_de                     # noqa: E402
+    if slug not in BUSCA:
+        raise SystemExit(
+            "Destino sem busca da Booking: %s\n"
+            "Acrescente em BUSCA, em _build/parceiros/booking.py." % slug)
+    return link_de(slug)
+
+
 def links_da_ficha_de_custos(slug):
     """Pega da ficha de custos os hrefs ja verificados e no ar."""
     p = os.path.join(RAIZ, "destinos", slug, "quanto-custa", "index.html")
     if not os.path.isfile(p):
-        return None, None
+        return None, booking_direto(slug)
     h = le(p)
     voo = re.search(r'<a class="parceiro" href="([^"]*aviasales[^"]*)"', h)
     book = re.search(r'<a class="parceiro" href="([^"]*jdoqocy[^"]*)"', h)
@@ -114,6 +138,25 @@ def troca_sid(url, para):
 
 
 def bloco(voo, book, para_custos, para_sobre):
+    # O titulo e a abertura mudam conforme o destino ja tenha ficha de
+    # custos. Prometer "a ficha de custos traz a passagem" numa pagina
+    # cuja ficha de custos nao existe seria link quebrado e promessa
+    # falsa - foi o que o Allan viu de diferente nas duas telas novas.
+    if voo:
+        titulo = "Passagem e hospedagem"
+        abertura = (
+            "São os dois maiores gastos da viagem e nenhum dos dois entra "
+            "nos preços desta página — cada um depende das suas datas. "
+            "<a href=\"%s\">A ficha de custos</a> traz a passagem mais "
+            "barata que encontramos, com a data da apuração." % para_custos)
+    else:
+        titulo = "Hospedagem"
+        abertura = (
+            "É, junto com a passagem, o maior gasto da viagem, e não entra "
+            "nos preços desta página — depende das suas datas. "
+            "<span class=\"flag\">Passagem ainda não apurada</span> "
+            "<b>este destino ainda não tem ficha de custos</b>, e a busca "
+            "de passagem do site sai de lá. Por enquanto, só a hospedagem.")
     itens = []
     if voo:
         itens.append(
@@ -130,20 +173,20 @@ def bloco(voo, book, para_custos, para_sobre):
         '%s\n<section class="bloco">\n'
         '<div class="reserva">\n'
         '<div class="reserva-topo">\n'
-        '<h3>Passagem e hospedagem</h3>\n'
-        '<p>São os dois maiores gastos da viagem e nenhum dos dois entra '
-        'nos preços desta página — cada um depende das suas datas. '
-        '<a href="%s">A ficha de custos</a> traz a passagem '
-        'mais barata que encontramos, com a data da apuração.</p>\n'
-        '<p style="color:var(--nevoa);font-size:.9rem"><b>Estes links dão '
-        'comissão ao site.</b> Você paga o mesmo preço que pagaria indo '
-        'direto, e a comissão <b>não altera nenhum número do site</b>. '
+        '<h3>%s</h3>\n'
+        '<p>%s</p>\n'
+        '<p style="color:var(--nevoa);font-size:.9rem"><b>%s</b> Você paga o '
+        'mesmo preço que pagaria indo direto, e a comissão <b>não altera '
+        'nenhum número do site</b>. '
         '<a href="%s">Como isso funciona</a>.</p>\n'
         '</div>\n'
         '<div class="reserva-lista">%s</div>\n'
         '</div>\n'
-        '</section>\n%s' % (MARCA, para_custos, para_sobre,
-                            "".join(itens), MARCA))
+        '</section>\n%s' % (MARCA, titulo, abertura,
+                            ("Estes links dão comissão ao site."
+                             if len(itens) > 1
+                             else "Este link dá comissão ao site."),
+                            para_sobre, "".join(itens), MARCA))
 
 
 # De cada tipo de pagina: caminho ate a ficha de custos do mesmo destino,
@@ -168,7 +211,10 @@ def poe(caminho, voo, book, tipo):
     # "../../sobre/sobre/" em vinte paginas. Link quebrado nao levanta
     # excecao nenhuma - so o leitor descobre, clicando.
     base = os.path.dirname(caminho)
-    for rel in (para_custos, para_sobre):
+    # O caminho para a ficha de custos so e conferido quando o bloco
+    # realmente linka para ela - ou seja, quando ha voo apurado.
+    checar = [para_sobre] + ([para_custos] if voo else [])
+    for rel in checar:
         alvo = os.path.normpath(os.path.join(base, rel.replace("/", os.sep),
                                              "index.html"))
         if not os.path.isfile(alvo):
@@ -216,8 +262,9 @@ def main(aplica):
             falhas += 1
             continue
         if not voo0:
-            print("   %-16s ficha de custos sem link de voo coletado - "
-                  "vai so com Booking" % slug)
+            # O % ficava colado so no segundo literal da concatenacao
+            # implicita, e o formato caia no pedaco sem marcador.
+            print("   %-16s sem link de voo - vai so com Booking" % slug)
             falhas += 1
 
         alvos = [("index.html", "guia")]
