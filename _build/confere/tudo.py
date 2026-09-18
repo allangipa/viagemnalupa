@@ -219,23 +219,40 @@ def confere_contadores(real):
     pc = os.path.join(RAIZ, "calculadora", "index.html")
     if os.path.isfile(pc):
         h = le(pc)
-        cobre = {s for s in re.findall(r"destinos/([a-z\-]+)/", h) if s in real}
+        # Cobertura de fato: cada cidade e um bloco .ficha-calc proprio.
+        # Contar "destinos/<slug>/" no HTML inflava a conta, porque o
+        # bloco tambem linka a ficha do destino.
+        cobre = set(re.findall(r'data-cidade="([a-z\-]+)"', h)) & set(real)
         m = re.search(r"<title>([^<]*)</title>", h)
         titulo = m.group(1) if m else ""
-        mm = re.search(r"e\s+mais\s+(\d+|%s)\s+destinos" % "|".join(EXTENSO),
-                       titulo, re.I)
-        nomeados = sum(1 for s in real
-                       if re.search(r"\b%s\b" % re.escape(rotulo_de(s)), titulo))
         print("   cobre de fato : %d  (%s)" % (len(cobre), ", ".join(sorted(cobre))))
-        print("   titulo nomeia : %d" % nomeados)
-        if mm:
-            prometido = nomeados + valor(mm.group(1))
-            print("   titulo promete: %d nomeados + %s = %d  %s"
-                  % (nomeados, mm.group(1), prometido,
+
+        # O titulo diz um numero de destinos. Antes ele dizia "Rio,
+        # Lisboa, Nova York e mais tres" - formato que so funcionava
+        # enquanto a lista fosse pequena, e que ficou mentiroso quando a
+        # calculadora passou de seis para nove.
+        # "cidades", nao "destinos": o site tem dez destinos e a
+        # calculadora cobre nove deles. Com a mesma palavra nos dois
+        # lugares, a checagem do total do site lia o titulo da
+        # calculadora e acusava contradicao onde nao havia.
+        mm = re.search(r"(\d+|%s)\s+cidades" % "|".join(EXTENSO), titulo, re.I)
+        if not mm:
+            anota("/calculadora/: o titulo nao diz quantas cidades a "
+                  "calculadora cobre")
+        else:
+            prometido = valor(mm.group(1))
+            print("   titulo promete: %s = %d  %s"
+                  % (mm.group(1), prometido,
                      "ok" if prometido == len(cobre) else "<<<"))
             if prometido != len(cobre):
                 anota("/calculadora/: o titulo promete %d destinos, a pagina "
                       "cobre %d" % (prometido, len(cobre)))
+
+        # E os destinos que existem e ficaram de fora: nao e erro, mas
+        # tem de estar declarado em sincroniza.py, nao acontecer calado.
+        fora = set(real) - cobre
+        if fora:
+            print("   fora da calculadora: %s" % ", ".join(sorted(fora)))
         faltam = set(real) - cobre
         if faltam:
             print("   fora da calculadora: %s" % ", ".join(sorted(faltam)))

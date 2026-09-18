@@ -6,7 +6,7 @@ coluna de observação da tabela e nas apurações do Projeto.
 """
 
 RIO = dict(
- slug="rio-de-janeiro", nome="Rio de Janeiro", moeda="R$", dec=0, dias=6, pessoas=1,
+ slug="rio-de-janeiro", nome="Rio de Janeiro", moeda="R$", dec=0, dias=6, pessoas=1, pontos=16,
  destino="../destinos/rio-de-janeiro/",
  # FOHB/HotelInvest, Panorama da Hotelaria Brasileira 20a ed., 597 hoteis, ano 2025.
  # A media da cidade traz min e max da propria serie mensal publicada (jun e mar).
@@ -58,7 +58,7 @@ RIO = dict(
 )
 
 LISBOA = dict(
- slug="lisboa", nome="Lisboa", moeda="€", dec=2, dias=6, pessoas=1,
+ slug="lisboa", nome="Lisboa", moeda="€", dec=2, dias=6, pessoas=1, pontos=16,
  destino="../destinos/lisboa/",
  # INE, serie mensal jan-jul/2026, recorte Grande Lisboa (9 municipios).
  # As demais faixas sao amostra de mercado, rotuladas como tal.

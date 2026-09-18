@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="google-site-verification" content="IpjUvTgAQF5LxYdxAXXj2g3Qi-qh1KldEl7RelcQ9bo">
-<title>Calculadora de custos de viagem: Rio, Lisboa, Nova York e mais três destinos</title>
+<title>Calculadora de custos de viagem: nove cidades</title>
 <meta name="description" content="Calcule quanto custa a sua viagem: escolha o destino, as datas, quantas pessoas e a categoria de hospedagem. Preços apurados em fonte oficial, com a data da apuração.">
 <link rel="canonical" href="https://viagemnalupa.com.br/calculadora/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Viagem na Lupa">
-<meta property="og:title" content="Calculadora de custos de viagem: Rio, Lisboa, Nova York e mais três destinos">
+<meta property="og:title" content="Calculadora de custos de viagem: nove cidades">
 <meta property="og:description" content="Calcule quanto custa a sua viagem: escolha o destino, as datas, quantas pessoas e a categoria de hospedagem. Preços apurados em fonte oficial, com a data da apuração.">
 <meta property="og:url" content="https://viagemnalupa.com.br/calculadora/">
 <meta property="og:locale" content="pt_BR">
@@ -69,7 +69,7 @@
       <p>Os valores abaixo de cada cidade são a nossa apuração fechada — o cenário
          padrão que você vai ajustar em seguida.</p>
     </div>
-    <nav class="calc-abas" aria-label="Escolher destino"><button type="button" class="cc-big" data-troca="nova-york"><b>Nova York</b><span>US$ 2.181 por pessoa &middot; 7 dias</span></button><button type="button" class="cc-big" data-troca="santiago"><b>Santiago</b><span>US$ 388 por pessoa &middot; 5 dias</span></button><button type="button" class="cc-big" data-troca="buenos-aires"><b>Buenos Aires</b><span>US$ 232 por pessoa &middot; 5 dias</span></button><button type="button" class="cc-big" data-troca="maceio"><b>Maceió</b><span>R$ 3.920 por pessoa &middot; 6 dias</span></button><button type="button" class="cc-big" data-troca="rio-de-janeiro"><b>Rio de Janeiro</b><span>R$ 3.696 por pessoa &middot; 6 dias</span></button><button type="button" class="cc-big" data-troca="lisboa"><b>Lisboa</b><span>€ 936,14 por pessoa &middot; 6 dias</span></button></nav>
+    <nav class="calc-abas" aria-label="Escolher destino"><button type="button" class="cc-big" data-troca="nova-york"><b>Nova York</b><span>US$ 2.181 por pessoa &middot; 7 dias</span></button><button type="button" class="cc-big" data-troca="santiago"><b>Santiago</b><span>US$ 388 por pessoa &middot; 5 dias</span></button><button type="button" class="cc-big" data-troca="buenos-aires"><b>Buenos Aires</b><span>US$ 232 por pessoa &middot; 5 dias</span></button><button type="button" class="cc-big" data-troca="maceio"><b>Maceió</b><span>R$ 3.920 por pessoa &middot; 6 dias</span></button><button type="button" class="cc-big" data-troca="rio-de-janeiro"><b>Rio de Janeiro</b><span>R$ 3.696 por pessoa &middot; 6 dias</span></button><button type="button" class="cc-big" data-troca="lisboa"><b>Lisboa</b><span>€ 936,14 por pessoa &middot; 6 dias</span></button><button type="button" class="cc-big" data-troca="cancun"><b>Cancún</b><span>MX$ 8.897 por pessoa &middot; 5 dias</span></button><button type="button" class="cc-big" data-troca="montevideu"><b>Montevidéu</b><span>$U 8.510 por pessoa &middot; 5 dias</span></button><button type="button" class="cc-big" data-troca="orlando"><b>Orlando</b><span>US$ 985 por pessoa &middot; 6 dias</span></button></nav>
   </div>
 </section>
 <div class="ficha-calc" data-cidade="nova-york">
@@ -380,6 +380,117 @@ bairros Lastarria e Bellavista.</p>
 <p style="color:var(--nevoa);font-size:.92rem">Quatro dos dezesseis pontos não cobram entrada: Praça do Comércio, os miradouros de Alfama, o Time Out Market e o Cabo da Roca. O Elevador de Santa Justa está fechado, sem data de reabertura, e por isso ficou fora da conta. <b>Não inclui passagem aérea, alimentação nem seguro</b> — é o custo de fazer Lisboa, não o de chegar nela.</p>
 <p style="color:var(--nevoa);font-size:.92rem">Fontes: Carris e Metropolitano de Lisboa (tarifário de 1 de janeiro de 2026) e as fichas dos 16 pontos, apuradas em 13 de setembro de 2026. Hospedagem: INE, série mensal de janeiro a julho de 2026.</p>
 <div class="paginas"><a class="pg" href="../destinos/lisboa/">Os 16 pontos de Lisboa, com preço, horário e fonte</a></div></section>
+</div>
+<div class="ficha-calc" data-cidade="cancun" hidden>
+
+<section class="bloco" id="calculadora">
+  <div class="bloco-head">
+    <span class="eyebrow">Calculadora</span>
+    <h2>Faça a conta da <em style="font-style:normal;color:var(--ambar)">sua</em> viagem</h2>
+    <p>A tabela abaixo é a nossa apuração: 5 dias, 1 pessoa.
+       Mude as datas, o número de pessoas e a categoria de hospedagem, desmarque o que
+       você não vai fazer, e a conta se refaz na hora.</p>
+  </div>
+
+  <div class="calc" hidden>
+    <span class="t">Sua viagem</span>
+    <div class="calc-ctrl">
+      <label>Chegada
+        <input type="date" class="c-ida" value="2026-11-10" min="2026-09-14" max="2028-12-31"></label>
+      <label>Volta
+        <input type="date" class="c-volta" value="2026-11-14" min="2026-09-14" max="2028-12-31"></label>
+      <label>Pessoas
+        <input type="number" class="c-pes" min="1" max="8" step="1" value="1" inputmode="numeric"></label>
+      <label>Hospedagem
+        <select class="c-hosp"><option value="media" selected>Tarifa média da cidade (oficial)</option></select></label>
+    </div>
+    <p class="calc-dur c-dur"></p>
+    <div class="c-alertas"></div>
+    <p class="calc-nota">As noites saem das suas datas. <b>Não há linha de transporte urbano</b>: não levantamos tarifa de ônibus da Zona Hoteleira nem de táxi, e preferimos a lacuna à estimativa. <b>O Xcaret também está fora da conta</b> — apuramos três valores diferentes no mesmo dia e nenhum se confirmou como o oficial. Os valores em peso não são convertidos: o Banco Central publica dez moedas e o peso mexicano não está entre elas. Os valores unitários são os apurados e estão na tabela
+       abaixo — <b style="color:var(--gelo)">o que muda aqui é só a aritmética, não a
+       fonte</b>. Linhas marcadas como não encontradas continuam fora da conta.</p>
+    <div class="painel res"></div>
+  </div>
+  <script type="application/json" class="calc-cfg">{"moeda": "MX$", "dec": 0, "dias": 5, "pessoas": 1, "hosp": [{"k": "media", "rot": "Tarifa média da cidade (oficial)", "ref": 1800, "mn": 1800, "mx": 1800}], "hospPadrao": "media", "janela": null, "eventos": []}</script>
+</section>
+<section class="bloco"><div class="tabwrap"><table class="tab-ficha"><thead><tr><th>Item</th><th>Valor</th><th>Observação</th></tr></thead><tbody><tr data-tipo="ingresso" data-v="697.0000"><td>Chichén Itzá</td><td class="n">MX$ 697</td><td><b>Duas cobranças somadas:</b> MX$ 105 do INAH federal mais MX$ 592 da taxa estadual de Yucatán, para estrangeiro. Mexicano paga MX$ 105 + MX$ 205. Fontes divergem a imprensa mexicana publicou MX$ 571 para a taxa estadual em janeiro de 2026; a página do INAH diz MX$ 592. <b>Fica o maior.</b> Abre todos os dias, 8h às 16h.</td></tr><tr data-tipo="ingresso" data-v="580.0000"><td>Isla Mujeres, ferry ida e volta</td><td class="n">MX$ 580</td><td>Ultramar, tarifa de adulto. Criança paga MX$ 440. <b>A régua é altura, não idade:</b> acima de 1,20 m paga adulto. Sai de Puerto Juárez ou da Playa Tortugas pelo mesmo preço. <b>Entrar na ilha não se paga</b> — o que se paga é a travessia.</td></tr><tr data-tipo="ingresso" data-v="210.0000"><td>Tulum</td><td class="n">MX$ 210</td><td>De segunda a sábado, para estrangeiro; mexicano e residente pagam MX$ 105. <b>Praticamente dobrou em 2026</b> — era cerca de MX$ 104 em 2025. Abre 8h, <b>última entrada 15h30</b>. Não apurado o Parque del Jaguar pode cobrar taxa própria por cima desta; não achamos o valor em fonte oficial.</td></tr><tr data-tipo="ingresso" data-v="210.0000"><td>Museo Maya de Cancún e San Miguelito</td><td class="n">MX$ 210</td><td><b>Um bilhete, duas visitas:</b> o museu e a zona arqueológica no mesmo terreno. Mexicano paga MX$ 105. Fecha às segundas; de terça a domingo das 9h às 18h. Última entrada no museu às 17h e <b>em San Miguelito às 16h30</b>.</td></tr><tr data-tipo="hosp"><td>Hospedagem, 4 noites</td><td class="n">MX$ 7.200</td><td>Tarifa média da cidade (oficial), MX$ 1.800 a diária</td></tr></tbody><tfoot><tr><td class="tot-rot">Total por pessoa</td><td class="n tot-val">MX$ 8.897</td><td class="tot-dia">MX$ 1.779 por pessoa por dia</td></tr></tfoot></table></div>
+<p style="color:var(--nevoa);font-size:.92rem">Um dos seis pontos não cobra nada: a Playa Delfines. No México toda praia é federal e de acesso público. <b>Não inclui passagem aérea, alimentação nem seguro</b> — é o custo de fazer Cancún, não o de chegar nela.</p>
+<p style="color:var(--nevoa);font-size:.92rem">Fontes: INAH (Chichén Itzá, Tulum e Museo Maya), Ultramar (ferry) e as fichas dos 6 pontos, apuradas em 17 de setembro de 2026. Hospedagem: tarifa média da cidade divulgada pela Secretaría de Turismo de Quintana Roo.</p>
+<div class="paginas"><a class="pg" href="../destinos/cancun/">Os 6 pontos de Cancún, com preço, horário e fonte</a></div></section>
+</div>
+<div class="ficha-calc" data-cidade="montevideu" hidden>
+
+<section class="bloco" id="calculadora">
+  <div class="bloco-head">
+    <span class="eyebrow">Calculadora</span>
+    <h2>Faça a conta da <em style="font-style:normal;color:var(--ambar)">sua</em> viagem</h2>
+    <p>A tabela abaixo é a nossa apuração: 5 dias, 1 pessoa.
+       Mude as datas, o número de pessoas e a categoria de hospedagem, desmarque o que
+       você não vai fazer, e a conta se refaz na hora.</p>
+  </div>
+
+  <div class="calc" hidden>
+    <span class="t">Sua viagem</span>
+    <div class="calc-ctrl">
+      <label>Chegada
+        <input type="date" class="c-ida" value="2026-11-10" min="2026-09-14" max="2028-12-31"></label>
+      <label>Volta
+        <input type="date" class="c-volta" value="2026-11-14" min="2026-09-14" max="2028-12-31"></label>
+      <label>Pessoas
+        <input type="number" class="c-pes" min="1" max="8" step="1" value="1" inputmode="numeric"></label>
+      <label>Hospedagem
+        <select class="c-hosp"><option value="hostel">Cama em dormitório (amostra)</option><option value="economico" selected>Hotel 3 estrelas (amostra)</option><option value="apartamento">Apartamento de aluguel (amostra)</option><option value="luxo">Hotel de luxo (amostra)</option></select></label>
+    </div>
+    <p class="calc-dur c-dur"></p>
+    <div class="c-alertas"></div>
+    <p class="calc-nota">As noites saem das suas datas. Hospedagem por quarto, duas pessoas por quarto; dormitório de hostel é por pessoa. <b>Nenhuma faixa de hospedagem aqui é estatística oficial</b> — procuramos no Ministerio de Turismo e no Observatorio Turístico da própria Intendência e não existe série publicada. São amostras de mercado, rotuladas como tal: servem para dimensionar, não para reservar. Os valores unitários são os apurados e estão na tabela
+       abaixo — <b style="color:var(--gelo)">o que muda aqui é só a aritmética, não a
+       fonte</b>. Linhas marcadas como não encontradas continuam fora da conta.</p>
+    <div class="painel res"></div>
+  </div>
+  <script type="application/json" class="calc-cfg">{"moeda": "$U", "dec": 0, "dias": 5, "pessoas": 1, "hosp": [{"k": "hostel", "rot": "Cama em dormitório (amostra)", "ref": 361, "mn": 300, "mx": 500, "pessoa": true}, {"k": "economico", "rot": "Hotel 3 estrelas (amostra)", "ref": 1600, "mn": 1200, "mx": 2000}, {"k": "apartamento", "rot": "Apartamento de aluguel (amostra)", "ref": 2700, "mn": 2412, "mx": 3015}, {"k": "luxo", "rot": "Hotel de luxo (amostra)", "ref": 4900, "mn": 4900, "mx": 4900}], "hospPadrao": "economico", "janela": null, "eventos": []}</script>
+</section>
+<section class="bloco"><div class="tabwrap"><table class="tab-ficha"><thead><tr><th>Item</th><th>Valor</th><th>Observação</th></tr></thead><tbody><tr data-tipo="ingresso" data-v="400.0000"><td>Palacio Salvo</td><td class="n">$U 400</td><td>Visita guiada de 45 minutos, de segunda a sexta das 10h às 17h e sábado das 10h às 13h, com saídas de hora em hora. <b>Inclui o Museo del Tango “La Cumparsita”</b>. Aceita peso, real (R$ 50) e dólar (US$ 10), dinheiro ou cartão. Entrada pela Plaza Independencia 846.</td></tr><tr data-tipo="ingresso" data-v="400.0000"><td>Teatro Solís</td><td class="n">$U 400</td><td><b>Estrangeiro paga o dobro</b>: $U 200 com documento uruguaio, $U 400 sem. Mas <b>quarta-feira é gratuita para todos</b>, às 11h, 12h e 16h, em espanhol, inglês e português. Quem apresentar o comprovante digital da Tasa Turística tem 50% de desconto. Só na bilheteria do teatro.</td></tr><tr data-tipo="ingresso" data-v="390.0000"><td>Palacio Legislativo</td><td class="n">$U 390</td><td>Mesmo preço para estrangeiro e residente — <b>é o único da lista sem diferença de tarifa</b>. De segunda a sexta, às 11h e às 16h, em espanhol, inglês e português. <b>Não abre fim de semana.</b> Horário em vigor desde 16/mar/2026. Fonte: Parlamento do Uruguai.</td></tr><tr data-tipo="ingresso" data-v="300.0000"><td>Castillo Pittamiglio</td><td class="n">$U 300</td><td>De terça a domingo — <b>fecha segunda</b>. Terça a sexta das 11h às 17h; sábado e domingo das 15h30 às 19h30. Visita guiada só no sábado às 16h e no domingo às 16h e 18h. Menor de 6 anos não paga. Rambla Mahatma Gandhi 633.</td></tr><tr data-tipo="ingresso" data-v="100.0000"><td>Museo Torres García</td><td class="n">$U 100</td><td>Residente paga $U 50, e jubilado ou estudante residente, $U 30. Menor de 12 não paga. <b>Domingo fechado</b>; de segunda a sábado das 10h às 18h. Quarta é gratuita <b>só para residentes</b>. Peatonal Sarandí 683.</td></tr><tr data-tipo="dia" data-v="104.0000" data-rot="Transporte, {d} dias"><td>Transporte, 5 dias</td><td class="n">$U 520</td><td>$U 52 a viagem de uma hora <b>com o cartão STM carregado</b>, contra <b>$U 64 pagando em dinheiro</b> — a diferença é de 23%. Duas viagens por dia. O boleto de duas horas custa $U 78 com cartão. <b>Não há metrô em Montevidéu</b>: tudo é ônibus. Tarifas de janeiro de 2026.</td></tr><tr data-tipo="hosp"><td>Hospedagem, 4 noites</td><td class="n">$U 6.400</td><td>Hotel 3 estrelas (amostra), $U 1.600 a diária</td></tr></tbody><tfoot><tr><td class="tot-rot">Total por pessoa</td><td class="n tot-val">$U 8.510</td><td class="tot-dia">$U 1.702 por pessoa por dia</td></tr></tfoot></table></div>
+<p style="color:var(--nevoa);font-size:.92rem">Três dos nove pontos não cobram entrada: o Mercado del Puerto, o Museo Nacional de Artes Visuales e a Feria de Tristán Narvaja. <b>Não inclui passagem aérea, alimentação nem seguro</b> — é o custo de fazer Montevidéu, não o de chegar nela.</p>
+<p style="color:var(--nevoa);font-size:.92rem">Fontes: Intendencia de Montevideo (tarifa do STM) e as fichas dos 9 pontos, apuradas em 13 de setembro de 2026. Hospedagem: amostra de mercado — Montevidéu não publica diária média oficial.</p>
+<div class="paginas"><a class="pg" href="../destinos/montevideu/">Os 9 pontos de Montevidéu, com preço, horário e fonte</a></div></section>
+</div>
+<div class="ficha-calc" data-cidade="orlando" hidden>
+
+<section class="bloco" id="calculadora">
+  <div class="bloco-head">
+    <span class="eyebrow">Calculadora</span>
+    <h2>Faça a conta da <em style="font-style:normal;color:var(--ambar)">sua</em> viagem</h2>
+    <p>A tabela abaixo é a nossa apuração: 6 dias, 1 pessoa.
+       Mude as datas, o número de pessoas e a categoria de hospedagem, desmarque o que
+       você não vai fazer, e a conta se refaz na hora.</p>
+  </div>
+
+  <div class="calc" hidden>
+    <span class="t">Sua viagem</span>
+    <div class="calc-ctrl">
+      <label>Chegada
+        <input type="date" class="c-ida" value="2026-11-10" min="2026-09-14" max="2028-12-31"></label>
+      <label>Volta
+        <input type="date" class="c-volta" value="2026-11-15" min="2026-09-14" max="2028-12-31"></label>
+      <label>Pessoas
+        <input type="number" class="c-pes" min="1" max="8" step="1" value="1" inputmode="numeric"></label>
+      <label>Hospedagem
+        <select class="c-hosp"><option value="economico" selected>Hotel econômico (amostra)</option><option value="oficial">Média de 2022 (Visit Orlando)</option><option value="casa">Casa de aluguel (amostra)</option></select></label>
+    </div>
+    <p class="calc-dur c-dur"></p>
+    <div class="c-alertas"></div>
+    <p class="calc-nota">As noites saem das suas datas. <b>Os ingressos de parque são piso, não preço</b>: são o menor valor publicado para um dia, e a data escolhida muda muito esse número. <b>Nenhuma das faixas de hospedagem é estatística oficial atual</b> — o dado da Visit Orlando é de 2022 e o de 2026 é de aluguel por temporada, outra categoria. Os valores unitários são os apurados e estão na tabela
+       abaixo — <b style="color:var(--gelo)">o que muda aqui é só a aritmética, não a
+       fonte</b>. Linhas marcadas como não encontradas continuam fora da conta.</p>
+    <div class="painel res"></div>
+  </div>
+  <script type="application/json" class="calc-cfg">{"moeda": "US$", "dec": 0, "dias": 6, "pessoas": 1, "hosp": [{"k": "economico", "rot": "Hotel econômico (amostra)", "ref": 110, "mn": 90, "mx": 140}, {"k": "oficial", "rot": "Média de 2022 (Visit Orlando)", "ref": 155, "mn": 155, "mx": 155}, {"k": "casa", "rot": "Casa de aluguel (amostra)", "ref": 244, "mn": 244, "mx": 244}], "hospPadrao": "economico", "janela": null, "eventos": [["2026-12-20", "2027-01-03", "", "Sua viagem pega o pico de fim de ano", "É a janela mais cara do ano em Orlando. O ingresso de um dia no Magic Kingdom chega a <b>US$ 209</b> nessas datas, contra US$ 119 no vale — e a hospedagem acompanha. <b>A conta abaixo usa o piso e não embute essa alta.</b>"], ["2027-03-06", "2027-04-18", "", "Sua viagem pega o spring break", "Período de pico declarado pelos próprios parques, com ingresso e diária nas faixas altas. <b>A conta abaixo não reflete isso.</b>"]]}</script>
+</section>
+<section class="bloco"><div class="tabwrap"><table class="tab-ficha"><thead><tr><th>Item</th><th>Valor</th><th>Observação</th></tr></thead><tbody><tr data-tipo="ingresso" data-v="139.0000"><td>Universal Epic Universe, 1 dia</td><td class="n">US$ 139</td><td><b>Piso, não preço.</b> É o menor valor publicado para um dia; o valor real depende da data escolhida. O parque abriu em 2025 e é o mais novo de Orlando. <b>Não inclui os outros parques da Universal</b> — o ingresso park-to-park custa mais.</td></tr><tr data-tipo="ingresso" data-v="119.0000"><td>Disney, 1 dia em 1 parque</td><td class="n">US$ 119</td><td><b>Piso, não preço.</b> US$ 119 é o Animal Kingdom em data de baixa; o mesmo bilhete no <b>Magic Kingdom em data de pico chega a US$ 209</b> — 2026 é o primeiro ano em que um ingresso de um dia passou de US$ 200. As datas mais baratas costumam ser <b>fim de agosto e setembro</b>, e dias de semana em janeiro e começo de fevereiro. Não inclui Park Hopper.</td></tr><tr data-tipo="ingresso" data-v="77.0000"><td>Kennedy Space Center</td><td class="n">US$ 77</td><td><b>O único desta lista com preço fixo</b>, e por isso o único em que a nossa data de apuração significa alguma coisa. Criança de 3 a 11 anos: US$ 67. Menor de 2 anos não paga. Sênior a partir de 55 anos: US$ 72, só comprando no local. <b>No portão, com taxa e conveniência, sai a US$ 88,38.</b> Abre todos os dias às 9h e fecha às 17h ou 18h conforme a estação.</td></tr><tr data-tipo="ingresso" data-v="70.0000"><td>SeaWorld Orlando, 1 dia</td><td class="n">US$ 70</td><td>Faixa típica comprando online: <b>US$ 70 a 95</b> conforme a data, passando de US$ 100 no pico. Há promoção pontual a partir de US$ 59,99. <b>Mas no portão custa US$ 109 a 145</b> — comprar online sai de 20% a 45% mais barato, e essa é a maior diferença de canal de compra deste site.</td></tr><tr data-tipo="dia" data-v="5.0000" data-rot="Transporte, {d} dias"><td>Transporte, 6 dias</td><td class="n">US$ 30</td><td>Passe diário do <b>I-RIDE Trolley</b>, a partir de US$ 5; a viagem avulsa custa US$ 2 e o passe de 14 dias, US$ 18. Circula das 8h às 22h30 e <b>serve só a região da International Drive</b>. O ônibus <b>LYNX</b> custa US$ 2 a viagem, com baldeação gratuita, ou US$ 4,50 o passe diário. <b>Não há metrô em Orlando.</b></td></tr><tr data-tipo="hosp"><td>Hospedagem, 5 noites</td><td class="n">US$ 550</td><td>Hotel econômico (amostra), US$ 110 a diária</td></tr></tbody><tfoot><tr><td class="tot-rot">Total por pessoa</td><td class="n tot-val">US$ 985</td><td class="tot-dia">US$ 164 por pessoa por dia</td></tr></tfoot></table></div>
+<p style="color:var(--nevoa);font-size:.92rem">Nenhum dos pontos apurados é gratuito. Não entram na conta: aluguel de carro, estacionamento, traslado do aeroporto, Park Hopper, Express Pass e Lightning Lane. <b>Não inclui passagem aérea, alimentação nem seguro</b> — é o custo de fazer Orlando, não o de chegar nela.</p>
+<p style="color:var(--nevoa);font-size:.92rem">Fontes: I-RIDE Trolley (passe diário) e as fichas dos 6 pontos, apuradas em 13 de setembro de 2026. Hospedagem: Visit Orlando (ADR de 2022) e amostra de mercado de 2026.</p>
+<div class="paginas"><a class="pg" href="../destinos/orlando/">Os 6 pontos de Orlando, com preço, horário e fonte</a></div></section>
 </div>
 </div>
 <script src="../assets/js/ficha.js?v=063b2f4d" defer></script>

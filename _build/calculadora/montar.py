@@ -29,11 +29,18 @@ def bloco(c, primeira):
     for nome, v, obs in c["ingressos"]:
         linhas.append('<tr data-tipo="ingresso" data-v="%.4f"><td>%s</td><td class="n">%s</td>'
                       '<td>%s</td></tr>' % (v, nome, fmt(c, v), obs))
-    t = c["transporte"]
-    linhas.append('<tr data-tipo="dia" data-v="%.4f" data-rot="%s"><td>%s</td>'
-                  '<td class="n">%s</td><td>%s</td></tr>'
-                  % (t["v"], t["rot"], t["rot"].replace("{d}", str(d)),
-                     fmt(c, t["v"] * d), t["obs"]))
+    # Transporte pode nao existir.
+    #
+    # Em Cancun a ficha diz, com todas as letras, que nao levantamos
+    # tarifa de onibus da Zona Hoteleira nem de taxi. Fingir um numero
+    # aqui contrariaria a regra da casa; a linha simplesmente nao entra,
+    # e a observacao da cidade explica a ausencia.
+    t = c.get("transporte")
+    if t:
+        linhas.append('<tr data-tipo="dia" data-v="%.4f" data-rot="%s"><td>%s</td>'
+                      '<td class="n">%s</td><td>%s</td></tr>'
+                      % (t["v"], t["rot"], t["rot"].replace("{d}", str(d)),
+                         fmt(c, t["v"] * d), t["obs"]))
     if c["taxa"]:
         tx = c["taxa"]
         nc = min(noites, tx["teto"])
@@ -51,7 +58,7 @@ def bloco(c, primeira):
                      hp["rot"], fmt(c, hp["ref"])))
 
     ing = sum(v for _, v, _ in c["ingressos"])
-    outros = t["v"] * d + sum(v for _, v, _ in c["fixos"])
+    outros = (t["v"] * d if t else 0) + sum(v for _, v, _ in c["fixos"])
     if c["taxa"]:
         outros += c["taxa"]["noite"] * min(noites, c["taxa"]["teto"])
     total = ing + outros + hp["ref"] * noites
@@ -91,11 +98,11 @@ def bloco(c, primeira):
 <section class="bloco"><div class="tabwrap"><table class="tab-ficha"><thead><tr><th>Item</th><th>Valor</th><th>Observação</th></tr></thead><tbody>%(linhas)s</tbody><tfoot><tr><td class="tot-rot">Total por pessoa</td><td class="n tot-val">%(total)s</td><td class="tot-dia">%(dia)s por pessoa por dia</td></tr></tfoot></table></div>
 <p style="color:var(--nevoa);font-size:.92rem">%(gratis)s <b>Não inclui passagem aérea, alimentação nem seguro</b> — é o custo de fazer %(nome)s, não o de chegar nela.</p>
 <p style="color:var(--nevoa);font-size:.92rem">Fontes: %(fonte)s</p>
-<div class="paginas"><a class="pg" href="%(destino)s">Os 16 pontos de %(nome)s, com preço, horário e fonte</a></div></section>
+<div class="paginas"><a class="pg" href="%(destino)s">Os %(pontos)d pontos de %(nome)s, com preço, horário e fonte</a></div></section>
 </div>""" % dict(
         slug=c["slug"], hid="" if primeira else " hidden", d=d,
         volta=10 + d - 1, opts=opts, nota=c["nota"],
-        cfg=json.dumps(cfg, ensure_ascii=False),
+        cfg=json.dumps(cfg, ensure_ascii=False), pontos=c["pontos"],
         linhas="".join(linhas), total=fmt(c, total),
         dia=c["moeda"] + " " + "{:,}".format(int(round(total / d))).replace(",", "."),
         gratis=c["gratis"], nome=c["nome"], fonte=c["fonte"], destino=c["destino"])
