@@ -38,6 +38,8 @@ DESTINOS = {
     "orlando":        ("MCO", "Orlando"),
     "cancun":         ("CUN", "Cancún"),
     "fortaleza":      ("FOR", "Fortaleza"),
+    "bariloche":      ("BRC", "Bariloche"),
+    "punta-cana":     ("PUJ", "Punta Cana"),
 }
 
 

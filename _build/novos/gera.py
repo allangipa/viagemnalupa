@@ -22,7 +22,22 @@ import sys
 
 AQUI = os.path.dirname(os.path.abspath(__file__))
 RAIZ = os.path.dirname(os.path.dirname(AQUI))
-sys.path.insert(0, AQUI)
+
+# De qual pasta vem a apuracao.
+#
+# Este gerador nasceu para Cancun e Fortaleza, lendo _build/novos/dados.py.
+# Bariloche e Punta Cana vieram depois, em _build/novos2/dados.py. Copiar
+# o gerador inteiro para a pasta nova seria duplicar mil e quinhentas
+# linhas que teriam de ser corrigidas em dois lugares para sempre.
+#
+#     VNL_DADOS=novos2 python _build/novos/gera.py --aplica
+#
+# Sem a variavel, le a pasta de sempre e nada muda para quem ja usava.
+_PASTA = os.environ.get("VNL_DADOS", "").strip()
+_ORIGEM = os.path.join(os.path.dirname(AQUI), _PASTA) if _PASTA else AQUI
+if not os.path.isfile(os.path.join(_ORIGEM, "dados.py")):
+    raise SystemExit("nao achei dados.py em %s" % _ORIGEM)
+sys.path.insert(0, _ORIGEM)
 
 from dados import DESTINOS, APURACAO  # noqa: E402
 

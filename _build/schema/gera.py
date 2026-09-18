@@ -45,6 +45,7 @@ if hasattr(sys.stdout, "buffer"):
 # Nome de exibicao de cada destino, para a trilha. Vem do h1 da ficha, mas
 # fixar aqui evita que uma mudanca de titulo quebre a trilha em silencio.
 DESTINOS = {
+    "bariloche":      "Bariloche",
     "buenos-aires":   "Buenos Aires",
     "cancun":         "Cancún",
     "fortaleza":      "Fortaleza",
@@ -53,6 +54,7 @@ DESTINOS = {
     "montevideu":     "Montevidéu",
     "nova-york":      "Nova York",
     "orlando":        "Orlando",
+    "punta-cana":     "Punta Cana",
     "rio-de-janeiro": "Rio de Janeiro",
     "santiago":       "Santiago",
 }
