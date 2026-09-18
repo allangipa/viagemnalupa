@@ -121,10 +121,20 @@ def cartao(d, sobe):
         '<div class="numeros">%s</div>'
         '<p class="achado">%s</p>'
         '<div class="paginas"> <a class="pg" href="%s%s/">Guia dos pontos</a> </div>'
+        # O link que cobre o retangulo inteiro.
+        #
+        # Faltava nos meus dois cartoes, e o Allan reparou: "nao esta
+        # abrindo clicando no retangulo, so quando clica em guias".
+        # O CSS ja tinha .dest-link{position:absolute; inset:0} e os
+        # outros dez cartoes ja o traziam - eu e que nao copiei o molde
+        # ate o fim. tabindex=-1 e aria-hidden porque o link do titulo ja
+        # da o nome acessivel; este e so para o mouse.
+        '<a class="dest-link" href="%s%s/" tabindex="-1" aria-hidden="true"></a>'
         '</article>'
         % (d["regiao"], d["busca"], sobe, slug, capa["arq"], capa["alt"],
            "./" if sobe == "../" else "./destinos/", slug, d["nome"],
            d["pais"], n, nums, r["achado"],
+           "./" if sobe == "../" else "./destinos/", slug,
            "./" if sobe == "../" else "./destinos/", slug))
 
 

@@ -398,6 +398,38 @@ def confere_schema():
         print("      %-22s %d" % (t, q))
 
 
+def confere_cartoes():
+    """Todo cartao de destino abre clicando no retangulo inteiro?
+
+    O CSS poe .dest-link cobrindo o cartao (position:absolute; inset:0),
+    e sem esse elemento so os links visiveis clicam. Foi o que aconteceu
+    com Bariloche e Punta Cana: o cartao parecia certo na tela, porque o
+    elemento que faltava e justamente o invisivel.
+
+    Quem reparou foi o Allan, clicando. Agora reclama aqui antes.
+    """
+    print()
+    print("=== cartoes de destino: o retangulo inteiro clica? ===")
+    for rel in ("index.html", os.path.join("destinos", "index.html")):
+        p = os.path.join(RAIZ, rel)
+        if not os.path.isfile(p):
+            continue
+        h = le(p)
+        cartoes = re.findall(r"(?s)<article class=\"dest\".*?</article>", h)
+        sem = []
+        for b in cartoes:
+            if 'class="dest-link"' in b:
+                continue
+            nome = re.search(r"<h3><a[^>]*>([^<]+)</a>", b)
+            sem.append(nome.group(1) if nome else "?")
+        print("   %-22s %d cartao(oes), %d sem o link do retangulo"
+              % (rel, len(cartoes), len(sem)))
+        for nome in sem:
+            anota("%s: o cartao de %s nao abre clicando no retangulo "
+                  "(falta <a class=\"dest-link\">; rode "
+                  "_build/conserto/dest_link.py --aplica)" % (rel, nome))
+
+
 def confere_parceiros():
     """A copia do link de parceiro bate com a ficha de custos?
 
@@ -457,6 +489,7 @@ def main():
     real = pontos_reais()
     confere_contadores(real)
     confere_schema()
+    confere_cartoes()
     confere_parceiros()
     print()
     if PROBLEMAS:
