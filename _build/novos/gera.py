@@ -216,6 +216,19 @@ def monta(d):
     corpo = indice(d) + grupos(d)
     n_lacunas = len(re.findall(r'<span class="flag">', corpo))
     html += aviso_apurado(d, len([p for p in d["pontos"]]), n_lacunas)
+    # Aviso de moeda, quando o destino tem um.
+    #
+    # Nasceu porque eu escrevi a explicacao do peso argentino DENTRO do
+    # paragrafo de abertura. Deu 944 caracteres, contra 110 a 222 dos
+    # outros onze destinos, e o hero foi a 685px de altura - o Allan
+    # reparou que a barra estava grande demais na vertical.
+    #
+    # A abertura e o gancho, em uma frase. Nota de metodo tem bloco
+    # proprio, que e o padrao que o resto do site ja usa.
+    if d.get("aviso_moeda"):
+        html += ('<section class="bloco"><div class="aviso b">'
+                 '<span class="t">%s</span>%s</div></section>\n'
+                 % (d["aviso_moeda"]["titulo"], d["aviso_moeda"]["corpo"]))
     html += corpo
     html += fontes(d)
     html += RODAPE.format(apuracao=APURACAO)

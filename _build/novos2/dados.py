@@ -54,23 +54,31 @@ BARILOCHE = {
     "descricao": ("Preço, horário e fonte de 9 pontos de Bariloche, com a taxa do "
                   "Parque Nacional que não vem no valor da excursão e as duas "
                   "cobranças que aparecem só no porto."),
-    "abertura": ("Nove pontos com preço, horário e fonte conferidos em 17 de setembro "
-                 "de 2026 — e o detalhe que muda a conta: <b>a excursão mais vendida "
-                 "de Bariloche tem duas cobranças que não estão no preço anunciado, e "
-                 "as duas se pagam em dinheiro, no porto</b>.<br><br>"
-                 "<b>Todos os valores desta página estão em pesos argentinos (ARS), "
-                 "não em reais nem em dólares.</b> A inflação argentina deixa os "
-                 "números com muitos dígitos, e é fácil ler seis algarismos como se "
-                 "fossem dólares.<br>"
-                 "<span class=\"flag\">Não convertemos os valores</span> a conversão "
-                 "automática pela PTAX do Banco Central existe em outras fichas do "
-                 "site e <b>não pode entrar aqui: o Banco Central publica a cotação de "
-                 "dez moedas, e o peso argentino não está entre elas</b> — conferimos a "
-                 "lista da API do PTAX em 17/set/2026. Para dar ordem de grandeza sem "
-                 "fingir precisão: <b>ARS 1.000 ficavam perto de R$ 3,40</b> em "
-                 "17/set/2026, segundo cotação de mercado publicada pela Wise e pelo "
-                 "Investing.com. <b>Não é taxa oficial e muda todo dia</b> — use só "
-                 "para dimensionar."),
+    # A abertura e o gancho, em UMA frase - como nos outros onze
+    # destinos, que vao de 110 a 222 caracteres. A nota de moeda, que
+    # antes estava aqui dentro e levava isto a 944, virou bloco proprio
+    # logo abaixo.
+    "abertura": ("Nove pontos com preço em peso argentino, horário e fonte conferidos "
+                 "em 17 de setembro de 2026 — e o detalhe que muda a conta: <b>a "
+                 "excursão mais vendida de Bariloche tem duas cobranças que não estão "
+                 "no preço anunciado, e as duas se pagam em dinheiro, no porto</b>."),
+    "aviso_moeda": {
+        "titulo": "Os preços aqui estão em peso argentino",
+        "corpo": (
+            "<p><b>Nenhum valor desta página está em real ou em dólar.</b> A inflação "
+            "argentina deixa os números com muitos dígitos — a entrada do Parque "
+            "Nacional custa <b>ARS 35.000</b> — e seis algarismos são fáceis de ler "
+            "como se fossem dólares.</p>"
+            "<p><span class=\"flag\">Não convertemos os valores</span> a conversão "
+            "automática pela PTAX do Banco Central existe em outras fichas do site e "
+            "<b>não pode entrar aqui: o Banco Central publica a cotação de dez moedas, "
+            "e o peso argentino não está entre elas</b> — conferimos a lista da API do "
+            "PTAX em 17/set/2026.</p>"
+            "<p>Para dar ordem de grandeza sem fingir precisão: <b>ARS 1.000 ficavam "
+            "perto de R$ 3,40</b> em 17/set/2026, segundo cotação de mercado publicada "
+            "pela Wise e pelo Investing.com. <b>Não é taxa oficial e muda todo dia</b> "
+            "— use só para dimensionar.</p>"),
+    },
     "busca": ("bariloche san carlos de bariloche argentina patagonia rio negro nahuel huapi "
               "parque nacional cerro catedral cerro otto cerro campanario isla victoria "
               "bosque de arrayanes puerto blest cascada los cantaros circuito chico "
