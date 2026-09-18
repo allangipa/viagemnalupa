@@ -57,7 +57,20 @@ BARILOCHE = {
     "abertura": ("Nove pontos com preço, horário e fonte conferidos em 17 de setembro "
                  "de 2026 — e o detalhe que muda a conta: <b>a excursão mais vendida "
                  "de Bariloche tem duas cobranças que não estão no preço anunciado, e "
-                 "as duas se pagam em dinheiro, no porto</b>."),
+                 "as duas se pagam em dinheiro, no porto</b>.<br><br>"
+                 "<b>Todos os valores desta página estão em pesos argentinos (ARS), "
+                 "não em reais nem em dólares.</b> A inflação argentina deixa os "
+                 "números com muitos dígitos, e é fácil ler seis algarismos como se "
+                 "fossem dólares.<br>"
+                 "<span class=\"flag\">Não convertemos os valores</span> a conversão "
+                 "automática pela PTAX do Banco Central existe em outras fichas do "
+                 "site e <b>não pode entrar aqui: o Banco Central publica a cotação de "
+                 "dez moedas, e o peso argentino não está entre elas</b> — conferimos a "
+                 "lista da API do PTAX em 17/set/2026. Para dar ordem de grandeza sem "
+                 "fingir precisão: <b>ARS 1.000 ficavam perto de R$ 3,40</b> em "
+                 "17/set/2026, segundo cotação de mercado publicada pela Wise e pelo "
+                 "Investing.com. <b>Não é taxa oficial e muda todo dia</b> — use só "
+                 "para dimensionar."),
     "busca": ("bariloche san carlos de bariloche argentina patagonia rio negro nahuel huapi "
               "parque nacional cerro catedral cerro otto cerro campanario isla victoria "
               "bosque de arrayanes puerto blest cascada los cantaros circuito chico "
@@ -77,21 +90,21 @@ BARILOCHE = {
         {
             "id": "parque-nahuel-huapi", "grupo": "g1",
             "nome": "Parque Nacional Nahuel Huapi", "tag": "Parque nacional",
-            "preco_val": "$ 35.000", "preco_nota": "estrangeiro, por dia",
+            "preco_val": "ARS 35.000", "preco_nota": "estrangeiro, por dia",
             "campos": [
                 ("Valor da entrada",
                  "Fonte: tabela de tarifas publicada no site oficial do parque "
                  "(nahuelhuapi.gov.ar), consultada em 17/set/2026.<br>"
-                 "<b>Estrangeiro paga $ 35.000.</b> Residente argentino paga "
-                 "<b>$ 15.000</b>, estudante <b>$ 12.000</b> e residente da província "
-                 "de Río Negro, <b>$ 8.000</b>. Residente local não paga.<br>"
+                 "<b>Estrangeiro paga ARS 35.000.</b> Residente argentino paga "
+                 "<b>ARS 15.000</b>, estudante <b>ARS 12.000</b> e residente da província "
+                 "de Río Negro, <b>ARS 8.000</b>. Residente local não paga.<br>"
                  "<b>Não pagam:</b> aposentados e pensionistas, menores de 6 anos, "
                  "pessoas com deficiência e seu acompanhante.<br>"
                  "<b>Há 50% de desconto no segundo dia</b> — a tarifa acima vale para "
                  "o primeiro dia de visita.<br>"
                  "<span class=\"flag\">Fontes divergem na data</span> a imprensa "
                  "patagônica noticiou que esses valores passaram a valer em <b>1º de "
-                 "junho de 2026</b>, com alta de 75% sobre os $ 20.000 anteriores. "
+                 "junho de 2026</b>, com alta de 75% sobre os ARS 20.000 anteriores. "
                  "<b>A página oficial mostra a tabela sem informar data de vigência.</b> "
                  "Os valores são os mesmos nas duas fontes; só a data não se confirma."),
                 ("Onde a taxa é cobrada",
@@ -109,17 +122,17 @@ BARILOCHE = {
         {
             "id": "cerro-catedral", "grupo": "g1",
             "nome": "Cerro Catedral", "tag": "Centro de esqui",
-            "preco_val": "$ 90.000", "preco_nota": "passe pedestre; esqui custa $ 160.000",
+            "preco_val": "ARS 90.000", "preco_nota": "passe pedestre; esqui custa ARS 160.000",
             "campos": [
                 ("Valor da entrada",
                  "Fonte: página de tarifas da Catedral Alta Patagonia "
                  "(catedralaltapatagonia.com), consultada em 17/set/2026. A própria "
                  "página rotula os valores como <b>TARIFAS 2026</b>.<br>"
-                 "<b>Passe Pedestre: $ 90.000.</b> É o que serve para quem vai subir "
+                 "<b>Passe Pedestre: ARS 90.000.</b> É o que serve para quem vai subir "
                  "para ver a vista, não para esquiar — inclui subida e descida pela "
                  "Telecabina Amancay ou pelo Cabo Carril.<br>"
-                 "<b>Passe Esquiador, diário: $ 160.000.</b><br>"
-                 "<b>O ChipCard custa $ 7.000 à parte e não está incluído</b> em "
+                 "<b>Passe Esquiador, diário: ARS 160.000.</b><br>"
+                 "<b>O ChipCard custa ARS 7.000 à parte e não está incluído</b> em "
                  "nenhum dos dois. É o suporte do passe.<br>"
                  "Crianças de 0 a 5 anos não pagam. Os preços incluem IVA, e o centro "
                  "aceita pagamento em pesos ou em dólares."),
@@ -136,14 +149,14 @@ BARILOCHE = {
         {
             "id": "cerro-otto", "grupo": "g1",
             "nome": "Teleférico Cerro Otto", "tag": "Teleférico",
-            "preco_val": "$ 60.000", "preco_nota": "maior de 13 anos",
+            "preco_val": "ARS 60.000", "preco_nota": "maior de 13 anos",
             "campos": [
                 ("Valor da entrada",
                  "Fonte: página de tarifas e horários do próprio teleférico "
                  "(telefericobariloche.com.ar), consultada em 17/set/2026.<br>"
-                 "<b>Maior de 13 anos: $ 60.000.</b> Criança de 6 a 12 anos, maior de "
-                 "65 anos e residente pagam <b>$ 30.000</b>. Menor de 5 anos não paga.<br>"
-                 "<b>Existe um bilhete só do teleférico, a $ 30.000</b>, para quem não "
+                 "<b>Maior de 13 anos: ARS 60.000.</b> Criança de 6 a 12 anos, maior de "
+                 "65 anos e residente pagam <b>ARS 30.000</b>. Menor de 5 anos não paga.<br>"
+                 "<b>Existe um bilhete só do teleférico, a ARS 30.000</b>, para quem não "
                  "quer o complexo inteiro — metade do preço da entrada completa."),
                 ("Dias em que não funciona",
                  "<b>A base e a bilheteria funcionam das 10h às 16h30</b>; o complexo "
@@ -161,10 +174,10 @@ BARILOCHE = {
         {
             "id": "cerro-campanario", "grupo": "g1",
             "nome": "Cerro Campanario", "tag": "Aerossilha",
-            "preco_val": "$ 18.000", "preco_nota": "adulto; criança de 6 a 12, $ 10.000",
+            "preco_val": "ARS 18.000", "preco_nota": "adulto; criança de 6 a 12, ARS 10.000",
             "campos": [
                 ("Valor da entrada",
-                 "<b>$ 18.000 para adulto</b> e <b>$ 10.000 para criança de 6 a 12 anos</b>, "
+                 "<b>ARS 18.000 para adulto</b> e <b>ARS 10.000 para criança de 6 a 12 anos</b>, "
                  "pela aerossilha que sobe ao mirante.<br>"
                  "<span class=\"flag\">Fonte não oficial</span> este é o único ponto "
                  "desta ficha cujo preço <b>não saiu da página do próprio operador</b>. "
@@ -185,24 +198,24 @@ BARILOCHE = {
         {
             "id": "isla-victoria", "grupo": "g2",
             "nome": "Isla Victoria e Bosque de Arrayanes", "tag": "Navegação",
-            "preco_val": "$ 182.600", "preco_nota": "as três cobranças somadas",
+            "preco_val": "ARS 182.600", "preco_nota": "as três cobranças somadas",
             "campos": [
                 ("Valor da entrada",
                  "Fonte: página de horários e tarifas do operador "
                  "(islavictoriayarrayanes.com), consultada em 17/set/2026. A página "
                  "informa vigência a partir de <b>1º de junho de 2026</b>.<br>"
                  "<b>São três cobranças, e só a primeira aparece no anúncio:</b><br>"
-                 "• Excursão, adulto: <b>$ 140.000</b> (menor: $ 70.000)<br>"
-                 "• Taxa de acesso ao Parque Nacional: <b>$ 35.000</b> "
-                 "(residente argentino: $ 15.000; menor de 5 anos: grátis)<br>"
-                 "• Taxa de embarque: <b>$ 7.600</b><br>"
-                 "Total para estrangeiro adulto: <b>$ 182.600</b>.<br>"
+                 "• Excursão, adulto: <b>ARS 140.000</b> (menor: ARS 70.000)<br>"
+                 "• Taxa de acesso ao Parque Nacional: <b>ARS 35.000</b> "
+                 "(residente argentino: ARS 15.000; menor de 5 anos: grátis)<br>"
+                 "• Taxa de embarque: <b>ARS 7.600</b><br>"
+                 "Total para estrangeiro adulto: <b>ARS 182.600</b>.<br>"
                  "<b>As duas taxas se pagam em dinheiro, no Puerto Pañuelo</b>, e não "
                  "entram na reserva. É a pegadinha mais cara de Bariloche.<br>"
                  "<span class=\"flag\">Fontes divergem</span> revendedores anunciavam a "
-                 "excursão a <b>$ 152.000</b> na mesma data em que o operador publicava "
-                 "<b>$ 140.000</b>. Usamos o valor do operador; <b>o do revendedor pode "
-                 "embutir transfer</b>, que o operador cobra à parte a $ 22.000."),
+                 "excursão a <b>ARS 152.000</b> na mesma data em que o operador publicava "
+                 "<b>ARS 140.000</b>. Usamos o valor do operador; <b>o do revendedor pode "
+                 "embutir transfer</b>, que o operador cobra à parte a ARS 22.000."),
                 ("Dias em que não funciona",
                  "<b>Saídas diárias, em dois turnos.</b><br>"
                  "<b>Turno integral:</b> transfer às 10h20, embarque às 11h40, saída às "
@@ -220,19 +233,19 @@ BARILOCHE = {
         {
             "id": "puerto-blest", "grupo": "g2",
             "nome": "Puerto Blest e Cascada Los Cántaros", "tag": "Navegação",
-            "preco_val": "$ 136.000", "preco_nota": "sem a taxa do parque",
+            "preco_val": "ARS 136.000", "preco_nota": "sem a taxa do parque",
             "campos": [
                 ("Valor da entrada",
-                 "<b>$ 136.000 por adulto</b>, pela Turisur, operadora do passeio. "
+                 "<b>ARS 136.000 por adulto</b>, pela Turisur, operadora do passeio. "
                  "Consultado em 17/set/2026.<br>"
-                 "O operador informa <b>sinal de $ 24.000 na reserva</b> e o saldo de "
-                 "<b>$ 112.000 no dia da excursão</b>.<br>"
+                 "O operador informa <b>sinal de ARS 24.000 na reserva</b> e o saldo de "
+                 "<b>ARS 112.000 no dia da excursão</b>.<br>"
                  "<b>Não inclui a chegada ao porto, as taxas nem as refeições.</b> Como "
                  "o embarque também é no Puerto Pañuelo, <b>valem as mesmas duas "
                  "cobranças da Isla Victoria</b> — taxa do parque e taxa de embarque.<br>"
                  "<span class=\"flag\">O que não apuramos</span> <b>não confirmamos o "
                  "valor da taxa de embarque especificamente para este passeio</b>. Para "
-                 "a Isla Victoria, saindo do mesmo porto, ela é de $ 7.600."),
+                 "a Isla Victoria, saindo do mesmo porto, ela é de ARS 7.600."),
                 ("Dias em que não funciona",
                  "<b>Excursão de dia inteiro</b>, com saída de manhã e retorno por volta "
                  "das <b>17h30</b>.<br>"
@@ -261,9 +274,9 @@ BARILOCHE = {
                  "<b>Estrada aberta o ano todo</b>, sem horário nem bilheteria.<br>"
                  "<b>Não passa por posto de cobrança do Parque Nacional</b> — é por isso "
                  "que dá para fazer o Circuito Chico inteiro sem pagar a taxa de "
-                 "$ 35.000.<br>"
+                 "ARS 35.000.<br>"
                  "Excursões guiadas que percorrem o circuito custavam de "
-                 "<b>$ 40.000 a $ 80.000</b> conforme incluíssem o Campanario ou a "
+                 "<b>ARS 40.000 a ARS 80.000</b> conforme incluíssem o Campanario ou a "
                  "Colonia Suiza. <span class=\"flag\">Fonte não oficial</span> essa "
                  "faixa vem de portais de turismo, não de tabela publicada."),
                 ("Onde fica", mapa("Circuito Chico, San Carlos de Bariloche, Argentina")),
@@ -301,8 +314,8 @@ BARILOCHE = {
                  "<span class=\"flag\">Não achamos o valor oficial</span> tentamos o site "
                  "do museu (museodelapatagonia.nahuelhuapi.gov.ar) e ele respondeu com "
                  "erro de servidor no dia da apuração. <b>Relatos de visitantes de 2026 "
-                 "mencionam $ 3.000 de contribuição</b>, e guias antigos ainda repetem "
-                 "<b>$ 300</b>, valor que a inflação argentina tornou implausível.<br>"
+                 "mencionam ARS 3.000 de contribuição</b>, e guias antigos ainda repetem "
+                 "<b>ARS 300</b>, valor que a inflação argentina tornou implausível.<br>"
                  "<b>Não escolhemos entre os dois.</b> O que dá para afirmar é que a "
                  "contribuição não é obrigatória."),
                 ("Dias em que não funciona",

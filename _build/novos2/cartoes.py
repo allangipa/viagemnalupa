@@ -67,7 +67,11 @@ CAPAS = {
 # fatos que a ficha apura - aqui so em forma curta.
 RESUMO = {
     "bariloche": dict(
-        numeros=[("Isla Victoria, tudo somado", "$ 182.600", False),
+        # ARS, nao "$". O Allan leu "$ 182.600" e perguntou se era mais de
+        # mil dolares - sao pesos argentinos, cerca de R$ 621. Buenos
+        # Aires ja escrevia ARS e Santiago escreve CLP: e a convencao da
+        # casa para moeda que se confunde, e eu nao tinha seguido.
+        numeros=[("Isla Victoria, tudo somado", "ARS 182.600", False),
                  ("Circuito Chico inteiro", "grátis", True)],
         achado=("<b>A excursão mais vendida da cidade tem três cobranças, e "
                 "o anúncio mostra uma.</b> A taxa do Parque Nacional e a de "
