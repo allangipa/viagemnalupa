@@ -96,7 +96,10 @@ BARILOCHE = {
     ],
     "pontos": [
         {
-            "id": "parque-nahuel-huapi", "grupo": "g1",
+            "id": "parque-nahuel-huapi",
+            "foto": {"arq": "bariloche/parque-nahuel-huapi.webp",
+                     "alt": "Floresta de araucárias do Parque Nacional Nahuel Huapi, com picos nevados ao fundo em dia de céu limpo",
+                     "cred": "Storyblocks · licença royalty-free · SBI-357934593"}, "grupo": "g1",
             "nome": "Parque Nacional Nahuel Huapi", "tag": "Parque nacional",
             "preco_val": "ARS 35.000", "preco_nota": "estrangeiro, por dia",
             "campos": [
@@ -265,7 +268,10 @@ BARILOCHE = {
             ],
         },
         {
-            "id": "circuito-chico", "grupo": "g3",
+            "id": "circuito-chico",
+            "foto": {"arq": "bariloche/circuito-chico.webp",
+                     "alt": "Vista do lago Nahuel Huapi a partir do Punto Panorámico, com a península coberta de mata e a cordilheira nevada ao fundo",
+                     "cred": "Storyblocks · licença royalty-free · SBI-357309567"}, "grupo": "g3",
             "nome": "Circuito Chico e Punto Panorámico", "tag": "Estrada cênica",
             "preco_val": "Grátis", "preco_nota": "Parque Municipal Llao Llao",
             "campos": [
@@ -455,7 +461,10 @@ PUNTA_CANA = {
             ],
         },
         {
-            "id": "isla-saona", "grupo": "g2",
+            "id": "isla-saona",
+            "foto": {"arq": "punta-cana/isla-saona.webp",
+                     "alt": "Praia da Isla Saona vista do alto, com água rasa turquesa e a linha de coqueiros acompanhando a costa",
+                     "cred": "Storyblocks · licença royalty-free · SBI-357989562"}, "grupo": "g2",
             "nome": "Isla Saona", "tag": "Ilha em parque nacional",
             "preco_val": "US$ 75 a 135", "preco_nota": "excursão compartilhada",
             "campos": [
@@ -511,7 +520,10 @@ PUNTA_CANA = {
             ],
         },
         {
-            "id": "playa-bavaro", "grupo": "g3",
+            "id": "playa-bavaro",
+            "foto": {"arq": "punta-cana/playa-bavaro.webp",
+                     "alt": "Faixa de areia da Playa Bávaro vista do alto, com o mar turquesa quebrando na praia e coqueiros na orla",
+                     "cred": "Storyblocks · licença royalty-free · SBI-358012617"}, "grupo": "g3",
             "nome": "Playa Bávaro", "tag": "Praia",
             "preco_val": "Grátis", "preco_nota": "acesso garantido por lei",
             "campos": [

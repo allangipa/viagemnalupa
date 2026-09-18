@@ -160,6 +160,24 @@ def um_ponto(p, numero):
     campos = "".join(
         '<div class="campo-l"><div class="rot">%s</div><div class="val">%s</div></div>'
         % (rot, val) for rot, val in p["campos"])
+
+    # A foto, quando o ponto tem uma.
+    #
+    # Fica aqui, no gerador, e nao inserida no HTML depois: a ficha e
+    # regerada a cada mudanca na apuracao, e foto colada direto no
+    # arquivo sumiria na proxima geracao sem aviso.
+    #
+    # Ponto sem foto sai sem <figure> - "melhor ficar sem imagem do que
+    # quadro sem imagem", que foi o pedido do Allan e virou regra.
+    foto = ""
+    if p.get("foto"):
+        f = p["foto"]
+        foto = ('  <figure class="foto">'
+                '<img src="../../assets/img/%s" alt="%s" width="1200" '
+                'height="675" loading="lazy" decoding="async">'
+                '<figcaption><p class="foto-cred">%s</p></figcaption>'
+                '</figure>\n' % (f["arq"], f["alt"], f["cred"]))
+
     return (
         '<article class="ponto" id="%s">\n'
         '  <div class="ponto-topo">\n'
@@ -168,9 +186,11 @@ def um_ponto(p, numero):
         '    <div class="preco"><span class="preco-val">%s</span>\n'
         '      <span class="preco-nota">%s</span></div>\n'
         '  </div>\n'
+        '%s'
         '  <div class="campos">%s</div>\n'
         '</article>\n'
-        % (p["id"], numero, p["nome"], p["tag"], p["preco_val"], p["preco_nota"], campos))
+        % (p["id"], numero, p["nome"], p["tag"], p["preco_val"],
+           p["preco_nota"], foto, campos))
 
 
 def grupos(d):
