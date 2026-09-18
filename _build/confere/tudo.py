@@ -398,6 +398,47 @@ def confere_schema():
         print("      %-22s %d" % (t, q))
 
 
+def confere_itemlist(real):
+    """O ItemList do JSON-LD conta os mesmos pontos que a ficha tem?
+
+    O gerador de schema nao reescreve bloco que ja existe - regra boa,
+    que protege redacao humana. Mas o ItemList carrega uma CONTAGEM, e
+    contagem mente quando a ficha cresce.
+
+    Nova York ganhou o grupo de Friends e passou de 17 para 20 pontos. O
+    ItemList continuou anunciando 17 atracoes, com a lista antiga, e nada
+    reclamou - nem o validador do schema.org, porque o bloco e valido;
+    so esta desatualizado.
+    """
+    print()
+    print("=== ItemList do JSON-LD contra os pontos da ficha ===")
+    fora = 0
+    for slug in sorted(real):
+        p = os.path.join(RAIZ, "destinos", slug, "index.html")
+        if not os.path.isfile(p):
+            continue
+        h = le(p)
+        for m in re.finditer(
+                r'(?s)<script type="application/ld\+json">(.*?)</script>', h):
+            try:
+                d = json.loads(m.group(1))
+            except Exception:
+                continue
+            for x in (d if isinstance(d, list) else [d]):
+                if not isinstance(x, dict) or x.get("@type") != "ItemList":
+                    continue
+                n = x.get("numberOfItems")
+                itens = len(x.get("itemListElement") or [])
+                if n != real[slug] or itens != real[slug]:
+                    fora += 1
+                    anota("destinos/%s: o ItemList do JSON-LD anuncia %s "
+                          "atracoes e lista %d, mas a ficha tem %d "
+                          "(rode _build/schema/gera.py --aplica)"
+                          % (slug, n, itens, real[slug]))
+    print("   %d ficha(s) conferida(s), %d fora de sincronia"
+          % (len(real), fora))
+
+
 def confere_cartoes():
     """Todo cartao de destino abre clicando no retangulo inteiro?
 
@@ -489,6 +530,7 @@ def main():
     real = pontos_reais()
     confere_contadores(real)
     confere_schema()
+    confere_itemlist(real)
     confere_cartoes()
     confere_parceiros()
     print()

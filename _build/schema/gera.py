@@ -198,6 +198,7 @@ def pontos_da_ficha(htm, slug):
 def main(aplica):
     mudadas = 0
     total_blocos = 0
+    refeitos = []          # ItemList cuja contagem tinha ficado para tras
 
     for slug, nome in sorted(DESTINOS.items()):
         base = os.path.join(RAIZ, "destinos", slug)
@@ -253,17 +254,55 @@ def main(aplica):
                     ],
                 })
 
+        else:
+            # A UNICA excecao a regra "nao reescreve bloco que ja existe".
+            #
+            # O ItemList carrega uma CONTAGEM, e contagem mente quando a
+            # ficha cresce. Nova York ganhou o grupo de Friends e passou
+            # de 17 para 20 pontos: o ItemList continuou anunciando 17
+            # atracoes, com a lista antiga, sem erro em lugar nenhum.
+            #
+            # Aqui a comparacao e objetiva - o numero no bloco contra os
+            # <article class="ponto"> do arquivo - entao nao ha risco de
+            # sobrescrever redacao humana. Se bater, nao toca em nada.
+            pts = pontos_da_ficha(htm, slug)
+            m_il = re.search(
+                r'(?s)<script type="application/ld\+json">\s*(\{[^<]*?'
+                r'"@type"\s*:\s*"ItemList".*?\})\s*</script>', htm)
+            if pts and m_il:
+                try:
+                    atual = json.loads(m_il.group(1))
+                except Exception:
+                    atual = None
+                if atual and atual.get("numberOfItems") != len(pts):
+                    antigo = atual.get("numberOfItems")
+                    atual["name"] = ("%d pontos turísticos de %s"
+                                     % (len(pts), nome))
+                    atual["numberOfItems"] = len(pts)
+                    atual["itemListElement"] = [
+                        {"@type": "ListItem", "position": i, "item": p}
+                        for i, p in enumerate(pts, 1)]
+                    htm = (htm[:m_il.start(1)]
+                           + json.dumps(atual, ensure_ascii=False)
+                           + htm[m_il.end(1):])
+                    refeitos.append((slug, antigo, len(pts)))
+
         if "BreadcrumbList" not in tem:
             novos.append(trilha([("Início", "/"), ("Destinos", "/destinos/"),
                                  (nome, "/destinos/%s/" % slug)]))
 
-        if novos:
-            print("  %-34s +%d  (%s)" % (
-                "/destinos/%s/" % slug, len(novos),
-                ", ".join(b["@type"] for b in novos)))
-            total_blocos += len(novos)
+        # O ItemList refeito ja esta dentro de `htm`; grava mesmo que nao
+        # haja bloco novo nenhum, senao a correcao da contagem se perde.
+        refez_aqui = any(x[0] == slug for x in refeitos)
+        if novos or refez_aqui:
+            if novos:
+                print("  %-34s +%d  (%s)" % (
+                    "/destinos/%s/" % slug, len(novos),
+                    ", ".join(b["@type"] for b in novos)))
+                total_blocos += len(novos)
             if aplica:
-                escreve(guia, injeta(htm, [bloco(b) for b in novos]))
+                escreve(guia, injeta(htm, [bloco(b) for b in novos])
+                        if novos else htm)
             mudadas += 1
 
         # ------------------------------------------------ quanto custa/roteiro
@@ -375,6 +414,13 @@ def main(aplica):
             if aplica:
                 escreve(p, injeta(h, [bloco(b) for b in n]))
             mudadas += 1
+
+    if refeitos:
+        print()
+        print("=== ItemList com contagem defasada, refeito ===")
+        for slug, antes, agora in refeitos:
+            print("  %-34s %s -> %d pontos"
+                  % ("/destinos/%s/" % slug, antes, agora))
 
     print()
     print("%s: %d blocos em %d paginas."
