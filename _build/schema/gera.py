@@ -55,6 +55,7 @@ DESTINOS = {
     "nova-york":      "Nova York",
     "orlando":        "Orlando",
     "porto":          "Porto",
+    "sevilha":        "Sevilha",
     "punta-cana":     "Punta Cana",
     "rio-de-janeiro": "Rio de Janeiro",
     "santiago":       "Santiago",

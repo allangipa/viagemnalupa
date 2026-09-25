@@ -90,6 +90,7 @@ BUSCA = {
     "nova-york":      "Nova York, Estados Unidos",
     "orlando":        "Orlando, Estados Unidos",
     "porto":          "Porto, Portugal",
+    "sevilha":        "Sevilha, Espanha",
     "punta-cana":     "Punta Cana, República Dominicana",
     "rio-de-janeiro": "Rio de Janeiro, Brasil",
     "santiago":       "Santiago, Chile",
