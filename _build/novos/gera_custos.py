@@ -280,10 +280,25 @@ def bloco_reserva(nome, ondes):
         '</section>\n' % (nome, links))
 
 
-def linha(tipo, valor, item, mostra, obs):
+def linha(tipo, valor, item, mostra, obs, extra=None):
+    """Uma linha da tabela.
+
+    O sexto elemento, opcional, sao os data-* que alguns tipos precisam e
+    que o ingresso nao usa. O ficha.js le:
+
+        taxa    data-noite, data-teto (opcional), data-rot com {n}
+        metro   data-dia, data-teto
+        dia     data-rot com {d}, data-grupo
+
+    Entrou com o Porto, primeira ficha destes geradores com taxa
+    municipal e transporte apurado. As quatro anteriores so tinham
+    ingresso, e por isso o parametro e opcional.
+    """
     attrs = 'data-tipo="%s"' % tipo
     if valor is not None:
         attrs += ' data-v="%.4f"' % valor
+    for k, v in sorted((extra or {}).items()):
+        attrs += ' data-%s="%s"' % (k, v)
     return ('<tr %s><td>%s</td><td class="n">%s</td><td>%s</td></tr>'
             % (attrs, item, mostra, obs))
 
@@ -388,12 +403,23 @@ def monta(slug):
         % (f["intro"], barra_cidades(slug), hoje, hoje, seletor_hosp(f),
            f["nota_calc"], json.dumps(cfg, ensure_ascii=False)))
 
-    corpo = "".join(linha(t, v, it, mo, ob) for t, v, it, mo, ob in f["linhas"])
-    total = sum(v for t, v, *_ in f["linhas"] if t == "ingresso" and v)
+    corpo = "".join(linha(*l) for l in f["linhas"])
+    # O total impresso e o da viagem padrao, o que o leitor sem JavaScript
+    # ve. Ate o Porto so havia linha de ingresso, e somar ingresso bastava.
+    # Agora ha taxa municipal e transporte, que tambem sao custo - de fora
+    # fica so "hosp", que o seletor de hospedagem trata a parte. Nas quatro
+    # fichas anteriores a soma nao muda: elas nao tem linha de outro tipo
+    # com valor, e isso foi conferido antes de trocar.
+    total = sum(v for t, v, *_ in f["linhas"] if t != "hosp" and v)
     if f["hosp"]:
         total += f["hosp"][0]["ref"] * (f["dias"] - 1)
     rot = "Total por pessoa" + ("" if f["hosp"] else ", sem a hospedagem")
-    fmt = ("%s %s" % (f["moeda"], "{:,.0f}".format(total).replace(",", ".")))
+    # Casas decimais pela moeda: peso e dolar sem centavo, euro com. O
+    # "{:,.0f}" fixo escreveria "EUR 125" onde a conta da 125,25. A troca
+    # de separador e feita em duas partes para nao precisar de sentinela.
+    inteiro, _, cent = ("{:,.%df}" % f.get("dec", 0)).format(total).partition(".")
+    fmt = "%s %s" % (f["moeda"],
+                     inteiro.replace(",", ".") + ("," + cent if cent else ""))
     html += (
         '<section class="bloco">\n'
         '  <div class="bloco-head"><span class="eyebrow">A apuração</span>'
