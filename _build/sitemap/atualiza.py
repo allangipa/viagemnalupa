@@ -89,8 +89,20 @@ def main(aplica):
     mudou, iguais, faltando = [], 0, []
 
     def troca(m):
+        """Acerta a data de um bloco <url>, TENHA ELE a tag ou nao.
+
+        A primeira versao disto casava so <loc> seguido de <lastmod>, e
+        por isso nao alcancava a URL que entrou no mapa sem a tag - o que
+        e justamente o caso de toda pagina recem-criada, porque ela entra
+        antes do commit que lhe daria data.
+
+        Trocar "tag vazia" por "tag que nunca aparece" seria o mesmo bug
+        com outra roupa. Aqui a tag e INSERIDA logo depois do </loc>
+        quando falta, que e a posicao que o esquema do sitemap exige.
+        """
         nonlocal iguais
-        bloco, url, velha = m.group(0), m.group(1), m.group(2)
+        bloco, url = m.group(0), m.group(1)
+        velha = m.group(2)                      # None quando nao ha a tag
         arq = arquivo_de(url)
         if not os.path.isfile(arq):
             faltando.append(url)
@@ -99,12 +111,15 @@ def main(aplica):
         if nova is None or nova == velha:
             iguais += 1
             return bloco
-        mudou.append((url, velha, nova))
+        mudou.append((url, velha if velha is not None else "(sem tag)", nova))
+        if velha is None:
+            return bloco.replace("</loc>", "</loc><lastmod>%s</lastmod>" % nova, 1)
         return bloco.replace("<lastmod>%s</lastmod>" % velha,
                              "<lastmod>%s</lastmod>" % nova)
 
+    # O grupo 2 e opcional: com a tag, casa o valor; sem ela, vem None.
     saida = re.sub(
-        r"<url><loc>([^<]+)</loc><lastmod>([^<]*)</lastmod>", troca, xml)
+        r"<url><loc>([^<]+)</loc>(?:<lastmod>([^<]*)</lastmod>)?", troca, xml)
 
     # Pagina que existe em disco e nao esta no mapa.
     #
