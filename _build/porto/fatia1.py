@@ -102,6 +102,9 @@ PORTO = {
         # -------------------------------------------------------------
         {
             "id": "livraria-lello", "grupo": "g1",
+            "foto": {"arq": "porto/livraria-lello.webp",
+                     "alt": "Teto de madeira entalhada da Livraria Lello visto de baixo, com a galeria do piso superior e o vitral ao fundo",
+                     "cred": "John Samuel · CC BY-SA 4.0 · via Wikimedia Commons"},
             "nome": "Livraria Lello", "tag": "Livraria histórica",
             "preco_val": "€ 15,95",
             "preco_nota": "dedutível num livro da casa",
@@ -144,6 +147,9 @@ PORTO = {
         # -------------------------------------------------------------
         {
             "id": "torre-dos-clerigos", "grupo": "g1",
+            "foto": {"arq": "porto/torre-dos-clerigos.webp",
+                     "alt": "A Torre dos Clérigos erguida acima dos telhados de telha vermelha do centro do Porto, contra o céu limpo",
+                     "cred": "Krzysztof Golik · CC BY-SA 4.0 · via Wikimedia Commons"},
             "nome": "Torre dos Clérigos", "tag": "Torre e museu",
             "preco_val": "€ 10,00",
             "preco_nota": "pack Torre + Museu; € 7,00 estudante",
@@ -202,6 +208,9 @@ PORTO = {
         # -------------------------------------------------------------
         {
             "id": "palacio-da-bolsa", "grupo": "g2",
+            "foto": {"arq": "porto/palacio-da-bolsa.webp",
+                     "alt": "Fachada neoclássica do Palácio da Bolsa vista da praça, com o monumento ao Infante Dom Henrique em primeiro plano",
+                     "cred": "Alexkom000 · CC BY 4.0 · via Wikimedia Commons"},
             "nome": "Palácio da Bolsa", "tag": "Palácio",
             "preco_val": "€ 14,00",
             "preco_nota": "visita guiada obrigatória, ~30 min",
@@ -247,6 +256,9 @@ PORTO = {
         # -------------------------------------------------------------
         {
             "id": "igreja-sao-francisco", "grupo": "g2",
+            "foto": {"arq": "porto/igreja-sao-francisco.webp",
+                     "alt": "Fachada da Igreja de São Francisco, com a rosácea gótica sobre o portal barroco em pedra",
+                     "cred": "John Samuel · CC BY-SA 4.0 · via Wikimedia Commons"},
             "nome": "Igreja e Museu de São Francisco", "tag": "Monumento Nacional",
             "preco_val": None,
             "preco_nota": "a fonte oficial não publica preço",
@@ -294,6 +306,9 @@ PORTO = {
         # -------------------------------------------------------------
         {
             "id": "metro-do-porto", "grupo": "g3",
+            "foto": {"arq": "porto/metro-do-porto.webp",
+                     "alt": "Composição amarela do Metro do Porto parada na estação, vista da plataforma",
+                     "cred": "Barcex · CC BY-SA 3.0 · via Wikimedia Commons"},
             "nome": "Metro do Porto", "tag": "Transporte",
             "preco_val": "€ 1,40",
             "preco_nota": "Andante Azul Z2, mais € 0,60 do cartão",

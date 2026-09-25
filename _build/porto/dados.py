@@ -103,6 +103,9 @@ PONTOS2 = [
     # -----------------------------------------------------------------
     {
         "id": "ponte-dom-luis", "grupo": "g4",
+        "foto": {"arq": "porto/ponte-dom-luis.webp",
+                 "alt": "A Ponte Dom Luís I sobre o Douro, com o tabuleiro inferior em primeiro plano e a cidade do Porto subindo a encosta ao fundo",
+                 "cred": "Gerd Eichmann · CC BY-SA 4.0 · via Wikimedia Commons"},
         "nome": "Ponte Dom Luís I", "tag": "Monumento",
         "preco_val": "Grátis",
         "preco_nota": "travessia a pé nos dois tabuleiros",
@@ -163,6 +166,9 @@ PONTOS2 = [
     # -----------------------------------------------------------------
     {
         "id": "centro-historico-ribeira", "grupo": "g4",
+        "foto": {"arq": "porto/praca-da-ribeira.webp",
+                 "alt": "Fachadas estreitas e coloridas da Praça da Ribeira, com roupa estendida nas janelas",
+                 "cred": "Philip Sheldrake from London, UK · CC BY-SA 2.0 · via Wikimedia Commons"},
         "nome": "Centro Histórico e Ribeira", "tag": "Património Mundial",
         "preco_val": "Grátis",
         "preco_nota": "é a cidade; não há bilhete",
@@ -211,6 +217,9 @@ PONTOS2 = [
     # -----------------------------------------------------------------
     {
         "id": "teleferico-de-gaia", "grupo": "g4",
+        "foto": {"arq": "porto/teleferico-de-gaia.webp",
+                 "alt": "Cabine do Teleférico de Gaia suspensa sobre os telhados, com o Douro e o Porto ao fundo",
+                 "cred": "Matt Kieffer from London, United Kingdom · CC BY-SA 2.0 · via Wikimedia Commons"},
         "nome": "Teleférico de Gaia", "tag": "Teleférico",
         "preco_val": "€ 10,00",
         "preco_nota": "ida e volta adulto; só ida € 7,00",
@@ -252,6 +261,9 @@ PONTOS2 = [
     # -----------------------------------------------------------------
     {
         "id": "caves-vinho-do-porto", "grupo": "g4",
+        "foto": {"arq": "porto/caves-vinho-do-porto.webp",
+                 "alt": "Fileiras de barris de vinho do Porto empilhados numa cave de Vila Nova de Gaia, sob luz baixa",
+                 "cred": "Daniel VILLAFRUELA. · CC BY-SA 4.0 · via Wikimedia Commons"},
         "nome": "Caves do Vinho do Porto", "tag": "Caves",
         "preco_val": None,
         "preco_nota": "as caves quase não publicam tarifa",
@@ -303,6 +315,9 @@ PONTOS2 = [
     # -----------------------------------------------------------------
     {
         "id": "se-do-porto", "grupo": "g5",
+        "foto": {"arq": "porto/se-do-porto.webp",
+                 "alt": "A Sé do Porto em granito, com as duas torres e a loggia lateral, vista do Terreiro da Sé",
+                 "cred": "Alvesgaspar · CC BY-SA 4.0 · via Wikimedia Commons"},
         "nome": "Sé do Porto", "tag": "Catedral",
         "preco_val": "€ 3",
         "preco_nota": "bilhete geral",
@@ -339,6 +354,9 @@ PONTOS2 = [
     # -----------------------------------------------------------------
     {
         "id": "estacao-sao-bento", "grupo": "g5",
+        "foto": {"arq": "porto/estacao-sao-bento.webp",
+                 "alt": "Painéis de azulejo azul e branco de Jorge Colaço cobrindo as paredes do átrio da Estação de São Bento",
+                 "cred": "Diego Delso · CC BY-SA 4.0 · via Wikimedia Commons"},
         "nome": "Estação de São Bento", "tag": "Estação e azulejo",
         "preco_val": "Grátis",
         "preco_nota": "é estação em funcionamento",
@@ -389,6 +407,9 @@ PONTOS2 = [
     # -----------------------------------------------------------------
     {
         "id": "capela-das-almas", "grupo": "g5",
+        "foto": {"arq": "porto/capela-das-almas.webp",
+                 "alt": "Fachada da Capela das Almas inteiramente revestida de azulejos azuis e brancos, na Rua de Santa Catarina",
+                 "cred": "Diego Delso · CC BY-SA 3.0 · via Wikimedia Commons"},
         "nome": "Capela das Almas", "tag": "Capela e azulejo",
         "preco_val": None,
         "preco_nota": "sem tarifa publicada em fonte oficial",
@@ -448,6 +469,9 @@ PONTOS2 = [
     # -----------------------------------------------------------------
     {
         "id": "serralves", "grupo": "g6",
+        "foto": {"arq": "porto/serralves.webp",
+                 "alt": "Fachada branca do Museu de Arte Contemporânea de Serralves vista do parque, com ciprestes ao lado",
+                 "cred": "Caravasar · CC BY-SA 3.0 · via Wikimedia Commons"},
         "nome": "Serralves", "tag": "Museu e parque",
         "preco_val": "€ 24,00",
         "preco_nota": "bilhete geral; só parque € 15,00",
@@ -506,6 +530,9 @@ PONTOS2 = [
     # -----------------------------------------------------------------
     {
         "id": "casa-da-musica", "grupo": "g6",
+        "foto": {"arq": "porto/casa-da-musica.webp",
+                 "alt": "O volume branco e angular da Casa da Música, com a praça inclinada em pedra à frente",
+                 "cred": "Birte Fritsch · CC BY 2.0 · via Wikimedia Commons"},
         "nome": "Casa da Música", "tag": "Sala de concertos",
         "preco_val": "€ 12",
         "preco_nota": "visita guiada; € 9 com Porto Card",
@@ -550,6 +577,9 @@ PONTOS2 = [
     # -----------------------------------------------------------------
     {
         "id": "jardins-palacio-cristal", "grupo": "g6",
+        "foto": {"arq": "porto/jardins-palacio-cristal.webp",
+                 "alt": "Vista do Douro e dos telhados do Porto a partir de um miradouro dos Jardins do Palácio de Cristal",
+                 "cred": "bebatut · CC BY-SA 2.0 · via Wikimedia Commons"},
         "nome": "Jardins do Palácio de Cristal", "tag": "Jardim",
         "preco_val": "Grátis",
         "preco_nota": "acesso livre, por condição de venda ao município",
@@ -597,6 +627,9 @@ PONTOS2 = [
     # -----------------------------------------------------------------
     {
         "id": "mercado-do-bolhao", "grupo": "g6",
+        "foto": {"arq": "porto/mercado-do-bolhao.webp",
+                 "alt": "Interior do Mercado do Bolhão depois da recuperação, com as galerias dos dois pisos e a cobertura em vidro",
+                 "cred": "Afsalgado · CC BY-SA 4.0 · via Wikimedia Commons"},
         "nome": "Mercado do Bolhão", "tag": "Mercado",
         "preco_val": None,
         "preco_nota": "o site oficial não publica tarifa de entrada",
