@@ -74,6 +74,7 @@ CIDADES = {
     "montevideu":     "Montevidéu",
     "nova-york":      "Nova York",
     "orlando":        "Orlando",
+    "porto":          "Porto",
     "punta-cana":     "Punta Cana",
     "rio-de-janeiro": "Rio de Janeiro",
     "santiago":       "Santiago",
@@ -163,7 +164,11 @@ for slug in sorted(os.listdir(DEST)):
         continue
     mudados.append((slug, cidade, 2 if voo else 1))
     if APLICA:
-        io.open(pag, "w", encoding="utf-8").write(h2)
+        # Sem newline="" o Python do Windows troca o fim de linha na
+        # escrita, e as 13 fichas aparecem modificadas no git com zero
+        # mudanca de conteudo. Os outros geradores da casa ja passam
+        # este argumento; este nao passava, e foi defeito meu.
+        io.open(pag, "w", encoding="utf-8", newline="").write(h2)
 
 print("%-16s %-22s %s" % ("destino", "cidade no botao", "botoes"))
 for slug, cidade, n in mudados:
