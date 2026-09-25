@@ -1,0 +1,246 @@
+# -*- coding: utf-8 -*-
+"""Roteiro de 5 dias no Porto.
+
+Reusa o renderizador de novos/gera_roteiro.py, como a ficha de custos faz.
+
+O QUE ORGANIZA ESTE ROTEIRO
+---------------------------
+Tres coisas, e nenhuma delas e distancia. O Porto e pequeno e quase tudo
+no centro se faz a pe.
+
+1. A HORA DE CORTE. Tres pontos param de deixar entrar antes de fechar.
+   Clerigos: ultima entrada 30 minutos antes das 19h. A torre da Se fecha
+   meia hora antes da propria catedral. E a Casa da Musica nao tem
+   horario de funcionamento: tem DUAS visitas por dia, 11h e 15h, com 35
+   lugares cada.
+
+2. O DIA DA SEMANA. O Mercado do Bolhao fecha domingo, e muito roteiro
+   de fim de semana o marca para domingo de manha. Serralves, ao
+   contrario, abre todos os dias e ainda tem uma hora a mais no fim de
+   semana - e por isso o dia de Serralves e o que aguenta cair num
+   domingo.
+
+3. AS 72 HORAS DO ANDANTE TOUR 3. A ficha de custos poe o Tour 3 na
+   conta porque ele nao usa zonas. Mas ele vale 72 horas SEGUIDAS a
+   partir da primeira validacao, e isso tem consequencia de roteiro: o
+   unico dia que realmente precisa de metro - Serralves e Casa da Musica
+   - tem de cair dentro da janela aberta na chegada. Por isso ele e o
+   dia 2, e nao o dia 4.
+
+   E a primeira vez que uma linha da ficha de custos muda a ORDEM dos
+   dias do roteiro, e nao so o total.
+
+DE ONDE SAEM OS HORARIOS
+------------------------
+Todos da apuracao de 24 e 25 de setembro de 2026, registrada em
+porto/dados.py e porto/fatia1.py - com uma excecao anotada: o horario de
+Serralves foi levantado depois, na pagina Visitar Serralves do site
+oficial, porque a apuracao dos pontos tinha o preco e nao o horario, e
+roteiro sem horario de fecho nao serve para nada.
+
+Nenhum horario foi inventado para o roteiro fechar. Onde o horario nao
+existe em fonte oficial - Capela das Almas, caves de Gaia - o roteiro
+promete sequencia, nao hora.
+
+Uso
+---
+    python _build/porto/gera_roteiro.py
+    python _build/porto/gera_roteiro.py --aplica
+"""
+import importlib.util
+import os
+import sys
+
+AQUI = os.path.dirname(os.path.abspath(__file__))
+RAIZ = os.path.dirname(os.path.dirname(AQUI))
+sys.path.insert(0, os.path.join(RAIZ, "_build", "novos"))
+import gera_roteiro as base   # noqa: E402
+
+ROTEIROS = {
+    "porto": {
+        "dias": 5,
+        "titulo": "Roteiro de 5 dias no Porto",
+        "descricao": ("Cinco dias no Porto na ordem que respeita as horas de corte, "
+                      "o domingo que fecha o Bolhão e as 72 horas do bilhete de "
+                      "transporte — com preço e horário conferidos em fonte oficial."),
+        "abertura": ("Cinco dias organizados por três coisas que folheto nenhum junta: "
+                     "<b>a hora de parar de entrar, o dia que fecha o mercado e as 72 "
+                     "horas seguidas do bilhete do metrô</b>."),
+        "avisos": [
+            ("b", "O que estraga o dia não é o horário de fechar: é o de parar de entrar",
+             "<p><b>A Torre dos Clérigos abre das 9h às 19h, mas a última entrada é "
+             "sempre 30 minutos antes do encerramento.</b> Chegar às 18h45 é encontrar "
+             "a torre aberta e o guichê fechado para você.</p>"
+             "<p><b>Na Sé há dois relógios dentro do mesmo lugar:</b> de novembro a "
+             "março a catedral fecha às 17h30 e <b>a torre às 17h</b>; de abril a "
+             "outubro, 18h30 e <b>18h</b>. Quem sobe por último tem meia hora a menos "
+             "que quem só entra.</p>"
+             "<p><b>A Casa da Música não tem horário de funcionamento — tem duas "
+             "visitas por dia</b>, às 11h e às 15h, com <b>lotação de 35 pessoas</b>. "
+             "Perdida a das 11h, a seguinte é quatro horas depois. É o ponto mais "
+             "rígido do roteiro, e por isso ele ancora o dia 2.</p>"
+             "<p><b>E o Palácio da Bolsa só se visita com guia</b>, em cerca de 30 "
+             "minutos, com <b>o idioma definido por ordem de chegada</b> entre "
+             "português, espanhol, francês e inglês. Se a próxima turma for em francês, "
+             "espera-se a seguinte — não dá para encaixá-lo num intervalo curto.</p>"),
+            ("a", "Domingo fecha o Bolhão. E fora do verão, Gaia fecha às 18h.",
+             "<p><b>O Mercado do Bolhão fecha aos domingos</b> — e abre só até as 18h "
+             "aos sábados, contra as 20h de segunda a sexta. Muito roteiro de fim de "
+             "semana o marca para domingo de manhã, que é justamente quando ele não "
+             "abre.</p>"
+             "<p><b>Serralves é o oposto, e é por isso que ele aguenta o domingo:</b> "
+             "abre todos os dias e ainda ganha uma hora no fim de semana — das 10h às "
+             "20h aos sábados, domingos e feriados, contra 19h nos dias úteis, entre "
+             "abril e setembro. De outubro a março é uma hora menos em tudo: 18h nos "
+             "dias úteis e 19h no fim de semana.</p>"
+             "<p><b>O dia de Gaia é o que o inverno encurta.</b> O teleférico muda de "
+             "horário cinco vezes por ano: fecha às <b>20h entre 26 de abril e 24 de "
+             "setembro</b>, às 19h nas meias-estações e <b>às 18h de 25 de outubro a "
+             "23 de março</b>. As caves acompanham — a da Taylor's encerra às 18h15. "
+             "<b>Fora do verão, comece a travessia logo depois do almoço</b>, não às "
+             "16h.</p>"),
+            ("", "O bilhete de transporte vale 72 horas seguidas — e isso decide a ordem",
+             "<p>O <b>Andante Tour 3</b>, que a ficha de custos usa, custa € 16,55 e "
+             "circula sem limite por toda a rede — metrô, ônibus e trem urbano, "
+             "aeroporto incluído. <b>Mas vale 72 horas consecutivas a contar da "
+             "primeira validação</b>, não três dias avulsos.</p>"
+             "<p>Como o bilhete se valida na chegada, <b>a janela cobre os dias 1, 2 e "
+             "3</b>. E o único dia que de fato precisa de transporte — Serralves e Casa "
+             "da Música, as duas paradas fora da baixa — <b>tem de cair dentro dela</b>. "
+             "Por isso ele é o dia 2 aqui, e não o dia 4.</p>"
+             "<p>Os dias 4 e 5 se fazem a pé: a baixa inteira, a travessia da ponte e "
+             "os jardins ficam a distância de caminhada. <b>Para o aeroporto, na volta, "
+             "entra um Andante Tour 1 de € 7,75</b>.</p>"
+             "<p><span class=\"flag\">O que não conseguimos apurar</span> existe opção "
+             "mais barata por viagem avulsa, mas ela depende de saber em que zona está "
+             "o aeroporto — e <b>o link que o próprio Metro publica para calcular zonas "
+             "devolve erro 404 no site deles</b>. O Tour não usa zonas, e foi por isso "
+             "que entrou.</p>"),
+        ],
+        "dias_lista": [
+            ("Chegada, e a baixa que se faz inteira a pé",
+             "Valide o <b>Andante Tour 3</b> já no aeroporto: é ele que abre a janela de "
+             "72 horas que organiza os três primeiros dias. Comece pela "
+             "<b>Estação de São Bento</b>, que não cobra nada e fica a poucos passos do "
+             "metrô — o átrio tem <b>cerca de vinte mil azulejos</b> do pintor Jorge "
+             "Colaço, com um friso multicolor em volta que quase ninguém fotografa. Suba "
+             "à <b>Sé</b>, que custa € 3 e é o ponto mais alto da caminhada; se quiser a "
+             "torre, <b>chegue com folga, porque ela fecha meia hora antes da "
+             "catedral</b>. Desça para a <b>Ribeira</b> e feche o dia atravessando o "
+             "<b>tabuleiro superior da Ponte Dom Luís I</b> a pé, no fim da tarde. A "
+             "travessia não custa nada e é a melhor vista gratuita da cidade — e a ponte "
+             "não é de Gustave Eiffel, é de Théophile Seyrig, que foi sócio dele em "
+             "outra ponte, oito anos antes.",
+             ["Estação de São Bento · grátis · vinte mil azulejos",
+              "Sé do Porto · € 3 · a torre fecha 30 min antes",
+              "Ribeira · grátis · Património Mundial desde 1996",
+              "Ponte Dom Luís I · grátis · tabuleiro superior, a pé"]),
+            ("Casa da Música e Serralves — o único dia que precisa do metrô",
+             "É o dia que tem de caber na janela de 72 horas aberta ontem. Ancore pela "
+             "<b>Casa da Música</b>, que é o ponto mais rígido do roteiro: "
+             "<b>visita guiada às 11h</b>, € 12, cerca de uma hora, <b>35 lugares</b>. "
+             "Com Porto Card sai por € 9, e jovem de 13 a 18 anos paga € 5. Confirme na "
+             "bilheteira quais espaços estarão abertos — <b>é sala de concertos em "
+             "funcionamento, e a programação do dia manda</b>. À tarde, "
+             "<b>Serralves</b>, € 24, e o bilhete geral cobre museu, parque de 18 "
+             "hectares, Treetop Walk e Casa do Cinema. <b>Abre todos os dias</b>, até "
+             "19h nos dias úteis e 20h no fim de semana entre abril e setembro. Se a "
+             "sua ideia for só o parque, o bilhete cai para € 15. "
+             "<span class=\"flag\">Atenção a uma data que vence</span> a Fundação "
+             "anuncia a <b>Casa de Serralves encerrada ao público de 21 de setembro a 16 "
+             "de outubro de 2026</b> — os outros espaços seguem abertos. Confirmado em "
+             "25/set/2026; reconfira se sua viagem for nesse intervalo.",
+             ["Casa da Música · € 12 · só 11h e 15h, 35 lugares",
+              "Serralves · € 24 · abre todos os dias",
+              "Só o parque de Serralves · € 15",
+              "Andante Tour 3 · já validado no dia 1"]),
+            ("Bolhão, Santa Catarina, Lello e Clérigos — e nada disso pede transporte",
+             "Um dia inteiro dentro de um quadrado de poucas quadras. Abra pelo "
+             "<b>Mercado do Bolhão</b>, de manhã: <b>fecha aos domingos</b> e aos "
+             "sábados encerra às 18h, contra 20h nos dias úteis. Suba a "
+             "<b>Rua de Santa Catarina</b> até a <b>Capela das Almas</b>, no número 428, "
+             "junto à estação de metrô do Bolhão — a fachada de azulejos é de "
+             "<b>1929 e imita os do século XVIII de propósito</b>, e o autor, Eduardo "
+             "Leite, misturou cenas de duas santas diferentes, o que a própria ficha do "
+             "Património Cultural registra. Atravesse para a <b>Livraria Lello</b>, "
+             "€ 15,95, aberta todos os dias das 9h às 19h30 — e lembre que <b>o valor é "
+             "dedutível num livro da casa</b>, então quem já ia comprar uma edição entra "
+             "de graça. Feche na <b>Torre dos Clérigos</b>, € 10 pelo pacote torre mais "
+             "museu, <b>com última entrada às 18h30</b>. "
+             "<span class=\"flag\">Sem horário confirmado</span> a Capela das Almas é "
+             "templo em funcionamento e não publica horário em fonte oficial; conte com "
+             "fecho durante missa.",
+             ["Mercado do Bolhão · fecha domingo · até 20h em dia útil",
+              "Capela das Almas · azulejos de 1929, não do século XVIII",
+              "Livraria Lello · € 15,95 · dedutível num livro",
+              "Torre dos Clérigos · € 10 · última entrada 18h30"]),
+            ("Palácio da Bolsa, São Francisco e a travessia para Gaia",
+             "Os dois primeiros são vizinhos de rua, e o terceiro fica do outro lado do "
+             "rio. Comece pelo <b>Palácio da Bolsa</b>, € 14, na Rua Ferreira Borges — "
+             "<b>a visita é obrigatoriamente guiada, dura cerca de 30 minutos e o idioma "
+             "sai por ordem de chegada</b>, então reserve tempo de espera. Confira antes "
+             "o calendário de datas disponíveis no site oficial: o palácio fecha para "
+             "eventos, e em 2026 já houve um fechamento de 19 a 27 de fevereiro. A "
+             "<b>Igreja e Museu de São Francisco</b> fica ao lado, na Rua do Infante Dom "
+             "Henrique, e a visita inclui a igreja de talha dourada, o percurso "
+             "museológico na Casa do Despacho e <b>o cemitério catacumbal, onde fica "
+             "exposto o ossário</b> — é a parte que ninguém espera. Depois atravesse o "
+             "<b>tabuleiro inferior da ponte</b> a pé, que desemboca na zona das caves, "
+             "e suba de <b>teleférico</b>: € 10 ida e volta, € 7 só ida. "
+             "<span class=\"flag\">Dois preços que não conseguimos apurar</span> "
+             "São Francisco tem bilheteira e <b>não publica tarifa</b>; as caves são "
+             "dezenas de operadores <b>sem tarifa única</b>, e nem Taylor's nem Graham's "
+             "divulgam preço. Confirme os dois no local ou por telefone antes de contar "
+             "com eles no orçamento.",
+             ["Palácio da Bolsa · € 14 · guiada, 30 min, idioma por ordem",
+              "Igreja e Museu de São Francisco · preço não publicado",
+              "Ponte Dom Luís I · grátis · tabuleiro inferior",
+              "Teleférico de Gaia · € 10 ida e volta · fecha 18h no inverno",
+              "Caves do Vinho do Porto · sem tarifa única"]),
+            ("Palácio de Cristal e a saída — o dia mais leve, de propósito",
+             "Deixe o último dia curto: é o do voo. Os <b>Jardins do Palácio de "
+             "Cristal</b>, na Rua de D. Manuel II, têm <b>acesso gratuito</b> — e não "
+             "por cortesia, mas por condição de venda: a propriedade foi vendida à "
+             "Câmara com a obrigação de virar espaço verde público. Abrem das <b>8h às "
+             "21h entre abril e setembro</b> e das 8h às 19h de outubro a março, o que "
+             "os torna a única parada do roteiro que funciona antes de todo o resto "
+             "abrir. Há miradouros sobre o Douro, um bosque de camélias e uma biblioteca "
+             "pública com galeria de exposições gratuita. <b>E não procure o palácio de "
+             "ferro e vidro: ele foi demolido em 1951</b> — no lugar está o Pavilhão "
+             "Rosa Mota, que é outra construção. O nome ficou nos jardins. Para o "
+             "aeroporto, <b>um Andante Tour 1 de € 7,75</b> resolve a volta.",
+             ["Jardins do Palácio de Cristal · grátis · abre às 8h",
+              "O Palácio de Cristal foi demolido em 1951",
+              "Andante Tour 1 · € 7,75 · rede toda, 24 horas"]),
+        ],
+        "fontes": (
+            "Todos os horários e preços desta página vêm das fontes oficiais de cada "
+            "ponto, conferidas em 24 e 25 de setembro de 2026 e registradas no guia, "
+            "com a data ao lado de cada número: Livraria Lello, Irmandade dos Clérigos, "
+            "Palácio da Bolsa, Venerável Ordem Terceira de São Francisco, Direção "
+            "Regional de Cultura do Norte, Fundação de Serralves, Casa da Música, "
+            "Teleférico de Gaia, Mercado do Bolhão, Câmara Municipal do Porto e Metro "
+            "do Porto. <b>Nenhum horário foi inventado para o roteiro fechar</b>, e "
+            "onde a fonte não publica horário — Capela das Almas e as caves de Gaia — a "
+            "página promete sequência, não hora."),
+    },
+}
+
+# O renderizador procura o destino na lista DESTINOS do novos/dados.py, e o
+# Porto mora em porto/dados.py. Carregado por CAMINHO pelo mesmo motivo
+# anotado no novos2/gera_roteiro.py: o import normal devolveria o `dados`
+# que o renderizador ja deixou em sys.modules, calado.
+_spec = importlib.util.spec_from_file_location(
+    "dados_porto", os.path.join(AQUI, "dados.py"))
+_d = importlib.util.module_from_spec(_spec)
+_spec.loader.exec_module(_d)
+base.DESTINOS = _d.DESTINOS
+base.ROTEIROS = ROTEIROS
+
+# O rodape imprime a data da apuracao, e a do renderizador e a do novos
+# (17/set). Bariloche e Punta Cana nao precisaram trocar porque a data
+# deles calhou de ser a mesma; a do Porto nao e.
+base.APURACAO = _d.APURACAO
+
+if __name__ == "__main__":
+    base.main("--aplica" in sys.argv)

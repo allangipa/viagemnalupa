@@ -120,16 +120,45 @@ def aviso_apurado(d, n_pontos, n_lacunas):
         'comercial — é o mesmo caminho que Montevidéu percorreu.</p>'
         '<p><b>E há %d ressalvas escritas ponto a ponto</b>, marcadas em vermelho ao '
         'longo da página: onde a fonte não existe, onde duas fontes divergem e onde o '
-        'preço muda conforme a data. <b>Preferimos %s pontos certos a doze meio '
-        'certos</b>, e é por isso que esta página cresce por camada em vez de nascer '
+        'preço muda conforme a data. <b>%s</b>, e é por isso que esta página cresce por camada em vez de nascer '
         'inteira.</p></div></section>\n'
-        % (extenso(n_pontos), n_lacunas, extenso(n_pontos)))
+        % (extenso(n_pontos), n_lacunas, comparacao(n_pontos)))
 
 
 def extenso(n):
     return {1: "um", 2: "dois", 3: "três", 4: "quatro", 5: "cinco", 6: "seis",
             7: "sete", 8: "oito", 9: "nove", 10: "dez", 11: "onze",
-            12: "doze"}.get(n, str(n))
+            12: "doze", 13: "treze", 14: "quatorze", 15: "quinze",
+            16: "dezesseis", 17: "dezessete", 18: "dezoito",
+            19: "dezenove", 20: "vinte"}.get(n, str(n))
+
+
+def comparacao(n):
+    """A frase de "melhor pouco e certo do que muito e meio certo".
+
+    Ate doze pontos ela compara com doze, que e o numero que estava
+    escrito aqui desde Cancun. Acima de doze, comparar com doze inverte o
+    sentido: "preferimos dezesseis certos a doze meio certos" nao quer
+    dizer nada. Ai a frase perde o numero e ganha em clareza.
+
+    A condicao existe para que as fichas ja publicadas saiam iguais
+    quando forem regeradas.
+    """
+    if n <= 12:
+        return "Preferimos %s pontos certos a doze meio certos" % extenso(n)
+    return "Preferimos ponto certo a ponto meio certo"
+
+
+def preco(p):
+    """O valor que aparece no cartao do ponto e no indice.
+
+    preco_val = None quer dizer "a fonte oficial nao publica preco", e a
+    preco_nota ao lado diz qual e a fonte que nao publica. Sem este
+    travessao o %s do template escreveria a palavra None na pagina - foi
+    o que o Porto trouxe, com quatro pontos nessa situacao: Sao Francisco,
+    as caves de Gaia, a Capela das Almas e o Mercado do Bolhao.
+    """
+    return p["preco_val"] or "—"
 
 
 def indice(d):
@@ -145,7 +174,7 @@ def indice(d):
             itens.append(
                 '<a class="idx-item" href="#%s"><span class="idx-num">%02d</span>'
                 '<span class="idx-nome">%s</span><span class="idx-preco">%s</span></a>'
-                % (p["id"], n, p["nome"], p["preco_val"]))
+                % (p["id"], n, p["nome"], preco(p)))
         if itens:
             colunas.append('<div><div class="idx-tit">%s</div>%s</div>'
                            % (g["titulo"], "".join(itens)))
@@ -189,7 +218,7 @@ def um_ponto(p, numero):
         '%s'
         '  <div class="campos">%s</div>\n'
         '</article>\n'
-        % (p["id"], numero, p["nome"], p["tag"], p["preco_val"],
+        % (p["id"], numero, p["nome"], p["tag"], preco(p),
            p["preco_nota"], foto, campos))
 
 

@@ -89,6 +89,7 @@ BUSCA = {
     "montevideu":     "Montevidéu, Uruguai",
     "nova-york":      "Nova York, Estados Unidos",
     "orlando":        "Orlando, Estados Unidos",
+    "porto":          "Porto, Portugal",
     "punta-cana":     "Punta Cana, República Dominicana",
     "rio-de-janeiro": "Rio de Janeiro, Brasil",
     "santiago":       "Santiago, Chile",
