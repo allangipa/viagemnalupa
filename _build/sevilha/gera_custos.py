@@ -4,15 +4,20 @@
 Reusa o renderizador de novos/gera_custos.py, como Porto, Cancun,
 Fortaleza, Bariloche e Punta Cana.
 
-POR QUE SAO TRES DIAS, E NAO CINCO
------------------------------------
-O guia de Sevilha tem 5 pontos apurados, e um deles e a linha de
-transporte. Sao quatro visitas de verdade, todas dentro do centro
-historico, que se faz a pe. Espalhar quatro visitas por cinco dias seria
-enchimento - e enchimento numa ficha de custos vira numero inflado.
+ESTA FICHA E DA FATIA 1, E A FATIA 2 JA ENTROU NO GUIA
+-------------------------------------------------------
+Quando ela foi escrita o guia tinha 5 pontos, dos quais quatro eram
+visitas - por isso tres dias, e por isso a tabela conta quatro ingressos.
 
-Tres dias e o que o guia sustenta hoje. Quando a segunda fatia de pontos
-entrar, a ficha cresce junto.
+O GUIA TEM 12 PONTOS DESDE 25/set/2026. Entraram Casa de Pilatos,
+Palacio de las Duenas, Torre del Oro, Archivo General de Indias, Iglesia
+del Salvador, Museo de Bellas Artes e a Plaza de Toros - e quatro deles
+cobram: 12,00, 15,00, 1,50 e 12,00 euros.
+
+A tabela abaixo NAO os inclui. Ela continua correta sobre o que declara -
+uma viagem de tres dias pelos quatro pontos centrais - mas ja nao esgota
+o que o guia oferece. Atualizar a ficha e o roteiro para os 12 pontos e
+um trabalho a parte, e esta anotado aqui para nao se perder.
 
 O QUE ESTA FICHA TEM QUE A DO PORTO NAO TEVE: HOSPEDAGEM
 ---------------------------------------------------------

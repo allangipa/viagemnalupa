@@ -3,12 +3,16 @@
 
 Reusa o renderizador de novos/gera_roteiro.py, como a ficha de custos faz.
 
-POR QUE TRES DIAS
------------------
-O guia tem 5 pontos apurados e um deles e a linha de transporte. Sao
-quatro visitas, todas no centro historico, que se faz a pe. Esticar isso
-para cinco dias seria inventar programa - e roteiro inventado e o que
-este site existe para nao fazer.
+ESTE ROTEIRO E DA FATIA 1, E A FATIA 2 JA ENTROU NO GUIA
+---------------------------------------------------------
+Quando ele foi escrito o guia tinha 5 pontos, dos quais quatro eram
+visitas - e esticar quatro visitas por mais de tres dias seria inventar
+programa, que e o que este site existe para nao fazer.
+
+O GUIA TEM 12 PONTOS DESDE 25/set/2026. Os tres dias abaixo continuam
+validos e continuam apurados, mas ja nao cobrem o guia inteiro: ficaram
+de fora sete pontos, entre eles dois palacios e um museu com horario
+proprio. Esticar o roteiro para eles e trabalho a parte, anotado aqui.
 
 O QUE ORGANIZA ESTE ROTEIRO
 ---------------------------
