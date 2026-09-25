@@ -104,7 +104,7 @@ def main(aplica):
                              "<lastmod>%s</lastmod>" % nova)
 
     saida = re.sub(
-        r"<url><loc>([^<]+)</loc><lastmod>([^<]+)</lastmod>", troca, xml)
+        r"<url><loc>([^<]+)</loc><lastmod>([^<]*)</lastmod>", troca, xml)
 
     # Pagina que existe em disco e nao esta no mapa.
     #
@@ -122,12 +122,26 @@ def main(aplica):
                             else rel)
         if url in no_mapa:
             continue
-        d = data_do_commit(p) or ""
+        # <lastmod> VAZIO E INVALIDO, e era o que saia aqui.
+        #
+        # data_do_commit devolve None para arquivo ainda nao commitado, e
+        # a pagina entra no mapa no mesmo lote em que e criada - ou seja,
+        # sempre antes do commit. O "or \"\"" virava <lastmod></lastmod>,
+        # que o protocolo nao aceita, em 14 das 45 URLs: Cancun, Fortaleza,
+        # Bariloche, Punta Cana, Porto e Sevilha, os seis destinos mais
+        # novos. Treze delas estao hoje como "Detectada, mas nao indexada".
+        #
+        # E nao se curava na rodada seguinte: o regex de conserto pedia
+        # [^<]+ e tag vazia nao casa com "um ou mais".
+        #
+        # Sem data confiavel, a tag nao entra. Ausente e valido; vazia nao.
+        d = data_do_commit(p)
         prof = url[len(SITE):].strip("/").count("/")
         prio = "0.9" if prof <= 1 else ("0.8" if prof == 2 else "0.7")
-        novas.append('<url><loc>%s</loc><lastmod>%s</lastmod>'
+        lm = "<lastmod>%s</lastmod>" % d if d else ""
+        novas.append('<url><loc>%s</loc>%s'
                      '<changefreq>weekly</changefreq><priority>%s</priority></url>'
-                     % (url, d, prio))
+                     % (url, lm, prio))
     if novas:
         print()
         print("=== entraram no mapa agora ===")
