@@ -869,3 +869,19 @@ details.fundo .conta{font-family:"IBM Plex Mono",monospace; letter-spacing:.1em;
   .cx{min-height:44px; display:flex; align-items:center}
   .calc-ctrl select, .calc-ctrl input{min-height:44px}
 }
+
+/* Atalhos de afiliado no indice lateral, abaixo da lista de pontos.
+   Reusam .parceiro de proposito: borda neutra com ambar no hover. Os
+   cartoes .idx-irmas logo acima sao ambar cheio porque sao navegacao do
+   proprio site; link que leva para fora nao pode ter a mesma voz. */
+.idx-parceiros{margin-top:1.1rem; padding-top:.95rem;
+  border-top:1px solid var(--rule); display:flex; flex-direction:column; gap:.45rem}
+.idx-parceiros .idx-tit{margin-bottom:.15rem}
+.idx-parceiros .parceiro{padding:.55rem .75rem; gap:.1rem}
+.idx-parceiros .p-nome{font-size:.88rem; line-height:1.25}
+.idx-parceiros .p-nome svg{margin-left:auto}
+.idx-nota-afiliado{font-family:"IBM Plex Mono",monospace; font-size:.62rem;
+  line-height:1.6; letter-spacing:.03em; text-transform:none;
+  color:var(--nevoa); margin:.3rem 0 0}
+.idx-nota-afiliado a{color:var(--nevoa); text-decoration:underline}
+.idx-nota-afiliado a:hover{color:var(--ambar)}
