@@ -105,7 +105,7 @@ RODAPE = """</div>
 """
 
 
-def aviso_apurado(d, n_pontos, n_lacunas):
+def aviso_apurado(d, n_pontos, n_lacunas, n_fotos=0):
     """O bloco que diz o que esta apurado e o que falta. Vem primeiro, e o
     numero de lacunas e contado do proprio HTML, nao digitado."""
     return (
@@ -114,15 +114,38 @@ def aviso_apurado(d, n_pontos, n_lacunas):
         '<p>Os %s pontos abaixo têm <b>preço, horário e endereço verificados</b> em '
         'fonte oficial ou na página do próprio ponto, com a data da consulta ao lado '
         'de cada número.</p>'
-        '<p><b>O que ainda não está aqui:</b> <b>visitação anual</b>, <b>distâncias a '
-        'pé</b> e <b>fotografia de cada ponto</b>. Esta página nasce sem foto e as '
-        'imagens entram à medida que encontrarmos material com licença que permita uso '
-        'comercial — é o mesmo caminho que Montevidéu percorreu.</p>'
+        '<p><b>O que ainda não está aqui:</b> %s</p>'
         '<p><b>E há %d ressalvas escritas ponto a ponto</b>, marcadas em vermelho ao '
         'longo da página: onde a fonte não existe, onde duas fontes divergem e onde o '
         'preço muda conforme a data. <b>%s</b>, e é por isso que esta página cresce por camada em vez de nascer '
         'inteira.</p></div></section>\n'
-        % (extenso(n_pontos), n_lacunas, comparacao(n_pontos)))
+        % (extenso(n_pontos), falta_fotos(n_pontos, n_fotos), n_lacunas,
+           comparacao(n_pontos)))
+
+
+def falta_fotos(n_pontos, n_fotos):
+    """O paragrafo do que ainda falta, contando as fotos em vez de afirmar.
+
+    O texto era fixo e dizia "esta pagina nasce sem foto". Com o tempo tres
+    fichas passaram a ter foto e continuaram dizendo que nao tinham -
+    Bariloche com duas de nove, Punta Cana com duas de sete, e o Porto com
+    DEZESSEIS de dezesseis, o que e o caso em que a frase fica absurda.
+
+    Afirmacao que o proprio arquivo pode conferir nao se escreve a mao.
+    """
+    if n_fotos >= n_pontos > 0:
+        return ("<b>visitação anual</b> e <b>distâncias a pé</b>. "
+                "<b>A fotografia de cada ponto já está</b>, toda com licença que "
+                "permite uso comercial e com o crédito ao lado da imagem.")
+    if n_fotos:
+        return ("<b>visitação anual</b>, <b>distâncias a pé</b> e a "
+                "<b>fotografia de %s dos %s pontos</b>. As imagens entram à medida "
+                "que encontrarmos material com licença que permita uso comercial."
+                % (extenso(n_pontos - n_fotos), extenso(n_pontos)))
+    return ("<b>visitação anual</b>, <b>distâncias a pé</b> e <b>fotografia de cada "
+            "ponto</b>. Esta página nasce sem foto e as imagens entram à medida que "
+            "encontrarmos material com licença que permita uso comercial — é o mesmo "
+            "caminho que Montevidéu percorreu.")
 
 
 def extenso(n):
@@ -264,7 +287,8 @@ def monta(d):
                          slug=d["slug"], nome=d["nome"], abertura=d["abertura"])
     corpo = indice(d) + grupos(d)
     n_lacunas = len(re.findall(r'<span class="flag">', corpo))
-    html += aviso_apurado(d, len([p for p in d["pontos"]]), n_lacunas)
+    html += aviso_apurado(d, len(d["pontos"]), n_lacunas,
+                          sum(1 for p in d["pontos"] if p.get("foto")))
     # Aviso de moeda, quando o destino tem um.
     #
     # Nasceu porque eu escrevi a explicacao do peso argentino DENTRO do
