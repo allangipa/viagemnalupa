@@ -52,12 +52,21 @@ O QUE FICOU DE FORA, E POR QUE
 Nenhum dos tres entrou com numero de terceiro. Ponto sem fonte oficial
 nao vira linha.
 
-AS FOTOS DESTA FATIA NAO FORAM LEVANTADAS
------------------------------------------
-Os cinco pontos da fatia 1 tem foto; os sete desta nao. O aviso da ficha
-conta as fotos e vai dizer isso sozinho - foi para isso que ele passou a
-contar, depois de tres paginas publicadas afirmando "nasce sem foto"
-tendo foto.
+AS FOTOS DAS SETE FORAM LEVANTADAS DEPOIS, E A FOLHA REJEITOU UMA
+------------------------------------------------------------------
+Todos os 12 pontos tem foto, com licenca conferida no LicenseShortName da
+API do proprio arquivo - nao na etiqueta da pagina - e cap de duas por
+autor, contando os cinco da fatia 1.
+
+A folha de contato do ARTEFATO FINAL, e nao das miniaturas de busca,
+reprovou a primeira escolha da Torre del Oro: o corte 16:9 decepava a
+base da torre e deixava um poste na frente. Trocada por uma da torre
+inteira a beira do Guadalquivir. As miniaturas da busca tinham aprovado
+a primeira - foi o recorte que denunciou, e por isso a segunda folha
+existe.
+
+Ficaram no limite do cap: Benjamin Smith (Alcazar e Torre del Oro) e
+Gzzz (Duenas e Praca de Touros), dois cada.
 
 Apuracao de 25 de setembro de 2026.
 """
@@ -93,6 +102,9 @@ PONTOS2 = [
     # ------------------------------------------------------------------ g4
     {
         "id": "casa-de-pilatos", "grupo": "g4",
+        "foto": {"arq": "sevilha/casa-de-pilatos.webp",
+                 "alt": "O pátio principal da Casa de Pilatos, com os dois andares de arcadas sobre colunas finas e o piso de mosaico em volta da fonte central",
+                 "cred": "Kiko León · CC BY-SA 4.0 · via Wikimedia Commons"},
         "nome": "Casa de Pilatos", "tag": "Palácio",
         "preco_val": "€ 12",
         "preco_nota": "a planta alta custa € 6 à parte; a casa inteira sai € 18",
@@ -122,6 +134,9 @@ PONTOS2 = [
     },
     {
         "id": "palacio-de-las-duenas", "grupo": "g4",
+        "foto": {"arq": "sevilha/palacio-de-las-duenas.webp",
+                 "alt": "O pátio principal do Palacio de las Dueñas, com as arcadas de arcos entrelaçados, as palmeiras do jardim e a fonte ao centro",
+                 "cred": "Gzzz · CC BY-SA 4.0 · via Wikimedia Commons"},
         "nome": "Palacio de las Dueñas", "tag": "Palácio",
         "preco_val": "€ 15",
         "preco_nota": "com audioguia incluída; segunda à tarde sai € 1",
@@ -166,6 +181,9 @@ PONTOS2 = [
     # ------------------------------------------------------------------ g5
     {
         "id": "torre-del-oro", "grupo": "g5",
+        "foto": {"arq": "sevilha/torre-del-oro.webp",
+                 "alt": "A Torre del Oro inteira, vista da outra margem do Guadalquivir, com um barco de passeio atracado e palmeiras em volta",
+                 "cred": "Benjamin Smith · CC BY-SA 4.0 · via Wikimedia Commons"},
         "nome": "Torre del Oro", "tag": "Torre e museu",
         "preco_val": "Grátis",
         "preco_nota": "contribuição voluntária; agregadores publicam € 3",
@@ -206,6 +224,9 @@ PONTOS2 = [
     },
     {
         "id": "archivo-de-indias", "grupo": "g5",
+        "foto": {"arq": "sevilha/archivo-de-indias.webp",
+                 "alt": "A fachada do Archivo General de Indias em pedra clara, com a fonte de mármore e os leões do adro em primeiro plano",
+                 "cred": "Emilio J. Rodríguez Posada · CC BY-SA 2.0 · via Wikimedia Commons"},
         "nome": "Archivo General de Indias", "tag": "Arquivo",
         "preco_val": "Grátis",
         "preco_nota": "acesso livre à área monumental",
@@ -230,6 +251,9 @@ PONTOS2 = [
     },
     {
         "id": "iglesia-del-salvador", "grupo": "g5",
+        "foto": {"arq": "sevilha/iglesia-del-salvador.webp",
+                 "alt": "A fachada barroca da Iglesia Colegial del Salvador, em vermelho e branco, com as laranjeiras da praça em frente",
+                 "cred": "Anual · CC BY 3.0 · via Wikimedia Commons"},
         "nome": "Iglesia Colegial del Salvador", "tag": "Igreja",
         "preco_val": "Grátis",
         "preco_nota": "para quem já pagou a entrada da Catedral",
@@ -252,6 +276,9 @@ PONTOS2 = [
     # ------------------------------------------------------------------ g6
     {
         "id": "museo-bellas-artes", "grupo": "g6",
+        "foto": {"arq": "sevilha/museo-bellas-artes.webp",
+                 "alt": "Uma sala do Museo de Bellas Artes de Sevilha, de paredes alaranjadas, com quadros emoldurados nas paredes e uma escultura ao centro",
+                 "cred": "Jl FilpoC · CC BY-SA 4.0 · via Wikimedia Commons"},
         "nome": "Museo de Bellas Artes", "tag": "Museu",
         "preco_val": "€ 1,50",
         "preco_nota": "grátis para cidadãos da União Europeia; brasileiro paga",
@@ -292,6 +319,9 @@ PONTOS2 = [
     },
     {
         "id": "plaza-de-toros", "grupo": "g6",
+        "foto": {"arq": "sevilha/plaza-de-toros.webp",
+                 "alt": "A fachada da Plaza de Toros de la Real Maestranza, branca e ocre, com a Puerta del Príncipe ao centro e a arcada correndo para o lado",
+                 "cred": "Gzzz · CC BY-SA 4.0 · via Wikimedia Commons"},
         "nome": "Plaza de Toros de la Real Maestranza", "tag": "Praça de touros",
         "preco_val": "€ 12",
         "preco_nota": "exceto quarta-feira à tarde, que a fonte não explica",
