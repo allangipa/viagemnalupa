@@ -90,6 +90,9 @@ SEVILHA = {
         # -------------------------------------------------------------
         {
             "id": "real-alcazar", "grupo": "g1",
+            "foto": {"arq": "sevilha/real-alcazar.webp",
+                     "alt": "Patio de las Doncellas no Real Alcázar, com as arcadas rendilhadas em volta do espelho d'água e os canteiros rebaixados dos lados",
+                     "cred": "Benjamin Smith · CC BY-SA 4.0 · via Wikimedia Commons"},
             "nome": "Real Alcázar", "tag": "Palácio",
             "preco_val": "€ 15,50",
             "preco_nota": "o Cuarto Real Alto custa € 5,50 à parte",
@@ -131,6 +134,9 @@ SEVILHA = {
         # -------------------------------------------------------------
         {
             "id": "catedral-giralda", "grupo": "g1",
+            "foto": {"arq": "sevilha/catedral-giralda.webp",
+                     "alt": "A Giralda vista de baixo, com o campanário renascentista sobre a torre almóada e os pináculos góticos da catedral na base",
+                     "cred": "Harvey Barrison from Massapequa, NY, USA · CC BY-SA 2.0 · via Wikimedia Commons"},
             "nome": "Catedral e Giralda", "tag": "Catedral",
             "preco_val": "€ 13",
             "preco_nota": "online; € 14 na bilheteira",
@@ -182,6 +188,9 @@ SEVILHA = {
         # -------------------------------------------------------------
         {
             "id": "setas-de-sevilla", "grupo": "g1",
+            "foto": {"arq": "sevilha/setas-de-sevilla.webp",
+                     "alt": "A cobertura ondulada das Setas de Sevilla vista do mirador, com os telhados do centro histórico e a Giralda ao fundo",
+                     "cred": "Abel Maestro Garcia from Asunción, España · Public domain · via Wikimedia Commons"},
             "nome": "Setas de Sevilla", "tag": "Mirador",
             "preco_val": "€ 16",
             "preco_nota": "a partir de; experiência geral",
@@ -210,6 +219,9 @@ SEVILHA = {
         # -------------------------------------------------------------
         {
             "id": "plaza-de-espana", "grupo": "g2",
+            "foto": {"arq": "sevilha/plaza-de-espana-ponte.webp",
+                     "alt": "Uma das pontes de azulejo da Plaza de España sobre o canal, com a balaustrada branca refletida na água",
+                     "cred": "Proa 500 · CC BY-SA 4.0 · via Wikimedia Commons"},
             "nome": "Plaza de España", "tag": "Praça",
             "preco_val": "Grátis",
             "preco_nota": "a cobrança anunciada nunca foi aprovada",
@@ -239,6 +251,9 @@ SEVILHA = {
         # -------------------------------------------------------------
         {
             "id": "transporte", "grupo": "g3",
+            "foto": {"arq": "sevilha/metro-sevilha.webp",
+                     "alt": "Entrada da estação Blas Infante do Metro de Sevilha, com a fachada em concreto e o letreiro verde",
+                     "cred": "Andreuvv · CC BY-SA 4.0 · via Wikimedia Commons"},
             "nome": "Transporte urbano", "tag": "Transporte",
             "preco_val": None,
             "preco_nota": "as duas operadoras bloquearam a apuração",
