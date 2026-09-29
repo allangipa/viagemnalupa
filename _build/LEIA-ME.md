@@ -57,6 +57,108 @@ Os botões de Street View estão hoje escritos direto no HTML construído, não
 nestes geradores. Um rebuild os apaga. Ao estender a função aos demais pontos,
 mover para um dicionário `sv` nos módulos `g1`…`g4`.
 
+**Esse “um rebuild os apaga” não é só do Street View.** É o comportamento de
+tudo que os scripts de pós-processamento escrevem dentro de uma página já
+gerada — e a seção seguinte lista o que se perde e em que ordem repor.
+
+## Regerar uma página desfaz o que veio depois dela
+
+`novos/gera.py` escreve `destinos/<slug>/index.html` **do zero**. Os geradores de
+ficha e de roteiro fazem o mesmo com as páginas deles. Tudo que outro script
+acrescentou àquele arquivo depois — e são muitos — desaparece sem aviso e sem
+erro.
+
+O que se perde, e quem repõe:
+
+| O que some | Quem repõe |
+|---|---|
+| índice lateral pegajoso | `layout/reorganiza.py --todos` |
+| atalhos de "quanto custa" e "roteiro" | `layout/atalhos.py` |
+| blocos de páginas irmãs e barra "Calcular para" | `layout/vizinhos.py` |
+| **link de afiliado da Booking** | `parceiros/booking.py` |
+| bloco de parceiros no guia e no roteiro | `parceiros/espalha.py` |
+| botões de afiliado no índice lateral | `parceiros/aside.py` |
+| JSON-LD (TouristDestination, WebPage, Offer…) | a cadeia de busca, abaixo |
+| `?v=` do CSS e do JS | `cachebust/atualiza.py` |
+
+A ordem que funciona, depois de regerar qualquer página de um destino:
+
+```
+VNL_DADOS=<slug> python _build/novos/gera.py --aplica   # so se regerou o guia
+python _build/<slug>/gera_custos.py --aplica            # so se regerou a ficha
+python _build/<slug>/gera_roteiro.py --aplica           # so se regerou o roteiro
+
+python _build/layout/reorganiza.py --todos --aplica
+python _build/layout/atalhos.py --aplica
+python _build/layout/vizinhos.py --aplica
+python _build/layout/sem_moldura.py --aplica
+python _build/parceiros/booking.py --aplica             # ANTES do espalha
+python _build/parceiros/espalha.py --aplica
+python _build/parceiros/aside.py --aplica
+```
+
+E daí em diante a cadeia de busca da seção seguinte, terminando no
+`confere/tudo.py`. Rodar duas vezes não faz mal: da segunda em diante quase
+tudo responde "0 escrito".
+
+**Medido em 29/set/2026**, montando Miami e Salvador. Os dois guias foram
+gerados, a cadeia inteira rodou, e depois os guias foram **regerados** para
+anexar a foto de capa ao ponto correspondente. O resultado, conferido:
+
+- o `confere/tudo.py` acusou as duas páginas `no ar sem nenhum dado estruturado`
+  e `sem o bloco de parceiros`;
+- o `aside.py` passou a responder `nao achei onde encaixar no aside` para as
+  duas, porque o índice lateral em que ele encaixa os botões tinha sido apagado
+  junto;
+- só voltaram ao normal quando `reorganiza` rodou **antes** de `aside`, que é a
+  ordem acima.
+
+Nada disso deu erro. As páginas continuaram válidas e bonitas — só mais pobres.
+
+### O link de afiliado não está em gerador nenhum
+
+Este é o que custa dinheiro, e por isso tem subtítulo próprio.
+
+Nenhum `gera_custos.py` escreve o link comissionado. Todos declaram a URL crua:
+
+```python
+"parceiros": [
+    ("https://www.booking.com/", "Booking.com", "hotéis e pousadas"),
+```
+
+Confira em `sevilha/`, `porto/`, `miami/` e `salvador/`: a nota ao lado muda de
+um para o outro, mas **a URL é a mesma crua nos quatro**. Quem troca isso pelo
+link da Commission Junction é **`parceiros/booking.py`, que é um script e não só
+um módulo** — tem `main(aplica)` e uma âncora que casa tanto a URL crua quanto um
+link CJ já posto.
+
+Ou seja: **regerar uma ficha de custos substitui o link comissionado por um link
+comum, em silêncio.** A página continua bonita, o link continua funcionando, e a
+comissão deixa de existir.
+
+O único sintoma visível é indireto: `espalha.py` passa a dizer
+`SEM ficha de custos com Booking - pulado`, porque ele procura `jdoqocy` no HTML
+e não acha. Se você vir essa linha, o afiliado daquela cidade caiu — rode
+`booking.py --aplica` e depois `espalha.py` de novo.
+
+### Ao acrescentar um destino, registre em três listas
+
+Nenhuma delas é derivada do disco, e cada uma falha de um jeito diferente:
+
+| Arquivo | Lista | O que acontece se esquecer |
+|---|---|---|
+| `schema/gera.py` | `DESTINOS` | avisa e pula: a página fica sem JSON-LD |
+| `parceiros/booking.py` | `BUSCA` | `KeyError` cru, sem mensagem — `link_de()` lê `BUSCA[slug]` direto |
+| `parceiros/aside.py` | `CIDADES` | `PARADO: destino em disco que nao esta na lista CIDADES` |
+
+O `espalha.py` tem uma mensagem amigável para o mesmo esquecimento
+(`Destino sem busca da Booking: … Acrescente em BUSCA`), mas ela só aparece pelo
+caminho em que a ficha de custos **ainda não existe**. Com a ficha no disco, quem
+estoura primeiro é o `booking.py`, com o `KeyError` pelado.
+
+O `confere/tudo.py` pega as três depois do fato. Registrar antes evita a
+segunda passada.
+
 ## Busca: a cadeia de pos-processamento
 
 Rode nesta ordem. Cada um so acrescenta o que falta, entao rodar duas vezes
