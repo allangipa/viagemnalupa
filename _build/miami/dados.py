@@ -297,6 +297,11 @@ MIAMI = {
         },
         {
             "id": "south-beach-art-deco",
+            "foto": {"arq": "miami/south-beach.webp",
+                     "alt": ("Guarita de salva-vidas pintada em rosa e laranja na areia de "
+                             "South Beach, em Miami, com a praia vazia, rastros de pneu na "
+                             "areia e o skyline de hotéis ao fundo"),
+                     "cred": "Cristo Vlahos · CC BY-SA 4.0 · via Wikimedia Commons"},
             "grupo": "g2",
             "nome": "South Beach e o Art Deco District",
             "tag": "Praia e arquitetura",

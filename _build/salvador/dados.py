@@ -119,6 +119,11 @@ SALVADOR = {
         # ---------------------------------------------------------- g1
         {
             "id": "pelourinho",
+            "foto": {"arq": "salvador/pelourinho.webp",
+                     "alt": ("Vista do alto do Largo do Pelourinho, em Salvador, com as "
+                             "fachadas coloridas dos dois lados da ladeira de pedra, as "
+                             "torres da igreja ao fundo e o mar no horizonte"),
+                     "cred": "MTur Destinos · domínio público · via Wikimedia Commons"},
             "grupo": "g1",
             "nome": "Pelourinho e o Centro Histórico",
             "tag": "Centro histórico",
