@@ -127,6 +127,11 @@ MADRI = {
         # ---------------------------------------------------------- g1
         {
             "id": "museo-del-prado",
+            "foto": {"arq": "madri/prado.webp",
+                     "alt": ("A fachada do edifício Villanueva, sede do Museo del Prado, com a "
+                             "colunata jônica estendida ao longo do Paseo del Prado em luz de "
+                             "fim de tarde"),
+                     "cred": "Brian Snelson from United Kingdom · CC BY 2.0 · via Wikimedia Commons"},
             "grupo": "g1",
             "nome": "Museo Nacional del Prado",
             "tag": "Museu",
@@ -166,6 +171,10 @@ MADRI = {
         },
         {
             "id": "reina-sofia",
+            "foto": {"arq": "madri/reina-sofia.webp",
+                     "alt": ("A ampliação de Jean Nouvel do Museo Reina Sofía, com a grande "
+                             "cobertura vermelha em balanço sobre o pátio envidraçado"),
+                     "cred": "Luis García (Zaqarbal) · CC BY-SA 3.0 · via Wikimedia Commons"},
             "grupo": "g1",
             "nome": "Museo Nacional Centro de Arte Reina Sofía",
             "tag": "Museu",
@@ -209,6 +218,10 @@ MADRI = {
         },
         {
             "id": "thyssen",
+            "foto": {"arq": "madri/thyssen.webp",
+                     "alt": ("O Palácio de Villahermosa, sede do Museo Thyssen-Bornemisza, com a "
+                             "fachada cor de salmão e as janelas enfileiradas no Paseo del Prado"),
+                     "cred": "Dmadeo · CC BY-SA 3.0 · via Wikimedia Commons"},
             "grupo": "g1",
             "nome": "Museo Nacional Thyssen-Bornemisza",
             "tag": "Museu",
@@ -249,6 +262,10 @@ MADRI = {
         # ---------------------------------------------------------- g2
         {
             "id": "palacio-real",
+            "foto": {"arq": "madri/palacio-real.webp",
+                     "alt": ("A fachada do Palácio Real de Madri iluminada à noite, vista da "
+                             "Plaza de Oriente, com as luminárias acesas no largo em frente"),
+                     "cred": "Luis García (Zaqarbal) · CC BY-SA 3.0 · via Wikimedia Commons"},
             "grupo": "g2",
             "nome": "Palacio Real de Madrid",
             "tag": "Palácio",
@@ -297,6 +314,10 @@ MADRI = {
         },
         {
             "id": "almudena",
+            "foto": {"arq": "madri/almudena.webp",
+                     "alt": ("A fachada principal da Catedral de la Almudena, com as duas torres "
+                             "sineiras e o pórtico central de pedra clara contra o céu azul"),
+                     "cred": "losmininos · CC BY-SA 2.0 · via Wikimedia Commons"},
             "grupo": "g2",
             "nome": "Catedral de la Almudena",
             "tag": "Catedral",
@@ -369,6 +390,10 @@ MADRI = {
         },
         {
             "id": "mercado-san-miguel",
+            "foto": {"arq": "madri/san-miguel.webp",
+                     "alt": ("A estrutura de ferro e vidro do Mercado de San Miguel vista de "
+                             "fora, com as colunas pintadas e os toldos sobre a calçada"),
+                     "cred": "Luis García (Zaqarbal) · CC BY-SA 3.0 · via Wikimedia Commons"},
             "grupo": "g2",
             "nome": "Mercado de San Miguel",
             "tag": "Mercado",
@@ -401,6 +426,10 @@ MADRI = {
         # ---------------------------------------------------------- g3
         {
             "id": "parque-del-retiro",
+            "foto": {"arq": "madri/palacio-de-cristal.webp",
+                     "alt": ("O Palacio de Cristal no Parque del Retiro, estufa de ferro e vidro "
+                             "com cúpula central, cercada de árvores"),
+                     "cred": "Marc Ryckaert (MJJR) · CC BY 3.0 · via Wikimedia Commons"},
             "grupo": "g3",
             "nome": "Parque del Retiro e o Palacio de Cristal",
             "tag": "Parque",
@@ -435,6 +464,10 @@ MADRI = {
         },
         {
             "id": "templo-de-debod",
+            "foto": {"arq": "madri/debod.webp",
+                     "alt": ("O Templo de Debod ao pôr do sol, iluminado e refletido no espelho "
+                             "d'água, com o céu alaranjado atrás dos pórticos de pedra"),
+                     "cred": "Adrian Diez · CC BY-SA 3.0 · via Wikimedia Commons"},
             "grupo": "g3",
             "nome": "Templo de Debod",
             "tag": "Templo egípcio",
