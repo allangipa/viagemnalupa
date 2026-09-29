@@ -125,6 +125,10 @@ ROMA = {
         # ---------------------------------------------------------- g1
         {
             "id": "coliseu",
+            "foto": {"arq": "roma/coliseu.webp",
+                     "alt": ("O Coliseu visto de cima em dia claro, com o anel de arcadas em "
+                             "elipse e o Arco de Constantino ao lado"),
+                     "cred": "Livioandronico2013 · CC BY-SA 4.0 · via Wikimedia Commons"},
             "grupo": "g1",
             "nome": "Coliseu, Fórum Romano e Palatino",
             "tag": "Sítio arqueológico",
@@ -168,6 +172,10 @@ ROMA = {
         },
         {
             "id": "panteao",
+            "foto": {"arq": "roma/panteao.webp",
+                     "alt": ("O Panteão visto da Piazza della Rotonda, com o pórtico de "
+                             "colunas coríntias e o obelisco da fonte em primeiro plano"),
+                     "cred": "Jean-Pol GRANDMONT · CC BY 3.0 · via Wikimedia Commons"},
             "grupo": "g1",
             "nome": "Panteão",
             "tag": "Templo e basílica",
@@ -204,6 +212,10 @@ ROMA = {
         # ---------------------------------------------------------- g2
         {
             "id": "museus-vaticanos",
+            "foto": {"arq": "roma/escada-bramante.webp",
+                     "alt": ("A escadaria helicoidal do Bramante nos Museus Vaticanos, vista "
+                             "de cima, com a dupla hélice descendo em espiral"),
+                     "cred": "Andreas Tille · CC BY-SA 4.0 · via Wikimedia Commons"},
             "grupo": "g2",
             "nome": "Museus Vaticanos e Capela Sistina",
             "tag": "Museu",
@@ -292,6 +304,10 @@ ROMA = {
         # ---------------------------------------------------------- g3
         {
             "id": "galleria-borghese",
+            "foto": {"arq": "roma/galleria-borghese.webp",
+                     "alt": ("O Casino Nobile, prédio que abriga a Galleria Borghese, com a "
+                             "fachada branca e o jardim em frente"),
+                     "cred": "Alessio Damato · CC BY-SA 3.0 · via Wikimedia Commons"},
             "grupo": "g3",
             "nome": "Galleria Borghese",
             "tag": "Galeria",
@@ -327,6 +343,10 @@ ROMA = {
         },
         {
             "id": "fontana-di-trevi",
+            "foto": {"arq": "roma/fontana-di-trevi.webp",
+                     "alt": ("O grupo escultórico central da Fontana di Trevi, com a figura do "
+                             "Oceano no nicho entre as colunas e os tritões abaixo"),
+                     "cred": "Luca Aless · CC BY-SA 4.0 · via Wikimedia Commons"},
             "grupo": "g3",
             "nome": "Fontana di Trevi",
             "tag": "Fonte",
@@ -358,6 +378,10 @@ ROMA = {
         },
         {
             "id": "piazza-di-spagna",
+            "foto": {"arq": "roma/piazza-di-spagna.webp",
+                     "alt": ("A escadaria de Trinità dei Monti vista de cima, com as azaleias "
+                             "nos degraus e a Piazza di Spagna cheia ao pé"),
+                     "cred": "Sergey Smirnov · CC BY-SA 3.0 · via Wikimedia Commons"},
             "grupo": "g3",
             "nome": "Piazza di Spagna e a escadaria",
             "tag": "Praça",
@@ -394,6 +418,10 @@ ROMA = {
         },
         {
             "id": "piazza-navona",
+            "foto": {"arq": "roma/piazza-navona.webp",
+                     "alt": ("A Piazza Navona ao comprido, com a Fontana del Moro em primeiro "
+                             "plano e a igreja de Sant'Agnese in Agone à esquerda"),
+                     "cred": "Myrabella · CC BY-SA 3.0 · via Wikimedia Commons"},
             "grupo": "g3",
             "nome": "Piazza Navona",
             "tag": "Praça",
