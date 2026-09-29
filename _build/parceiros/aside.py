@@ -79,6 +79,7 @@ CIDADES = {
     "sevilha":        "Sevilha",
     "punta-cana":     "Punta Cana",
     "rio-de-janeiro": "Rio de Janeiro",
+    "salvador":       "Salvador",
     "santiago":       "Santiago",
 }
 

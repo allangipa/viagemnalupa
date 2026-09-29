@@ -94,6 +94,7 @@ BUSCA = {
     "sevilha":        "Sevilha, Espanha",
     "punta-cana":     "Punta Cana, República Dominicana",
     "rio-de-janeiro": "Rio de Janeiro, Brasil",
+    "salvador":       "Salvador, Brasil",
     "santiago":       "Santiago, Chile",
 }
 
