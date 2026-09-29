@@ -332,6 +332,11 @@ MADRI = {
         },
         {
             "id": "plaza-mayor-sol",
+            "foto": {"arq": "madri/plaza-mayor.webp",
+                     "alt": ("A Plaza Mayor de Madri em dia de chuva, com a fachada "
+                             "vermelha de arcadas refletida no piso molhado, a estátua "
+                             "equestre de Filipe III ao centro e pessoas atravessando"),
+                     "cred": "Daderot · CC0 · via Wikimedia Commons"},
             "grupo": "g2",
             "nome": "Plaza Mayor e Puerta del Sol",
             "tag": "Praças",
