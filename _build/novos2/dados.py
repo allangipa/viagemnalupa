@@ -131,7 +131,11 @@ BARILOCHE = {
             ],
         },
         {
-            "id": "cerro-catedral", "grupo": "g1",
+            "id": "cerro-catedral",
+            "foto": {"arq": "bariloche/cerro-catedral.webp",
+                     "alt": ("Os picos recortados do Cerro Catedral, que dão nome ao morro, "
+                             "acima de uma lagoa de montanha cercada de rocha"),
+                     "cred": "Justraveling.com · CC BY-SA 4.0 · via Wikimedia Commons"}, "grupo": "g1",
             "nome": "Cerro Catedral", "tag": "Centro de esqui",
             "preco_val": "ARS 90.000", "preco_nota": "passe pedestre; esqui custa ARS 160.000",
             "campos": [
@@ -158,7 +162,11 @@ BARILOCHE = {
             ],
         },
         {
-            "id": "cerro-otto", "grupo": "g1",
+            "id": "cerro-otto",
+            "foto": {"arq": "bariloche/cerro-otto.webp",
+                     "alt": ("A vista do alto do Cerro Otto sobre o lago Nahuel Huapi e a "
+                             "cidade de Bariloche, com uma pessoa parada no mirante"),
+                     "cred": "Carla · CC BY-SA 4.0 · via Wikimedia Commons"}, "grupo": "g1",
             "nome": "Teleférico Cerro Otto", "tag": "Teleférico",
             "preco_val": "ARS 60.000", "preco_nota": "maior de 13 anos",
             "campos": [
@@ -183,7 +191,11 @@ BARILOCHE = {
             ],
         },
         {
-            "id": "cerro-campanario", "grupo": "g1",
+            "id": "cerro-campanario",
+            "foto": {"arq": "bariloche/cerro-campanario.webp",
+                     "alt": ("A vista do Cerro Campanario sobre o lago Nahuel Huapi, com as "
+                             "penínsulas e as ilhas recortadas na água azul"),
+                     "cred": "Los Paseos from Earth · CC BY-SA 2.0 · via Wikimedia Commons"}, "grupo": "g1",
             "nome": "Cerro Campanario", "tag": "Aerossilha",
             "preco_val": "ARS 18.000", "preco_nota": "adulto; criança de 6 a 12, ARS 10.000",
             "campos": [
@@ -207,7 +219,11 @@ BARILOCHE = {
             ],
         },
         {
-            "id": "isla-victoria", "grupo": "g2",
+            "id": "isla-victoria",
+            "foto": {"arq": "bariloche/isla-victoria.webp",
+                     "alt": ("Troncos claros e retorcidos de arrayanes em primeiro plano, com "
+                             "uma enseada de água turquesa e a mata ao fundo"),
+                     "cred": "SoleFabrizio · CC BY-SA 3.0 · via Wikimedia Commons"}, "grupo": "g2",
             "nome": "Isla Victoria e Bosque de Arrayanes", "tag": "Navegação",
             "preco_val": "ARS 182.600", "preco_nota": "as três cobranças somadas",
             "campos": [
@@ -242,7 +258,11 @@ BARILOCHE = {
             ],
         },
         {
-            "id": "puerto-blest", "grupo": "g2",
+            "id": "puerto-blest",
+            "foto": {"arq": "bariloche/puerto-blest.webp",
+                     "alt": ("O braço de lago que leva a Puerto Blest, entre encostas íngremes "
+                             "cobertas de mata, sob céu de nuvens altas"),
+                     "cred": "Hiroki Ogawa · CC BY 3.0 · via Wikimedia Commons"}, "grupo": "g2",
             "nome": "Puerto Blest e Cascada Los Cántaros", "tag": "Navegação",
             "preco_val": "ARS 136.000", "preco_nota": "sem a taxa do parque",
             "campos": [
@@ -297,7 +317,11 @@ BARILOCHE = {
             ],
         },
         {
-            "id": "colonia-suiza", "grupo": "g3",
+            "id": "colonia-suiza",
+            "foto": {"arq": "bariloche/colonia-suiza.webp",
+                     "alt": ("A orla de Colonia Suiza, com um barco na água calma e as "
+                             "construções de madeira entre as árvores"),
+                     "cred": "Hernan Bardi · CC BY-SA 4.0 · via Wikimedia Commons"}, "grupo": "g3",
             "nome": "Colonia Suiza", "tag": "Vilarejo",
             "preco_val": "Grátis", "preco_nota": "feira às quartas e domingos",
             "campos": [
@@ -317,7 +341,12 @@ BARILOCHE = {
             ],
         },
         {
-            "id": "museo-patagonia", "grupo": "g3",
+            "id": "museo-patagonia",
+            "foto": {"arq": "bariloche/museo-patagonia.webp",
+                     "alt": ("Vitrine do Museo de la Patagonia com um diorama de fauna "
+                             "patagônica: animais empalhados diante de um painel pintado de "
+                             "montanha e lago"),
+                     "cred": "Alexrebolledo · CC BY-SA 3.0 · via Wikimedia Commons"}, "grupo": "g3",
             "nome": "Museo de la Patagonia", "tag": "Museu",
             "preco_val": "Contribuição", "preco_nota": "bônus voluntário, sem valor fixo",
             "campos": [
