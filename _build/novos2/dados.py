@@ -411,7 +411,11 @@ PUNTA_CANA = {
     ],
     "pontos": [
         {
-            "id": "hoyo-azul", "grupo": "g1",
+            "id": "hoyo-azul",
+            "foto": {"arq": "punta-cana/hoyo-azul.webp",
+                     "alt": ("A lagoa turquesa do Hoyo Azul ao pé do paredão de rocha, com a "
+                             "escada de madeira que desce até a água e banhistas ao fundo"),
+                     "cred": "asw909 · CC BY 2.0 · via Wikimedia Commons"}, "grupo": "g1",
             "nome": "Hoyo Azul e Scape Park", "tag": "Cenote e parque",
             "preco_val": "US$ 129", "preco_nota": "admissão geral; só o cenote, US$ 65",
             "campos": [
@@ -463,7 +467,11 @@ PUNTA_CANA = {
             ],
         },
         {
-            "id": "altos-de-chavon", "grupo": "g1",
+            "id": "altos-de-chavon",
+            "foto": {"arq": "punta-cana/altos-de-chavon.webp",
+                     "alt": ("As casas de pedra de Altos de Chavón no alto do cânion, com o "
+                             "rio Chavón largo lá embaixo e a mata da outra margem ao fundo"),
+                     "cred": "Dr. Eugen Lehle · CC BY-SA 3.0 · via Wikimedia Commons"}, "grupo": "g1",
             "nome": "Altos de Chavón", "tag": "Vila e anfiteatro",
             "preco_val": "US$ 60", "preco_nota": "excursão; criança de 4 a 12, US$ 35",
             "campos": [
@@ -522,7 +530,11 @@ PUNTA_CANA = {
             ],
         },
         {
-            "id": "los-haitises", "grupo": "g2",
+            "id": "los-haitises",
+            "foto": {"arq": "punta-cana/los-haitises.webp",
+                     "alt": ("Manguezal de raízes vermelhas em Los Haitises, com a vegetação "
+                             "refletida na água parada do canal"),
+                     "cred": "Anton Bielousov · CC BY-SA 3.0 · via Wikimedia Commons"}, "grupo": "g2",
             "nome": "Parque Nacional Los Haitises", "tag": "Parque nacional",
             "preco_val": "Sem tarifa publicada", "preco_nota": "excursão a partir de € 115",
             "campos": [
@@ -576,7 +588,11 @@ PUNTA_CANA = {
             ],
         },
         {
-            "id": "playa-macao", "grupo": "g3",
+            "id": "playa-macao",
+            "foto": {"arq": "punta-cana/playa-macao.webp",
+                     "alt": ("Playa Macao com um barco de pesca na água rasa e o promontório "
+                             "rochoso coberto de mata fechando a praia ao fundo"),
+                     "cred": "bogdix · CC BY 2.0 · via Wikimedia Commons"}, "grupo": "g3",
             "nome": "Playa Macao", "tag": "Praia",
             "preco_val": "Grátis", "preco_nota": "a praia pública mais aberta da região",
             "campos": [
