@@ -191,7 +191,16 @@
       if (t === "ingresso") {
         var on = tr.querySelector("input").checked;
         tr.classList.toggle("off", !on);
-        if (on) ing += v;
+        /* Linha sem data-v e lacuna declarada: o gerador omite o atributo
+           de proposito quando nao ha tarifa unica publicada. parseFloat de
+           undefined da NaN, e um NaN somado aqui contamina o total inteiro
+           — a pagina publicava "US$ NaN" no lugar do valor.
+
+           Aconteceu em Punta Cana (3 linhas), Bariloche (1) e Miami (3), e
+           passou doze dias no ar. O gerador ja documentava o None como "o
+           mecanismo que o ficha.js usa para lacuna declarada"; faltava o
+           ficha.js cumprir a sua parte. */
+        if (on && !isNaN(v)) ing += v;
       } else if (t === "fixo") {
         outros += v * p;
       } else if (t === "dia") {

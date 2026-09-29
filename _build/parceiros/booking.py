@@ -86,6 +86,7 @@ BUSCA = {
     "fortaleza":      "Fortaleza, Brasil",
     "lisboa":         "Lisboa, Portugal",
     "maceio":         "Maceió, Brasil",
+    "miami":          "Miami, Estados Unidos",
     "montevideu":     "Montevidéu, Uruguai",
     "nova-york":      "Nova York, Estados Unidos",
     "orlando":        "Orlando, Estados Unidos",
