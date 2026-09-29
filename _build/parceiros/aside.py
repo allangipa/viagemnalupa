@@ -71,6 +71,7 @@ CIDADES = {
     "fortaleza":      "Fortaleza",
     "lisboa":         "Lisboa",
     "maceio":         "Maceió",
+    "madri":          "Madri",
     "miami":          "Miami",
     "montevideu":     "Montevidéu",
     "nova-york":      "Nova York",
