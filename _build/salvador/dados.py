@@ -289,7 +289,7 @@ SALVADOR = {
             "foto": {"arq": "salvador/mercado-modelo.webp",
                      "alt": ("O frontão do Mercado Modelo, com o nome gravado em letras altas "
                              "na pedra clara e o brasão ao centro"),
-                     "cred": "Ben Tavener from Curitiba, Brazil · CC BY 2.0 · via Wikimedia Commons"},
+                     "cred": "Ben Tavener · CC BY 2.0 · via Wikimedia Commons"},
             "grupo": "g1",
             "nome": "Mercado Modelo",
             "tag": "Mercado",

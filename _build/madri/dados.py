@@ -131,7 +131,7 @@ MADRI = {
                      "alt": ("A fachada do edifício Villanueva, sede do Museo del Prado, com a "
                              "colunata jônica estendida ao longo do Paseo del Prado em luz de "
                              "fim de tarde"),
-                     "cred": "Brian Snelson from United Kingdom · CC BY 2.0 · via Wikimedia Commons"},
+                     "cred": "Brian Snelson · CC BY 2.0 · via Wikimedia Commons"},
             "grupo": "g1",
             "nome": "Museo Nacional del Prado",
             "tag": "Museu",

@@ -195,7 +195,7 @@ BARILOCHE = {
             "foto": {"arq": "bariloche/cerro-campanario.webp",
                      "alt": ("A vista do Cerro Campanario sobre o lago Nahuel Huapi, com as "
                              "penínsulas e as ilhas recortadas na água azul"),
-                     "cred": "Los Paseos from Earth · CC BY-SA 2.0 · via Wikimedia Commons"}, "grupo": "g1",
+                     "cred": "Los Paseos · CC BY-SA 2.0 · via Wikimedia Commons"}, "grupo": "g1",
             "nome": "Cerro Campanario", "tag": "Aerossilha",
             "preco_val": "ARS 18.000", "preco_nota": "adulto; criança de 6 a 12, ARS 10.000",
             "campos": [
