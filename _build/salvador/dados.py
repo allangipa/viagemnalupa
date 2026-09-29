@@ -159,6 +159,10 @@ SALVADOR = {
         },
         {
             "id": "igreja-sao-francisco",
+            "foto": {"arq": "salvador/sao-francisco.webp",
+                     "alt": ("A fachada da Igreja de São Francisco iluminada à noite, com a "
+                             "talha barroca em pedra e a cruz no alto do frontão"),
+                     "cred": "Paul R. Burley · CC BY-SA 4.0 · via Wikimedia Commons"},
             "grupo": "g1",
             "nome": "Igreja e Convento de São Francisco",
             "tag": "Igreja — fechada para restauro",
@@ -232,6 +236,10 @@ SALVADOR = {
         },
         {
             "id": "elevador-lacerda",
+            "foto": {"arq": "salvador/elevador-lacerda.webp",
+                     "alt": ("A torre do Elevador Lacerda vista da Cidade Alta, com o relógio "
+                             "no topo e palmeiras ao lado da praça"),
+                     "cred": "Paul R. Burley · CC BY-SA 4.0 · via Wikimedia Commons"},
             "grupo": "g1",
             "nome": "Elevador Lacerda",
             "tag": "Elevador urbano",
@@ -278,6 +286,10 @@ SALVADOR = {
         },
         {
             "id": "mercado-modelo",
+            "foto": {"arq": "salvador/mercado-modelo.webp",
+                     "alt": ("O frontão do Mercado Modelo, com o nome gravado em letras altas "
+                             "na pedra clara e o brasão ao centro"),
+                     "cred": "Ben Tavener from Curitiba, Brazil · CC BY 2.0 · via Wikimedia Commons"},
             "grupo": "g1",
             "nome": "Mercado Modelo",
             "tag": "Mercado",
@@ -310,6 +322,10 @@ SALVADOR = {
         # ---------------------------------------------------------- g2
         {
             "id": "farol-da-barra",
+            "foto": {"arq": "salvador/farol-da-barra.webp",
+                     "alt": ("O Farol da Barra ao pôr do sol, visto das pedras da orla, com o "
+                             "céu alaranjado sobre a Baía de Todos os Santos"),
+                     "cred": "Ruy Carvalho · CC BY-SA 3.0 · via Wikimedia Commons"},
             "grupo": "g2",
             "nome": "Farol da Barra e Museu Náutico da Bahia",
             "tag": "Farol e museu",
@@ -343,6 +359,10 @@ SALVADOR = {
         },
         {
             "id": "porto-da-barra",
+            "foto": {"arq": "salvador/porto-da-barra.webp",
+                     "alt": ("A Praia do Porto da Barra cheia, com guarda-sóis coloridos na "
+                             "areia e os prédios da orla ao fundo"),
+                     "cred": "Jofrigerio · CC BY-SA 4.0 · via Wikimedia Commons"},
             "grupo": "g2",
             "nome": "Praia do Porto da Barra",
             "tag": "Praia",
@@ -373,6 +393,10 @@ SALVADOR = {
         # ---------------------------------------------------------- g3
         {
             "id": "igreja-do-bonfim",
+            "foto": {"arq": "salvador/bonfim.webp",
+                     "alt": ("A Basílica do Senhor do Bonfim vista do largo, com as duas "
+                             "torres claras despontando acima das árvores"),
+                     "cred": "Elvis Boaventura · CC BY 3.0 · via Wikimedia Commons"},
             "grupo": "g3",
             "nome": "Basílica do Senhor do Bonfim",
             "tag": "Igreja",
@@ -408,6 +432,10 @@ SALVADOR = {
         },
         {
             "id": "casa-do-rio-vermelho",
+            "foto": {"arq": "salvador/rio-vermelho.webp",
+                     "alt": ("A fachada da Casa do Rio Vermelho, com a placa do memorial a "
+                             "Jorge Amado e Zélia Gattai sobre a entrada amarela"),
+                     "cred": "Turismo Bahia · CC BY-SA 2.0 · via Wikimedia Commons"},
             "grupo": "g3",
             "nome": "Casa do Rio Vermelho — Jorge Amado e Zélia Gattai",
             "tag": "Casa-museu",
@@ -436,6 +464,10 @@ SALVADOR = {
         },
         {
             "id": "espacos-do-forte",
+            "foto": {"arq": "salvador/forte-santo-antonio.webp",
+                     "alt": ("A muralha branca do Forte de Santo Antônio Além do Carmo, com "
+                             "vegetação subindo pela pedra da rampa"),
+                     "cred": "Paul R. Burley · CC BY-SA 4.0 · via Wikimedia Commons"},
             "grupo": "g3",
             "nome": "Espaço Pierre Verger e Espaço Carybé",
             "tag": "Dois museus, um bilhete",
