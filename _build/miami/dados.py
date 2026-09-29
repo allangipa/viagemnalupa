@@ -120,6 +120,10 @@ MIAMI = {
         # ---------------------------------------------------------- g1
         {
             "id": "perez-art-museum",
+            "foto": {"arq": "miami/pamm.webp",
+                     "alt": ("A varanda coberta do Pérez Art Museum Miami, com as colunas do "
+                             "beiral, as palmeiras do parque e o skyline da cidade ao fundo"),
+                     "cred": "osseous · CC BY 2.0 · via Wikimedia Commons"},
             "grupo": "g1",
             "nome": "Pérez Art Museum Miami (PAMM)",
             "tag": "Museu de arte",
@@ -192,6 +196,10 @@ MIAMI = {
         },
         {
             "id": "vizcaya",
+            "foto": {"arq": "miami/vizcaya.webp",
+                     "alt": ("A barca de pedra de Vizcaya na Baía de Biscayne, com as "
+                             "esculturas na balaustrada e a vegetação da villa ao fundo"),
+                     "cred": "Jacklee · CC BY-SA 3.0 · via Wikimedia Commons"},
             "grupo": "g1",
             "nome": "Vizcaya Museum and Gardens",
             "tag": "Casa-museu e jardins",
@@ -230,6 +238,10 @@ MIAMI = {
         # ---------------------------------------------------------- g2
         {
             "id": "wynwood-walls",
+            "foto": {"arq": "miami/wynwood-walls.webp",
+                     "alt": ("O pórtico de entrada do Wynwood Walls, com o nome em letras "
+                             "altas sobre a estrutura e os murais coloridos do recinto atrás"),
+                     "cred": "Dan Lundberg · CC BY-SA 2.0 · via Wikimedia Commons"},
             "grupo": "g2",
             "nome": "Wynwood Walls",
             "tag": "Arte de rua",
@@ -264,6 +276,10 @@ MIAMI = {
         },
         {
             "id": "little-havana",
+            "foto": {"arq": "miami/little-havana.webp",
+                     "alt": ("Uma fachada de comércio na Calle Ocho, em Little Havana, com "
+                             "mural colorido e bandeiras cubanas sobre a porta"),
+                     "cred": "Phillip Pessar · CC BY 2.0 · via Wikimedia Commons"},
             "grupo": "g2",
             "nome": "Little Havana e a Calle Ocho",
             "tag": "Bairro",
@@ -338,6 +354,10 @@ MIAMI = {
         # ---------------------------------------------------------- g3
         {
             "id": "everglades",
+            "foto": {"arq": "miami/everglades.webp",
+                     "alt": ("A planície de sawgrass do Everglades ao pôr do sol, com nuvens "
+                             "altas e a vegetação baixa estendida até o horizonte"),
+                     "cred": "evergladesnps · Public domain · via Wikimedia Commons"},
             "grupo": "g3",
             "nome": "Everglades National Park",
             "tag": "Parque nacional",
