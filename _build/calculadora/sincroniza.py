@@ -55,6 +55,15 @@ if hasattr(sys.stdout, "buffer"):
 
 # ---------------------------------------------------------------- a prosa
 # Um verbete por destino que ENTRA na calculadora. O resto e derivado.
+# O verbete de quem nao tem faixa de hospedagem. Repetido em sete
+# destinos, entao mora numa constante: se a redacao mudar, muda nos
+# sete de uma vez.
+SEM = ("<b>Esta ficha nao tem hospedagem, e isso e deliberado.</b> Nao ha diaria "
+       "media publicada por orgao oficial que sirva a este destino, e usar media de "
+       "agregador seria furar a regra da casa <b>justamente na linha mais cara da "
+       "viagem</b>. O total abaixo e o que da para somar com fonte, nao o que a "
+       "viagem custa - por isso o botao desta cidade diz <b>sem hospedagem</b>. ")
+
 PROSA = {
     "montevideu": dict(
         gratis=("Três dos nove pontos não cobram entrada: o Mercado del Puerto, "
@@ -94,6 +103,134 @@ PROSA = {
               "conta</b> — apuramos três valores diferentes no mesmo dia e nenhum se "
               "confirmou como o oficial. Os valores em peso não são convertidos: o "
               "Banco Central publica dez moedas e o peso mexicano não está entre elas."),
+    ),
+
+    # --- os oito que travavam o script desde 17/set/2026 --------------
+    #
+    # Sete nao tem faixa de hospedagem, pelo mesmo motivo de Fortaleza.
+    # A diferenca e que Fortaleza foi para FORA e estes entram: as
+    # paginas deles ja exibem total sem hospedagem, o ficha.js ja sabe
+    # rotular assim, e a calculadora nao poe cidades lado a lado - so a
+    # tira de abas poe, e o botao agora avisa.
+    #
+    # Sevilha e a unica omissao de verdade: tem hospedagem, tem ADR
+    # oficial do INE por ponto turistico, e devia estar aqui desde 25 de
+    # setembro.
+
+    "sevilha": dict(
+        gratis=("A Plaza de España não cobra entrada — e a cobrança anunciada para ela "
+                "em 2024 nunca existiu, não aparece em ordenança fiscal nenhuma."),
+        fonte=("Páginas oficiais do Real Alcázar, da Catedral de Sevilha e das Setas de "
+               "Sevilla; o transporte, da tabela do Consorcio de Transportes de "
+               "Andalucía; a hospedagem, da Encuesta de Ocupación Hotelera do INE "
+               "espanhol. Apuradas em 25 de setembro de 2026. "
+               "<b>Nenhum valor veio de agregador de viagem.</b>"),
+        nota=("As noites saem das suas datas. Hospedagem por quarto, duas pessoas por "
+              "quarto. <b>Sevilha é o único destino do site com três faixas de "
+              "hospedagem</b>, e é porque o dado permite: o INE espanhol publica ADR "
+              "por ponto turístico. E a série revela o que importa — <b>agosto a "
+              "€ 87,39 contra abril a € 204,57</b>, 2,3 vezes mais, por causa da "
+              "Semana Santa e da Feria. <b>A média de 12 meses é cálculo nosso</b> "
+              "sobre os doze valores publicados, e está rotulada como tal."),
+    ),
+    "porto": dict(
+        gratis=("Quatro dos dezesseis pontos não cobram entrada: a Ponte Dom Luís I, o "
+                "Centro Histórico e a Ribeira, a Estação de São Bento e os Jardins do "
+                "Palácio de Cristal."),
+        fonte=("Páginas oficiais da Livraria Lello, da Irmandade dos Clérigos, do "
+               "Palácio da Bolsa, da Fundação de Serralves, da Casa da Música, do "
+               "Teleférico de Gaia, da Direção Regional de Cultura do Norte, do Metro "
+               "do Porto e da Câmara Municipal do Porto. Apuradas em 24 e 25 de "
+               "setembro de 2026. <b>Nenhum valor veio de agregador de viagem.</b>"),
+        nota=(SEM + "No caso do Porto o motivo é específico: <b>o INE português só "
+              "publica ADR para Portugal inteiro</b>, e uma média nacional não "
+              "descreve a diária do Porto."),
+    ),
+    "bariloche": dict(
+        gratis=("Dois dos nove pontos não cobram entrada: o Circuito Chico com o Punto "
+                "Panorámico, e Colonia Suiza."),
+        fonte=("Páginas oficiais do Parque Nacional Nahuel Huapi, da Catedral Alta "
+               "Patagonia, do Teleférico Cerro Otto e dos operadores da Isla Victoria "
+               "e de Puerto Blest. Apuradas em 17 de setembro de 2026. <b>Nenhum valor "
+               "veio de agregador de viagem.</b>"),
+        nota=(SEM + "No caso de Bariloche o INDEC anunciou mudança na divulgação da "
+              "Encuesta de Ocupación Hotelera a partir de janeiro de 2026, e não "
+              "encontramos tarifa média por localidade. <b>Os valores estão em peso "
+              "argentino e não são convertidos</b>: o Banco Central publica cotação de "
+              "dez moedas, e o peso argentino não está entre elas."),
+    ),
+    "punta-cana": dict(
+        gratis=("Duas das sete linhas não cobram entrada: a Playa Bávaro e a Playa "
+                "Macao."),
+        fonte=("<b>Punta Cana é o destino com menos tarifa oficial do site.</b> Onde só "
+               "existe preço de operador, isso está dito, e onde duas fontes divergem, "
+               "as duas ficam. Apurado em 17 de setembro de 2026. Nenhum número foi "
+               "escolhido por conveniência nem tirado por média."),
+        nota=(SEM + "E aqui a lacuna é maior que a hospedagem: <b>três dos sete pontos "
+              "também não têm tarifa única publicada</b> e ficam fora da conta. A "
+              "ASONAHORES, associação hoteleira dominicana, não publica ADR aberto por "
+              "polo turístico."),
+    ),
+    "miami": dict(
+        gratis=("Duas das linhas não cobram entrada: Little Havana com a Calle Ocho, e "
+                "South Beach com o Art Deco District."),
+        fonte=("Páginas oficiais do National Park Service, do Pérez Art Museum Miami, "
+               "do Frost Science, do Zoo Miami, do Vizcaya e do Wynwood Walls, mais a "
+               "página de impostos turísticos do condado de Miami-Dade. Apuradas em 29 "
+               "de setembro de 2026."),
+        nota=(SEM + "<b>E em Miami a diária anunciada não é o que se paga</b>: somam-se "
+              "de 13% a 14% de impostos, com composição que muda conforme o bairro, "
+              "mais uma <b>resort fee diária de US$ 25 a US$ 60</b> que desde maio de "
+              "2025 tem de aparecer no preço total por regra federal. <b>A entrada do "
+              "veículo no Everglades também fica fora do total</b>: é por carro, não "
+              "por pessoa, e esta calculadora soma por pessoa."),
+    ),
+    "salvador": dict(
+        gratis=("Cinco das linhas não cobram entrada: o Elevador Lacerda, o Pelourinho "
+                "e o Centro Histórico, a Basílica do Senhor do Bonfim, o Mercado "
+                "Modelo e a Praia do Porto da Barra."),
+        fonte=("Prefeitura de Salvador, portal Pelourinho Dia e Noite, secretaria de "
+               "Mobilidade e Museu Náutico da Bahia. Apuradas em 29 de setembro de "
+               "2026."),
+        nota=(SEM + "<b>E há um desconto que a calculadora não aplica sozinha:</b> três "
+              "dos quatro pontos pagos são equipamentos municipais, e municipais "
+              "<b>não cobram nada às quartas-feiras</b>. Desmarque Casa do Carnaval, "
+              "Casa do Rio Vermelho e os Espaços do Forte e você vê o total de uma "
+              "quarta — sobra só o Farol da Barra, que não é da prefeitura."),
+    ),
+    "madri": dict(
+        gratis=("Quatro das linhas não cobram entrada: a nave da Catedral de la "
+                "Almudena, o Templo de Debod, o Parque del Retiro com o Palacio de "
+                "Cristal, e a Plaza Mayor com a Puerta del Sol e o Mercado de San "
+                "Miguel."),
+        fonte=("Patrimonio Nacional, Museo Reina Sofía, Museo Thyssen-Bornemisza, "
+               "Ayuntamiento de Madrid e Real Madrid C.F. Apuradas em 29 de setembro "
+               "de 2026. <b>A página do Museo del Prado está atrás de proteção "
+               "anti-bot e não abriu</b>: os valores dele vêm da indexação do próprio "
+               "domínio somada à ficha do esMadrid, portal oficial de turismo da "
+               "cidade, que coincidem."),
+        nota=(SEM + "<b>E quatro das seis linhas pagas têm horário em que não custam "
+              "nada.</b> Desmarque Prado, Reina Sofía, Thyssen e Palácio Real e a "
+              "conta cai de € 101 para € 42. <b>€ 18 desse desconto é seu por "
+              "nacionalidade</b>: a tarifa gratuita do Palácio Real vale para cidadão "
+              "latino-americano com documento, e não só para europeu."),
+    ),
+    "roma": dict(
+        gratis=("Três das linhas não cobram entrada: a Basílica de São Pedro, a "
+                "Fontana di Trevi com a Piazza Navona, e a Piazza di Spagna — onde, no "
+                "entanto, <b>sentar na escadaria custa € 250 de multa</b>."),
+        fonte=("Ministero della Cultura, bilheteria oficial da Galleria Borghese e "
+               "basilicasanpietro.va, mais a indexação dos domínios oficiais do Parco "
+               "archeologico del Colosseo e dos Museus Vaticanos. Apuradas em 29 de "
+               "setembro de 2026. <b>Vários sites oficiais italianos recusaram conexão "
+               "direta</b>, e isso está dito ponto a ponto na ficha do destino."),
+        nota=(SEM + "<b>E Roma tem dois domingos gratuitos por mês, que não são o mesmo "
+              "domingo.</b> O primeiro é do Estado italiano e libera Coliseu, Panteão "
+              "e Galleria Borghese; o último é do Vaticano, e é o único domingo em que "
+              "os Museus Vaticanos abrem. Uma viagem de cinco dias pega no máximo um. "
+              "<b>O contributo di soggiorno também fica fora do total</b>: vai de € 3 "
+              "a € 10 por pessoa por noite conforme a estrutura, e a calculadora não "
+              "modela isso."),
     ),
 }
 
@@ -184,14 +321,15 @@ def do_destino(slug):
 def total_de(c):
     """Mesma conta do montar.py, para o rotulo do botao."""
     noites = c["dias"] - 1
-    hp = {h["k"]: h for h in c["hosp"]}[c["hospPadrao"]]
+    # Ficha sem hospedagem nao e erro - ver o comentario no montar.py.
+    hp = {h["k"]: h for h in c["hosp"]}.get(c["hospPadrao"])
     t = c["transporte"]
     v = sum(x for _, x, _ in c["ingressos"])
     v += (t["v"] * c["dias"] if t else 0)
     v += sum(x for _, x, _ in c["fixos"])
     if c["taxa"]:
         v += c["taxa"]["noite"] * min(noites, c["taxa"]["teto"])
-    return v + hp["ref"] * noites
+    return v + (hp["ref"] * noites if hp else 0)
 
 
 def main(aplica):
@@ -233,9 +371,10 @@ def main(aplica):
               % (slug, c["dias"], len(c["ingressos"]), len(c["hosp"]),
                  "sim" if c["transporte"] else "NAO", fmt(c, tot)))
         blocos.append(bloco(c, False))
+        rot = "por pessoa" if c["hosp"] else "<b>sem hospedagem</b>"
         botoes.append('<button type="button" class="cc-big" data-troca="%s">'
-                      '<b>%s</b><span>%s por pessoa &middot; %d dias</span>'
-                      '</button>' % (slug, c["nome"], fmt(c, tot), c["dias"]))
+                      '<b>%s</b><span>%s %s &middot; %d dias</span>'
+                      '</button>' % (slug, c["nome"], fmt(c, tot), rot, c["dias"]))
 
     # os botoes entram no fim da nav de abas
     m = re.search(r"(?s)(<nav class=\"calc-abas\".*?)(</nav>)", h)

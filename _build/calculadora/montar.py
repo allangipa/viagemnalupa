@@ -15,7 +15,12 @@ def plural(n, um, muitos):
 def bloco(c, primeira):
     d, noites = c["dias"], c["dias"] - 1
     hosp = {h["k"]: h for h in c["hosp"]}
-    hp = hosp[c["hospPadrao"]]
+    # Ficha SEM hospedagem e caso legitimo, nao erro: Fortaleza, Porto,
+    # Bariloche, Punta Cana, Miami, Salvador, Madri e Roma saem assim
+    # porque nao ha diaria media publicada que sirva, e isso ja esta
+    # declarado na pagina de cada uma. O ficha.js ja sabe lidar: ele le
+    # CFG.hosp vazio e rotula o total como "sem a hospedagem".
+    hp = hosp.get(c["hospPadrao"])
 
     cfg = {"moeda": c["moeda"], "dec": c["dec"], "dias": d, "pessoas": c["pessoas"],
            "hosp": [{k: v for k, v in h.items()} for h in c["hosp"]],
@@ -52,16 +57,17 @@ def bloco(c, primeira):
     for nome, v, obs in c["fixos"]:
         linhas.append('<tr data-tipo="fixo" data-v="%.4f"><td>%s</td><td class="n">%s</td>'
                       '<td>%s</td></tr>' % (v, nome, fmt(c, v), obs))
-    linhas.append('<tr data-tipo="hosp"><td>Hospedagem, %s</td><td class="n">%s</td>'
-                  '<td>%s, %s a diária</td></tr>'
-                  % (plural(noites, "noite", "noites"), fmt(c, hp["ref"] * noites),
-                     hp["rot"], fmt(c, hp["ref"])))
+    if hp:
+        linhas.append('<tr data-tipo="hosp"><td>Hospedagem, %s</td><td class="n">%s</td>'
+                      '<td>%s, %s a diária</td></tr>'
+                      % (plural(noites, "noite", "noites"), fmt(c, hp["ref"] * noites),
+                         hp["rot"], fmt(c, hp["ref"])))
 
     ing = sum(v for _, v, _ in c["ingressos"])
     outros = (t["v"] * d if t else 0) + sum(v for _, v, _ in c["fixos"])
     if c["taxa"]:
         outros += c["taxa"]["noite"] * min(noites, c["taxa"]["teto"])
-    total = ing + outros + hp["ref"] * noites
+    total = ing + outros + (hp["ref"] * noites if hp else 0)
 
     return """<div class="ficha-calc" data-cidade="%(slug)s"%(hid)s>
 
@@ -70,7 +76,7 @@ def bloco(c, primeira):
     <span class="eyebrow">Calculadora</span>
     <h2>Faça a conta da <em style="font-style:normal;color:var(--ambar)">sua</em> viagem</h2>
     <p>A tabela abaixo é a nossa apuração: %(d)d dias, 1 pessoa.
-       Mude as datas, o número de pessoas e a categoria de hospedagem, desmarque o que
+       Mude as datas, o número de pessoas%(e_hosp)s, desmarque o que
        você não vai fazer, e a conta se refaz na hora.</p>
   </div>
 
@@ -83,8 +89,7 @@ def bloco(c, primeira):
         <input type="date" class="c-volta" value="2026-11-%(volta)02d" min="2026-09-14" max="2028-12-31"></label>
       <label>Pessoas
         <input type="number" class="c-pes" min="1" max="8" step="1" value="1" inputmode="numeric"></label>
-      <label>Hospedagem
-        <select class="c-hosp">%(opts)s</select></label>
+      %(sel_hosp)s
     </div>
     <p class="calc-dur c-dur"></p>
     <div class="c-alertas"></div>
@@ -95,12 +100,16 @@ def bloco(c, primeira):
   </div>
   <script type="application/json" class="calc-cfg">%(cfg)s</script>
 </section>
-<section class="bloco"><div class="tabwrap"><table class="tab-ficha"><thead><tr><th>Item</th><th>Valor</th><th>Observação</th></tr></thead><tbody>%(linhas)s</tbody><tfoot><tr><td class="tot-rot">Total por pessoa</td><td class="n tot-val">%(total)s</td><td class="tot-dia">%(dia)s por pessoa por dia</td></tr></tfoot></table></div>
+<section class="bloco"><div class="tabwrap"><table class="tab-ficha"><thead><tr><th>Item</th><th>Valor</th><th>Observação</th></tr></thead><tbody>%(linhas)s</tbody><tfoot><tr><td class="tot-rot">%(tot_rot)s</td><td class="n tot-val">%(total)s</td><td class="tot-dia">%(dia)s por pessoa por dia</td></tr></tfoot></table></div>
 <p style="color:var(--nevoa);font-size:.92rem">%(gratis)s <b>Não inclui passagem aérea, alimentação nem seguro</b> — é o custo de fazer %(nome)s, não o de chegar nela.</p>
 <p style="color:var(--nevoa);font-size:.92rem">Fontes: %(fonte)s</p>
 <div class="paginas"><a class="pg" href="%(destino)s">Os %(pontos)d pontos de %(nome)s, com preço, horário e fonte</a></div></section>
 </div>""" % dict(
         slug=c["slug"], hid="" if primeira else " hidden", d=d,
+        sel_hosp=('<label>Hospedagem\n        <select class="c-hosp">%s</select>'
+                  '</label>' % opts) if hp else "",
+        e_hosp=" e a categoria de hospedagem" if hp else "",
+        tot_rot="Total por pessoa" + ("" if hp else ", sem a hospedagem"),
         volta=10 + d - 1, opts=opts, nota=c["nota"],
         cfg=json.dumps(cfg, ensure_ascii=False), pontos=c["pontos"],
         linhas="".join(linhas), total=fmt(c, total),
