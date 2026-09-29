@@ -61,6 +61,7 @@ DESTINOS = {
     "punta-cana":     "Punta Cana",
     "rio-de-janeiro": "Rio de Janeiro",
     "salvador":       "Salvador",
+    "roma":           "Roma",
     "santiago":       "Santiago",
 }
 # Destino novo que nao entre aqui sai sem dado estruturado nenhum, e sem

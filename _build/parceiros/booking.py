@@ -96,6 +96,7 @@ BUSCA = {
     "punta-cana":     "Punta Cana, República Dominicana",
     "rio-de-janeiro": "Rio de Janeiro, Brasil",
     "salvador":       "Salvador, Brasil",
+    "roma":           "Roma, Itália",
     "santiago":       "Santiago, Chile",
 }
 
