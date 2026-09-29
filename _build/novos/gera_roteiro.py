@@ -23,12 +23,12 @@ CABECA = """<!doctype html>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="google-site-verification" content="IpjUvTgAQF5LxYdxAXXj2g3Qi-qh1KldEl7RelcQ9bo">
-<title>{titulo}</title>
+<title>{titulo_seo}</title>
 <meta name="description" content="{descricao}">
 <link rel="canonical" href="{site}/destinos/{slug}/roteiro-{dias}-dias/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Viagem na Lupa">
-<meta property="og:title" content="{titulo}">
+<meta property="og:title" content="{titulo_seo}">
 <meta property="og:description" content="{descricao}">
 <meta property="og:url" content="{site}/destinos/{slug}/roteiro-{dias}-dias/"><meta property="og:image" content="https://viagemnalupa.com.br/assets/img/og-image.png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Viagem na Lupa — todo preço tem fonte e data."><meta name="twitter:image" content="https://viagemnalupa.com.br/assets/img/og-image.png">
 <meta property="og:locale" content="pt_BR">
@@ -75,7 +75,23 @@ RODAPE = """</div>
 def monta(slug):
     r = ROTEIROS[slug]
     d = next(x for x in DESTINOS if x["slug"] == slug)
-    html = CABECA.format(titulo=r["titulo"], descricao=r["descricao"], site=SITE,
+    # TITULO E H1 DEIXAM DE SER O MESMO TEXTO.
+    #
+    # O <title> ganha ", dia a dia (ano)" e o <h1> continua limpo. Quatro
+    # roteiros ja eram assim - Nova York, Buenos Aires, Maceio e Santiago -
+    # e os outros catorze nao, porque o gerador punha o mesmo valor nos
+    # dois lugares. Isto so uniformiza o que ja estava decidido.
+    #
+    # O ANO SAI DA APURACAO, nao de um numero escrito aqui. Titulo com ano
+    # fixo vira mentira em 1 de janeiro; assim, quando o destino for
+    # reapurado, o titulo acompanha sozinho.
+    ano = (re.search(r"(20\d\d)", APURACAO) or [None, ""])[1]
+    titulo_seo = r["titulo"]
+    if ano and "dia a dia" not in titulo_seo:
+        titulo_seo = "%s, dia a dia (%s)" % (titulo_seo, ano)
+
+    html = CABECA.format(titulo=r["titulo"], titulo_seo=titulo_seo,
+                         descricao=r["descricao"], site=SITE,
                          slug=slug, dias=r["dias"], nome=d["nome"],
                          abertura=r["abertura"])
 
@@ -84,11 +100,17 @@ def monta(slug):
                      for cls, t, corpo in r["avisos"])
     html += '<section class="bloco">%s</section>\n' % avisos
 
+    # H2, NAO H3: o titulo do dia e secao de primeiro nivel embaixo do
+    # <h1> da pagina. Com h3 o documento pulava de h1 para h3, e quem
+    # navega por cabecalho em leitor de tela perde o nivel do meio.
+    # Ninguem LE este h3 por regex - o confere/tudo.py conta
+    # <span class="dia-n"> de proposito, e ha comentario la dizendo isso -
+    # entao a troca nao quebra indice lateral nem JSON-LD.
     dias = []
     for i, (tit, texto, paradas) in enumerate(r["dias_lista"], 1):
         p = "".join('<span class="parada">%s</span>' % x for x in paradas)
         dias.append('<div class="dia"><span class="dia-n">Dia %d</span>'
-                    '<div class="dia-b"><h3>%s</h3><p>%s</p>'
+                    '<div class="dia-b"><h2>%s</h2><p>%s</p>'
                     '<div class="paradas">%s</div></div></div>' % (i, tit, texto, p))
     html += ('<section class="bloco"><div class="dias">%s</div>\n'
              '<div class="paginas">\n'

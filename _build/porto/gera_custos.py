@@ -67,9 +67,7 @@ FICHAS = {
         "nome": "Porto", "dias": 5, "moeda": "€", "dec": 2,
         "titulo": "Quanto custa 5 dias no Porto em 2026",
         "descricao": ("O custo de 5 dias no Porto, por pessoa, com a taxa municipal "
-                      "turística que não vem no preço da reserva e o transporte "
-                      "apurado — e sem a hospedagem, porque não há diária publicada "
-                      "para a cidade."),
+                      "turística que não vem no preço da reserva."),
         "abertura": ("A conta do que foi apurado, por pessoa, com as tarifas "
                      "conferidas em fonte oficial em 24 e 25 de setembro de 2026. "
                      "<b>Sem a hospedagem</b> — e a página explica por quê."),

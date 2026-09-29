@@ -122,8 +122,7 @@ ROTEIROS = {
         "dias": 5,
         "titulo": "Roteiro de 5 dias em Fortaleza",
         "descricao": ("Cinco dias em Fortaleza na ordem que resolve o calendário: a janela "
-                      "de quarta a sexta que abre o Centro inteiro, e a taxa de "
-                      "Jericoacoara que a Justiça suspendeu."),
+                      "de quarta a sexta que abre o Centro inteiro."),
         "abertura": ("Cinco dias na ordem que resolve o calendário do Centro — porque em "
                      "Fortaleza há uma janela de três dias em que tudo abre junto, e fora "
                      "dela sempre falta alguma coisa."),

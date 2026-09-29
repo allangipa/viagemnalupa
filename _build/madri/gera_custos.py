@@ -57,8 +57,7 @@ FICHAS = {
         "nome": "Madri", "dias": 5, "moeda": "€", "dec": 2,
         "titulo": "Quanto custa 5 dias em Madri em 2026",
         "descricao": ("O custo de 5 dias em Madri, por pessoa, com as quatro janelas "
-                      "gratuitas que derrubam a conta de € 101 para € 42 — e a do "
-                      "Palácio Real, que é direito de quem tem passaporte brasileiro."),
+                      "gratuitas que derrubam a conta de € 101 para € 42."),
         "abertura": ("A conta do que foi apurado, por pessoa, com as tarifas pesquisadas "
                      "em 29 de setembro de 2026. <b>Sem a hospedagem</b> — e a página "
                      "explica por quê."),

@@ -64,8 +64,7 @@ FICHAS = {
         "nome": "Roma", "dias": 5, "moeda": "€", "dec": 2,
         "titulo": "Quanto custa 5 dias em Roma em 2026",
         "descricao": ("O custo de 5 dias em Roma, por pessoa, com os dois domingos "
-                      "gratuitos que cortam a conta de formas diferentes — e a taxa de "
-                      "até € 10 por noite que não vem na reserva."),
+                      "gratuitos que cortam a conta de formas diferentes."),
         "abertura": ("A conta do que foi apurado, por pessoa, com as tarifas pesquisadas "
                      "em 29 de setembro de 2026. <b>Sem a hospedagem</b> — e a página "
                      "explica por quê."),

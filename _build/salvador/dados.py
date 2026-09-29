@@ -90,8 +90,7 @@ SALVADOR = {
     "regiao": "brasil",
     "titulo": "Salvador: 10 pontos com preço e horário verificados",
     "descricao": ("Preço, horário e fonte de 10 pontos de Salvador, com os sete museus "
-                  "que não cobram nada às quartas-feiras e as duas páginas oficiais que "
-                  "erram a tarifa do Elevador Lacerda."),
+                  "que não cobram nada às quartas-feiras."),
     "abertura": ("Dez pontos com preço, horário e fonte conferidos em 29 de setembro de "
                  "2026 — e a regra que muda a conta de quem se organiza: <b>sete museus "
                  "municipais não cobram nada às quartas-feiras, e isso é permanente, não "

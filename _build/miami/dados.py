@@ -90,9 +90,8 @@ MIAMI = {
     "pais": "Estados Unidos",
     "regiao": "america-do-norte",
     "titulo": "Miami: 9 pontos com preço e horário verificados",
-    "descricao": ("Preço, horário e fonte de 9 pontos de Miami, com o adicional de "
-                  "US$ 100 que os Everglades passaram a cobrar de quem não mora nos "
-                  "EUA e a taxa de hotel que muda conforme o bairro."),
+    "descricao": ("Preço, horário e fonte de 9 pontos de Miami, com o adicional de US$ "
+                  "100 que os Everglades cobram de quem não mora nos EUA."),
     "abertura": ("Nove pontos com preço em dólar, horário e fonte conferidos em 29 de "
                  "setembro de 2026 — e a mudança que reescreve a conta do ano: <b>os "
                  "Everglades passaram a cobrar US$ 100 por pessoa de quem não mora nos "

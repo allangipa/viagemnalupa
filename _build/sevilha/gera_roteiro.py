@@ -93,9 +93,7 @@ ROTEIROS = {
         "dias": 3,
         "titulo": "Roteiro de 3 dias em Sevilha",
         "descricao": ("Três dias em Sevilha na ordem que respeita o domingo em que a "
-                      "Catedral só abre às 14h30, a hora de parar de entrar no Alcázar "
-                      "e o único ponto da cidade que funciona à noite — com preço e "
-                      "horário conferidos em fonte oficial."),
+                      "Catedral só abre às 14h30 e a hora de parar de entrar no Alcázar."),
         "abertura": ("Três dias organizados por três fatos que folheto nenhum junta: "
                      "<b>o domingo que atrasa a Catedral, a evacuação que começa 45 "
                      "minutos depois do fechamento e as Setas, que ficam abertas até "

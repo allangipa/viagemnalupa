@@ -67,9 +67,8 @@ FICHAS = {
     "miami": {
         "nome": "Miami", "dias": 5, "moeda": "US$", "dec": 2,
         "titulo": "Quanto custa 5 dias em Miami em 2026",
-        "descricao": ("O custo de 5 dias em Miami, por pessoa, com o adicional de "
-                      "US$ 100 que os Everglades passaram a cobrar de quem não mora "
-                      "nos EUA — e sem a hospedagem, porque não há diária apurada."),
+        "descricao": ("O custo de 5 dias em Miami, por pessoa, com o adicional de US$ 100 "
+                      "dos Everglades para quem não mora nos EUA."),
         "abertura": ("A conta do que foi apurado, por pessoa, com as tarifas pesquisadas "
                      "em 29 de setembro de 2026. <b>Sem a hospedagem</b> — e a página "
                      "explica por quê."),

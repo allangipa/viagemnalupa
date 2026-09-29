@@ -225,8 +225,7 @@ FORTALEZA = {
     "regiao": "brasil",
     "titulo": "Fortaleza: 7 pontos com preço e horário verificados",
     "descricao": ("Preço, horário e endereço de 7 pontos de Fortaleza e do Ceará, com a "
-                  "taxa de Jericoacoara que a Justiça suspendeu e os espaços do Dragão do "
-                  "Mar que estão fechados."),
+                  "taxa de Jericoacoara que a Justiça suspendeu."),
     "abertura": ("Sete pontos com preço, horário e endereço conferidos em 17 de setembro de "
                  "2026 — e o detalhe que muda a conta: <b>a taxa mais falada do Ceará está "
                  "suspensa pela Justiça, e muito guia ainda a cobra na conta</b>."),

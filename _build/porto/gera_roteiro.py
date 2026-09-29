@@ -60,9 +60,8 @@ ROTEIROS = {
     "porto": {
         "dias": 5,
         "titulo": "Roteiro de 5 dias no Porto",
-        "descricao": ("Cinco dias no Porto na ordem que respeita as horas de corte, "
-                      "o domingo que fecha o Bolhão e as 72 horas do bilhete de "
-                      "transporte — com preço e horário conferidos em fonte oficial."),
+        "descricao": ("Cinco dias no Porto na ordem que respeita as horas de corte, o "
+                      "domingo que fecha o Bolhão e as 72 horas do bilhete."),
         "abertura": ("Cinco dias organizados por três coisas que folheto nenhum junta: "
                      "<b>a hora de parar de entrar, o dia que fecha o mercado e as 72 "
                      "horas seguidas do bilhete do metrô</b>."),

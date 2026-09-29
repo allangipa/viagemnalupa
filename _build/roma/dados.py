@@ -96,9 +96,8 @@ ROMA = {
     "pais": "Itália",
     "regiao": "europa",
     "titulo": "Roma: 9 pontos com preço e horário verificados",
-    "descricao": ("Preço, horário e fonte de 9 pontos de Roma — com os dois domingos "
-                  "gratuitos que não são o mesmo domingo e a taxa de hospedagem de até "
-                  "€ 10 por noite que não vem na reserva."),
+    "descricao": ("Preço, horário e fonte de 9 pontos de Roma, com os dois domingos "
+                  "gratuitos que não são o mesmo domingo."),
     "abertura": ("Nove pontos com preço em euro, horário e fonte conferidos em 29 de "
                  "setembro de 2026 — e a confusão que custa dinheiro: <b>Roma tem dois "
                  "domingos gratuitos por mês, e eles não são o mesmo domingo. O primeiro "

@@ -95,9 +95,8 @@ MADRI = {
     "pais": "Espanha",
     "regiao": "europa",
     "titulo": "Madri: 10 pontos com preço e horário verificados",
-    "descricao": ("Preço, horário e fonte de 10 pontos de Madri — com a entrada "
-                  "gratuita do Palácio Real que vale para brasileiro e as janelas "
-                  "de graça que encadeiam numa segunda-feira."),
+    "descricao": ("Preço, horário e fonte de 10 pontos de Madri, com a entrada gratuita "
+                  "do Palácio Real que vale para quem tem passaporte brasileiro."),
     "abertura": ("Dez pontos com preço em euro, horário e fonte conferidos em 29 de "
                  "setembro de 2026 — e o direito que quase todo guia esconde do leitor "
                  "brasileiro: <b>a entrada gratuita do Palácio Real não é só para "

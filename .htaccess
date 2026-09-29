@@ -11,6 +11,17 @@ RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
 # onde uma chave de API acabaria morando amanhã.
 RewriteRule ^(_build|\.github|\.claude)/ - [F,L]
 
+# "Claude outputs/" é pasta de trabalho — capturas de tela e uma cópia do
+# site de 8/set. A regra acima não a pegava, e /Claude%20outputs/ devolvia
+# 200 servindo uma cópia da página de Lisboa: conteúdo duplicado numa URL
+# com espaço no nome. Medido em 29/set/2026.
+#
+# 410 e não 403, de propósito. 403 mantém a URL no índice do Google com
+# erro; 410 diz "isto deixou de existir" e é o sinal que manda remover.
+# Pelo mesmo motivo esta pasta NÃO entra no robots.txt: bloquear ali
+# impediria o robô de chegar na página e ver o 410.
+RewriteRule ^Claude(\ |%20)outputs/ - [G,L]
+
 # canônico SEM www: www.viagemnalupa.com.br -> viagemnalupa.com.br
 RewriteCond %{HTTP_HOST} ^www\.viagemnalupa\.com\.br$ [NC]
 RewriteRule ^(.*)$ https://viagemnalupa.com.br/$1 [R=301,L]

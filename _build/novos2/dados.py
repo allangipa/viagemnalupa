@@ -387,9 +387,8 @@ PUNTA_CANA = {
     # uma categoria com um destino so.
     "regiao": "america-do-norte",
     "titulo": "Punta Cana: 7 pontos com preço e horário verificados",
-    "descricao": ("Preço, horário e fonte de 7 pontos de Punta Cana — e por que "
-                  "quase nenhum deles tem tarifa oficial publicada, ao contrário "
-                  "do que acontece no México ou na Argentina."),
+    "descricao": ("Preço, horário e fonte de 7 pontos de Punta Cana — e por que quase "
+                  "nenhum deles tem tarifa oficial publicada."),
     "abertura": ("Sete pontos apurados em 17 de setembro de 2026 — e uma diferença "
                  "que muda como esta página pode ser lida: <b>em Punta Cana quase "
                  "nada tem tarifa oficial publicada</b>. O que existe é preço de "

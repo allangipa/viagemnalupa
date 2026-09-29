@@ -44,8 +44,7 @@ FICHAS = {
         "nome": "Bariloche", "dias": 5, "moeda": "ARS", "dec": 0,
         "titulo": "Quanto custa 5 dias em Bariloche em 2026",
         "descricao": ("O custo de 5 dias em Bariloche, por pessoa, com a taxa do Parque "
-                      "Nacional que não vem dentro do valor da excursão — e sem a "
-                      "hospedagem, porque não há diária publicada."),
+                      "Nacional que não vem dentro do valor da excursão."),
         "abertura": ("A conta do que foi apurado, por pessoa, com as tarifas pesquisadas "
                      "em 17 de setembro de 2026. <b>Sem a hospedagem</b> — e a página "
                      "explica por quê."),

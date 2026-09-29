@@ -58,9 +58,8 @@ ROTEIROS = {
     "miami": {
         "dias": 5,
         "titulo": "Roteiro de 5 dias em Miami",
-        "descricao": ("Cinco dias em Miami na ordem que aproveita a quinta-feira "
-                      "gratuita do PAMM e os sete dias de validade do bilhete do "
-                      "Everglades — e que desvia dos dois dias em que os museus fecham."),
+        "descricao": ("Cinco dias em Miami na ordem que aproveita a quinta-feira gratuita "
+                      "do PAMM e os sete dias de validade do bilhete do Everglades."),
         "abertura": ("Cinco dias organizados por duas coisas que folheto nenhum diz: "
                      "<b>o museu de arte da baía é de graça nas quintas depois das 17h</b>, "
                      "e <b>o bilhete do Everglades vale sete dias, não um</b>."),

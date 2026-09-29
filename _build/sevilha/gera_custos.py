@@ -102,9 +102,8 @@ FICHAS = {
     "sevilha": {
         "nome": "Sevilha", "dias": 3, "moeda": "€", "dec": 2,
         "titulo": "Quanto custa 3 dias em Sevilha em 2026",
-        "descricao": ("O custo de 3 dias em Sevilha, por pessoa, com a diária oficial "
-                      "que varia 2,3 vezes ao longo do ano, o ingresso do Alcázar que "
-                      "quase ninguém soma e a taxa turística que não existe."),
+        "descricao": ("O custo de 3 dias em Sevilha, por pessoa, com a diária oficial que "
+                      "varia 2,3 vezes ao longo do ano e a taxa turística que não existe."),
         "abertura": ("A conta do que foi apurado, por pessoa, com as tarifas conferidas "
                      "em fonte oficial em 25 de setembro de 2026. <b>Com hospedagem</b> "
                      "— e com a diária aberta em três épocas, porque em Sevilha isso "

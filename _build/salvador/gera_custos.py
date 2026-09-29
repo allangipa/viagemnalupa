@@ -62,8 +62,7 @@ FICHAS = {
         "nome": "Salvador", "dias": 5, "moeda": "R$", "dec": 0,
         "titulo": "Quanto custa 5 dias em Salvador em 2026",
         "descricao": ("O custo de 5 dias em Salvador, por pessoa, com os sete museus "
-                      "municipais que não cobram nada às quartas-feiras — e sem a "
-                      "hospedagem, porque não há diária apurada."),
+                      "municipais que não cobram nada às quartas-feiras."),
         "abertura": ("A conta do que foi apurado, por pessoa, com as tarifas pesquisadas "
                      "em 29 de setembro de 2026. <b>Sem a hospedagem</b> — e a página "
                      "explica por quê."),

@@ -64,9 +64,8 @@ SEVILHA = {
     "pais": "Espanha",
     "regiao": "europa",
     "titulo": "Sevilha: preço e horário verificados na fonte oficial",
-    "descricao": ("Preço, horário e fonte de cinco pontos centrais de Sevilha — com o "
-                  "segundo ingresso do Alcázar que quase ninguém soma e a cobrança da "
-                  "Plaza de España que foi anunciada e nunca aprovada."),
+    "descricao": ("Preço, horário e fonte de cinco pontos centrais de Sevilha, com o "
+                  "segundo ingresso do Alcázar que quase ninguém soma na conta."),
     "abertura": ("Cinco pontos centrais com preço, horário e fonte conferidos em 25 de "
                  "setembro de 2026 — e o detalhe que muda a conta: <b>a entrada paga na "
                  "Plaza de España foi anunciada em 2024 e nunca existiu</b>."),

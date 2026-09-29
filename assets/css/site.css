@@ -284,6 +284,11 @@ tfoot td{padding:.7rem .85rem; border-top:2px solid var(--ambar);
 .dia-n{font-family:"IBM Plex Mono",monospace; font-size:.78rem; color:var(--ambar);
   padding-top:.35rem; letter-spacing:.08em}
 .dia-b{display:flex; flex-direction:column; gap:.6rem}
+/* O titulo do dia era <h3> e usava o tamanho padrao do navegador.
+   Virou <h2> para o documento nao pular de h1 para h3; 1.17rem e
+   exatamente o que o h3 media (18,72px sobre raiz de 16px), entao a
+   pagina nao muda de aparencia. */
+.dia-b h2{font-size:1.17rem}
 .dia-b p{font-size:.95rem; color:var(--gelo)}
 .paradas{display:flex; flex-wrap:wrap; gap:.35rem}
 .parada{font-family:"IBM Plex Mono",monospace; font-size:.68rem; padding:.3rem .55rem;
