@@ -48,14 +48,15 @@ A explicação do método está no Projeto, em `claude/streetview-estado.md`.
 
 O registro fica aqui, mas **quem escreve o botão é `_build/<cidade>/sv.py`**, um
 por cidade. Cobertura em 30/set/2026: Rio 10 de 16, Lisboa 8 de 16, Nova York
-12 de 20.
+12 de 20, Porto 9 de 16.
 
 | cidade | o `sv.py` é | quem chama |
 |---|---|---|
 | `rio`, `lisboa` | só módulo, com `botao(pid)` | o `lib.py` da cidade, ao gerar a página |
-| `nova-york` | módulo **e script**, com `main()` | ninguém: a página é mantida à mão |
+| `nova-york`, `porto` | módulo **e script**, com `main()` | ninguém: a página é mantida à mão |
 
-Por isso o `nova-york/sv.py --aplica` está na cadeia acima e os outros dois não.
+Por isso os `sv.py` de Nova York e do Porto estão na cadeia acima, e os do Rio e
+de Lisboa não.
 Ele é idempotente: rodado duas vezes seguidas, a página continua com 12 botões
 e 1 script.
 
@@ -84,13 +85,32 @@ distingue altura. A High Line abria na calçada. A saída é procurar em trechos
 coordenada cai na esfera certa **com e sem** o parâmetro `radius`, que o Embed
 não aceita.
 
-**4. `source=outdoor` exclui as esferas de colaborador** — que são justamente as
-melhores onde o ponto é uma vista ou um interior. O carro do Google não sobe em
-mirante nem entra em museu. Cinco dos doze de Nova York são esfera: a rampa do
+**4. O nome resolve para UM ponto, e lugar grande não cabe num ponto.**
+"Central Park" geocodifica para um lugar só, e o panorama mais próximo dali era
+o do carro, de 2012 — um caminho que podia ser qualquer parque. O que resolveu
+foi **consultar coordenadas de lugares específicos dentro** do parque: apareceram
+cinco esferas, de 2017 a 2022, e ficou o Sheep Meadow com o skyline de Midtown
+atrás. Vale igual para a High Line e para qualquer parque, orla ou bairro.
+
+E o corolário: **onde o ponto é uma vista ou um interior, a esfera de
+colaborador é a única coisa que existe** — o carro do Google não sobe em mirante
+nem entra em museu. Cinco dos doze de Nova York são esfera: a rampa do
 Guggenheim por dentro, o mirante do Top of the Rock, a passarela da Ponte do
-Brooklyn, o gramado da High Line e o Sheep Meadow com o skyline. Central Park só
-deixou de ser "um caminho que podia ser qualquer parque" porque essa restrição
-saiu da busca.
+Brooklyn, o gramado da High Line e o Sheep Meadow.
+
+> **Correção de 30/set/2026.** Esta armadilha esteve escrita aqui por algumas
+> horas como *"`source=outdoor` exclui as esferas de colaborador"*. É falso, e
+> foi testado: em 20 pontos de Nova York e 16 do Porto, `source=outdoor` e a
+> busca sem restrição devolveram **o mesmo panorama nos 36**, esferas inclusive.
+> `outdoor` opõe-se a *indoor*, não a *colaborador*. A causa do Central Park
+> sempre foi a resolução do nome, descrita acima.
+
+**5. Dois pontos podem cair no MESMO panorama.** No Porto, `se-do-porto` e
+`metro-do-porto` devolveram os dois a mesma estação de metrô; `ponte-dom-luis` e
+`centro-historico-ribeira`, o mesmo mirante com palmeiras. Publicar assim mostra
+a mesma imagem sob nomes diferentes — defeito pior que a falta do botão, porque
+parece que funciona. **Antes de publicar, confira se há `v` repetido** entre as
+entradas do `sv.py`.
 
 ### Acento
 
@@ -150,7 +170,8 @@ python _build/parceiros/booking.py --aplica             # ANTES do espalha
 python _build/parceiros/espalha.py --aplica
 python _build/parceiros/aside.py --aplica
 
-python _build/nova-york/sv.py --aplica                  # so Nova York; ver abaixo
+python _build/nova-york/sv.py --aplica                  # so estes dois; ver abaixo
+python _build/porto/sv.py --aplica
 ```
 
 E daí em diante a cadeia de busca da seção seguinte, terminando no

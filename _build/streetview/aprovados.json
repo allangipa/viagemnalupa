@@ -309,6 +309,101 @@
   "status": "ok",
   "confere": "vista do mirante para o sul, com o Empire State no meio"
  },
+ "porto/capela-das-almas": {
+  "m": "pano",
+  "v": "Kg8cRT4gSTqdMfbgMRFucQ",
+  "h": 95,
+  "p": 8,
+  "f": 90,
+  "data": "2024-08",
+  "status": "ok",
+  "confere": "parede lateral de azulejo azul, da Rua de Santa Catarina"
+ },
+ "porto/casa-da-musica": {
+  "m": "pano",
+  "v": "GmjM8u4chXIs3mbX2aElSA",
+  "h": 180,
+  "p": 10,
+  "f": 90,
+  "data": "2024-08",
+  "status": "ok",
+  "confere": "volume de concreto anguloso, da praca"
+ },
+ "porto/caves-vinho-do-porto": {
+  "m": "pano",
+  "v": "IaXD40bbi-VqF1Osskg28g",
+  "h": 0,
+  "p": 4,
+  "f": 95,
+  "data": "2025-06",
+  "status": "ok",
+  "confere": "cais de Gaia com os barcos rabelo e a ponte ao fundo"
+ },
+ "porto/centro-historico-ribeira": {
+  "m": "loc",
+  "v": "41.140700,-8.612900",
+  "h": 250,
+  "p": 6,
+  "f": 95,
+  "aut": "ᴅʀᴏɴᴇᴀᴄʜᴀʀɪʏᴀ",
+  "data": "2022-05",
+  "status": "ok",
+  "confere": "arcos, casario colorido e esplanadas do cais"
+ },
+ "porto/livraria-lello": {
+  "m": "loc",
+  "v": "41.146749,-8.614948",
+  "h": 180,
+  "p": 10,
+  "f": 95,
+  "aut": "橋本耕一",
+  "data": "2017-08",
+  "status": "ok",
+  "confere": "escadaria de madeira e o vitral do teto, de dentro"
+ },
+ "porto/mercado-do-bolhao": {
+  "m": "pano",
+  "v": "7aEyWy3WG1RGvrTkBzmtVg",
+  "h": 92,
+  "p": 6,
+  "f": 90,
+  "data": "2026-05",
+  "status": "ok",
+  "confere": "portao de ferro da entrada, com o nome no chao"
+ },
+ "porto/metro-do-porto": {
+  "m": "loc",
+  "v": "41.152277,-8.609299",
+  "h": 180,
+  "p": 2,
+  "f": 95,
+  "aut": "Sergio Ponce",
+  "data": "2022-10",
+  "status": "ok",
+  "confere": "plataforma da Trindade com o metro amarelo"
+ },
+ "porto/ponte-dom-luis": {
+  "m": "loc",
+  "v": "41.140510,-8.611589",
+  "h": 105,
+  "p": 10,
+  "f": 95,
+  "aut": "Tahasanul Ibrahim",
+  "data": "2016-07",
+  "status": "ok",
+  "confere": "arco de ferro inteiro da ponte, do cais da Ribeira"
+ },
+ "porto/se-do-porto": {
+  "m": "loc",
+  "v": "41.142870,-8.611425",
+  "h": 90,
+  "p": 14,
+  "f": 90,
+  "aut": "Karol Isa",
+  "data": "2018-09",
+  "status": "ok",
+  "confere": "fachada da Se com a rosacea, do Terreiro"
+ },
  "_refazer": {
   "rio/parque-lage": "coordenada erra o palacete em ~200 m; todos os lados caem na mata",
   "rio/jardim-botanico": "caminho generico; procurar a aleia das palmeiras",
@@ -331,6 +426,13 @@
   "nova-york/liberdade": "o mais proximo fica no Liberty State Park, em NEW JERSEY; tentativa na propria Liberty Island deu ceu e agua",
   "nova-york/vessel": "a unica esfera e de 2019, ANTES das telas de aco postas na reabertura de 2024; identidade obsoleta, mesmo criterio que descartou a fotografia",
   "nova-york/central-perk": "quadra generica da Times Square; a loja nao aparece",
-  "nova-york/friends-experience": "esquina generica; a fachada da exposicao nao aparece"
+  "nova-york/friends-experience": "esquina generica; a fachada da exposicao nao aparece",
+  "porto/torre-dos-clerigos": "a calcada ao pe nao alcanca a torre; a tentativa pela Rua dos Clerigos caiu numa parede interna da igreja",
+  "porto/palacio-da-bolsa": "a coordenada da fachada cai numa sala interna comum, nao no Salao Arabe nem na frente do predio",
+  "porto/igreja-sao-francisco": "duas tentativas: uma deu o rio e a encosta, outra deu esplanada de cafe; a fachada de pedra nao aparece",
+  "porto/estacao-sao-bento": "a esfera do atrio cai num ESCRITORIO, nao no saguao de azulejos; a praca em frente nao identifica a estacao",
+  "porto/serralves": "a esfera mais proxima e uma vista aerea sobre a cidade; nao mostra o museu nem o parque",
+  "porto/teleferico-de-gaia": "cai num muro de pedra; as cabines nao aparecem",
+  "porto/jardins-palacio-cristal": "cai num muro com contentores de lixo; o jardim e o pavilhao nao aparecem"
  }
 }
