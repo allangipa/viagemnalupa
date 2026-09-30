@@ -44,6 +44,60 @@ com o texto do porquê.
 
 A explicação do método está no Projeto, em `claude/streetview-estado.md`.
 
+### Onde mora o botão "Ver na rua"
+
+O registro fica aqui, mas **quem escreve o botão é `_build/<cidade>/sv.py`**, um
+por cidade. Cobertura em 30/set/2026: Rio 10 de 16, Lisboa 8 de 16, Nova York
+12 de 20.
+
+| cidade | o `sv.py` é | quem chama |
+|---|---|---|
+| `rio`, `lisboa` | só módulo, com `botao(pid)` | o `lib.py` da cidade, ao gerar a página |
+| `nova-york` | módulo **e script**, com `main()` | ninguém: a página é mantida à mão |
+
+Por isso o `nova-york/sv.py --aplica` está na cadeia acima e os outros dois não.
+Ele é idempotente: rodado duas vezes seguidas, a página continua com 12 botões
+e 1 script.
+
+**O botão sem o script não faz nada.** O `streetview.js` precisa estar na
+página; Rio e Lisboa o ganham do gerador, Nova York o ganha do próprio `sv.py`.
+Os doze botões de Nova York entraram e ficaram mudos até essa tag aparecer.
+
+### Quatro armadilhas do Street View, todas pagas
+
+**1. O Embed não aceita ID de esfera de colaborador.** Só o do carro do Google.
+Esfera entra por coordenada, com `m="loc"`. O cabeçalho do `rio/sv.py` já dizia
+isso, e mesmo assim `topofrock` e `guggenheim` foram escritos como `m="pano"`
+antes de alguém reler.
+
+**2. O metadado devolve o panorama MAIS PRÓXIMO do endereço** — e o mais
+próximo de um arranha-céu é a calçada do pé dele, de onde o prédio não aparece.
+Em Nova York isso derrubou oito pontos. Os casos que valem exemplo:
+
+- `edge` caiu **dentro do shopping** de Hudson Yards, com o Shake Shack na tela
+- `liberdade` caiu no Liberty State Park, **em Nova Jersey**
+- `empire`, pela Quinta Avenida, caiu num **corredor de interior**
+
+**3. Lugar elevado tem a mesma coordenada da rua embaixo**, e o Street View não
+distingue altura. A High Line abria na calçada. A saída é procurar em trechos no
+**meio do quarteirão**, onde não há via pública por baixo — e conferir que a
+coordenada cai na esfera certa **com e sem** o parâmetro `radius`, que o Embed
+não aceita.
+
+**4. `source=outdoor` exclui as esferas de colaborador** — que são justamente as
+melhores onde o ponto é uma vista ou um interior. O carro do Google não sobe em
+mirante nem entra em museu. Cinco dos doze de Nova York são esfera: a rampa do
+Guggenheim por dentro, o mirante do Top of the Rock, a passarela da Ponte do
+Brooklyn, o gramado da High Line e o Sheep Meadow com o skyline. Central Park só
+deixou de ser "um caminho que podia ser qualquer parque" porque essa restrição
+saiu da busca.
+
+### Acento
+
+`titulo` e `nota` vão para a tela. Os comentários deste repositório são escritos
+sem acento por convenção — **os campos que o leitor vê, não.** Doze textos de
+Nova York foram publicados sem acento por essa confusão.
+
 ## coords.json
 
 As 32 coordenadas geocodificadas pelo Nominatim. Servem para os links "ver no
@@ -95,6 +149,8 @@ python _build/layout/sem_moldura.py --aplica
 python _build/parceiros/booking.py --aplica             # ANTES do espalha
 python _build/parceiros/espalha.py --aplica
 python _build/parceiros/aside.py --aplica
+
+python _build/nova-york/sv.py --aplica                  # so Nova York; ver abaixo
 ```
 
 E daí em diante a cadeia de busca da seção seguinte, terminando no
