@@ -71,53 +71,66 @@ SV = {
  "summit": dict(m="pano", v="m8xyW-y2bimjZgucWZCY8w", h=8, p=10, f=90, data="2026-04",
    rot="Ver a entrada na rua",
    titulo="SUMMIT One Vanderbilt: a entrada na Vanderbilt Avenue",
-   nota="A entrada do mirante fica ao lado do Grand Central, no pe da torre."),
+   nota="A entrada do mirante fica ao lado do Grand Central, no pé da torre."),
  "met": dict(m="pano", v="xcKEPIfDMGhcG3Tf7seZLA", h=270, p=8, f=90, data="2026-04",
    rot="Ver a entrada na rua",
    titulo="The Met: a escadaria da Quinta Avenida",
-   nota="A fachada e a escadaria dao para a Quinta Avenida, na borda do Central Park."),
+   nota="A fachada e a escadaria dão para a Quinta Avenida, na borda do Central Park."),
  "moma": dict(m="pano", v="JvTGi1onZ1gM0PoqdtaOwA", h=0, p=6, f=85, data="2024-08",
    rot="Ver a entrada na rua",
    titulo="MoMA: a entrada na rua 53",
    nota="A entrada principal fica na West 53rd Street, entre a Quinta e a Sexta."),
  "amnh": dict(m="pano", v="Ek1Tg_QEZB5cwnpqpcoXBg", h=272, p=10, f=90, data="2026-08",
    rot="Ver a entrada na rua",
-   titulo="Museu Americano de Historia Natural, pelo Central Park West",
-   nota="Esta e a entrada historica; ha outra, mais nova, pela Columbus Avenue."),
+   titulo="Museu Americano de História Natural, pelo Central Park West",
+   nota="Esta é a entrada histórica; há outra, mais nova, pela Columbus Avenue."),
  "guggenheim": dict(m="loc", v="40.783193,-73.959198", h=95, p=10, f=90,
    data="2022-12",
    rot="Ver o lugar por dentro",
    titulo="Guggenheim: a rampa em espiral vista de dentro",
-   nota="A galeria e uma rampa continua; a visita desce do alto ate o terreo."),
+   nota="A galeria é uma rampa contínua; a visita desce do alto até o térreo."),
  "timessquare": dict(m="pano", v="Mo9wk0nKMhEFuKkDo8BLgQ", h=95, p=14, f=95, data="2026-04",
    rot="Ver o lugar na rua",
-   titulo="Times Square, do cruzamento com a Setima Avenida",
-   nota="A praca e via publica e nao fecha; os letreiros ficam acesos a noite toda."),
+   titulo="Times Square, do cruzamento com a Sétima Avenida",
+   nota="A praça é via pública e não fecha; os letreiros ficam acesos a noite toda."),
  "topofrock": dict(m="loc", v="40.759417,-73.979304", h=178, p=4, f=95,
    data="2022-02",
    rot="Ver a vista do mirante",
    titulo="Top of the Rock: a vista para o sul, com o Empire State",
-   nota="E deste mirante que se ve o Empire State - do proprio Empire nao se ve ele."),
+   nota="É deste mirante que se vê o Empire State — do próprio Empire não se vê ele."),
  "grandcentral": dict(m="pano", v="zlFALrkqgRcIv3MPQoHLCw", h=5, p=14, f=90, data="2026-04",
    rot="Ver a entrada na rua",
    titulo="Grand Central: a fachada da rua 42, sob o viaduto",
    nota="O viaduto da Park Avenue passa por cima da entrada principal."),
- "highline": dict(m="pano", v="sb_mqwU0KTMmcBUH8AgV4g", h=180, p=12, f=90, data="2024-05",
-   rot="Ver o lugar na rua",
-   titulo="The High Line vista de baixo, no Meatpacking",
-   nota="O parque corre sobre a estrutura de ferro da antiga linha de carga."),
+ # A PRIMEIRA ESCOLHA MOSTRAVA A CALCADA DE BAIXO, e o Allan reparou: o
+ # parque e elevado, e o panorama do carro so alcanca a estrutura de ferro
+ # vista do chao. A coordenada do passeio e a MESMA da rua embaixo, entao
+ # "o panorama mais proximo" sempre devolve a rua.
+ #
+ # A saida foi procurar em trechos no meio do quarteirao, onde nao ha via
+ # publica por baixo. Seis esferas apareceram; cinco eram interior de
+ # predio vizinho - o Chelsea Market, um saguao, um apartamento. Esta e a
+ # High Line mesmo: o gramado, o deck de madeira e o corredor de
+ # vegetacao entre os prédios. Julho de 2026, a mais nova do destino.
+ #
+ # Conferido que a coordenada cai nela COM e SEM o parametro radius, que
+ # o Embed nao aceita.
+ "highline": dict(m="loc", v="40.747807,-74.004783", h=0, p=2, f=95, data="2026-07",
+   rot="Ver o lugar por cima",
+   titulo="The High Line: o gramado, na altura da rua 23",
+   nota="O parque corre sobre a antiga linha de carga elevada, entre os prédios."),
  "friends-predio": dict(m="pano", v="atRw7naucB5nFUESHuol9g", h=355, p=8, f=100,
    data="2024-09",
    rot="Ver o lugar na rua",
    titulo="A esquina de Bedford com Grove, em Greenwich Village",
-   nota="O predio da vinheta e o de tijolo, a direita; e residencial e nao se entra."),
+   nota="O prédio da vinheta é o de tijolo, à direita; é residencial e não se entra."),
  "brooklyn": dict(m="loc", v="40.706100,-73.996900", h=130, p=6, f=95, data="2025-05",
    rot="Ver o lugar na travessia",
    titulo="Ponte do Brooklyn: a passarela de pedestres",
-   nota="A passarela corre acima do transito, no meio do tabuleiro."),
+   nota="A passarela corre acima do trânsito, no meio do tabuleiro."),
  "centralpark": dict(m="loc", v="40.772200,-73.974500", h=180, p=2, f=95, data="2017-04",
    rot="Ver o lugar por dentro",
-   titulo="Central Park: o gramado do Sheep Meadow, com o skyline atras",
+   titulo="Central Park: o gramado do Sheep Meadow, com o skyline atrás",
    nota="O gramado abre de meados de abril a meados de outubro, conforme o tempo."),
 }
 
