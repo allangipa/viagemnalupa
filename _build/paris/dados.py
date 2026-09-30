@@ -147,6 +147,10 @@ PARIS = {
         # ---------------------------------------------------------- g1
         {
             "id": "louvre",
+            "foto": {"arq": "paris/louvre.webp",
+                     "alt": ("A pirâmide de vidro do Louvre no centro da Cour Napoléon, com as "
+                             "alas do palácio em volta"),
+                     "cred": "Luctor · Public domain · via Wikimedia Commons"},
             "grupo": "g1",
             "nome": "Museu do Louvre",
             "tag": "Museu",
@@ -196,6 +200,10 @@ PARIS = {
         },
         {
             "id": "versalhes",
+            "foto": {"arq": "paris/versalhes.webp",
+                     "alt": ("A fachada oeste do Palácio de Versalhes vista do parterre, com "
+                             "as estátuas do jardim e o público no pátio"),
+                     "cred": "Blood Destructor · CC BY-SA 3.0 · via Wikimedia Commons"},
             "grupo": "g1",
             "nome": "Palácio de Versalhes",
             "tag": "Palácio e jardins",
@@ -231,6 +239,10 @@ PARIS = {
         },
         {
             "id": "orsay",
+            "foto": {"arq": "paris/orsay.webp",
+                     "alt": ("A nave do Musée d’Orsay, antiga estação de trem, com o teto "
+                             "abobadado de vidro e ferro e as esculturas no piso"),
+                     "cred": "Sandor Laza · CC BY-SA 3.0 · via Wikimedia Commons"},
             "grupo": "g1",
             "nome": "Musée d’Orsay",
             "tag": "Museu",
@@ -269,6 +281,10 @@ PARIS = {
         # ---------------------------------------------------------- g2
         {
             "id": "notre-dame",
+            "foto": {"arq": "paris/notre-dame.webp",
+                     "alt": ("As duas torres de pedra de Notre-Dame de Paris vistas de baixo, "
+                             "depois da restauração"),
+                     "cred": "Ibex73 · CC BY-SA 4.0 · via Wikimedia Commons"},
             "grupo": "g2",
             "nome": "Catedral de Notre-Dame",
             "tag": "Catedral",
@@ -309,6 +325,10 @@ PARIS = {
         },
         {
             "id": "sainte-chapelle",
+            "foto": {"arq": "paris/sainte-chapelle.webp",
+                     "alt": ("A rosácea e os vitrais altos da Sainte-Chapelle, vistos de "
+                             "dentro da capela"),
+                     "cred": "Guilhem Vellut · CC BY 2.0 · via Wikimedia Commons"},
             "grupo": "g2",
             "nome": "Sainte-Chapelle",
             "tag": "Capela gótica",
@@ -333,6 +353,10 @@ PARIS = {
         },
         {
             "id": "arco-do-triunfo",
+            "foto": {"arq": "paris/arco-do-triunfo.webp",
+                     "alt": ("O Arco do Triunfo visto da praça, com os relevos esculpidos nos "
+                             "pilares"),
+                     "cred": "flightlog · CC BY 2.0 · via Wikimedia Commons"},
             "grupo": "g2",
             "nome": "Arco do Triunfo",
             "tag": "Monumento e mirante",
@@ -366,6 +390,10 @@ PARIS = {
         },
         {
             "id": "sacre-coeur",
+            "foto": {"arq": "paris/sacre-coeur.webp",
+                     "alt": ("Os domos brancos da basílica do Sacré-Cœur, no alto de "
+                             "Montmartre"),
+                     "cred": "Taxiarchos228 · CC BY 3.0 · via Wikimedia Commons"},
             "grupo": "g2",
             "nome": "Sacré-Cœur e Montmartre",
             "tag": "Basílica e bairro",
@@ -393,6 +421,10 @@ PARIS = {
         # ---------------------------------------------------------- g3
         {
             "id": "torre-eiffel",
+            "foto": {"arq": "paris/torre-eiffel.webp",
+                     "alt": ("A Torre Eiffel inteira vista do Champ de Mars, em dia de céu "
+                             "azul"),
+                     "cred": "Nik Las · CC BY 3.0 · via Wikimedia Commons"},
             "grupo": "g3",
             "nome": "Torre Eiffel",
             "tag": "Torre e mirante",
@@ -440,6 +472,10 @@ PARIS = {
         },
         {
             "id": "catacumbas",
+            "foto": {"arq": "paris/catacumbas.webp",
+                     "alt": ("Uma galeria das Catacumbas de Paris, com as paredes de ossos "
+                             "empilhados e a passagem iluminada ao fundo"),
+                     "cred": "Tommie Hansen · CC BY 2.0 · via Wikimedia Commons"},
             "grupo": "g3",
             "nome": "Catacumbas de Paris",
             "tag": "Ossuário subterrâneo",
