@@ -49,6 +49,7 @@ DESTINOS = {
     "buenos-aires":   "Buenos Aires",
     "cancun":         "Cancún",
     "fortaleza":      "Fortaleza",
+    "granada":        "Granada",
     "lisboa":         "Lisboa",
     "maceio":         "Maceió",
     "madri":          "Madri",
