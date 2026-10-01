@@ -126,8 +126,8 @@ PROSA = {
                "espanhol. Apuradas em 25 de setembro de 2026. "
                "<b>Nenhum valor veio de agregador de viagem.</b>"),
         nota=("As noites saem das suas datas. Hospedagem por quarto, duas pessoas por "
-              "quarto. <b>Sevilha é o único destino do site com três faixas de "
-              "hospedagem</b>, e é porque o dado permite: o INE espanhol publica ADR "
+              "quarto. <b>Sevilha é um dos dois destinos do site com três faixas de "
+              "hospedagem</b> — o outro é Granada —, e é porque o dado permite: o INE espanhol publica ADR "
               "por ponto turístico. E a série revela o que importa — <b>agosto a "
               "€ 87,39 contra abril a € 204,57</b>, 2,3 vezes mais, por causa da "
               "Semana Santa e da Feria. <b>A média de 12 meses é cálculo nosso</b> "
@@ -237,6 +237,32 @@ PROSA = {
               "calculadora soma. <b>A taxe de séjour também fica fora</b>: é por pessoa "
               "por noite, vai de € 3,25 a € 15,93 conforme a categoria, e a calculadora "
               "não modela isso."),
+    ),
+    "granada": dict(
+        gratis=("Duas linhas não cobram, e uma delas está em lei: o <b>Museo de la "
+                "Alhambra</b> e o <b>Corral del Carbón</b> têm entrada livre para todos "
+                "pelo artigo 9.1 da ordem de preços da Junta de Andalucía — e o museu "
+                "fica <b>dentro do recinto da Alhambra</b>. O Mirador de San Nicolás, a "
+                "Silla del Moro e as Torres Bermejas também não cobram."),
+        fonte=("A Orden de 17 de julio de 2025 publicada no BOJA e a página de horários "
+               "e tarifas do Patronato da Alhambra; os canais oficiais de venda da "
+               "Catedral, da Capilla Real e do Museo Cuevas del Sacromonte; o Consorcio "
+               "de Transporte Metropolitano e o Ayuntamiento de Granada, para o "
+               "transporte; e os Indicadores de Rentabilidad del Sector Hotelero do INE "
+               "espanhol, para a hospedagem. Apuradas em 30 de setembro de 2026. "
+               "<b>O caixa da Alhambra está atrás de verificação anti-bot e não "
+               "abriu</b>, e isso está dito ponto a ponto na ficha do destino."),
+        nota=("As noites saem das suas datas. Hospedagem por quarto, duas pessoas por "
+              "quarto. <b>A Alhambra entra nesta conta por € 22,27, que é um piso e não "
+              "um total:</b> a lei fixa € 21, o site do monumento publica € 22,27 e a "
+              "mesma página avisa que a comissão ainda se soma. <b>Nenhuma fonte "
+              "publica o valor final.</b><br>"
+              "<b>E o seletor de hospedagem é o que mais muda a conta aqui:</b> "
+              "<b>€ 73,07 em agosto contra € 122,46 em outubro</b>, 68% mais caro pelo "
+              "mesmo quarto. <b>Agosto é o mês mais barato do ano em Granada</b> — o "
+              "contrário do que se espera na Europa, e é o calor que explica. "
+              "<b>A média de 12 meses é cálculo nosso</b> sobre os doze valores do INE, "
+              "e está rotulada como tal."),
     ),
     "roma": dict(
         gratis=("Três das linhas não cobram entrada: a Basílica de São Pedro, a "

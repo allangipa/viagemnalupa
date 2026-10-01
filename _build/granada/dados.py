@@ -171,6 +171,10 @@ GRANADA = {
         # =============================================================
         {
             "id": "alhambra-diurna",
+            "foto": {"arq": "granada/alhambra-diurna.webp",
+                     "alt": ("O Pátio dos Leões da Alhambra visto por entre a arcada, com as "
+                             "colunas finas e a fonte ao centro"),
+                     "cred": "Tuxyso · CC BY-SA 3.0 · via Wikimedia Commons"},
             "grupo": "g1",
             "nome": "Alhambra e Generalife: visita diurna geral",
             "tag": "Palácio e fortaleza",
@@ -257,6 +261,10 @@ GRANADA = {
         },
         {
             "id": "generalife",
+            "foto": {"arq": "granada/generalife.webp",
+                     "alt": ("O canal de água do Pátio da Acequia, no Generalife, com os jatos "
+                             "cruzados e os canteiros dos dois lados"),
+                     "cred": "Jebulon · CC0 · via Wikimedia Commons"},
             "grupo": "g1",
             "nome": "Jardines y Palacio del Generalife",
             "tag": "Jardins",
@@ -295,6 +303,10 @@ GRANADA = {
         },
         {
             "id": "alhambra-noturna",
+            "foto": {"arq": "granada/alhambra-noturna.webp",
+                     "alt": ("A Alhambra iluminada à noite na crista do morro, vista do "
+                             "Albaicín, com a torre de Comares ao centro"),
+                     "cred": "Palickap · CC BY-SA 4.0 · via Wikimedia Commons"},
             "grupo": "g1",
             "nome": "Alhambra: as visitas noturnas",
             "tag": "Visita noturna",
@@ -343,6 +355,10 @@ GRANADA = {
         # =============================================================
         {
             "id": "catedral",
+            "foto": {"arq": "granada/catedral.webp",
+                     "alt": ("O interior branco e dourado da Capilla Mayor da Catedral de "
+                             "Granada, com a cúpula e os vitrais altos"),
+                     "cred": "Eric Titcombe · CC BY 2.0 · via Wikimedia Commons"},
             "grupo": "g2",
             "nome": "Catedral de Granada",
             "tag": "Catedral",
@@ -419,6 +435,10 @@ GRANADA = {
         },
         {
             "id": "capilla-real",
+            "foto": {"arq": "granada/capilla-real.webp",
+                     "alt": ("A fachada gótica da Capilla Real de Granada, com os pináculos e "
+                             "a balaustrada rendilhada contra o céu azul"),
+                     "cred": "Dorota Strzelecka · CC BY-SA 4.0 · via Wikimedia Commons"},
             "grupo": "g2",
             "nome": "Capilla Real",
             "tag": "Capela e museu",
@@ -470,6 +490,10 @@ GRANADA = {
         },
         {
             "id": "sacromonte",
+            "foto": {"arq": "granada/sacromonte.webp",
+                     "alt": ("O interior de uma caverna do Museo Cuevas del Sacromonte, com "
+                             "paredes caiadas, mesa posta e vestidos de flamenco pendurados"),
+                     "cred": "Palickap · CC BY-SA 4.0 · via Wikimedia Commons"},
             "grupo": "g2",
             "nome": "Sacromonte: a abadia e as cavernas",
             "tag": "Bairro e museu",
@@ -537,6 +561,10 @@ GRANADA = {
         # =============================================================
         {
             "id": "museo-alhambra",
+            "foto": {"arq": "granada/museo-alhambra.webp",
+                     "alt": ("O pátio circular do Palacio de Carlos V, na Alhambra, com as "
+                             "duas ordens de colunas e uma pessoa ao centro"),
+                     "cred": "José Luis Filpo Cabana · CC BY-SA 4.0 · via Wikimedia Commons"},
             "grupo": "g3",
             "nome": "Museo de la Alhambra",
             "tag": "Museu",
@@ -582,6 +610,10 @@ GRANADA = {
         },
         {
             "id": "monumentos-andalusies",
+            "foto": {"arq": "granada/monumentos-andalusies.webp",
+                     "alt": ("O pátio do Corral del Carbón, com as galerias de madeira em dois "
+                             "andares e o tanque de pedra ao centro"),
+                     "cred": "José Luis Filpo Cabana · CC BY 4.0 · via Wikimedia Commons"},
             "grupo": "g3",
             "nome": "Monumentos andalusíes",
             "tag": "Casas e banhos",
@@ -626,6 +658,10 @@ GRANADA = {
         },
         {
             "id": "miradouros",
+            "foto": {"arq": "granada/miradouros.webp",
+                     "alt": ("A Alhambra vista de longe do outro lado do vale, com o arvoredo "
+                             "à frente e a serra ao fundo"),
+                     "cred": "GrandCelinien · CC BY-SA 3.0 · via Wikimedia Commons"},
             "grupo": "g3",
             "nome": "Os miradouros que não cobram",
             "tag": "Mirante",
