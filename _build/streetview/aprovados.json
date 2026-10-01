@@ -433,6 +433,86 @@
   "porto/estacao-sao-bento": "a esfera do atrio cai num ESCRITORIO, nao no saguao de azulejos; a praca em frente nao identifica a estacao",
   "porto/serralves": "a esfera mais proxima e uma vista aerea sobre a cidade; nao mostra o museu nem o parque",
   "porto/teleferico-de-gaia": "cai num muro de pedra; as cabines nao aparecem",
-  "porto/jardins-palacio-cristal": "cai num muro com contentores de lixo; o jardim e o pavilhao nao aparecem"
+  "porto/jardins-palacio-cristal": "cai num muro com contentores de lixo; o jardim e o pavilhao nao aparecem",
+  "granada/alhambra-noturna": "o Street View nao tem panorama noturno; a consulta devolve o MESMO pano do alhambra-diurna (armadilha 5). Imagem diurna sob botao de visita noturna seria pior que a ausencia. Sem botao de proposito.",
+  "granada/monumentos-andalusies": "tres tentativas: o patio do Corral del Carbon nao tem cobertura (os dois panos de carro por perto estao na Calle Reyes Catolicos e mostram vitrine de loja) e El Banuelo, de 2025-07, devolveu parede caiada cega. Falta testar a esfera do Palacio de Dar al-Horra (CAoSF0...czNmlFM0FF, 2016-04).",
+  "granada/hospedagem": "e conta, nao lugar - nem foto tem."
+ },
+ "granada/alhambra-diurna": {
+  "m": "pano",
+  "v": "ckccP-L-bb3lzPR2ApxPYg",
+  "h": 90,
+  "p": 0,
+  "f": 90,
+  "aut": "© Google (coleção interna)",
+  "data": "2013-06",
+  "status": "ok",
+  "confere": "interior dos Palacios Nazaries: estuque entalhado, arco em ferradura, azulejo no rodape"
+ },
+ "granada/generalife": {
+  "m": "loc",
+  "v": "37.178230,-3.585260",
+  "h": 330,
+  "p": 0,
+  "f": 90,
+  "aut": "Ric Noble",
+  "data": "2018-08",
+  "status": "ok",
+  "confere": "Patio de la Acequia visto do alto, com o canal e a galeria; tronco seco na borda direita"
+ },
+ "granada/catedral": {
+  "m": "loc",
+  "v": "37.176520,-3.598960",
+  "h": 345,
+  "p": 0,
+  "f": 90,
+  "aut": "Mad Zephyr",
+  "data": "2017-05",
+  "status": "ok",
+  "confere": "Capilla Mayor dourada centrada sob o arco branco, com os bancos e o piso de xadrez"
+ },
+ "granada/capilla-real": {
+  "m": "loc",
+  "v": "37.176400,-3.598600",
+  "h": 90,
+  "p": 0,
+  "f": 90,
+  "aut": "Jose Antonio Gonzalez Nieto",
+  "data": "2019-07",
+  "status": "ok",
+  "confere": "portal plateresco com a porta em arco, visto da Lonja"
+ },
+ "granada/sacromonte": {
+  "m": "pano",
+  "v": "COGU9Iojymd0A-ob3zDMPw",
+  "h": 0,
+  "p": 0,
+  "f": 90,
+  "aut": "© Google",
+  "data": "2025-07",
+  "status": "ok",
+  "confere": "escadaria subindo entre as casas-caverna caiadas da encosta"
+ },
+ "granada/museo-alhambra": {
+  "m": "pano",
+  "v": "XZXc-rhIASEcoLCJubF2FA",
+  "h": 270,
+  "p": 0,
+  "f": 90,
+  "aut": "© Google",
+  "data": "2016-07",
+  "status": "ok",
+  "confere": "galeria do patio circular do Palacio de Carlos V, com as duas ordens de colunas"
+ },
+ "granada/miradouros": {
+  "m": "loc",
+  "v": "37.180960,-3.592220",
+  "h": 170,
+  "p": 0,
+  "f": 90,
+  "aut": "Agence Sacerdos",
+  "data": "2018-08",
+  "status": "refinar",
+  "confere": "a Alhambra na crista do outro lado do vale; um cipreste cobre a ponta direita do conjunto, e o conjunto fica pequeno em fov 90"
  }
 }

@@ -47,24 +47,42 @@ A explicação do método está no Projeto, em `claude/streetview-estado.md`.
 ### Onde mora o botão "Ver na rua"
 
 O registro fica aqui, mas **quem escreve o botão é `_build/<cidade>/sv.py`**, um
-por cidade. Cobertura em 30/set/2026: Rio 10 de 16, Lisboa 8 de 16, Nova York
-12 de 20, Porto 9 de 16.
+por cidade. Cobertura em 1/out/2026: Rio 10 de 16, Lisboa 8 de 16, Nova York
+12 de 20, Porto 9 de 16, Granada 7 de 10 — a melhor proporção até agora.
 
 | cidade | o `sv.py` é | quem chama |
 |---|---|---|
 | `rio`, `lisboa` | só módulo, com `botao(pid)` | o `lib.py` da cidade, ao gerar a página |
-| `nova-york`, `porto` | módulo **e script**, com `main()` | ninguém: a página é mantida à mão |
+| `nova-york`, `porto`, `granada` | módulo **e script**, com `main()` | ninguém: a página é mantida à mão, ou o gerador não sabe de Street View |
 
-Por isso os `sv.py` de Nova York e do Porto estão na cadeia acima, e os do Rio e
-de Lisboa não.
-Ele é idempotente: rodado duas vezes seguidas, a página continua com 12 botões
-e 1 script.
+Por isso os `sv.py` de Nova York, do Porto e de Granada estão na cadeia acima, e
+os do Rio e de Lisboa não. Granada é o caso novo: ela **tem** gerador
+(`novos/gera.py`), mas ele não sabe de Street View — então regerar o guia apaga
+os sete botões, e só o `sv.py` os repõe.
+Todos são idempotentes: rodados duas vezes seguidas, a página continua com o
+mesmo número de botões e **um** script — Nova York com 12, Granada com 7.
+
+### Três fontes de panorama, não duas
+
+Até o Porto só apareceram duas: o **carro do Google** (ID comum, entra por
+`m="pano"`) e a **esfera de colaborador** (ID começando em `CAoS`, que o Embed
+recusa, então entra por `m="loc"`).
+
+Granada revelou a terceira: a **coleção interna do Google**. O panorama de dentro
+dos Palacios Nazaríes tem ID de formato comum, aceita `m="pano"` e é creditado a
+`© Google`, sem nome de colaborador — mas está num interior onde nenhum carro
+entra. É o que salvou o ponto principal da ficha de Granada, depois de **duas**
+esferas diferentes caírem fora do pátio.
+
+Para distinguir: `CAoS…` é colaborador; o resto pode ser carro **ou** coleção
+interna, e só o quadro renderizado diz qual.
 
 **O botão sem o script não faz nada.** O `streetview.js` precisa estar na
-página; Rio e Lisboa o ganham do gerador, Nova York o ganha do próprio `sv.py`.
-Os doze botões de Nova York entraram e ficaram mudos até essa tag aparecer.
+página; Rio e Lisboa o ganham do gerador, e Nova York, Porto e Granada o ganham
+do próprio `sv.py`. Os doze botões de Nova York entraram e ficaram mudos até essa
+tag aparecer.
 
-### Quatro armadilhas do Street View, todas pagas
+### Cinco armadilhas do Street View, todas pagas
 
 **1. O Embed não aceita ID de esfera de colaborador.** Só o do carro do Google.
 Esfera entra por coordenada, com `m="loc"`. O cabeçalho do `rio/sv.py` já dizia
@@ -170,8 +188,9 @@ python _build/parceiros/booking.py --aplica             # ANTES do espalha
 python _build/parceiros/espalha.py --aplica
 python _build/parceiros/aside.py --aplica
 
-python _build/nova-york/sv.py --aplica                  # so estes dois; ver abaixo
+python _build/nova-york/sv.py --aplica                  # so estes tres; ver abaixo
 python _build/porto/sv.py --aplica
+python _build/granada/sv.py --aplica
 ```
 
 E daí em diante a cadeia de busca da seção seguinte, terminando no
