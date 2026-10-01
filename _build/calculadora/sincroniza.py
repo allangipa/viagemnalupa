@@ -215,6 +215,29 @@ PROSA = {
               "nacionalidade</b>: a tarifa gratuita do Palácio Real vale para cidadão "
               "latino-americano com documento, e não só para europeu."),
     ),
+    "paris": dict(
+        gratis=("Três linhas não cobram entrada: a Catedral de Notre-Dame, o "
+                "Sacré-Cœur — aberto todos os dias do ano, das 6h30 às 22h30 — e o "
+                "Centre Pompidou, que não cobra porque <b>está fechado até 2030</b>."),
+        fonte=("louvre.fr, chateauversailles.fr, toureiffel.paris, "
+               "catacombes.paris.fr, sainte-chapelle.fr, paris-arc-de-triomphe.fr, "
+               "sacre-coeur-montmartre.com, centrepompidou.fr e culture.gouv.fr. "
+               "Apuradas em 30 de setembro de 2026. <b>Três sites oficiais recusaram "
+               "leitura</b> — notredamedeparis.fr, toureiffel.paris (que abriu no "
+               "navegador) e musee-orsay.fr —, e isso está dito ponto a ponto na ficha "
+               "do destino."),
+        nota=(SEM + "<b>E Paris passou a cobrar por passaporte, com regra diferente em "
+              "cada lugar.</b> O Louvre cobra <b>€ 32</b> de quem não é do Espaço "
+              "Econômico Europeu e € 22 de quem é, desde 14 de janeiro de 2026; "
+              "Versalhes separa por € 3; a Torre Eiffel não separa nada. <b>Um europeu "
+              "paga € 146,50 pelos mesmos seis pontos que custam € 159,50 a um "
+              "brasileiro.</b> <b>O Musée d’Orsay está fora da conta</b>: a página de "
+              "tarifas dele recusa acesso e a bilheteria só mostra preço depois de "
+              "escolher data, então quem for ao Orsay vai gastar mais do que esta "
+              "calculadora soma. <b>A taxe de séjour também fica fora</b>: é por pessoa "
+              "por noite, vai de € 3,25 a € 15,93 conforme a categoria, e a calculadora "
+              "não modela isso."),
+    ),
     "roma": dict(
         gratis=("Três das linhas não cobram entrada: a Basílica de São Pedro, a "
                 "Fontana di Trevi com a Piazza Navona, e a Piazza di Spagna — onde, no "
