@@ -39,7 +39,7 @@ EXTENSO = {"um": 1, "dois": 2, "tres": 3, "três": 3, "quatro": 4, "cinco": 5,
 
 # Tipos que descendem de CreativeWork e portanto aceitam inLanguage.
 # Qualquer outro que a traga esta errado - ver a anotacao no confere_schema.
-SO_CRIATIVO = {"WebPage", "WebSite", "WebApplication", "Article",
+SO_CRIATIVO = {"WebPage", "ContactPage", "WebSite", "WebApplication", "Article",
                "NewsArticle", "BlogPosting", "CreativeWork", "SoftwareApplication"}
 
 PROBLEMAS = []
@@ -324,6 +324,14 @@ def confere_schema():
             anota("%s: <head> desbalanceado" % rel)
         if ("tp-drive:inicio" in h) != ("tp-drive:fim" in h):
             anota("%s: marcador do Travelpayouts quebrado" % rel)
+        # AdSense: meta de verificacao no <head> e faixa de consentimento
+        # antes do </body>. Os geradores de _build/ nao sabem deles - pagina
+        # regerada sai sem os dois, sem erro nenhum.
+        if (h.count("<!-- adsense:inicio") != 1 or h.count("<!-- adsense:fim -->") != 1
+                or h.count("<!-- consentimento:inicio -->") != 1
+                or h.count("<!-- consentimento:fim -->") != 1):
+            anota("%s: sem AdSense/faixa de consentimento, ou duplicado "
+                  "(rode _build/adsense/instala.py --aplica)" % rel)
         # Tag de bloco aberta e fechada em numero diferente.
         #
         # Entrou porque aconteceu: um script de reorganizacao duplicou o

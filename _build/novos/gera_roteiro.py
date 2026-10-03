@@ -63,7 +63,7 @@ RODAPE = """</div>
 <footer class="rodape"><div class="wrap cols">
 <p><b>Tarifas verificadas em {apuracao}.</b> Cada página traz a data da própria apuração. Atrações com preço dinâmico podem variar conforme a data escolhida — reconfira no checkout.</p>
 <p>Quando um dado não existe em fonte confiável, a lacuna fica escrita. Não preenchemos com estimativa.</p>
-<p>© 2026 Viagem na Lupa · viagemnalupa.com.br · <a href="../../../privacidade/">Privacidade</a></p>
+<p>© 2026 Viagem na Lupa · viagemnalupa.com.br · <a href="../../../sobre/">Sobre</a> · <a href="../../../contato/">Contato</a> · <a href="../../../privacidade/">Privacidade</a></p>
 </div></footer>
 <!-- Cloudflare Web Analytics --><script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{{"token": "a2b63bb9c39147728b617fa302c981dc"}}'></script><!-- End Cloudflare Web Analytics -->
 
