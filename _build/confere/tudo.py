@@ -534,6 +534,129 @@ def confere_parceiros():
     print("   copias conferidas: %d" % olhadas)
 
 
+def _moeda(t):
+    """Le 'US$ 2.181' ou '€ 25,50' e devolve float. None se nao for numero."""
+    t = re.sub(r"<[^>]+>", "", t).replace(" ", " ").strip()
+    m = re.search(r"([\d][\d.,]*)", t)
+    if not m:
+        return None
+    v = m.group(1)
+    if "," in v:                      # pt-BR: virgula decimal
+        v = v.replace(".", "").replace(",", ".")
+    elif re.search(r"\.\d{3}(?!\d)", v):  # ponto de milhar
+        v = v.replace(".", "")
+    try:
+        return float(v)
+    except ValueError:
+        return None
+
+
+def confere_conta_fechada():
+    """O bloco "A conta fechada" do roteiro fecha, e bate com a ficha?
+
+    Nasceu de um defeito real, achado pelo Allan em 7/out/2026 e nao por
+    este script: o roteiro de 7 dias de Nova York dizia "Ingressos, 9
+    pontos pagos US$ 332" e "Total por pessoa US$ 2.181". As parcelas
+    somavam 2.167; o total dizia 2.181.
+
+    A causa: o commit 4ffdf08 acrescentou o Vessel (US$ 14) a ficha de
+    custos, levando os ingressos de 9/US$ 332 para 10/US$ 346, e no
+    roteiro mudou SO O TOTAL. A linha das parcelas ficou para tras, e a
+    pagina ficou semanas no ar com a conta errada sem nada denunciar.
+
+    Sao duas conferencias, porque pegam defeitos diferentes:
+
+      1. INTERNA   as parcelas tem de somar o total exibido ao lado.
+                   Pega "alguem editou um numero so".
+
+      2. CONTRA A FICHA   a parcela de ingressos tem de bater com a soma
+                   dos ingressos da ficha de custos, e a contagem de
+                   "N pontos pagos" com quantas linhas de ingresso a
+                   ficha tem com valor acima de zero. Pega "a ficha
+                   mudou e ninguem tocou no roteiro" - inclusive quando
+                   o total foi atualizado junto e a conta interna fecha.
+
+    Hoje so a pagina de Nova York tem esse bloco, porque e a unica
+    mantida a mao; os outros 19 roteiros sao gerados e nao tem resumo de
+    conta. A conferencia procura a <section> intitulada "A conta fechada"
+    em TODAS as paginas, entao cobre sozinha o dia em que outra ganhar
+    uma. Nao basta procurar .pcel: essa classe tambem e celula de
+    destaque nas fichas e nos guias, onde nao ha total - olhar a pagina
+    inteira acusaria dez paginas sas.
+    """
+    print()
+    print("=== bloco \"A conta fechada\": as parcelas somam o total? ===")
+    achou = 0
+    for url, caminho in paginas():
+        pag = le(caminho)
+        # A classe .pcel tambem e usada em celula de destaque nas fichas e
+        # nos guias, onde NAO ha linha de total. Olhar a pagina inteira
+        # acusaria essas como defeito. Entao a conferencia se limita a
+        # <section> cujo titulo e "A conta fechada".
+        sec = re.search(r'(?s)<section class="bloco">\s*<div class="bloco-head">'
+                        r'\s*<h2>\s*A conta fechada\s*</h2>.*?</section>', pag)
+        if not sec:
+            continue
+        h = sec.group(0)
+        cel = re.findall(r'<div class="pcel"><span class="rotp">(.*?)</span>'
+                         r'<span class="big[^"]*">(.*?)</span></div>', h, re.S)
+        if not cel:
+            anota("%s: tem o bloco \"A conta fechada\" mas nenhuma celula "
+                  "legivel dentro dele" % url)
+            continue
+        achou += 1
+        parcelas, total, ingressos, quantos = 0.0, None, None, None
+        for rot, val in cel:
+            rot = re.sub(r"<[^>]+>", "", rot).strip()
+            v = _moeda(val)
+            if v is None:
+                continue
+            if re.search(r"total", rot, re.I):
+                total = v
+                continue
+            parcelas += v
+            if re.search(r"ingresso", rot, re.I):
+                ingressos = v
+                m = re.search(r"(\d+)\s+pontos?\s+pagos", rot, re.I)
+                if m:
+                    quantos = int(m.group(1))
+        if total is None:
+            anota("%s: bloco da conta sem linha de total" % url)
+            continue
+
+        # ---------------------------------------- 1. a conta fecha sozinha?
+        if abs(parcelas - total) >= 0.005:
+            anota("%s: as parcelas do bloco da conta somam %.2f, mas o total "
+                  "exibido e %.2f (diferenca de %.2f)"
+                  % (url, parcelas, total, total - parcelas))
+            print("   %-42s parcelas %9.2f  total %9.2f  <<< DIVERGE"
+                  % (url, parcelas, total))
+        else:
+            print("   %-42s parcelas %9.2f  total %9.2f  ok"
+                  % (url, parcelas, total))
+
+        # ---------------------------------------- 2. bate com a ficha?
+        slug = url.strip("/").split("/")[1] if url.startswith("/destinos/") else None
+        ficha = os.path.join(RAIZ, "destinos", slug or "", "quanto-custa",
+                             "index.html")
+        if not slug or not os.path.isfile(ficha):
+            continue
+        vals = [float(x) for x in re.findall(
+            r'<tr data-tipo="ingresso"[^>]*data-v="([\d.]+)"', le(ficha))]
+        pagos = [x for x in vals if x > 0]
+        if not pagos:
+            continue
+        if ingressos is not None and abs(sum(pagos) - ingressos) >= 0.005:
+            anota("%s: o bloco diz %.2f de ingressos, mas a ficha de custos "
+                  "soma %.2f (rode a conta de novo: a ficha mudou)"
+                  % (url, ingressos, sum(pagos)))
+        if quantos is not None and quantos != len(pagos):
+            anota("%s: o bloco diz %d pontos pagos, mas a ficha de custos tem "
+                  "%d linhas de ingresso com valor" % (url, quantos, len(pagos)))
+    if not achou:
+        print("   nenhuma pagina tem o bloco")
+
+
 def main():
     real = pontos_reais()
     confere_contadores(real)
@@ -541,6 +664,7 @@ def main():
     confere_itemlist(real)
     confere_cartoes()
     confere_parceiros()
+    confere_conta_fechada()
     print()
     if PROBLEMAS:
         print("!!! %d problema(s):" % len(PROBLEMAS))
