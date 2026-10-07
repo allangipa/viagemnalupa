@@ -26,6 +26,20 @@ RewriteRule ^Claude(\ |%20)outputs/ - [G,L]
 RewriteCond %{HTTP_HOST} ^www\.viagemnalupa\.com\.br$ [NC]
 RewriteRule ^(.*)$ https://viagemnalupa.com.br/$1 [R=301,L]
 
+# /index.html -> /   (e /destinos/index.html -> /destinos/)
+# Os dois respondiam 200, servindo a MESMA página que / e /destinos/. Cada
+# página existia em dois endereços. A <link rel="canonical"> das 67 páginas
+# já consolidava o par, então isto é limpeza e não conserto — mas tira a
+# URL duplicada do caminho do rastreador. Medido em 7/out/2026.
+#
+# A condição em THE_REQUEST é obrigatória, e não enfeite: o DirectoryIndex
+# reescreve /destinos/ para /destinos/index.html INTERNAMENTE, e sem ela a
+# regra dispararia sobre a própria reescrita, em laço infinito de 301.
+# THE_REQUEST guarda a linha original do pedido, que só traz "index.html"
+# quando foi o visitante quem a digitou.
+RewriteCond %{THE_REQUEST} \s/+(?:[^?\s]*/)?index\.html(?:[?\s]|$) [NC]
+RewriteRule ^(.*/)?index\.html$ /$1 [R=301,L]
+
 # página de erro
 ErrorDocument 404 /404.html
 
