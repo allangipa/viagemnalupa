@@ -92,6 +92,32 @@
    "publicado_em": null
   },
   {
+   "data": "2026-10-22",
+   "hora": "12:00",
+   "tipo": "reel",
+   "slug": "lisboa",
+   "pasta": "2026-10-22-reel-lisboa",
+   "video": "reel.mp4",
+   "capa": "capa.jpg",
+   "titulo": "Reel Lisboa: os elevadores estão parados, o Santa Justa incluído",
+   "estado": "pronto",
+   "permalink": null,
+   "publicado_em": null
+  },
+  {
+   "data": "2026-10-27",
+   "hora": "12:00",
+   "tipo": "reel",
+   "slug": "nova-york",
+   "pasta": "2026-10-27-reel-nova-york",
+   "video": "reel.mp4",
+   "capa": "capa.jpg",
+   "titulo": "Reel Nova York: US$ 2.181 por pessoa em 7 dias, sem passagem",
+   "estado": "pronto",
+   "permalink": null,
+   "publicado_em": null
+  },
+  {
    "data": "2026-10-28",
    "hora": "12:00",
    "tipo": "carrossel",
@@ -99,6 +125,19 @@
    "pasta": "2026-10-28-orlando",
    "telas": 7,
    "titulo": "Orlando: um dia na Disney custa de US$ 119 a US$ 209, conforme a data",
+   "estado": "pronto",
+   "permalink": null,
+   "publicado_em": null
+  },
+  {
+   "data": "2026-10-29",
+   "hora": "12:00",
+   "tipo": "reel",
+   "slug": "buenos-aires",
+   "pasta": "2026-10-29-reel-buenos-aires",
+   "video": "reel.mp4",
+   "capa": "capa.jpg",
+   "titulo": "Reel Buenos Aires: o dólar blue acabou; 21% de IVA de volta no hotel",
    "estado": "pronto",
    "permalink": null,
    "publicado_em": null
