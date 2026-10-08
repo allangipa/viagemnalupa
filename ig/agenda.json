@@ -79,6 +79,19 @@
    "publicado_em": null
   },
   {
+   "data": "2026-10-20",
+   "hora": "12:00",
+   "tipo": "reel",
+   "slug": "rio-de-janeiro",
+   "pasta": "2026-10-20-reel-rio-de-janeiro",
+   "video": "reel.mp4",
+   "capa": "capa.jpg",
+   "titulo": "Reel Rio: a mesma subida ao Cristo, R$ 87 ou R$ 132",
+   "estado": "pronto",
+   "permalink": null,
+   "publicado_em": null
+  },
+  {
    "data": "2026-10-28",
    "hora": "12:00",
    "tipo": "carrossel",
