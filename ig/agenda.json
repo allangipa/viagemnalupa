@@ -29,6 +29,42 @@
    "estado": "pronto",
    "permalink": null,
    "publicado_em": null
+  },
+  {
+   "data": "2026-10-12",
+   "hora": "12:00",
+   "tipo": "carrossel",
+   "slug": "nova-york",
+   "pasta": "2026-10-12-nova-york",
+   "telas": 7,
+   "titulo": "Nova York: o Met cobra US$ 30 do turista; o morador paga um centavo",
+   "estado": "pronto",
+   "permalink": null,
+   "publicado_em": null
+  },
+  {
+   "data": "2026-10-14",
+   "hora": "12:00",
+   "tipo": "carrossel",
+   "slug": "buenos-aires",
+   "pasta": "2026-10-14-buenos-aires",
+   "telas": 7,
+   "titulo": "Buenos Aires: pagar o hotel com cartão estrangeiro devolve 21% de IVA",
+   "estado": "pronto",
+   "permalink": null,
+   "publicado_em": null
+  },
+  {
+   "data": "2026-10-16",
+   "hora": "12:00",
+   "tipo": "carrossel",
+   "slug": "santiago",
+   "pasta": "2026-10-16-santiago",
+   "telas": 7,
+   "titulo": "Santiago: o hotel isenta 19% de IVA para quem paga em moeda estrangeira",
+   "estado": "pronto",
+   "permalink": null,
+   "publicado_em": null
   }
  ]
 }
