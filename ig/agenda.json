@@ -65,6 +65,18 @@
    "estado": "pronto",
    "permalink": null,
    "publicado_em": null
+  },
+  {
+   "data": "2026-10-28",
+   "hora": "12:00",
+   "tipo": "carrossel",
+   "slug": "orlando",
+   "pasta": "2026-10-28-orlando",
+   "telas": 7,
+   "titulo": "Orlando: um dia na Disney custa de US$ 119 a US$ 209, conforme a data",
+   "estado": "pronto",
+   "permalink": null,
+   "publicado_em": null
   }
  ]
 }
