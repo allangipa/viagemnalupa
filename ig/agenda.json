@@ -92,6 +92,18 @@
    "publicado_em": null
   },
   {
+   "data": "2026-10-21",
+   "hora": "12:00",
+   "tipo": "carrossel",
+   "slug": "cancun",
+   "pasta": "2026-10-21-cancun",
+   "telas": 7,
+   "titulo": "Cancún: Chichén Itzá tem duas bilheterias, e os guias só mostram uma",
+   "estado": "pronto",
+   "permalink": null,
+   "publicado_em": null
+  },
+  {
    "data": "2026-10-22",
    "hora": "12:00",
    "tipo": "reel",
@@ -100,6 +112,30 @@
    "video": "reel.mp4",
    "capa": "capa.jpg",
    "titulo": "Reel Lisboa: os elevadores estão parados, o Santa Justa incluído",
+   "estado": "pronto",
+   "permalink": null,
+   "publicado_em": null
+  },
+  {
+   "data": "2026-10-23",
+   "hora": "12:00",
+   "tipo": "carrossel",
+   "slug": "fortaleza",
+   "pasta": "2026-10-23-fortaleza",
+   "telas": 7,
+   "titulo": "Fortaleza: a taxa de Jericoacoara é R$ 41,50, não R$ 91,50",
+   "estado": "pronto",
+   "permalink": null,
+   "publicado_em": null
+  },
+  {
+   "data": "2026-10-26",
+   "hora": "12:00",
+   "tipo": "carrossel",
+   "slug": "montevideu",
+   "pasta": "2026-10-26-montevideu",
+   "telas": 7,
+   "titulo": "Montevidéu: não existe um dia da semana com tudo aberto",
    "estado": "pronto",
    "permalink": null,
    "publicado_em": null
@@ -138,6 +174,18 @@
    "video": "reel.mp4",
    "capa": "capa.jpg",
    "titulo": "Reel Buenos Aires: o dólar blue acabou; 21% de IVA de volta no hotel",
+   "estado": "pronto",
+   "permalink": null,
+   "publicado_em": null
+  },
+  {
+   "data": "2026-10-30",
+   "hora": "12:00",
+   "tipo": "carrossel",
+   "slug": "bariloche",
+   "pasta": "2026-10-30-bariloche",
+   "telas": 7,
+   "titulo": "Bariloche: a Isla Victoria anuncia ARS 140.000 e fecha em ARS 182.600",
    "estado": "pronto",
    "permalink": null,
    "publicado_em": null
