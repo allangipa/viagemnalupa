@@ -67,6 +67,18 @@
    "publicado_em": null
   },
   {
+   "data": "2026-10-19",
+   "hora": "12:00",
+   "tipo": "carrossel",
+   "slug": "maceio",
+   "pasta": "2026-10-19-maceio",
+   "telas": 7,
+   "titulo": "Maceió: as piscinas naturais só existem com maré abaixo de 0,6 m",
+   "estado": "pronto",
+   "permalink": null,
+   "publicado_em": null
+  },
+  {
    "data": "2026-10-28",
    "hora": "12:00",
    "tipo": "carrossel",
