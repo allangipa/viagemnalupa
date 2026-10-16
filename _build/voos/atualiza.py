@@ -158,13 +158,19 @@ def por_extenso(iso):
 
 def bloco(nome, v, hoje, subid):
     if v is None:
+        # Texto neutro, sem bandeira de pendencia: "Sem preco no momento"
+        # em destaque fazia a ficha parecer inacabada (revisao do AdSense).
+        # O fato e o mesmo - a rota nao tem busca recente no cache - e o
+        # preco entra sozinho na coleta do dia em que houver.
         return ('<!-- voo:inicio -->\n'
                 '<section class="bloco" id="voo">\n'
                 '  <div class="bloco-head"><span class="eyebrow">Chegar</span><h2>Quanto custa a passagem</h2></div>\n'
-                '  <p style="color:var(--nevoa)"><span class="flag">Sem preço no momento</span> '
-                'consultamos o cache de buscas reais da Aviasales para <b>São Paulo → %s</b> e '
-                '<b>não havia nenhuma busca recente</b> nessa rota. Isso acontece em trecho pouco '
-                'procurado. Voltamos a consultar todo dia, e o valor aparece aqui quando existir.</p>\n'
+                '  <p style="color:var(--nevoa)">A passagem é o item que esta ficha <b>não inclui</b> — '
+                'e costuma ser, junto com a hospedagem, o maior gasto da viagem. A referência que '
+                'usamos nas outras fichas é o menor preço encontrado em buscas reais da Aviasales '
+                'nos últimos dias; para <b>São Paulo → %s</b>, rota pouco procurada, não há busca '
+                'recente, e não publicamos estimativa no lugar. O valor depende sobretudo da data '
+                'e da cidade de saída.</p>\n'
                 '</section>\n<!-- voo:fim -->' % nome)
 
     # A API separa ida e volta: "transfers" e SO da ida, e "return_transfers"
