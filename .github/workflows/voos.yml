@@ -51,6 +51,13 @@ jobs:
       - name: Propagar o link para a ficha de destino e o roteiro
         run: python _build/parceiros/espalha.py --aplica
 
+      # O indice lateral dos guias tem uma terceira copia do link (sub-id
+      # -aside). Sem este passo ela fica com a busca velha, a conferencia
+      # abaixo acusa a diferenca e nada e publicado - foi o que parou o
+      # coletor de 25/09 a 16/10.
+      - name: Propagar o link para o indice lateral
+        run: python _build/parceiros/aside.py --aplica
+
       - name: Conferir antes de publicar
         run: python _build/confere/tudo.py
 
