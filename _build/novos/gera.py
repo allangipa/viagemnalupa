@@ -267,9 +267,9 @@ def fontes(d):
         '<p><b>Onde duas fontes divergiram, as duas ficaram na página.</b> Não '
         'escolhemos a mais conveniente nem tiramos média — quando o número não fecha, '
         'quem decide com a informação completa é você.</p>'
-        '<p><b>Preço em moeda estrangeira não foi convertido para real nesta camada.</b> '
-        'A conversão automática pela PTAX do Banco Central já existe em outras fichas do '
-        'site e entra aqui quando a ficha de custos for publicada.</p>'
+        '<p><b>Preço em moeda estrangeira fica na moeda em que é cobrado.</b> '
+        'É como a fonte publica, e o câmbio do dia da sua viagem não é o do dia '
+        'da apuração.</p>'
         '</div></section>\n' % d["nome"])
 
 

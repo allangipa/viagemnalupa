@@ -137,7 +137,7 @@ def troca_sid(url, para):
     return re.sub(r"(&sid=)[^&]*", r"\g<1>" + urllib.parse.quote(para), url)
 
 
-def bloco(voo, book, para_custos, para_sobre):
+def bloco(voo, book, para_custos, para_sobre, tem_ficha=False):
     # O titulo e a abertura mudam conforme o destino ja tenha ficha de
     # custos. Prometer "a ficha de custos traz a passagem" numa pagina
     # cuja ficha de custos nao existe seria link quebrado e promessa
@@ -149,6 +149,17 @@ def bloco(voo, book, para_custos, para_sobre):
             "nos preços desta página — cada um depende das suas datas. "
             "<a href=\"%s\">A ficha de custos</a> traz a passagem mais "
             "barata que encontramos, com a data da apuração." % para_custos)
+    elif tem_ficha:
+        # Ficha de custos publicada, mas sem busca de passagem coletada.
+        # Dizer "ainda não tem ficha de custos" aqui era falso, e o aviso
+        # de pendência em 20 páginas fazia o site parecer inacabado.
+        titulo = "Hospedagem"
+        abertura = (
+            "É, junto com a passagem, o maior gasto da viagem, e não entra "
+            "nos preços desta página — depende das suas datas. "
+            "<a href=\"%s\">A ficha de custos</a> reúne o que se gasta "
+            "no destino; a passagem fica de fora porque varia com a data e "
+            "a cidade de saída." % para_custos)
     else:
         titulo = "Hospedagem"
         abertura = (
@@ -213,7 +224,9 @@ def poe(caminho, voo, book, tipo):
     base = os.path.dirname(caminho)
     # O caminho para a ficha de custos so e conferido quando o bloco
     # realmente linka para ela - ou seja, quando ha voo apurado.
-    checar = [para_sobre] + ([para_custos] if voo else [])
+    tem_ficha = os.path.isfile(os.path.normpath(os.path.join(
+        base, para_custos.replace("/", os.sep), "index.html")))
+    checar = [para_sobre] + ([para_custos] if (voo or tem_ficha) else [])
     for rel in checar:
         alvo = os.path.normpath(os.path.join(base, rel.replace("/", os.sep),
                                              "index.html"))
@@ -223,7 +236,7 @@ def poe(caminho, voo, book, tipo):
                 % (os.path.relpath(caminho, RAIZ), rel,
                    os.path.relpath(alvo, RAIZ)))
 
-    b = bloco(voo, book, para_custos, para_sobre)
+    b = bloco(voo, book, para_custos, para_sobre, tem_ficha)
 
     # Se ja existe, SUBSTITUIR - nao pular.
     #
