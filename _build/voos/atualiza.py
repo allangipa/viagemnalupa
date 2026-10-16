@@ -40,6 +40,14 @@ DESTINOS = {
     "fortaleza":      ("FOR", "Fortaleza"),
     "bariloche":      ("BRC", "Bariloche"),
     "punta-cana":     ("PUJ", "Punta Cana"),
+    "granada":        ("GRX", "Granada"),
+    "madri":          ("MAD", "Madri"),
+    "miami":          ("MIA", "Miami"),
+    "paris":          ("PAR", "Paris"),
+    "porto":          ("OPO", "Porto"),
+    "roma":           ("ROM", "Roma"),
+    "salvador":       ("SSA", "Salvador"),
+    "sevilha":        ("SVQ", "Sevilha"),
 }
 
 
