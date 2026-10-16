@@ -84,6 +84,7 @@ CIAS = {
     "QR": "Qatar", "AT": "Royal Air Maroc", "DM": "Arajet", "B6": "JetBlue",
     "F9": "Frontier", "NK": "Spirit", "WN": "Southwest", "AC": "Air Canada",
     "SQ": "Singapore", "ET": "Ethiopian", "MS": "EgyptAir", "SU": "Aeroflot",
+    "CA": "Air China",
 }
 
 # Marcador de afiliado. E publico por natureza - nao e segredo, ao
