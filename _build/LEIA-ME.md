@@ -187,6 +187,7 @@ python _build/layout/sem_moldura.py --aplica
 python _build/layout/assinatura.py --aplica             # "Apurado por …"; regerar apaga
 python _build/layout/faq.py --aplica                    # perguntas no fim do guia; idem
 python _build/layout/tamanhos.py --aplica               # roteiro "ou 3, 4 e 5 dias" no title e no bloco; idem
+python _build/layout/capa.py --aplica                   # foto do cartao da home na primeira tela do guia; idem
 python _build/recortes/gratis.py --aplica               # /gratis/, dos guias; atualiza o cartao da home
 python _build/parceiros/booking.py --aplica             # ANTES do espalha
 python _build/parceiros/espalha.py --aplica

@@ -70,6 +70,22 @@ p{margin:0; max-width:70ch}
 .faq details.faq-q>summary:focus-visible{outline:2px solid var(--ambar); outline-offset:3px}
 .faq details.faq-q>p{margin:.6rem 0 0; color:var(--nevoa); line-height:1.6; max-width:70ch}
 .faq details.faq-q>p a{color:var(--gelo)}
+/* capa do guia na primeira tela: a mesma foto do cartao da home, posta pelo
+   _build/layout/capa.py logo abaixo da abertura. Medido em 17/10/2026: a
+   primeira imagem de Lisboa estava a 4.761 px do topo no celular. */
+.hero-capa{margin:0 0 clamp(1.2rem,3vw,2rem); max-width:52rem}
+.hero-capa img{display:block; width:100%; aspect-ratio:16/9; object-fit:cover;
+  border-radius:var(--raio-s); background:var(--noite)}
+.hero-capa figcaption{margin-top:.45rem}
+.hero-capa .foto-cred{margin:0; font-family:"IBM Plex Mono",monospace; font-size:.62rem;
+  letter-spacing:.08em; color:var(--nevoa)}
+/* cabecalho no celular: o nome sai de vista (fica para leitor de tela) e a
+   nav cabe na linha do icone - de 139 px para ~62. Visual 3 dos concorrentes. */
+@media (max-width:44rem){
+  .bar-in{flex-wrap:nowrap; padding:.55rem 0; gap:1rem}
+  .marca span{position:absolute; left:-9999px}
+  nav a{font-size:.68rem; letter-spacing:.12em}
+}
 .pular{position:absolute; left:-9999px}
 .pular:focus{left:1rem; top:1rem; z-index:50; background:var(--ambar);
   color:var(--tinta); padding:.6rem 1rem}
