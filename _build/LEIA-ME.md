@@ -330,3 +330,32 @@ A fonte e `_build/identidade/candidatas/c2.png` (emblema de 18/10/2026; o
 `kit.py` conta a origem). O icone de 30 px do cabecalho tambem sai do kit
 (PNG com alfa, `marca-cabecalho-64.png`); `identidade/aplica.py --aplica` o
 poe no lugar do SVG antigo e completa favicon e og:image onde faltarem.
+
+## Desempenho: o que foi medido e o que mudou
+
+Medido pelo Allan no PageSpeed (Moto G Power emulado, 4G lento, CPU 4x), home,
+celular. Antes de mexer em desempenho de novo, medir de novo.
+
+| quando | nota | FCP | LCP | bloqueio | Speed Index | o que havia |
+|---|---|---|---|---|---|---|
+| 18/10/2026 10:11 | 63 | 4,9 s | 8,1 s | 50 ms | 4,9 s | linha de base |
+| 18/10/2026 10:22 | 61 | 5,1 s | 8,5 s | 60 ms | 6,2 s | mesma coisa, segunda rodada |
+| 18/10/2026 10:32 | **80** | **3,1 s** | **3,7 s** | **0 ms** | 4,9 s | AdSense no gesto ou 4 s apos o load; CSS do Google Fonts sem bloquear (`d5e8ab7`) |
+
+O peso nunca foi o problema (HTML 13 KB, CSS 14 KB comprimidos, TTFB 0,11 s,
+brotli). Era a espera: o CSS das fontes bloqueava a pintura e o adsbygoogle.js
+(55 KB + 165 KB + tres iframes) disputava a banda com a foto do hero. No
+computador a nota era 81 com 390 ms de bloqueio, todo do AdSense.
+
+O que ainda pesa na primeira tela, por ordem: o `site.css` (bloqueante, 14 KB,
+mesma origem), o Travelpayouts Drive (59 KB, async, entra no `<head>`), as
+fontes (~160 KB, Fraunces variavel e a maior) e a foto do hero (70 KB a 820).
+Candidatos baratos: o Drive no mesmo gatilho de gesto do AdSense (clique de
+parceiro acontece depois de um gesto de qualquer jeito). Caros: CSS critico
+inline, fonte com menos eixos.
+
+Observacao: a CDN da Hostinger (`hcdn`) responde 403 com "Checking your
+browser" a cliente que manda UA de navegador sem os outros cabecalhos
+(Accept, Accept-Language, Sec-Fetch-*). Navegador de verdade e o Lighthouse
+passam; `curl -A` sozinho nao. Para conferir o site no ar com curl, mandar os
+cabecalhos completos ou nenhum UA.
