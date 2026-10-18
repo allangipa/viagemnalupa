@@ -13,7 +13,7 @@ Em 18/10/2026 o render deu lugar ao emblema de kit.py (GPT Image 2.5,
 candidata 2 de quatro): mesmos elementos, tratamento de distintivo sobre
 fundo carvao, que segura a 110 px no avatar do Instagram. Os arquivos
 trocaram de conteudo, nao de nome - este script nao precisou rodar de
-novo. O icone do cabecalho continua o SVG com variaveis.
+novo. Em seguida o cabecalho tambem passou ao emblema, em PNG com alfa.
 
 E ELA USA AS VARIAVEIS DO SITE, NAO COR FIXA
 --------------------------------------------
@@ -59,21 +59,14 @@ RAIZ = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)
 SITE = "https://viagemnalupa.com.br"
 PULA = (".git", "_build", "Claude outputs", "node_modules")
 
-# Cada var() leva um valor de reserva, que e o do tema escuro. Sem ele,
-# uma pagina que carregue sem a folha de estilo - CDN fora do ar, rede
-# ruim no meio do caminho - renderiza a marca INTEIRA sem cor, porque
-# toda cor dela vem de variavel. A marca antiga tinha cor fixa e nunca
-# sumia; esta so nao some por causa da reserva.
-SVG = (
-    '<svg width="30" height="30" viewBox="0 0 100 100" fill="none" aria-hidden="true">'
-    '<circle cx="46" cy="46" r="33" fill="var(--card, #18304A)"></circle>'
-    '<circle cx="46" cy="46" r="33" stroke="var(--ciano, #43D3C2)" stroke-width="3.5"></circle>'
-    '<ellipse cx="46" cy="46" rx="33" ry="12.5" stroke="var(--ciano, #43D3C2)" stroke-width="2.5"></ellipse>'
-    '<ellipse cx="46" cy="46" rx="13" ry="33" stroke="var(--ciano, #43D3C2)" stroke-width="2.5"></ellipse>'
-    '<path d="M60.5 58.5 L78 76" stroke="var(--ambar, #FFB703)" stroke-width="8" stroke-linecap="round"></path>'
-    '<circle cx="46" cy="44" r="20" fill="var(--noite, #122334)"></circle>'
-    '<circle cx="46" cy="44" r="20" stroke="var(--ambar, #FFB703)" stroke-width="7"></circle>'
-    '</svg>')
+# A marca do cabecalho e um PNG com alfa (identidade/kit.py, 18/10/2026):
+# o emblema renderizado, recortado pelo disco do aro. Nao segue o tema -
+# o distintivo escuro e o proprio fundo dele, e le nos dois. O arquivo de
+# 64 px serve o 2x das telas retina; o SVG com variaveis que estava aqui
+# saiu porque o Allan quis o emblema novo como padrao.
+def marca(prefixo):
+    return ('<img src="%sassets/img/marca-cabecalho-64.png" width="30" height="30" '
+            'alt="" decoding="async">' % prefixo)
 
 
 def icones(prefixo):
@@ -107,13 +100,13 @@ for p in paginas():
     # 1. a marca. O prefixo relativo sai do href que ja esta la, em vez de
     #    ser deduzido da profundidade da pasta - assim uma pagina em lugar
     #    incomum nao quebra em silencio.
-    m = re.search(r'(<a class="marca" href="([^"]*)">)(<svg.*?</svg>)(<span>)', h, re.S)
+    m = re.search(r'(<a class="marca" href="([^"]*)">)(<svg.*?</svg>|<img[^>]*>)(<span>)', h, re.S)
     if not m:
-        avisos.append((p, "nao achei <a class=\"marca\"> com svg"))
+        avisos.append((p, "nao achei <a class=\"marca\"> com svg ou img"))
         continue
     prefixo = m.group(2)
-    if m.group(3) != SVG:
-        h = h[:m.start(3)] + SVG + h[m.end(3):]
+    if m.group(3) != marca(prefixo):
+        h = h[:m.start(3)] + marca(prefixo) + h[m.end(3):]
         feito.append("marca")
 
     # 2. favicon

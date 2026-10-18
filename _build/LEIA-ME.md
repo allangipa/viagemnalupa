@@ -319,6 +319,6 @@ Fora da corrente - os arquivos trocam de conteudo, nao de nome.
     chrome --headless --window-size=1200,630 --screenshot=og-image.png og.html   # o OG, com texto
 
 A fonte e `_build/identidade/candidatas/c2.png` (emblema de 18/10/2026; o
-`kit.py` conta a origem). O icone de 30 px do cabecalho e SVG inline com as
-variaveis do site e nao vem daqui. `identidade/aplica.py` so poe as tags nas
-paginas novas que nascerem sem elas.
+`kit.py` conta a origem). O icone de 30 px do cabecalho tambem sai do kit
+(PNG com alfa, `marca-cabecalho-64.png`); `identidade/aplica.py --aplica` o
+poe no lugar do SVG antigo e completa favicon e og:image onde faltarem.

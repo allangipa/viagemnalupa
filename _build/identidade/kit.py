@@ -21,13 +21,14 @@ O QUE SAI, E PARA ONDE
     favicon-32/512, apple-touch-icon.png
                               recorte justo no distintivo, fundo solido
     marca-1024.png            o emblema inteiro (logo da Organization)
+    marca-cabecalho-64/128    o icone de 30 px do cabecalho, PNG com alfa
+                              (o SVG com variaveis saiu em 18/10, a pedido)
     og-image.png              NAO sai daqui: e o og.html renderizado pelo
                               Chrome headless, porque tem texto nas fontes
                               do site (ver o comentario do og.html)
 
-Os cinco do site vao para assets/img com os mesmos nomes, de modo que
-nenhuma pagina muda. O icone de 30 px do cabecalho fica como esta: e SVG
-com as variaveis do site e vira junto com o tema, coisa que render nao faz.
+Os arquivos vao para assets/img com os mesmos nomes. A troca do SVG pelo
+<img> nas paginas e do identidade/aplica.py, que le o prefixo do href.
 
 Uso
 ---
@@ -44,7 +45,8 @@ from PIL import Image, ImageDraw
 AQUI = os.path.dirname(os.path.abspath(__file__))
 RAIZ = os.path.dirname(os.path.dirname(AQUI))
 FONTE = os.path.join(AQUI, "candidatas", "c2.png")
-PARA_O_SITE = ("favicon-32.png", "favicon-512.png", "apple-touch-icon.png", "marca-1024.png")
+PARA_O_SITE = ("favicon-32.png", "favicon-512.png", "apple-touch-icon.png", "marca-1024.png",
+               "marca-cabecalho-64.png", "marca-cabecalho-128.png")
 
 
 def main(aplica):
@@ -78,7 +80,28 @@ def main(aplica):
     for nome, n in (("favicon-512.png", 512), ("favicon-32.png", 32), ("apple-touch-icon.png", 180)):
         caixa.resize((n, n), Image.LANCZOS).save(os.path.join(AQUI, nome))
     src.resize((1024, 1024), Image.LANCZOS).save(os.path.join(AQUI, "marca-1024.png"))
-    print("   kit escrito em _build/identidade/  (fundo %s, distintivo %d px)" % (fundo, lado))
+
+    # cabecalho (30 px, 2x = 64): PNG com alfa. Recortar por cor deixava um
+    # halo da vinheta no tema claro; o disco do aro e um circulo, achado pelo
+    # latao (R alto, B baixo), e so o cabo, fora do disco, sai por cor.
+    latao = (a[..., 0] > 150) & (a[..., 2] < 110) & (a[..., 0] - a[..., 2] > 70)
+    ly, lx = np.nonzero(latao)
+    xL, yT = lx.min(), ly.min()
+    ccx = int(np.median(lx[ly == yT])); ccy = int(np.median(ly[lx == xL])); r = ccx - xL
+    yy, xx = np.mgrid[0:W, 0:W]
+    dist = np.sqrt((xx - ccx) ** 2 + (yy - ccy) ** 2)
+    d = np.abs(a - np.array(fundo)).sum(2)
+    disco = np.clip((r + 6 - dist) / 6, 0, 1)
+    cabo = np.clip((d - 60) / 50, 0, 1) * (dist > r)
+    alfa = np.maximum(disco, cabo)
+    im = Image.fromarray(np.dstack([a, alfa * 255]).astype("uint8"), "RGBA")
+    ay, ax = np.nonzero(alfa > 0.05)
+    im = im.crop((ax.min(), ay.min(), ax.max() + 1, ay.max() + 1))
+    q = Image.new("RGBA", (max(im.size),) * 2, (0, 0, 0, 0))
+    q.paste(im, ((q.width - im.width) // 2, (q.height - im.height) // 2))
+    for n in (128, 64):
+        q.resize((n, n), Image.LANCZOS).save(os.path.join(AQUI, "marca-cabecalho-%d.png" % n))
+    print("   kit escrito em _build/identidade/  (fundo %s, distintivo %d px, disco r=%d)" % (fundo, lado, r))
 
     if aplica:
         for nome in PARA_O_SITE + ("og-image.png",):

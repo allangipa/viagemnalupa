@@ -104,11 +104,7 @@ HEAD = """<!doctype html>
 <body>
 <a class="pular" href="#conteudo">Pular para o conteúdo</a>
 <header class="bar"><div class="wrap bar-in">
-<a class="marca" href="../../"><svg width="30" height="30" viewBox="112 102 583 583" fill="none" aria-hidden="true">
-  <circle cx="352" cy="342" r="196" stroke="#FFB703" stroke-width="58"></circle>
-  <path d="M491 481 L648 638" stroke="#FFB703" stroke-width="64" stroke-linecap="round"></path>
-  <path d="M282 396 L336 320 L392 372 L446 268" stroke="#2EC4B6" stroke-width="30" stroke-linecap="round" stroke-linejoin="round"></path>
-</svg><span>VIAGEM NA LUPA</span></a>
+<a class="marca" href="../../"><img src="../../assets/img/marca-cabecalho-64.png" width="30" height="30" alt="" decoding="async"><span>VIAGEM NA LUPA</span></a>
 <nav><a href="../../destinos/" aria-current="page">Destinos</a><a href="../../calculadora/">Calculadora</a><a href="../../sobre/">Sobre</a></nav>
 </div></header>
 <main id="conteudo">
