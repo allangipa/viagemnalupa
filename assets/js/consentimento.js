@@ -15,6 +15,15 @@
  * - Europa, Reino Unido e Suica: se a mensagem GDPR do Google (CMP
  *   certificada) aparecer e disser que o GDPR se aplica, esta faixa sai da
  *   frente e quem pergunta e o Google.
+ *
+ * Quando o script entra, desde 18/10/2026: no primeiro gesto do leitor
+ * (rolagem, toque, tecla, mouse) ou ESPERA_MS depois do load, o que vier
+ * antes - o mesmo que o Guia Produto na Lupa fez no mesmo dia. O
+ * adsbygoogle.js (55 KB) puxa um segundo arquivo de 165 KB e tres iframes,
+ * e no 4G lento do PageSpeed isso disputava a banda com a foto do hero e
+ * as fontes: LCP de 8,1 s no celular em 18/10. Quem rola ve o anuncio como
+ * antes; quem sai sem tocar na pagina nao via de qualquer jeito. "Entendi"
+ * continua carregando na hora: o clique ja e o gesto.
  */
 (function () {
   var CHAVE = 'vl-consentimento', PUB = 'pub-4401770243539507', BLOQUEIA = false;
@@ -29,8 +38,25 @@
     document.head.appendChild(s);
   }
 
+  // teto para o anuncio entrar sem gesto nenhum, contado a partir do load
+  var ESPERA_MS = 4000;
+  function quandoPuder() {
+    var gestos = ['scroll', 'touchstart', 'keydown', 'pointerdown', 'mousemove'], timer = 0;
+    var agora = function () {
+      clearTimeout(timer);
+      gestos.forEach(function (g) { window.removeEventListener(g, agora); });
+      carrega();
+    };
+    var armar = function () {
+      gestos.forEach(function (g) { window.addEventListener(g, agora, { once: true, passive: true }); });
+      timer = setTimeout(agora, ESPERA_MS);
+    };
+    if (document.readyState === 'complete') armar();
+    else window.addEventListener('load', armar, { once: true });
+  }
+
   var escolha = ler();
-  if (escolha === 'aceitar' || (escolha === null && !BLOQUEIA)) carrega();
+  if (escolha === 'aceitar' || (escolha === null && !BLOQUEIA)) quandoPuder();
   if (escolha !== null) return;
 
   var css =

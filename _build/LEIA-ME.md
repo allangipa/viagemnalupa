@@ -272,6 +272,7 @@ python _build/schema/gera.py --aplica         # os blocos que faltam
 python _build/schema/editor.py --aplica       # Organization, publisher, dateModified
 python _build/schema/ofertas.py --aplica      # o preco de cada ponto, como Offer
 python _build/imagens/srcset.py --aplica      # as fotos menores e o srcset
+python _build/layout/fontes.py --aplica       # CSS do Google Fonts sem bloquear a pintura
 python _build/adsense/instala.py --aplica     # meta e preconnect do AdSense no <head>
 python _build/drive/instala.py --aplica       # Travelpayouts Drive no <head>, em TODAS
 python _build/confere/tudo.py                 # confere o artefato
