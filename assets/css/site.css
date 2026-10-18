@@ -49,6 +49,12 @@ p{margin:0; max-width:70ch}
 .wrap-estreito{max-width:58rem}
 .eyebrow{font-family:"IBM Plex Mono",monospace; font-size:.7rem; letter-spacing:.2em;
   text-transform:uppercase; color:var(--ambar)}
+/* assinatura: "Apurado por … · @viagemnalupabr", logo abaixo da abertura.
+   Escrita pelo _build/layout/assinatura.py; ver _build/docs/concorrentes-2026-10-17.md */
+.assinatura{font-family:"IBM Plex Mono",monospace; font-size:.66rem; letter-spacing:.14em;
+  text-transform:uppercase; color:var(--nevoa); margin-top:.9rem}
+.assinatura a{color:var(--gelo); text-decoration:none; border-bottom:1px solid currentColor}
+.assinatura a:hover{color:var(--ambar)}
 .pular{position:absolute; left:-9999px}
 .pular:focus{left:1rem; top:1rem; z-index:50; background:var(--ambar);
   color:var(--tinta); padding:.6rem 1rem}

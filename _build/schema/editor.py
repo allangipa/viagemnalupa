@@ -63,6 +63,13 @@ if hasattr(sys.stdout, "buffer"):
 ID_ORG = SITE + "/#organizacao"
 ID_SITE = SITE + "/#site"
 
+# Quem apura. Entra como author do WebPage - propriedade de CreativeWork,
+# que o WebPage aceita; nunca no TouristDestination, que herda de Place.
+# A url aponta para a ancora "Quem faz" do Sobre, a mesma da linha de
+# assinatura que o layout/assinatura.py escreve na pagina.
+# Ver _build/docs/concorrentes-2026-10-17.md, item 1.
+AUTOR = {"@type": "Person", "name": "Allan Vitor", "url": SITE + "/sobre/#quem-faz"}
+
 # A organizacao, inteira, uma vez so - na home. As outras paginas apontam
 # para o @id. Repetir o objeto em 45 paginas seria peso morto e, pior, 45
 # lugares para uma correcao futura esquecer um.
@@ -197,6 +204,7 @@ def main(aplica):
             ini, fim, o = alvo[-1]
             htm, pos = acrescenta(htm, ini, fim, o,
                                   {"dateModified": data,
+                                   "author": AUTOR,
                                    "publisher": {"@id": ID_ORG},
                                    "isPartOf": {"@id": ID_SITE}})
             if pos:
@@ -212,6 +220,7 @@ def main(aplica):
                 "name": re.sub(r"\s+", " ", nome.group(1)).strip() if nome else None,
                 "inLanguage": "pt-BR",
                 "dateModified": data,
+                "author": AUTOR,
                 "isPartOf": {"@id": ID_SITE},
                 "publisher": {"@id": ID_ORG},
             }

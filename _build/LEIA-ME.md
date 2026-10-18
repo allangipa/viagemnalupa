@@ -184,6 +184,7 @@ python _build/layout/reorganiza.py --todos --aplica
 python _build/layout/atalhos.py --aplica
 python _build/layout/vizinhos.py --aplica
 python _build/layout/sem_moldura.py --aplica
+python _build/layout/assinatura.py --aplica             # "Apurado por …"; regerar apaga
 python _build/parceiros/booking.py --aplica             # ANTES do espalha
 python _build/parceiros/espalha.py --aplica
 python _build/parceiros/aside.py --aplica
