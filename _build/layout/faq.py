@@ -147,8 +147,10 @@ def monta(slug, h):
     if gr:
         qs.append(("Quais pontos de %s não cobram entrada?" % cidade,
                    "%d dos %d pontos deste guia: %s. O que cada um tem de "
-                   "gratuito — e o que cobra à parte — está na ficha de cada ponto."
-                   % (len(gr), len(pts), lista_pt([p["nome"] for p in gr]))))
+                   "gratuito — e o que cobra à parte — está na ficha de cada ponto. "
+                   "Veja também <a href=\"../../gratis/#%s\">os pontos que não cobram "
+                   "entrada em todas as cidades do site</a>."
+                   % (len(gr), len(pts), lista_pt([p["nome"] for p in gr]), slug)))
     else:
         qs.append(("Algum ponto de %s não cobra entrada?" % cidade,
                    "Nenhum dos %d pontos deste guia tem entrada gratuita. Os preços de cada "
@@ -200,6 +202,12 @@ def monta(slug, h):
 
 JA = re.compile(r'(?s)<section class="bloco faq" id="perguntas">.*?</section>\n?')
 
+# O FAQPage do JSON-LD e copia desta secao, e o schema/gera.py segue a
+# regra "nao reescreve bloco que ja existe". Entao, quando a secao muda,
+# o bloco velho tem de sair daqui - senao a marcacao fica dizendo uma
+# coisa e a tela, outra. O schema/gera.py repoe na passada seguinte.
+FAQPAGE = re.compile(r'<script type="application/ld\+json">\{[^<]*?"@type":"FAQPage"[^<]*\}</script>\n?')
+
 
 def main(aplica):
     posto = trocado = pulado = 0
@@ -211,6 +219,8 @@ def main(aplica):
             print("   PULADO %-16s %s" % (slug, nota)); pulado += 1; continue
         if JA.search(h):
             h2 = JA.sub(sec, h, count=1)
+            if h2 != h:
+                h2 = FAQPAGE.sub("", h2)
             if h2 != h:
                 trocado += 1
                 if aplica:

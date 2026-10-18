@@ -186,6 +186,7 @@ python _build/layout/vizinhos.py --aplica
 python _build/layout/sem_moldura.py --aplica
 python _build/layout/assinatura.py --aplica             # "Apurado por …"; regerar apaga
 python _build/layout/faq.py --aplica                    # perguntas no fim do guia; idem
+python _build/recortes/gratis.py --aplica               # /gratis/, dos guias; atualiza o cartao da home
 python _build/parceiros/booking.py --aplica             # ANTES do espalha
 python _build/parceiros/espalha.py --aplica
 python _build/parceiros/aside.py --aplica
