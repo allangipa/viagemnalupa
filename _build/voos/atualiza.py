@@ -41,6 +41,7 @@ DESTINOS = {
     "bariloche":      ("BRC", "Bariloche"),
     "punta-cana":     ("PUJ", "Punta Cana"),
     "granada":        ("GRX", "Granada"),
+    "barcelona":      ("BCN", "Barcelona"),
     "madri":          ("MAD", "Madri"),
     "miami":          ("MIA", "Miami"),
     "paris":          ("PAR", "Paris"),

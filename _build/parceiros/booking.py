@@ -85,6 +85,7 @@ BUSCA = {
     "cancun":         "Cancún, México",
     "fortaleza":      "Fortaleza, Brasil",
     "granada":        "Granada, Espanha",
+    "barcelona":      "Barcelona, Espanha",
     "lisboa":         "Lisboa, Portugal",
     "maceio":         "Maceió, Brasil",
     "madri":          "Madri, Espanha",

@@ -50,6 +50,7 @@ DESTINOS = {
     "cancun":         "Cancún",
     "fortaleza":      "Fortaleza",
     "granada":        "Granada",
+    "barcelona":      "Barcelona",
     "lisboa":         "Lisboa",
     "maceio":         "Maceió",
     "madri":          "Madri",

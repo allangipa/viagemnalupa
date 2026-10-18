@@ -242,7 +242,7 @@ O único sintoma visível é indireto: `espalha.py` passa a dizer
 e não acha. Se você vir essa linha, o afiliado daquela cidade caiu — rode
 `booking.py --aplica` e depois `espalha.py` de novo.
 
-### Ao acrescentar um destino, registre em três listas
+### Ao acrescentar um destino, registre em cinco listas
 
 Nenhuma delas é derivada do disco, e cada uma falha de um jeito diferente:
 
@@ -251,6 +251,8 @@ Nenhuma delas é derivada do disco, e cada uma falha de um jeito diferente:
 | `schema/gera.py` | `DESTINOS` | avisa e pula: a página fica sem JSON-LD |
 | `parceiros/booking.py` | `BUSCA` | `KeyError` cru, sem mensagem — `link_de()` lê `BUSCA[slug]` direto |
 | `parceiros/aside.py` | `CIDADES` | `PARADO: destino em disco que nao esta na lista CIDADES` |
+| `voos/atualiza.py` | `DESTINOS` (código IATA) | nada avisa: a ficha fica sem a passagem, e o `espalha.py` diz `sem link de voo - vai so com Booking` até a Action rodar |
+| `calculadora/sincroniza.py` | `PROSA` | o destino entra na calculadora sem o texto de grátis/fonte/nota |
 
 O `espalha.py` tem uma mensagem amigável para o mesmo esquecimento
 (`Destino sem busca da Booking: … Acrescente em BUSCA`), mas ela só aparece pelo

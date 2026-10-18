@@ -264,6 +264,33 @@ PROSA = {
               "<b>A média de 12 meses é cálculo nosso</b> sobre os doze valores do INE, "
               "e está rotulada como tal."),
     ),
+    "barcelona": dict(
+        gratis=("Nenhuma das doze linhas é gratuita o dia inteiro para todos — mas "
+                "<b>três delas não cobram em tardes fixas da semana</b>: o Museu Picasso "
+                "na quinta das 16h às 19h (com reserva que abre quatro dias antes), o "
+                "MNAC no sábado a partir das 15h e o Castell de Montjuïc no domingo a "
+                "partir das 15h. No primeiro domingo do mês os três são gratuitos o dia "
+                "inteiro. São € 36 que o calendário tira da conta."),
+        fonte=("As páginas de preços dos próprios monumentos e museus — Sagrada "
+               "Família, Park Güell, Casa Batlló, La Pedrera, Museu Picasso, MNAC, "
+               "Castell de Montjuïc, Sant Pau, Catedral, Palau de la Música e FC "
+               "Barcelona; a TMB, para o transporte; a tabela oficial da Agència "
+               "Tributària de Catalunya, para a taxa turística; e os Indicadores de "
+               "Rentabilidad del Sector Hotelero do INE espanhol, para a hospedagem. "
+               "Apuradas em 18 de outubro de 2026. <b>Quatro linhas são piso</b> — "
+               "Casa Batlló, La Pedrera, o museu do Barça e a Sagrada Família sem as "
+               "torres — e isso está dito ponto a ponto na ficha do destino."),
+        nota=("As noites saem das suas datas. Hospedagem por quarto, duas pessoas por "
+              "quarto. <b>A taxa turística é linha própria e escala pelas noites</b>: "
+              "€ 7 por pessoa por noite num hotel de até três estrelas (€ 2 de imposto "
+              "catalão mais € 5 de recargo de Barcelona), com teto de 7 noites — e o "
+              "recargo sobe para € 6 em abril de 2027. Num quatro estrelas são € 8,40; "
+              "num cinco, € 12.<br>"
+              "<b>O seletor de hospedagem vai de € 131,41 em dezembro a € 223,37 em "
+              "maio</b>, 70% de diferença pelo mesmo quarto, pelo INE. <b>A média de 12 "
+              "meses é cálculo nosso</b> sobre os doze valores do INE, e está rotulada "
+              "como tal."),
+    ),
     "roma": dict(
         gratis=("Três das linhas não cobram entrada: a Basílica de São Pedro, a "
                 "Fontana di Trevi com a Piazza Navona, e a Piazza di Spagna — onde, no "
