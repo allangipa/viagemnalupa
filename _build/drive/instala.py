@@ -20,14 +20,29 @@ BLOCO = """<!-- tp-drive:inicio
      Identifica o navegador, detecta bloqueador de anuncio, registra cliques
      de saida e pode injetar unidades com marca de parceiro.
      Declarado ao leitor em /privacidade/.
+     Desde 18/10/2026 entra no primeiro gesto do leitor ou 4 s depois do
+     load, como o AdSense: sao 59 KB que disputavam a primeira pintura, e
+     clique de parceiro acontece depois de um gesto de qualquer jeito.
      Para remover: python _build/drive/desinstala.py --aplica -->
 <script nowprocket data-noptimize="1" data-cfasync="false" data-wpfc-render="false" seraph-accel-crit="1" data-no-defer="1" data-cmp-ab="2">
   (function () {
-      var script = document.createElement("script");
-      script.async = 1;
-      script.setAttribute("data-cmp-ab","2");
-      script.src = 'https://tpembars.com/NTcyMDMw.js?t=572030';
-      document.head.appendChild(script);
+      var feito = false, gestos = ["scroll", "touchstart", "keydown", "pointerdown", "mousemove"], timer = 0;
+      function entra() {
+          if (feito) return; feito = true;
+          clearTimeout(timer);
+          gestos.forEach(function (g) { window.removeEventListener(g, entra); });
+          var script = document.createElement("script");
+          script.async = 1;
+          script.setAttribute("data-cmp-ab","2");
+          script.src = 'https://tpembars.com/NTcyMDMw.js?t=572030';
+          document.head.appendChild(script);
+      }
+      function armar() {
+          gestos.forEach(function (g) { window.addEventListener(g, entra, { once: true, passive: true }); });
+          timer = setTimeout(entra, 4000);
+      }
+      if (document.readyState === "complete") armar();
+      else window.addEventListener("load", armar, { once: true });
   })();
 </script>
 <!-- tp-drive:fim -->
