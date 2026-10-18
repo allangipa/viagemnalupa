@@ -272,8 +272,15 @@ python _build/schema/gera.py --aplica         # os blocos que faltam
 python _build/schema/editor.py --aplica       # Organization, publisher, dateModified
 python _build/schema/ofertas.py --aplica      # o preco de cada ponto, como Offer
 python _build/imagens/srcset.py --aplica      # as fotos menores e o srcset
+python _build/adsense/instala.py --aplica     # meta e preconnect do AdSense no <head>
+python _build/drive/instala.py --aplica       # Travelpayouts Drive no <head>, em TODAS
 python _build/confere/tudo.py                 # confere o artefato
 ```
+
+Os dois instaladores de `<head>` entraram na corrente em 18/10/2026: o Drive
+tinha ficado em 32 de 68 paginas, porque foi instalado uma vez (16/9) e as dez
+cidades seguintes nasceram sem ele. O Allan pediu que fosse padrao - toda
+pagina nova passa por aqui antes do `confere`.
 
 ### `<lastmod>` vazio — o bug que travou 14 URLs
 
