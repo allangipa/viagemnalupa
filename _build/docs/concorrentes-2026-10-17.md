@@ -104,9 +104,23 @@ de blog WordPress com barra lateral.
 4. **Sem autor nem compartilhar na primeira tela** — são os itens 1 e 4 acima,
    vistos na tela.
 
-## Ordem proposta
+## Ordem proposta, e o que já foi feito (17/10/2026)
 
 SEO 1 (autor) → 4 (WhatsApp) → 3 (FAQ) → 2 (recortes) → 5 (roteiro por tamanho);
-visual 1, 3 e 2 na sequência. Os dois primeiros são baratos e podem sair hoje;
-o 3 e o 2 passam pelos geradores e pela cadeia do `LEIA-ME`. Nada disso pede
-apuração nova: tudo sai do que já está em `dados.py`.
+visual 1, 3 e 2 na sequência. Nada disso pede apuração nova: tudo sai do que já
+está em `dados.py` ou no HTML publicado.
+
+| item | estado | onde |
+|---|---|---|
+| SEO 1 · autor | **feito** — "Apurado por Allan Vitor · @viagemnalupabr" em 60 páginas; `author: Person` em 66 | `layout/assinatura.py`, `schema/editor.py`, commit `3221188` |
+| SEO 4 · compartilhar | **feito com troca**: o Allan quis o Instagram, não o WhatsApp — a conta nasceu em outubro e o site é o único ativo que manda gente para lá | idem |
+| SEO 3 · FAQ | **feito** — 4 perguntas em `<h3>` nos 20 guias, `FAQPage` nos 20; respostas derivadas dos pontos e da ficha, nunca escritas à mão | `layout/faq.py`, commit `99c314d` |
+| SEO 2 · recortes | **feito como UMA página**, `/gratis/` (81 pontos, 20 cidades, 102 links para os guias), e não vinte por cidade: 7 cidades têm só 1–2 pontos grátis | `recortes/gratis.py`, commits `650eea9` e `6af64b6` |
+| SEO 5 · roteiro por tamanho | **feito pelo caminho barato** — `<title>` ganha "(ou 3, 4 e 5)" e um bloco "Com menos dias" abre o conteúdo com H2 "Roteiro de Lisboa em 3, 4 ou 5 dias" e a lista dos dias; a URL não muda, o H1 não muda. Qual dia cortar não está em `dados.py`, então o bloco só diz o que é verdade nos 20: corte dias inteiros | `layout/tamanhos.py` |
+| visual 1 · cookies | **feito** — de ~22% para 11% da tela no celular | `consentimento.js`, commit `99c314d` |
+| visual 3 · cabeçalho | **parcial** — o YouTube saiu da nav (o canal não existe ainda); a nav ficou com três itens | `layout/sem_youtube.py`, commit `99c314d` |
+| visual 2 · foto na primeira tela | a fazer | — |
+
+Achado de passagem: o cartão da calculadora na home dizia "Nova York, Santiago,
+Buenos Aires e Maceió… Rio e Lisboa entram em seguida" com a calculadora já em
+19 cidades. É o "herói velho" do Guia Produto, versão nossa. Corrigido em `650eea9`.
