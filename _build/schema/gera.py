@@ -51,6 +51,7 @@ DESTINOS = {
     "fortaleza":      "Fortaleza",
     "granada":        "Granada",
     "barcelona":      "Barcelona",
+    "gramado":        "Gramado",
     "lisboa":         "Lisboa",
     "maceio":         "Maceió",
     "madri":          "Madri",

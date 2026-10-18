@@ -42,6 +42,7 @@ DESTINOS = {
     "punta-cana":     ("PUJ", "Punta Cana"),
     "granada":        ("GRX", "Granada"),
     "barcelona":      ("BCN", "Barcelona"),
+    "gramado":        ("POA", "Porto Alegre, para Gramado"),
     "madri":          ("MAD", "Madri"),
     "miami":          ("MIA", "Miami"),
     "paris":          ("PAR", "Paris"),

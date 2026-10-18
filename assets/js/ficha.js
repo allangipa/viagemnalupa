@@ -220,6 +220,12 @@
         /* Taxa municipal por pessoa por noite, com teto de noites cobradas
            (Lisboa: EUR 4, no maximo 7 noites). Nao entra no preco da reserva. */
         var pn = parseFloat(tr.dataset.noite), tn = parseFloat(tr.dataset.teto);
+        /* Taxa que nao existe (Sevilha, Granada) ou foi revogada (Gramado):
+           a linha esta na tabela para DIZER isso, sem data-noite. O mesmo
+           NaN do ingresso acima: sem este desvio, o total publicava
+           "€ NaN". Achado em 18/10/2026 montando Gramado - Sevilha e
+           Granada estavam assim no ar. A celula fica com o texto do HTML. */
+        if (isNaN(pn)) return;
         var nc = isNaN(tn) ? noites : Math.min(noites, tn);
         var st = pn * nc * p;
         outros += st;

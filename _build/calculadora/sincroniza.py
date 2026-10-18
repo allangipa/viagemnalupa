@@ -291,6 +291,22 @@ PROSA = {
               "meses é cálculo nosso</b> sobre os doze valores do INE, e está rotulada "
               "como tal."),
     ),
+    "gramado": dict(
+        gratis=("Uma linha não cobra: o <b>Lago Negro e a Rua Coberta</b>, da lista oficial "
+                "de atrativos gratuitos da Secretaria de Turismo — o pedalinho cobra, e o "
+                "valor não está publicado. E <b>cinco atrações do Natal Luz são de "
+                "graça</b>, de 22 de outubro a janeiro: Vila de Natal, Show de Acendimento, "
+                "Parada de Natal, o palco da Rua Coberta e o Caminho de Luzes."),
+        fonte=("As lojas e páginas oficiais de cada parque — Parque do Caracol, Snowland, "
+               "Mini Mundo, GramadoZoo, Dreamland, Mundo a Vapor —, o site oficial do Natal "
+               "Luz, a Secretaria de Turismo de Gramado, a venda oficial da Citral e a loja "
+               "do Bustour. Apuradas em 18 de outubro de 2026. <b>Cinco linhas são "
+               "piso</b>, e isso está dito ponto a ponto na ficha do destino."),
+        nota=(SEM + "<b>O Parque do Caracol cobra R$ 134,90 de quem é de fora do RS e "
+              "R$ 67,00 de gaúcho</b>; a conta usa o primeiro. <b>A taxa de turismo de "
+              "Gramado foi revogada pela Câmara em abril de 2026</b>, e a Room Tax que "
+              "ficou no lugar é voluntária — por isso nenhuma das duas está no total."),
+    ),
     "roma": dict(
         gratis=("Três das linhas não cobram entrada: a Basílica de São Pedro, a "
                 "Fontana di Trevi com a Piazza Navona, e a Piazza di Spagna — onde, no "
