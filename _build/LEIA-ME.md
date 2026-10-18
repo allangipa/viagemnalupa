@@ -341,18 +341,20 @@ celular. Antes de mexer em desempenho de novo, medir de novo.
 | 18/10/2026 10:11 | 63 | 4,9 s | 8,1 s | 50 ms | 4,9 s | linha de base |
 | 18/10/2026 10:22 | 61 | 5,1 s | 8,5 s | 60 ms | 6,2 s | mesma coisa, segunda rodada |
 | 18/10/2026 10:32 | **80** | **3,1 s** | **3,7 s** | **0 ms** | 4,9 s | AdSense no gesto ou 4 s apos o load; CSS do Google Fonts sem bloquear (`d5e8ab7`) |
+| 18/10/2026 10:39 | **93** | **2,5 s** | **2,7 s** | **0 ms** | **2,5 s** | Travelpayouts Drive no mesmo gatilho (`d894504`) |
 
 O peso nunca foi o problema (HTML 13 KB, CSS 14 KB comprimidos, TTFB 0,11 s,
 brotli). Era a espera: o CSS das fontes bloqueava a pintura e o adsbygoogle.js
 (55 KB + 165 KB + tres iframes) disputava a banda com a foto do hero. No
 computador a nota era 81 com 390 ms de bloqueio, todo do AdSense.
 
-O que ainda pesa na primeira tela, por ordem: o `site.css` (bloqueante, 14 KB,
-mesma origem), o Travelpayouts Drive (59 KB, async, entra no `<head>`), as
-fontes (~160 KB, Fraunces variavel e a maior) e a foto do hero (70 KB a 820).
-Candidatos baratos: o Drive no mesmo gatilho de gesto do AdSense (clique de
-parceiro acontece depois de um gesto de qualquer jeito). Caros: CSS critico
-inline, fonte com menos eixos.
+De 61 a 93 sem tirar um byte da pagina: tudo o que era de terceiro e nao
+precisava estar na primeira pintura (AdSense, Drive, o CSS das fontes) saiu
+dela. O que ainda pesa, por ordem: o `site.css` (bloqueante, 14 KB, mesma
+origem), as fontes (~160 KB, Fraunces variavel e a maior) e a foto do hero
+(70 KB a 820). Os cortes que sobram sao caros de manter para ganho pequeno
+(CSS critico inline, fonte com menos eixos); parar aqui foi a decisao de
+18/10. Ao instalar qualquer script novo, entrar pelo mesmo gatilho de gesto.
 
 Observacao: a CDN da Hostinger (`hcdn`) responde 403 com "Checking your
 browser" a cliente que manda UA de navegador sem os outros cabecalhos
