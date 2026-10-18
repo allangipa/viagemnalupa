@@ -9,6 +9,12 @@ no Higgsfield (Nano Banana Pro) e depois simplificado a mao para o
 cabecalho, porque marca detalhada e quadro de 30 px sao objetivos que
 brigam entre si.
 
+Em 18/10/2026 o render deu lugar ao emblema de kit.py (GPT Image 2.5,
+candidata 2 de quatro): mesmos elementos, tratamento de distintivo sobre
+fundo carvao, que segura a 110 px no avatar do Instagram. Os arquivos
+trocaram de conteudo, nao de nome - este script nao precisou rodar de
+novo. O icone do cabecalho continua o SVG com variaveis.
+
 E ELA USA AS VARIAVEIS DO SITE, NAO COR FIXA
 --------------------------------------------
     var(--card)   o corpo do globo

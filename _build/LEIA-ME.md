@@ -310,3 +310,15 @@ O `ofertas.py` le o `<span class="preco-val">` da propria pagina, nao uma
 tabela a parte. Os dois nao podem divergir porque sao o mesmo texto. A moeda
 do ponto **gratis** vem apurada dos outros pontos da mesma ficha — senao o
 Mosteiro dos Jeronimos sairia com preco em real.
+
+## Identidade: marca, favicon, og:image
+
+Fora da corrente - os arquivos trocam de conteudo, nao de nome.
+
+    python _build/identidade/kit.py --aplica   # avatar, favicons, marca-1024 -> assets/img
+    chrome --headless --window-size=1200,630 --screenshot=og-image.png og.html   # o OG, com texto
+
+A fonte e `_build/identidade/candidatas/c2.png` (emblema de 18/10/2026; o
+`kit.py` conta a origem). O icone de 30 px do cabecalho e SVG inline com as
+variaveis do site e nao vem daqui. `identidade/aplica.py` so poe as tags nas
+paginas novas que nascerem sem elas.

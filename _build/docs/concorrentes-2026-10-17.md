@@ -121,7 +121,14 @@ está em `dados.py` ou no HTML publicado.
 | visual 3 · cabeçalho | **feito** — no celular o nome sai de vista (fica para leitor de tela) e a nav cabe na linha do ícone: de 139 px para 71. O YouTube já tinha saído da nav | CSS `@media (max-width:44rem)` em `site.css`; `layout/sem_youtube.py` |
 | visual 2 · foto na primeira tela | **feito nos 20** — a capa do cartão da home (com o `srcset` e o crédito) entra como faixa 16:9 abaixo da assinatura; em Lisboa a primeira foto passou de 4.761 px para 489 px do topo no celular. Cinco capas (Bariloche, Cancún, Fortaleza, Punta Cana, Sevilha) só existem na home e tiveram o crédito recuperado dos geradores de cartão e do commit `908b4b6` | `layout/capa.py` (aceita um slug; tabela `RESERVA` com os cinco créditos) |
 
-### Identidade visual e a logo do Instagram — adiado em 17/10/2026
+### Identidade visual e a logo do Instagram — feito em 18/10/2026
+
+Retomado no mesmo dia, depois de o Allan ver as quatro candidatas que a
+sessão do Guia Produto na Lupa gerou para aquele site. Quatro candidatas
+GPT Image 2.5 (6 créditos, 1,5 cada — menos que o medido abaixo), escolhida
+a 2 pela leitura a 110 px; kit em `_build/identidade/kit.py`, OG pelo
+`og.html` no Chrome headless. Os cinco PNGs do site trocaram de conteúdo com
+os mesmos nomes. O registro da apuração anterior fica abaixo como estava.
 
 Pedido do Allan: uma logo "de alta resolução, como o Vestígio Oculto e o Xadrez
 Bélico", principalmente para o avatar do @viagemnalupabr. Apurado antes de adiar:
