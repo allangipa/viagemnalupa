@@ -50,9 +50,15 @@
     '.consentimento button.principal{background:var(--ambar,#FFB703);color:var(--tinta,#0B1622);border-color:var(--ambar,#FFB703)}' +
     '.consentimento button.principal:hover{background:transparent;color:var(--ambar,#FFB703)}' +
     '.consentimento button:focus-visible{outline:2px solid var(--ciano,#43D3C2);outline-offset:2px}' +
-    '@media (max-width:44rem){.consentimento .c-in{padding:.7rem 16px}' +
-      '.consentimento p{font-size:.8rem;flex-basis:100%}' +
-      '.consentimento .c-bt{width:100%}.consentimento button{flex:1 1 0}}';
+    // No celular a faixa cobria um quinto da tela e escondia o segundo
+    // cartao da primeira dobra (medido em 17/10/2026, mesmo achado do Guia
+    // Produto). Aqui ela encolhe: texto menor, botoes mais baixos, uma
+    // fileira. O texto segue em duas linhas de proposito - tirar o AdSense
+    // da frase tiraria o aviso que a politica exige.
+    '@media (max-width:44rem){.consentimento .c-in{padding:.5rem 16px;gap:.45rem}' +
+      '.consentimento p{font-size:.72rem;line-height:1.35;flex-basis:100%}' +
+      '.consentimento .c-bt{width:100%;gap:.45rem}' +
+      '.consentimento button{flex:1 1 0;min-height:36px;padding:.35rem .6rem;font-size:.78rem}}';
 
   function monta() {
     var st = document.createElement('style');
@@ -67,8 +73,8 @@
     caixa.setAttribute('aria-label', 'Aviso de cookies');
     caixa.innerHTML =
       '<div class="c-in">' +
-      '<p>Este site usa cookies do Google AdSense para exibir anúncios e medir audiência. ' +
-      'Não pedimos cadastro nem e-mail. Detalhes na <a href="/privacidade/">política de privacidade</a>.</p>' +
+      '<p>Cookies do Google AdSense, para anúncios e audiência. Sem cadastro nem e-mail. ' +
+      '<a href="/privacidade/">Política de privacidade</a>.</p>' +
       '<div class="c-bt">' +
       '<button type="button" data-consent="recusar">Recusar anúncios</button>' +
       '<button type="button" data-consent="aceitar" class="principal">Entendi</button>' +

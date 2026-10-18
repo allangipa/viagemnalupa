@@ -55,6 +55,21 @@ p{margin:0; max-width:70ch}
   text-transform:uppercase; color:var(--nevoa); margin-top:.9rem}
 .assinatura a{color:var(--gelo); text-decoration:none; border-bottom:1px solid currentColor}
 .assinatura a:hover{color:var(--ambar)}
+/* perguntas frequentes no fim do guia: escritas pelo _build/layout/faq.py a
+   partir dos pontos e da ficha; o FAQPage do JSON-LD le daqui. */
+.faq details.faq-q{border-top:1px solid var(--noite); padding:.85rem 0}
+.faq details.faq-q:last-of-type{border-bottom:1px solid var(--noite)}
+.faq details.faq-q>summary{cursor:pointer; list-style:none; display:flex; align-items:flex-start;
+  gap:.8rem; min-height:44px}
+.faq details.faq-q>summary::-webkit-details-marker{display:none}
+.faq details.faq-q>summary h3{font-size:1.05rem; line-height:1.35; margin:0; flex:1}
+.faq details.faq-q>summary::after{content:"+"; flex:0 0 auto; font-family:"IBM Plex Mono",monospace;
+  font-size:1.15rem; line-height:1.2; opacity:.6; color:var(--ambar)}
+.faq details.faq-q[open]>summary::after{content:"\2212"}
+.faq details.faq-q>summary:hover h3{color:var(--ambar)}
+.faq details.faq-q>summary:focus-visible{outline:2px solid var(--ambar); outline-offset:3px}
+.faq details.faq-q>p{margin:.6rem 0 0; color:var(--nevoa); line-height:1.6; max-width:70ch}
+.faq details.faq-q>p a{color:var(--gelo)}
 .pular{position:absolute; left:-9999px}
 .pular:focus{left:1rem; top:1rem; z-index:50; background:var(--ambar);
   color:var(--tinta); padding:.6rem 1rem}

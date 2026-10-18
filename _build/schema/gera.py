@@ -203,6 +203,19 @@ def pontos_da_ficha(htm, slug):
 
 # --------------------------------------------------------------------- roda
 
+def faq_da_ficha(htm):
+    """Perguntas e respostas da secao que o layout/faq.py escreve no guia.
+
+    Le a TELA, nunca uma lista paralela - o mesmo principio do ofertas.py
+    com o preco. Pergunta no <h3>, resposta no <p>; o texto vai sem tags.
+    """
+    m = re.search(r'(?s)<section class="bloco faq" id="perguntas">(.*?)</section>', htm)
+    if not m:
+        return []
+    return [(texto(q), texto(r)) for q, r in
+            re.findall(r'(?s)<h3>(.*?)</h3></summary><p>(.*?)</p>', m.group(1))]
+
+
 def main(aplica):
     mudadas = 0
     total_blocos = 0
@@ -301,6 +314,24 @@ def main(aplica):
 
         # O ItemList refeito ja esta dentro de `htm`; grava mesmo que nao
         # haja bloco novo nenhum, senao a correcao da contagem se perde.
+        # ------------------------------------------------------- FAQPage
+        # So quando ha a secao de perguntas na pagina (layout/faq.py) e
+        # ainda nao ha bloco. Segue a regra da casa: nao reescreve bloco
+        # que ja existe; se as respostas mudarem, apague o bloco e rode de
+        # novo. Nao ha FAQPage sem as perguntas na tela.
+        if "FAQPage" not in tem:
+            qa = faq_da_ficha(htm)
+            if qa:
+                novos.append({
+                    "@context": "https://schema.org",
+                    "@type": "FAQPage",
+                    "mainEntity": [
+                        {"@type": "Question", "name": q,
+                         "acceptedAnswer": {"@type": "Answer", "text": r}}
+                        for q, r in qa
+                    ],
+                })
+
         refez_aqui = any(x[0] == slug for x in refeitos)
         if novos or refez_aqui:
             if novos:

@@ -43,7 +43,7 @@ CABECA = """<!doctype html>
 <a class="pular" href="#conteudo">Pular para o conteúdo</a>
 <header class="bar"><div class="wrap bar-in">
 <a class="marca" href="../../../"><svg width="30" height="30" viewBox="0 0 100 100" fill="none" aria-hidden="true"><circle cx="46" cy="46" r="33" fill="var(--card, #18304A)"></circle><circle cx="46" cy="46" r="33" stroke="var(--ciano, #43D3C2)" stroke-width="3.5"></circle><ellipse cx="46" cy="46" rx="33" ry="12.5" stroke="var(--ciano, #43D3C2)" stroke-width="2.5"></ellipse><ellipse cx="46" cy="46" rx="13" ry="33" stroke="var(--ciano, #43D3C2)" stroke-width="2.5"></ellipse><path d="M60.5 58.5 L78 76" stroke="var(--ambar, #FFB703)" stroke-width="8" stroke-linecap="round"></path><circle cx="46" cy="44" r="20" fill="var(--noite, #122334)"></circle><circle cx="46" cy="44" r="20" stroke="var(--ambar, #FFB703)" stroke-width="7"></circle></svg><span>VIAGEM NA LUPA</span></a>
-<nav><a href="../../../destinos/" aria-current="page">Destinos</a><a href="../../../calculadora/">Calculadora</a><a href="../../../sobre/">Sobre</a><a class="externo" href="https://www.youtube.com/@viagemnalupa" target="_blank" rel="noopener">YouTube<span class="so-leitor"> (abre em outra aba)</span><svg class="seta-ext" width="11" height="11" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17 L17 7 M9 7h8v8" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"></path></svg></a></nav>
+<nav><a href="../../../destinos/" aria-current="page">Destinos</a><a href="../../../calculadora/">Calculadora</a><a href="../../../sobre/">Sobre</a></nav>
 </div></header>
 <main id="conteudo">
 <div class="faixa"><div class="wrap wrap-estreito">
