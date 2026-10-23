@@ -3,7 +3,8 @@
 
 Plano em _build/docs/cluster-rio-2026-10-23.md (fase A). Esta e a 1:
 /destinos/rio-de-janeiro/cristo-redentor/; a 2, o-que-fecha-cada-dia/; a 3,
-pao-de-acucar/; a 4, descontos/; a 5, quando-ir/.
+pao-de-acucar/; a 4, descontos/; a 5, quando-ir/;
+fase B: aeroporto/.
 
 DE ONDE SAI TUDO: da ficha do Cristo em g1.py, importada - a mesma que o
 guia publica -, e do aviso da obra, lido do guia publicado (ele mora no
@@ -155,6 +156,7 @@ IRMAS = [
     ("o-que-fecha-cada-dia/", "O que abre e fecha em cada dia"),
     ("descontos/", "Onde morador e brasileiro pagam menos"),
     ("quando-ir/", "Quando ir, mês a mês"),
+    ("aeroporto/", "Do aeroporto ao hotel"),
     ("quanto-custa/", "Quanto custa 6 dias no Rio"),
     ("roteiro-6-dias/", "Roteiro de 6 dias"),
     ("quanto-custa/#calculadora", "Calculadora da viagem"),
@@ -979,6 +981,190 @@ def liga_quando_na_ficha(h):
                   h, count=1, flags=re.S)
 
 
+# --------------------------------------------------------------- Aeroporto
+def tabelas_taxi():
+    """{arquivo: {BAIRRO: [valores]}}, lidas do texto das tabelas da SMTR."""
+    txt = le(os.path.join(AQUI, "fontes", "smtr-taxi-2026.txt"))
+    tab, atual = {}, None
+    for linha in txt.split("\n"):
+        m = re.match(r"==== (\S+)\.pdf", linha)
+        if m:
+            atual = m.group(1)
+            tab[atual] = {}
+            continue
+        m = re.match(r"\d+ (.+?) ((?:\d+,\d{2} ?)+)$", linha.strip())
+        if atual and m:
+            tab[atual][m.group(1).strip()] = [float(v.replace(",", ".")) for v in m.group(2).split()]
+    for f in ("convencional-Tom-Jobim", "convencional-Santos-Dumont", "especial-Tom-Jobim", "especial-Santos-Dumont"):
+        if len(tab.get(f, {})) < 100:
+            sys.exit("PARADO: a tabela %s veio com %d bairros" % (f, len(tab.get(f, {}))))
+    return tab
+
+
+def confere_trechos(itens):
+    for it in itens:
+        for n in re.findall(r"\d+(?:,\d+)?", it["texto"]):
+            if not re.search(r"(?<!\d)(?<!\d,)%s(?!\d|,\d)" % re.escape(n), it["trecho"]):
+                sys.exit("PARADO: '%s' de '%s' nao esta no trecho da fonte" % (n, it.get("nome", "regra")))
+
+
+def rs(v):
+    return ("R$ %.2f" % v).replace(".", ",")
+
+
+def aeroporto(guia):
+    import aeroportos as A
+    tab = tabelas_taxi()
+    confere_trechos(A.TRANSPORTE["galeao"] + A.TRANSPORTE["santos-dumont"] + [A.TAXI_REGRAS])
+    taximetro = le(os.path.join(AQUI, "fontes", "smtr-taxi-2026.txt"))
+    band, km1, km2 = [acha(r, taximetro, o).group(1) for r, o in (
+        (r"Bandeirada - R\$(\d+,\d{2})", "a bandeirada"), (r"Tarifa Quilométrica I - R\$(\d+,\d{2})", "o km I"),
+        (r"Tarifa Quilométrica II - R\$(\d+,\d{2})", "o km II"))]
+    mala = acha(r"60 cm na maior dimensão e 30 cm\s*nas menores - R\$(\d+,\d{2})", taximetro, "a bagagem").group(1)
+    vlt = acha(r"R\$ (5,00) para ônibus municipais, BRT e VLT", A.TRANSPORTE["santos-dumont"][0]["trecho"], "o VLT").group(1)
+    metro = acha(r"metrô em R\$ (7,90)", A.TRANSPORTE["santos-dumont"][0]["trecho"], "o metro").group(1)
+    soma = float(vlt.replace(",", ".")) + float(metro.replace(",", "."))
+    expresso = acha(r"R\$ (15)\b", A.TRANSPORTE["galeao"][0]["texto"], "o Expresso").group(1)
+
+    def valor(arq, smtr, col=0):
+        if smtr not in tab[arq]:
+            sys.exit("PARADO: '%s' nao esta na tabela %s" % (smtr, arq))
+        return tab[arq][smtr][col]
+    cop = "COPACABANA ( até a Rua Rep. do Peru)"
+    gig_cop, sdu_cop = valor("convencional-Tom-Jobim", cop), valor("convencional-Santos-Dumont", cop)
+    gig_exec_cop = valor("especial-Tom-Jobim", cop)
+    url = "%s/destinos/rio-de-janeiro/aeroporto/" % SITE
+
+    def tabela(lado):
+        conv, esp = "convencional-" + lado, "especial-" + lado
+        linhas = "".join(
+            '<tr><td>%s</td><td class="n">%s</td><td class="n">%s</td><td class="n">%s</td></tr>'
+            % (H.escape(nome), rs(valor(conv, smtr, 0)), rs(valor(conv, smtr, 1)), rs(valor(esp, smtr, 0)))
+            for nome, smtr in A.BAIRROS)
+        return ('<div class="tabwrap"><table><thead><tr><th>Destino</th><th>Comum, tarifa 1</th>'
+                '<th>Comum, tarifa 2</th><th>Executivo</th></tr></thead><tbody>%s</tbody></table></div>' % linhas)
+
+    def opcoes(chave):
+        out = []
+        for it in A.TRANSPORTE[chave]:
+            lac = ('<br><span class="flag">Não confirmado</span> %s' % it["lacuna"]) if it.get("lacuna") else ""
+            out.append('<li><b>%s.</b> %s%s <span style="font-size:.88rem">Fonte: %s.</span></li>'
+                       % (H.escape(it["nome"]), it["texto"], lac, H.escape(it["fonte"])))
+        return '<ul class="plain">%s</ul>' % "".join(out)
+
+    gig_exp_total = float(expresso) + soma
+    titulo = "Do aeroporto do Rio a Copacabana, Ipanema e Centro: táxi, ônibus e VLT com preço"
+    descricao = ("Táxi de tabela do Galeão a Copacabana por %s e do Santos Dumont por %s, Expresso do Galeão a "
+                 "R$ %s, VLT e metrô por %s. As tarifas oficiais de 2026, bairro por bairro."
+                 % (rs(gig_cop), rs(sdu_cop), expresso, rs(soma)))
+    capa, img, alt = capa_de("copacabana")
+
+    perguntas = [
+        ("Quanto custa o táxi do Galeão até Copacabana?",
+         "Pela tabela oficial de 2026, paga antes no balcão do aeroporto, %s no táxi comum (tarifa 1) até a Rua "
+         "República do Peru, e %s no táxi executivo. Pelo taxímetro, o preço depende do trajeto." % (rs(gig_cop),
+                                                                                                rs(gig_exec_cop))),
+        ("Quanto custa o táxi do Santos Dumont até Copacabana?",
+         "%s no táxi comum pela tabela (tarifa 1), até a Rua República do Peru." % rs(sdu_cop)),
+        ("Qual é o jeito mais barato de sair do Galeão?",
+         "De transporte público: o Expresso Galeão–Gentileza custa R$ %s até o Centro. Para a Zona Sul, somando "
+         "VLT (R$ %s) e metrô (R$ %s), a conta vai a %s, em tarifas cheias. O BRT custa R$ %s, mas não confirmamos "
+         "as linhas de 2026 em fonte oficial." % (expresso, vlt, metro, rs(gig_exp_total), vlt)),
+        ("Como ir do Santos Dumont para a Zona Sul de metrô?",
+         "Pegue o VLT na porta do aeroporto até a Cinelândia e troque para o metrô: R$ %s mais R$ %s, %s no "
+         "total." % (vlt, metro, rs(soma))),
+        ("O táxi de tabela é obrigatório no aeroporto?",
+         "Não. A tabela é opcional: a resolução da Prefeitura diz que a escolha do taxímetro cabe ao passageiro."),
+    ]
+
+    migalhas = {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Início", "item": SITE + "/"},
+        {"@type": "ListItem", "position": 2, "name": "Destinos", "item": SITE + "/destinos/"},
+        {"@type": "ListItem", "position": 3, "name": "Rio de Janeiro", "item": SITE + "/destinos/rio-de-janeiro/"},
+        {"@type": "ListItem", "position": 4, "name": "Aeroporto", "item": url}]}
+    cabeca, pe = esqueleto(titulo, descricao, url, img, alt)
+    cabeca = cabeca.replace("</head>", ld(faq_ld(perguntas)) + ld(migalhas) + "</head>", 1)
+
+    painel = (
+        '<div class="painel">'
+        '<div class="pcel"><span class="rotp">Táxi Galeão → Copacabana</span><span class="big">%s</span>'
+        '<span class="sub">Tabela oficial, táxi comum, tarifa 1.</span></div>'
+        '<div class="pcel"><span class="rotp">Táxi Santos Dumont → Copacabana</span><span class="big">%s</span>'
+        '<span class="sub">Mesma tabela, mesma tarifa.</span></div>'
+        '<div class="pcel"><span class="rotp">Expresso Galeão → Centro</span><span class="big c">R$ %s</span>'
+        '<span class="sub">Ônibus sem paradas até o Terminal Gentileza.</span></div>'
+        '<div class="pcel"><span class="rotp">Santos Dumont → Zona Sul</span><span class="big c">%s</span>'
+        '<span class="sub">VLT mais metrô, tarifas cheias.</span></div>'
+        '</div>' % (rs(gig_cop), rs(sdu_cop), expresso, rs(soma)))
+
+    partes = [
+        '<main id="conteudo">\n<div class="faixa"><div class="wrap wrap-estreito">\n',
+        '<p class="migalhas"><a href="%s">Início</a> › <a href="../../">Destinos</a> › '
+        '<a href="../">Rio de Janeiro</a> › Aeroporto</p>\n' % SOBE,
+        '<div class="hero">\n  <span class="eyebrow">Chegar e sair</span>\n'
+        '  <h1>Do aeroporto do Rio ao hotel: táxi, ônibus e VLT com preço</h1>\n'
+        '  <p>Do Galeão e do Santos Dumont até o Centro, a Zona Sul e a Barra: a tabela oficial de táxi de 2026, '
+        'bairro por bairro, o ônibus expresso, o VLT e o metrô. Com o que não foi possível confirmar escrito.</p>\n'
+        '<p class="assinatura">Apurado por <a href="%ssobre/#quem-faz">Allan Vitor</a> · '
+        '<a href="https://www.instagram.com/viagemnalupabr/" target="_blank" rel="noopener">@viagemnalupabr'
+        '<span class="so-leitor"> (abre em outra aba)</span></a></p>\n</div>\n' % SOBE,
+        capa, "\n", painel, '\n<div style="height:clamp(1.4rem,3vw,2.2rem)"></div>\n</div></div>\n\n',
+        '<div class="wrap wrap-estreito">\n',
+        '<section class="bloco"><div class="aviso a"><span class="t">Como funciona o táxi de tabela</span>'
+        '<p>%s</p><p style="font-size:.9rem">Fonte: %s.</p></div></section>\n\n'
+        % (A.TAXI_REGRAS["texto"], H.escape(A.TAXI_REGRAS["fonte"])),
+        '<section class="bloco" id="galeao-taxi">\n  <div class="bloco-head"><span class="eyebrow">Galeão</span>'
+        '<h2>Táxi do Galeão, por bairro</h2></div>\n  %s\n'
+        '  <p style="color:var(--nevoa);font-size:.9rem">Fonte: %s.</p>\n</section>\n\n'
+        % (tabela("Tom-Jobim"), H.escape(A.TAXI_FONTE)),
+        '<section class="bloco" id="galeao-transporte">\n  <div class="bloco-head"><span class="eyebrow">Galeão'
+        '</span><h2>Do Galeão de ônibus, VLT e metrô</h2></div>\n  %s\n'
+        '  <p style="color:var(--nevoa)">Do Galeão à Zona Sul pelo Expresso, VLT e metrô, a soma das tarifas '
+        'cheias é <b>%s</b>.</p>\n</section>\n\n' % (opcoes("galeao"), rs(gig_exp_total)),
+        '<section class="bloco" id="santos-dumont-taxi">\n  <div class="bloco-head"><span class="eyebrow">Santos '
+        'Dumont</span><h2>Táxi do Santos Dumont, por bairro</h2></div>\n  %s\n'
+        '  <p style="color:var(--nevoa);font-size:.9rem">Fonte: %s.</p>\n</section>\n\n'
+        % (tabela("Santos-Dumont"), H.escape(A.TAXI_FONTE)),
+        '<section class="bloco" id="santos-dumont-transporte">\n  <div class="bloco-head"><span class="eyebrow">'
+        'Santos Dumont</span><h2>Do Santos Dumont de VLT e metrô</h2></div>\n  %s\n'
+        '  <p style="color:var(--nevoa)">Somando as duas tarifas: <b>%s</b>.</p>\n</section>\n\n'
+        % (opcoes("santos-dumont"), rs(soma)),
+        '<section class="bloco" id="taximetro">\n  <div class="bloco-head"><span class="eyebrow">Se preferir o '
+        'taxímetro</span><h2>A tarifa do táxi comum em 2026</h2></div>\n'
+        '  <p style="color:var(--nevoa)">Bandeirada de <b>R$ %s</b> e <b>R$ %s por quilômetro</b> de segunda a '
+        'sábado, das 6h às 21h. À noite, aos domingos e feriados, <b>R$ %s por quilômetro</b>. Cada volume de '
+        'bagagem grande que o motorista carrega custa <b>R$ %s</b>. Fonte: %s.</p>\n</section>\n\n'
+        % (band, km1, km2, mala, H.escape(A.TAXIMETRO_FONTE)),
+        '<section class="bloco" id="lacunas">\n  <div class="bloco-head"><span class="eyebrow">O que não '
+        'sabemos</span><h2>As lacunas</h2></div>\n  <ul class="plain">%s</ul>\n</section>\n\n'
+        % "".join("<li>%s</li>" % x for x in A.LACUNAS),
+        faq_html(perguntas, "o aeroporto do Rio"), "\n",
+        continua("aeroporto"),
+        reserva(guia, "aeroporto", "Táxi e ônibus se pagam na hora, sem reserva. "),
+        '</div>\n',
+    ]
+    return os.path.join(RAIZ, "destinos", "rio-de-janeiro", "aeroporto", "index.html"), \
+        cabeca + "".join(partes) + pe
+
+
+def liga_aeroporto_no_guia(h):
+    if 'href="aeroporto/"' in h:
+        return h
+    pg = '<a class="pg" href="aeroporto/">Do aeroporto ao hotel</a>'
+    return re.sub(r'(<h2>As outras páginas do Rio de Janeiro</h2></div>\s*<div class="paginas">)',
+                  r"\1 " + pg, h, count=1)
+
+
+def liga_aeroporto_na_ficha(h):
+    """A ficha de custos dizia 'Traslado do aeroporto: Não apurado'. Agora aponta para a página."""
+    if 'href="../aeroporto/"' in h:
+        return h
+    return re.sub(r'<b>Traslado do aeroporto\.</b> <span class="flag">Não apurado</span>[^<]*</p>',
+                  '<b>Traslado do aeroporto.</b> <span class="flag">Fora da conta</span> o preço depende do '
+                  'aeroporto e do bairro, então nada foi somado à ficha. As tarifas oficiais de táxi, ônibus e VLT '
+                  'estão em <a href="../aeroporto/">do aeroporto ao hotel</a>.</p>', h, count=1)
+
+
 # --------------------------------------------- O que fecha cada dia
 #
 # A ficha guarda horario em prosa, e prosa nao vira tabela sozinha. Aqui
@@ -1254,7 +1440,7 @@ def liga_no_guia(h):
 
 def main(aplica):
     guia = le(GUIA)
-    for gera in (cristo, pao, que_fecha, descontos, quando_ir):
+    for gera in (cristo, pao, que_fecha, descontos, quando_ir, aeroporto):
         alvo, pagina = gera(guia)
         mudou = (not os.path.isfile(alvo)) or le(alvo) != pagina
         rel = os.path.relpath(alvo, RAIZ).replace(os.sep, "/")
@@ -1263,9 +1449,9 @@ def main(aplica):
         if aplica and mudou:
             escreve(alvo, pagina)
     roteiro = os.path.join(RAIZ, "destinos", "rio-de-janeiro", "roteiro-6-dias", "index.html")
-    for arq, liga in ((GUIA, lambda h: liga_quando_no_guia(liga_descontos_no_guia(liga_pao_no_guia(liga_fecha_no_guia(liga_no_guia(h)))))), (roteiro, liga_no_roteiro),
+    for arq, liga in ((GUIA, lambda h: liga_aeroporto_no_guia(liga_quando_no_guia(liga_descontos_no_guia(liga_pao_no_guia(liga_fecha_no_guia(liga_no_guia(h))))))), (roteiro, liga_no_roteiro),
                       (os.path.join(RAIZ, "destinos", "rio-de-janeiro", "quanto-custa", "index.html"),
-                       liga_quando_na_ficha)):
+                       lambda h: liga_aeroporto_na_ficha(liga_quando_na_ficha(h)))):
         h = le(arq)
         h2 = liga(h)
         if h2 != h:
