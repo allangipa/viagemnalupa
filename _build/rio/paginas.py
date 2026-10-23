@@ -64,26 +64,9 @@ SOBE = "../../../"
 VIVENCIA = []
 
 
-def le(p):
-    with open(p, encoding="utf-8") as f:
-        return f.read()
-
-
-def escreve(p, t):
-    os.makedirs(os.path.dirname(p), exist_ok=True)
-    with open(p, "w", encoding="utf-8", newline="") as f:
-        f.write(t)
-
-
-def limpa(t):
-    return re.sub(r"\s+", " ", re.sub(r"<[^>]+>", "", t or "")).strip()
-
-
-def acha(padrao, texto, o_que):
-    m = re.search(padrao, texto, re.S)
-    if not m:
-        sys.exit("PARADO: nao achei %s - a ficha mudou? Conferir antes de publicar." % o_que)
-    return m
+sys.path.insert(0, os.path.join(os.path.dirname(AQUI), "cluster"))
+import comum as C  # noqa: E402
+from comum import le, escreve, limpa, acha, junta, minuscula, ld, faq_ld  # noqa: E402,F401
 
 
 def reais(t):
@@ -99,53 +82,15 @@ def ponto(pid):
 
 
 def coords(pid):
-    for c in json.loads(le(os.path.join(RAIZ, "_build", "coords.json"))):
-        if c["c"] == "rio" and c["id"] == pid:
-            return c["lat"], c["lng"]
-    return None
+    return C.coords("rio", pid)
 
 
 def esqueleto(titulo, descricao, url, imagem, alt):
-    s = le(MOLDE)
-    cabeca = s[:s.find('<main id="conteudo">')]
-    pe = s[s.find("</main>"):]
-    cabeca = re.sub(r'<script type="application/ld\+json">.*?</script>\n?', "", cabeca, flags=re.S)
-    t, d = H.escape(titulo, quote=True), H.escape(descricao, quote=True)
-    cabeca = re.sub(r"<title>.*?</title>", "<title>%s</title>" % t, cabeca, flags=re.S)
-    cabeca = re.sub(r'<meta name="description" content="[^"]*">',
-                    '<meta name="description" content="%s">' % d, cabeca)
-    cabeca = re.sub(r'<link rel="canonical" href="[^"]*">', '<link rel="canonical" href="%s">' % url, cabeca)
-    cabeca = re.sub(r'<meta property="og:title" content="[^"]*">',
-                    '<meta property="og:title" content="%s">' % t, cabeca)
-    cabeca = re.sub(r'<meta property="og:description" content="[^"]*">',
-                    '<meta property="og:description" content="%s">' % d, cabeca)
-    # og:url + og:image (e largura, altura, alt e twitter:image) saem juntos
-    cabeca = re.sub(r'<meta property="og:url" content="[^"]*">.*?<meta name="twitter:image" content="[^"]*">',
-                    '<meta property="og:url" content="%s"><meta property="og:image" content="%s">'
-                    '<meta property="og:image:width" content="1200"><meta property="og:image:height" content="675">'
-                    '<meta property="og:image:alt" content="%s"><meta name="twitter:image" content="%s">'
-                    % (url, imagem, H.escape(alt, quote=True), imagem), cabeca, flags=re.S)
-    return cabeca, pe
-
-
-def ld(o):
-    return '<script type="application/ld+json">%s</script>\n' % json.dumps(
-        o, ensure_ascii=False, separators=(",", ":"))
+    return C.esqueleto(MOLDE, titulo, descricao, url, imagem, alt)
 
 
 def faq_html(perguntas, sobre="o Cristo Redentor"):
-    itens = "".join(
-        '\n  <details class="faq-q"><summary><h3>%s</h3></summary><p>%s</p></details>' % (H.escape(q), a)
-        for q, a in perguntas)
-    return ('<section class="bloco faq" id="perguntas">\n  <div class="bloco-head"><span class="eyebrow">'
-            'Perguntas frequentes</span><h2>O que mais se pergunta sobre %s</h2></div>%s\n'
-            '</section>\n' % (sobre, itens))
-
-
-def faq_ld(perguntas):
-    return {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
-        {"@type": "Question", "name": q,
-         "acceptedAnswer": {"@type": "Answer", "text": limpa(a)}} for q, a in perguntas]}
+    return C.faq_html(perguntas, sobre)
 
 
 # As paginas do cluster, na ordem em que aparecem no "Continue" de cada uma.
@@ -165,30 +110,12 @@ IRMAS = [
 
 
 def continua(atual):
-    links = " ".join('<a class="pg" href="../%s">%s</a>' % (h, t) for h, t in IRMAS if h != atual + "/")
-    return ('<section class="bloco">\n  <div class="bloco-head"><span class="eyebrow">Continue</span>'
-            '<h2>As outras páginas do Rio de Janeiro</h2></div>\n  <div class="paginas"> %s </div>\n</section>\n\n'
-            % links)
-
-
-SETA = ('<svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17 L17 7 '
-        'M9 7h8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'
-        '</path></svg>')
+    return C.continua(IRMAS, "do Rio de Janeiro", atual)
 
 
 def reserva(guia, sid, frase):
     """O bloco da Booking, com o link do guia e sid proprio. frase: o que dizer do ingresso."""
-    booking = acha(r'<a class="parceiro" href="(https://www\.jdoqocy\.com/[^"]*)"', guia, "a Booking do guia").group(1)
-    booking = re.sub(r"sid=[^&\"]*", "sid=vnl-rio-de-janeiro-" + sid, booking)
-    return ('<section class="bloco">\n<div class="reserva">\n<div class="reserva-topo">\n<h3>Hospedagem</h3>\n'
-            '<p>%sA hospedagem e a passagem não entram nos preços desta página; <a href="../quanto-custa/">a ficha '
-            'de custos</a> traz as duas, com a data da apuração.</p>\n'
-            '<p style="color:var(--nevoa);font-size:.9rem"><b>Este link dá comissão ao site.</b> Você paga o mesmo '
-            'preço que pagaria indo direto, e a comissão <b>não altera nenhum número do site</b>. '
-            '<a href="%ssobre/">Como isso funciona</a>.</p>\n</div>\n'
-            '<div class="reserva-lista"><a class="parceiro" href="%s" target="_blank" rel="noopener sponsored">'
-            '<span class="p-nome">Booking.com%s</span><span class="p-nota">hotéis no Rio de Janeiro</span></a></div>\n'
-            '</div>\n</section>\n' % (frase, SOBE, H.escape(booking, quote=True), SETA))
+    return C.reserva(guia, "rio-de-janeiro", "no Rio de Janeiro", sid, frase)
 
 
 # ------------------------------------------------------------------ Cristo
@@ -629,25 +556,8 @@ GRUPO_DESC = {
 }
 
 
-def minuscula(t):
-    return t[:1].lower() + t[1:]
-
-
 def capa_de(img_id, prioridade=True):
-    cred = json.loads(le(os.path.join(AQUI, "creditos.json")))[img_id]
-    if cred["fonte"] == "storyblocks":
-        credito = "Storyblocks · licença royalty-free · SBI-%s" % cred["sbi"]
-    else:
-        credito = ('Foto: %s · <a href="%s" target="_blank" rel="noopener license">%s</a> · '
-                   '<a href="%s" target="_blank" rel="noopener">Wikimedia Commons</a> · recortada'
-                   % (H.escape(cred["autor"]), cred["licurl"], cred["lic"], cred["pagina"]))
-    b = SOBE + "assets/img/rio-de-janeiro/" + img_id
-    figura = ('<figure class="hero-capa">\n  <img%s srcset="%s-400.webp 400w, %s-640.webp 640w, %s-820.webp 820w, '
-              '%s.webp 1200w" sizes="(min-width:1080px) 820px, 100vw" src="%s.webp" alt="%s" width="1200" '
-              'height="675" decoding="async">\n  <figcaption><p class="foto-cred">%s</p></figcaption>\n</figure>'
-              % (' fetchpriority="high"' if prioridade else "", b, b, b, b, b, H.escape(cred["alt"], quote=True),
-                 credito))
-    return figura, "%s/assets/img/rio-de-janeiro/%s.webp" % (SITE, img_id), cred["alt"]
+    return C.capa_de(os.path.join(AQUI, "creditos.json"), "rio-de-janeiro", img_id, prioridade)
 
 
 def descontos(guia):
@@ -1466,13 +1376,6 @@ FORA = [
 ]
 
 ROTULO = {"abre": "Abre", "fecha": "Fecha", "parcial": "Em parte", "duvida": "?"}
-
-
-def junta(itens):
-    itens = list(itens)
-    if len(itens) <= 1:
-        return "".join(itens)
-    return ", ".join(itens[:-1]) + " e " + itens[-1]
 
 
 def que_fecha(guia):
