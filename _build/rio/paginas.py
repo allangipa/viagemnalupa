@@ -4,7 +4,7 @@
 Plano em _build/docs/cluster-rio-2026-10-23.md (fase A). Esta e a 1:
 /destinos/rio-de-janeiro/cristo-redentor/; a 2, o-que-fecha-cada-dia/; a 3,
 pao-de-acucar/; a 4, descontos/; a 5, quando-ir/;
-fase B: aeroporto/.
+fase B: aeroporto/ e onde-ficar/.
 
 DE ONDE SAI TUDO: da ficha do Cristo em g1.py, importada - a mesma que o
 guia publica -, e do aviso da obra, lido do guia publicado (ele mora no
@@ -157,6 +157,7 @@ IRMAS = [
     ("descontos/", "Onde morador e brasileiro pagam menos"),
     ("quando-ir/", "Quando ir, mês a mês"),
     ("aeroporto/", "Do aeroporto ao hotel"),
+    ("onde-ficar/", "Onde ficar, bairro por bairro"),
     ("quanto-custa/", "Quanto custa 6 dias no Rio"),
     ("roteiro-6-dias/", "Roteiro de 6 dias"),
     ("quanto-custa/#calculadora", "Calculadora da viagem"),
@@ -1165,6 +1166,243 @@ def liga_aeroporto_na_ficha(h):
                   'estão em <a href="../aeroporto/">do aeroporto ao hotel</a>.</p>', h, count=1)
 
 
+# -------------------------------------------------------------- Onde ficar
+#
+# Nao ha diaria de hotel por bairro em fonte oficial (FOHB e Riotur publicam
+# a cidade inteira). Esta pagina compara os bairros pelo que e apurado: o
+# taxi de cada aeroporto (tabela da SMTR), a estacao de metro e os pontos do
+# guia que ficam no bairro.
+#
+# Cada bairro tem:
+#   taxi    o nome do bairro na tabela da SMTR
+#   metro   (ficha, trecho): o trecho PRECISA estar no campo da ficha
+#           (Metro ou Endereco). Ficha None = vem de ESTACOES_2022.
+#   pontos  [(ficha, palavra)]: a palavra precisa estar no Endereco da ficha
+#   nota    frase curta, so com o que a ficha citada diz (prova em `prova`)
+ESTACOES_2022 = ("MetrôRio, nomes das estações com o bairro desde agosto de 2022: “Antero de Quental / Leblon”, "
+                 "“Jardim de Alah / Leblon” e “Jardim Oceânico / Barra da Tijuca”, na Linha 4. Diário do "
+                 "Transporte, 4/ago/2022, consultado em 23/out/2026")
+ONDE = [
+ dict(nome="Copacabana", taxi="COPACABANA ( até a Rua Rep. do Peru)",
+      metro=("copacabana", "três estações servem a orla"),
+      metro_txt="Linha 1, com três estações na orla: Cardeal Arcoverde, Siqueira Campos e Cantagalo.",
+      pontos=[("copacabana", "Copacabana")]),
+ dict(nome="Leme", taxi="LEME",
+      metro=("copacabana", "Cardeal Arcoverde atende o trecho Leme"),
+      metro_txt="Não tem estação própria: a Cardeal Arcoverde, em Copacabana, atende o trecho do Leme.",
+      pontos=[("copacabana", "Leme")]),
+ dict(nome="Ipanema", taxi="IPANEMA",
+      metro=("ipanema-arpoador", "General Osório — Linha 1 é a mais útil"),
+      metro_txt="General Osório, na Linha 1, no miolo do bairro, e Nossa Senhora da Paz, na Linha 4.",
+      pontos=[("ipanema-arpoador", "Ipanema")]),
+ dict(nome="Leblon", taxi="LEBLON",
+      metro=(None, "Antero de Quental / Leblon"),
+      metro_txt="Antero de Quental e Jardim de Alah, na Linha 4.",
+      pontos=[]),
+ dict(nome="Botafogo", taxi="BOTAFOGO",
+      metro=("pao-de-acucar", "Botafogo — Linhas 1 e 2"),
+      metro_txt="Estação Botafogo, nas Linhas 1 e 2.",
+      pontos=[],
+      nota="Da estação saem os ônibus de integração para o Jardim Botânico, o Parque Lage e a Urca.",
+      prova=[("jardim-botanico", "Botafogo"), ("parque-lage", "Botafogo"), ("pao-de-acucar", "513 (Botafogo–Urca)")]),
+ dict(nome="Flamengo e Largo do Machado", taxi="FLAMENGO",
+      metro=("cristo-redentor", "Largo do Machado — Linha 1"),
+      metro_txt="Linha 1, com as estações Flamengo e Largo do Machado.",
+      pontos=[],
+      nota="No Largo do Machado, colado ao metrô, sai a van oficial do Cristo Redentor.",
+      prova=[("cristo-redentor", "Largo do Machado")]),
+ dict(nome="Centro", taxi="CENTRO (até Rio Branco)",
+      metro=("theatro-municipal", "Cinelândia — Linhas 1 e 2"),
+      metro_txt="Cinelândia, Carioca e Uruguaiana, nas Linhas 1 e 2, e o VLT.",
+      pontos=[("museu-do-amanha", "Centro"), ("mar", "Centro"), ("theatro-municipal", "Centro"),
+              ("real-gabinete", "Centro"), ("santa-teresa-bonde", "Centro")]),
+ dict(nome="Lapa", taxi="LAPA",
+      metro=("lapa-arcos", "Cinelândia — Linhas 1 e 2"),
+      metro_txt="Não tem estação própria: o MetrôRio orienta descer na Cinelândia.",
+      pontos=[("escadaria-selaron", "Lapa"), ("lapa-arcos", "Lapa")]),
+ dict(nome="Santa Teresa", taxi="SANTA TERESA",
+      metro=("santa-teresa-bonde", "Carioca — Linhas 1 e 2"),
+      metro_txt="Sem metrô no bairro: sobe-se de bonde, que sai do Largo da Carioca, ao lado da estação Carioca.",
+      pontos=[("escadaria-selaron", "Santa Teresa")]),
+ dict(nome="Urca", taxi="URCA",
+      metro=("pao-de-acucar", "513 (Botafogo–Urca)"),
+      metro_txt="Sem metrô: da estação Botafogo, ônibus de integração 513 até a Urca.",
+      pontos=[("pao-de-acucar", "Urca")]),
+ dict(nome="Barra da Tijuca", taxi="BARRA DA TIJUCA ( até A . Sena)",
+      metro=(None, "Jardim Oceânico / Barra da Tijuca"),
+      metro_txt="Jardim Oceânico, no fim da Linha 4.",
+      pontos=[],
+      nota="Nenhum dos 16 pontos do guia fica na Barra."),
+]
+
+
+def onde_ficar(guia):
+    import sazonal
+    from g2 import G2
+    from g3 import G3
+    from g4 import G4
+    fichas = {p["id"]: p for g in (G1, G2, G3, G4) for p in g["pontos"]}
+    tab = tabelas_taxi()
+
+    def campo_txt(pid, *nomes):
+        return " ".join(limpa(fichas[pid]["campos"][n]) for n in nomes)
+    for b in ONDE:
+        pid, trecho = b["metro"]
+        alvo = ESTACOES_2022 if pid is None else campo_txt(pid, "Metrô mais próximo", "Endereço")
+        if trecho not in alvo:
+            sys.exit("PARADO: '%s' nao esta na fonte do metro de %s" % (trecho, b["nome"]))
+        for pid, palavra in b["pontos"]:
+            if palavra not in campo_txt(pid, "Endereço"):
+                sys.exit("PARADO: a ficha %s nao poe o endereco em %s" % (pid, palavra))
+        for pid, palavra in b.get("prova", []):
+            if palavra not in campo_txt(pid, "Metrô mais próximo", "Endereço"):
+                sys.exit("PARADO: a nota de %s perdeu a prova em %s" % (b["nome"], pid))
+        for arq in ("convencional-Tom-Jobim", "convencional-Santos-Dumont"):
+            if b["taxi"] not in tab[arq]:
+                sys.exit("PARADO: '%s' nao esta na tabela %s" % (b["taxi"], arq))
+        b["gig"] = tab["convencional-Tom-Jobim"][b["taxi"]][0]
+        b["sdu"] = tab["convencional-Santos-Dumont"][b["taxi"]][0]
+
+    fohb = le(os.path.join(AQUI, "fontes", "fohb-panorama-20-rio.txt"))
+    str_ocup, str_adr = acha(r"Copacabana e Ipanema\s*\(ocupação média de (\d+%) e ADR de R\$ (\d+), AirDNA\)",
+                             fohb, "o dado da AirDNA").groups()
+    custos = le(os.path.join(RAIZ, "destinos", "rio-de-janeiro", "quanto-custa", "index.html"))
+    cat = {}
+    for rot in ("Econômico", "Intermediário", "Upscale"):
+        cat[rot] = acha(r"<td>%s</td><td class=\"n\">R\$ ([\d.]+)</td>" % rot, custos, "a categoria " + rot).group(1)
+    M = sazonal.MESES
+    barato, caro = min(M, key=lambda m: m[1]), max(M, key=lambda m: m[1])
+
+    url = "%s/destinos/rio-de-janeiro/onde-ficar/" % SITE
+    mais_pontos = max(ONDE, key=lambda b: len(b["pontos"]))
+    sdu_barato = min(ONDE, key=lambda b: b["sdu"])
+    titulo = "Onde ficar no Rio de Janeiro: os bairros pelo transporte e pelo que fica a pé"
+    descricao = ("Copacabana, Ipanema, Centro, Lapa, Botafogo e mais seis bairros comparados pelo táxi oficial de "
+                 "cada aeroporto, pela estação de metrô e pelos pontos do guia que ficam a pé. E o que se sabe, e não "
+                 "se sabe, da diária por bairro.")
+    capa, img, alt = capa_de("ipanema")
+
+    def nomes_pontos(b):
+        vistos = []
+        for pid, _ in b["pontos"]:
+            n = fichas[pid]["nome"]
+            if n not in vistos:
+                vistos.append(n)
+        return vistos
+    linhas = "".join(
+        '<tr><td><b>%s</b></td><td class="n">%s</td><td class="n">%s</td><td>%s</td><td>%s</td></tr>'
+        % (H.escape(b["nome"]), rs(b["gig"]), rs(b["sdu"]), b["metro_txt"],
+           H.escape(junta(nomes_pontos(b))) if b["pontos"] else "—") for b in ONDE)
+
+    def cartao(b):
+        pts = ", ".join('<a href="../#%s">%s</a>' % (pid, H.escape(fichas[pid]["nome"]))
+                        for pid in dict.fromkeys(p for p, _ in b["pontos"]))
+        return ('<li><b>%s.</b> Táxi do Galeão %s; do Santos Dumont %s. %s%s%s</li>'
+                % (H.escape(b["nome"]), rs(b["gig"]), rs(b["sdu"]), b["metro_txt"],
+                   (" Pontos do guia no bairro: %s." % pts) if pts else "",
+                   (" " + b["nota"]) if b.get("nota") else ""))
+
+    perguntas = [
+        ("Qual é o melhor bairro para ficar no Rio de Janeiro?",
+         "Depende do roteiro. Pelo que se mede: %s concentra %d dos 16 pontos do guia; Copacabana e Ipanema têm "
+         "metrô na orla; e do Santos Dumont o táxi mais barato da lista é para %s, %s. Não existe diária oficial "
+         "por bairro para comparar preço." % (mais_pontos["nome"], len(dict.fromkeys(p for p, _ in mais_pontos["pontos"])),
+                                               sdu_barato["nome"], rs(sdu_barato["sdu"]))),
+        ("Quanto custa a diária de hotel em Copacabana ou Ipanema?",
+         "Não há número oficial por bairro: a FOHB publica a média da cidade, R$ %d em 2025. O único recorte de "
+         "bairro no relatório é o de aluguel por temporada em Copacabana e Ipanema, com ocupação média de %s e "
+         "diária de R$ %s, segundo a AirDNA." % (sazonal.MEDIA_ANO, str_ocup, str_adr)),
+        ("Quanto custa o táxi do aeroporto até Copacabana?",
+         "Pela tabela oficial de 2026, táxi comum, tarifa 1: %s do Galeão e %s do Santos Dumont, até a Rua "
+         "República do Peru." % (rs(ONDE[0]["gig"]), rs(ONDE[0]["sdu"]))),
+        ("Ficar no Centro do Rio vale a pena?",
+         "Para quem quer museus: Museu do Amanhã, MAR, Theatro Municipal e Real Gabinete ficam no Centro, e é de "
+         "lá que sai o bonde de Santa Teresa. O táxi do Santos Dumont até o Centro custa %s. Os museus fecham em "
+         "dias diferentes: veja o que fecha cada dia." % rs(ONDE[6]["sdu"])),
+    ]
+
+    migalhas = {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Início", "item": SITE + "/"},
+        {"@type": "ListItem", "position": 2, "name": "Destinos", "item": SITE + "/destinos/"},
+        {"@type": "ListItem", "position": 3, "name": "Rio de Janeiro", "item": SITE + "/destinos/rio-de-janeiro/"},
+        {"@type": "ListItem", "position": 4, "name": "Onde ficar", "item": url}]}
+    cabeca, pe = esqueleto(titulo, descricao, url, img, alt)
+    cabeca = cabeca.replace("</head>", ld(faq_ld(perguntas)) + ld(migalhas) + "</head>", 1)
+
+    painel = (
+        '<div class="painel">'
+        '<div class="pcel"><span class="rotp">Diária média da cidade</span><span class="big">R$ %d</span>'
+        '<span class="sub">2025, todos os bairros juntos.</span></div>'
+        '<div class="pcel"><span class="rotp">Diária por bairro</span><span class="big">—</span>'
+        '<span class="sub">Ninguém publica. Está escrito abaixo.</span></div>'
+        '<div class="pcel"><span class="rotp">Mais pontos do guia a pé</span><span class="big c">%s</span>'
+        '<span class="sub">%d dos 16 pontos.</span></div>'
+        '<div class="pcel"><span class="rotp">Táxi Santos Dumont → Copacabana</span><span class="big">%s</span>'
+        '<span class="sub">Do Galeão, %s.</span></div>'
+        '</div>' % (sazonal.MEDIA_ANO, mais_pontos["nome"], len(dict.fromkeys(p for p, _ in mais_pontos["pontos"])),
+                    rs(ONDE[0]["sdu"]), rs(ONDE[0]["gig"])))
+
+    partes = [
+        '<main id="conteudo">\n<div class="faixa"><div class="wrap wrap-estreito">\n',
+        '<p class="migalhas"><a href="%s">Início</a> › <a href="../../">Destinos</a> › '
+        '<a href="../">Rio de Janeiro</a> › Onde ficar</p>\n' % SOBE,
+        '<div class="hero">\n  <span class="eyebrow">Escolher o bairro</span>\n'
+        '  <h1>Onde ficar no Rio de Janeiro</h1>\n'
+        '  <p>Onze bairros comparados pelo que se mede: quanto custa o táxi oficial de cada aeroporto até lá, que '
+        'estação de metrô atende o bairro e quais pontos do guia ficam nele. O que não se mede, a diária de hotel '
+        'por bairro, fica escrito como lacuna.</p>\n'
+        '<p class="assinatura">Apurado por <a href="%ssobre/#quem-faz">Allan Vitor</a> · '
+        '<a href="https://www.instagram.com/viagemnalupabr/" target="_blank" rel="noopener">@viagemnalupabr'
+        '<span class="so-leitor"> (abre em outra aba)</span></a></p>\n</div>\n' % SOBE,
+        capa, "\n", painel, '\n<div style="height:clamp(1.4rem,3vw,2.2rem)"></div>\n</div></div>\n\n',
+        '<div class="wrap wrap-estreito">\n',
+        '<section class="bloco"><div class="aviso a"><span class="t">A diária por bairro não existe em fonte '
+        'oficial</span><p>A FOHB publica a média da cidade inteira: <b>R$ %d em 2025</b>, de R$ %d em %s a R$ %d '
+        'em %s. Por categoria, a mesma fonte dá <b>R$ %s</b> no econômico, <b>R$ %s</b> no intermediário e '
+        '<b>R$ %s</b> no upscale. Nenhuma entidade separa Copacabana, Ipanema, Botafogo ou Centro.</p>'
+        '<p>O único recorte de bairro no relatório é de <b>aluguel por temporada em Copacabana e Ipanema</b>: '
+        'ocupação média de %s e diária de <b>R$ %s</b>, segundo a AirDNA, citada pela HotelInvest e pela FOHB. É '
+        'apartamento, não hotel.</p></div></section>\n\n'
+        % (sazonal.MEDIA_ANO, barato[1], barato[0], caro[1], caro[0], cat["Econômico"], cat["Intermediário"],
+           cat["Upscale"], str_ocup, str_adr),
+        '<section class="bloco" id="comparacao">\n  <div class="bloco-head"><span class="eyebrow">Os 11 bairros'
+        '</span><h2>Táxi, metrô e o que fica a pé</h2></div>\n'
+        '  <div class="tabwrap"><table><thead><tr><th>Bairro</th><th>Táxi do Galeão</th><th>Táxi do Santos '
+        'Dumont</th><th>Metrô</th><th>Pontos do guia</th></tr></thead><tbody>%s</tbody></table></div>\n'
+        '  <p style="color:var(--nevoa);font-size:.9rem">Táxi: tabela oficial paga antes, táxi comum, tarifa 1 '
+        '(%s); detalhes em <a href="../aeroporto/">do aeroporto ao hotel</a>. Metrô e pontos: as fichas do guia, '
+        'que citam o MetrôRio; Leblon e Barra pelo nome das estações (%s); a estação Flamengo, pela lista da Linha 1 na Wikipédia. “Pontos do guia” conta o endereço da '
+        'ficha; a caminhada entre eles não é publicada.</p>\n</section>\n\n'
+        % (linhas, H.escape(TAXI_FONTE_CURTA), H.escape(ESTACOES_2022)),
+        '<section class="bloco" id="bairro-a-bairro">\n  <div class="bloco-head"><span class="eyebrow">Bairro a '
+        'bairro</span><h2>O resumo de cada um</h2></div>\n  <ul class="plain">%s</ul>\n</section>\n\n'
+        % "".join(cartao(b) for b in ONDE),
+        '<section class="bloco" id="lacunas">\n  <div class="bloco-head"><span class="eyebrow">O que não '
+        'sabemos</span><h2>As lacunas</h2></div>\n  <ul class="plain">'
+        '<li>Diária de hotel por bairro: nem a FOHB nem a Riotur publicam.</li>'
+        '<li>Segurança por bairro: não há dado comparável nas fontes deste guia, e não publicamos impressão.</li>'
+        '<li>Tempo a pé entre o bairro e cada ponto: as fontes oficiais não publicam.</li></ul>\n</section>\n\n',
+        faq_html(perguntas, "onde ficar no Rio"), "\n",
+        continua("onde-ficar"),
+        reserva(guia, "onde-ficar", "Com o bairro escolhido, compare a diária da sua data com a média da cidade "
+                                    "desta página. "),
+        '</div>\n',
+    ]
+    return os.path.join(RAIZ, "destinos", "rio-de-janeiro", "onde-ficar", "index.html"), \
+        cabeca + "".join(partes) + pe
+
+
+TAXI_FONTE_CURTA = "SMTR, Resoluções nº 3.898 e nº 3.899, de 7/jan/2026"
+
+
+def liga_onde_no_guia(h):
+    if 'href="onde-ficar/"' in h:
+        return h
+    pg = '<a class="pg" href="onde-ficar/">Onde ficar, bairro por bairro</a>'
+    return re.sub(r'(<h2>As outras páginas do Rio de Janeiro</h2></div>\s*<div class="paginas">)',
+                  r"\1 " + pg, h, count=1)
+
+
 # --------------------------------------------- O que fecha cada dia
 #
 # A ficha guarda horario em prosa, e prosa nao vira tabela sozinha. Aqui
@@ -1440,7 +1678,7 @@ def liga_no_guia(h):
 
 def main(aplica):
     guia = le(GUIA)
-    for gera in (cristo, pao, que_fecha, descontos, quando_ir, aeroporto):
+    for gera in (cristo, pao, que_fecha, descontos, quando_ir, aeroporto, onde_ficar):
         alvo, pagina = gera(guia)
         mudou = (not os.path.isfile(alvo)) or le(alvo) != pagina
         rel = os.path.relpath(alvo, RAIZ).replace(os.sep, "/")
@@ -1449,7 +1687,7 @@ def main(aplica):
         if aplica and mudou:
             escreve(alvo, pagina)
     roteiro = os.path.join(RAIZ, "destinos", "rio-de-janeiro", "roteiro-6-dias", "index.html")
-    for arq, liga in ((GUIA, lambda h: liga_aeroporto_no_guia(liga_quando_no_guia(liga_descontos_no_guia(liga_pao_no_guia(liga_fecha_no_guia(liga_no_guia(h))))))), (roteiro, liga_no_roteiro),
+    for arq, liga in ((GUIA, lambda h: liga_onde_no_guia(liga_aeroporto_no_guia(liga_quando_no_guia(liga_descontos_no_guia(liga_pao_no_guia(liga_fecha_no_guia(liga_no_guia(h)))))))), (roteiro, liga_no_roteiro),
                       (os.path.join(RAIZ, "destinos", "rio-de-janeiro", "quanto-custa", "index.html"),
                        lambda h: liga_aeroporto_na_ficha(liga_quando_na_ficha(h)))):
         h = le(arq)
