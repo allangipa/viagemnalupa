@@ -3,7 +3,7 @@
 
 Plano em _build/docs/cluster-rio-2026-10-23.md (fase A). Esta e a 1:
 /destinos/rio-de-janeiro/cristo-redentor/; a 2, o-que-fecha-cada-dia/; a 3,
-pao-de-acucar/.
+pao-de-acucar/; a 4, descontos/.
 
 DE ONDE SAI TUDO: da ficha do Cristo em g1.py, importada - a mesma que o
 guia publica -, e do aviso da obra, lido do guia publicado (ele mora no
@@ -153,6 +153,7 @@ IRMAS = [
     ("cristo-redentor/", "Cristo Redentor: ingresso e como subir"),
     ("pao-de-acucar/", "Pão de Açúcar: ingresso e desconto"),
     ("o-que-fecha-cada-dia/", "O que abre e fecha em cada dia"),
+    ("descontos/", "Onde morador e brasileiro pagam menos"),
     ("quanto-custa/", "Quanto custa 6 dias no Rio"),
     ("roteiro-6-dias/", "Roteiro de 6 dias"),
     ("quanto-custa/#calculadora", "Calculadora da viagem"),
@@ -564,6 +565,210 @@ def liga_pao_no_guia(h):
                   lambda m: m.group(1) + mais + m.group(2), h, count=1, flags=re.S)
 
 
+# -------------------------------------------------------------- Descontos
+#
+# Mesma ideia do CALENDARIO: o texto de cada desconto e escrito aqui, curto,
+# mas TODO numero dele (preco, idade, ano, quantidade) precisa aparecer no
+# campo "Valor da entrada" da ficha daquele ponto. Numero que nao esta na
+# ficha para o script - nada entra na pagina que o guia nao publique.
+#
+# Tres grupos: onde voce mora, o dia ou o jeito de comprar, e a meia e a
+# gratuidade por idade ou condicao.
+DESCONTOS = {
+ "morar": [
+  ("pao-de-acucar", "Morador do Estado do Rio paga R$ 89 o adulto e R$ 44 a criança de 3 a 12, contra R$ 205 da "
+                    "inteira. Brasileiro de qualquer estado paga R$ 160. Pedem comprovante de residência ou "
+                    "documento de naturalidade."),
+  ("jardim-botanico", "Quem mora no Brasil paga R$ 40; estrangeiro, R$ 80. O desconto é por país, não por cidade: "
+                      "não há tarifa de morador do município do Rio."),
+  ("mar", "Nascidos e moradores da cidade do Rio pagam meia, R$ 10, contra R$ 20 da inteira. Documentação "
+          "comprobatória exigida."),
+  ("santa-teresa-bonde", "Moradores de Santa Teresa previamente cadastrados viajam de graça, limitados a 6 assentos "
+                         "por veículo. Os outros pagam R$ 20, ida e volta."),
+  ("cristo-redentor", "Não existe tarifa de morador do Rio: o programa Tarifa Carioca não cobre o monumento."),
+  ("museu-do-amanha", "Não existe faixa de morador do Rio."),
+ ],
+ "dia": [
+  ("cristo-redentor", "A van que sai das Paineiras custa R$ 87; a que sai de Copacabana ou do Largo do Machado, "
+                      "R$ 132. A pé pela trilha, R$ 60, só o acesso ao monumento."),
+  ("mar", "Terça-feira é gratuita para todos."),
+  ("museu-do-amanha", "Todo dia 10 do mês o ingresso custa R$ 10, sem somar com a meia. Os feriados nacionais são "
+                      "gratuitos. A terça deixou de ser grátis em 2025: tem preço popular, entre R$ 15 e R$ 30."),
+  ("theatro-municipal", "Meia-entrada solidária: R$ 10 doando 1 kg de alimento não perecível, contra R$ 20 da "
+                        "inteira."),
+ ],
+ "meia": [
+  ("cristo-redentor", "Criança de 7 a 11 anos, estudante, 60+, PcD e acompanhante pagam R$ 60 na van das "
+                      "Paineiras. No trem, o idoso 60+ brasileiro paga R$ 70. Até 6 anos não paga."),
+  ("pao-de-acucar", "Criança de 3 a 12 anos e 60+ pagam R$ 102. Bebês até 2 anos e 11 meses não pagam."),
+  ("jardim-botanico", "Meia de R$ 20 para estudante, PcD, jovem até 21 anos, ID Jovem e 60+, mas as fontes "
+                      "oficiais divergem sobre o valor da meia. Até 5 anos não paga."),
+  ("museu-do-amanha", "Meia de R$ 20. Gratuito para 60+, crianças até 5 anos e alunos e professores da rede "
+                      "pública, entre outros; essa lista vem da imprensa, não do site do museu."),
+  ("mar", "Meia de R$ 10 para quem tem até 21 anos, jovens de 15 a 29 anos com ID Jovem, estudantes, professores "
+          "particulares e PcD. Gratuito para 60+, crianças até 5 anos e alunos da rede pública."),
+  ("theatro-municipal", "Meia de R$ 10 na visita guiada."),
+  ("santa-teresa-bonde", "Gratuito para idosos a partir de 65 anos, estudantes de escola pública uniformizados e "
+                         "com carteirinha e portadores do Vale Social."),
+  ("maracana", "Meia de R$ 57,50 para estudante, criança de 3 a 11 anos, 60+, PcD e professores da rede pública "
+               "municipal do Rio. A meia não vale para grupos. Até 2 anos não paga."),
+ ],
+}
+GRUPO_DESC = {
+ "morar": ("onde-voce-mora", "Onde morar no Rio, ou no Brasil, muda o preço",
+           "Em %(com)d pontos, o endereço do visitante corta o preço. Em %(sem)d, a tarifa de morador que muita "
+           "gente procura não existe."),
+ "dia": ("dia-e-jeito", "O dia e o jeito de comprar", "O mesmo ponto, mais barato por causa do dia, do embarque "
+         "ou de uma doação."),
+ "meia": ("meia-e-gratuidade", "Meia-entrada e gratuidade", "Por idade, estudo ou condição, ponto por ponto. "
+          "Todos pedem documento."),
+}
+
+
+def minuscula(t):
+    return t[:1].lower() + t[1:]
+
+
+def capa_de(img_id, prioridade=True):
+    cred = json.loads(le(os.path.join(AQUI, "creditos.json")))[img_id]
+    if cred["fonte"] == "storyblocks":
+        credito = "Storyblocks · licença royalty-free · SBI-%s" % cred["sbi"]
+    else:
+        credito = ('Foto: %s · <a href="%s" target="_blank" rel="noopener license">%s</a> · '
+                   '<a href="%s" target="_blank" rel="noopener">Wikimedia Commons</a> · recortada'
+                   % (H.escape(cred["autor"]), cred["licurl"], cred["lic"], cred["pagina"]))
+    b = SOBE + "assets/img/rio-de-janeiro/" + img_id
+    figura = ('<figure class="hero-capa">\n  <img%s srcset="%s-400.webp 400w, %s-640.webp 640w, %s-820.webp 820w, '
+              '%s.webp 1200w" sizes="(min-width:1080px) 820px, 100vw" src="%s.webp" alt="%s" width="1200" '
+              'height="675" decoding="async">\n  <figcaption><p class="foto-cred">%s</p></figcaption>\n</figure>'
+              % (' fetchpriority="high"' if prioridade else "", b, b, b, b, b, H.escape(cred["alt"], quote=True),
+                 credito))
+    return figura, "%s/assets/img/rio-de-janeiro/%s.webp" % (SITE, img_id), cred["alt"]
+
+
+def descontos(guia):
+    from g2 import G2
+    from g3 import G3
+    from g4 import G4
+    pontos = {p["id"]: p for g in (G1, G2, G3, G4) for p in g["pontos"]}
+    for grupo, itens in DESCONTOS.items():
+        for pid, texto in itens:
+            ficha = limpa(pontos[pid]["campos"]["Valor da entrada"])
+            for n in re.findall(r"\d+(?:,\d+)?", texto):
+                if not re.search(r"(?<!\d)(?<!\d,)%s(?!\d|,\d)" % re.escape(n), ficha):
+                    sys.exit("PARADO: '%s' (%s, %s) nao esta na ficha" % (n, pid, grupo))
+    data_ap = acha(r"Preços verificados em (\d+ de \w+ de \d{4})", guia, "a data do guia").group(1)
+    gratis = [p for p in pontos.values() if re.match(r"gr[aá]tis", limpa(p["preco"]), re.I)]
+    url = "%s/destinos/rio-de-janeiro/descontos/" % SITE
+
+    def numero(pid, padrao, o_que):
+        return acha(padrao, limpa(pontos[pid]["campos"]["Valor da entrada"]), o_que).groups()
+    pao_rj, pao_int = numero("pao-de-acucar", r"Estado do RJ: R\$ (\d+).*?", "o preco RJ")[0], \
+        numero("pao-de-acucar", r"Inteira R\$ (\d+)", "a inteira")[0]
+    pao_br = numero("pao-de-acucar", r"Promocional Brasileiros: R\$ (\d+)", "o preco de brasileiro")[0]
+    amanha_dez = numero("museu-do-amanha", r"Todo dia 10 do mês o ingresso custa R\$ (\d+)", "o dia 10")[0]
+    van_p = numero("cristo-redentor", r"Paineiras: adulto R\$ (\d+)", "a van das Paineiras")[0]
+    van_c = numero("cristo-redentor", r"Largo do Machado: adulto R\$ (\d+)", "a van da cidade")[0]
+    numero("mar", r"(terça-feira gratuita para todos)", "a terca gratis do MAR")
+
+    titulo = "Rio de Janeiro: onde morador e brasileiro pagam menos, e os dias grátis"
+    descricao = ("Pão de Açúcar a R$ %s para quem mora no Estado do Rio, MAR grátis na terça, Museu do Amanhã a "
+                 "R$ %s todo dia 10 e onde a tarifa de morador não existe. Os descontos de %d pontos do Rio, "
+                 "apurados em %s." % (pao_rj, amanha_dez, len({pid for i in DESCONTOS.values() for pid, _ in i}),
+                                      data_ap))
+    capa, img, alt = capa_de("mar")
+
+    def item(pid, texto):
+        return ('<li><a href="../#%s"><b>%s</b></a>: %s</li>' % (pid, H.escape(pontos[pid]["nome"]), texto))
+
+    secoes = []
+    for grupo in ("morar", "dia", "meia"):
+        sid, h2, intro = GRUPO_DESC[grupo]
+        sem = sum(1 for _, t in DESCONTOS[grupo] if t.startswith("Não existe"))
+        if "%(" in intro:
+            intro = intro % dict(com=len(DESCONTOS[grupo]) - sem, sem=sem)
+        secoes.append('<section class="bloco" id="%s">\n  <div class="bloco-head"><h2>%s</h2><p>%s</p></div>\n'
+                      '  <ul class="plain">%s</ul>\n</section>\n\n'
+                      % (sid, h2, intro, "".join(item(pid, t) for pid, t in DESCONTOS[grupo])))
+
+    nomes_gratis = [p["nome"] for p in gratis]
+    secoes.append('<section class="bloco" id="sem-ingresso">\n  <div class="bloco-head"><h2>Os %d pontos que não '
+                  'cobram nada</h2></div>\n  <p style="color:var(--nevoa)">%s. Não há meia nem tarifa de morador '
+                  'porque não há ingresso. O que cada um cobra à parte está na <a href="../../../gratis/#rio-de-janeiro">'
+                  'lista dos pontos gratuitos</a>.</p>\n</section>\n\n' % (len(gratis), junta(nomes_gratis)))
+
+    perguntas = [
+        ("Morador do Rio tem desconto no Pão de Açúcar?",
+         dict(DESCONTOS["morar"])["pao-de-acucar"]),
+        ("Morador do Rio tem desconto no Cristo Redentor?",
+         dict(DESCONTOS["morar"])["cristo-redentor"] + " O que muda o preço é o embarque: "
+         + minuscula(dict(DESCONTOS["dia"])["cristo-redentor"])),
+        ("Que museus do Rio são de graça em algum dia?",
+         "No MAR, %s No Museu do Amanhã, %s" % (minuscula(dict(DESCONTOS["dia"])["mar"]),
+                                                 minuscula(dict(DESCONTOS["dia"])["museu-do-amanha"]))),
+        ("Brasileiro paga menos que estrangeiro no Rio?",
+         "No Pão de Açúcar, a tarifa para brasileiro é R$ %s, contra R$ %s da inteira. No Jardim Botânico, %s"
+         % (pao_br, pao_int, minuscula(dict(DESCONTOS["morar"])["jardim-botanico"]))),
+        ("Quais pontos do Rio não cobram entrada?",
+         "%d dos 16 pontos do guia: %s." % (len(gratis), junta(nomes_gratis))),
+    ]
+
+    migalhas = {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Início", "item": SITE + "/"},
+        {"@type": "ListItem", "position": 2, "name": "Destinos", "item": SITE + "/destinos/"},
+        {"@type": "ListItem", "position": 3, "name": "Rio de Janeiro", "item": SITE + "/destinos/rio-de-janeiro/"},
+        {"@type": "ListItem", "position": 4, "name": "Descontos", "item": url}]}
+    cabeca, pe = esqueleto(titulo, descricao, url, img, alt)
+    cabeca = cabeca.replace("</head>", ld(faq_ld(perguntas)) + ld(migalhas) + "</head>", 1)
+
+    painel = (
+        '<div class="painel">'
+        '<div class="pcel"><span class="rotp">Pão de Açúcar, morando no RJ</span><span class="big c">R$ %s</span>'
+        '<span class="sub">Contra R$ %s da inteira.</span></div>'
+        '<div class="pcel"><span class="rotp">MAR, às terças</span><span class="big c">Grátis</span>'
+        '<span class="sub">Para todos, sem comprovar nada.</span></div>'
+        '<div class="pcel"><span class="rotp">Museu do Amanhã, todo dia 10</span><span class="big">R$ %s</span>'
+        '<span class="sub">E grátis nos feriados nacionais.</span></div>'
+        '<div class="pcel"><span class="rotp">Cristo, saindo das Paineiras</span><span class="big">R$ %s</span>'
+        '<span class="sub">R$ %d a menos que a van da cidade.</span></div>'
+        '</div>' % (pao_rj, pao_int, amanha_dez, van_p, int(van_c) - int(van_p)))
+
+    partes = [
+        '<main id="conteudo">\n<div class="faixa"><div class="wrap wrap-estreito">\n',
+        '<p class="migalhas"><a href="%s">Início</a> › <a href="../../">Destinos</a> › '
+        '<a href="../">Rio de Janeiro</a> › Descontos</p>\n' % SOBE,
+        '<div class="hero">\n  <span class="eyebrow">Quem paga menos</span>\n'
+        '  <h1>Onde morador e brasileiro pagam menos no Rio</h1>\n'
+        '  <p>Tarifa de morador, desconto para brasileiro, dia grátis e meia-entrada nos pontos pagos do guia, '
+        'e onde o desconto que todo mundo procura não existe. Cada linha leva à ficha do ponto, com a fonte. '
+        'Preços apurados em %s.</p>\n'
+        '<p class="assinatura">Apurado por <a href="%ssobre/#quem-faz">Allan Vitor</a> · '
+        '<a href="https://www.instagram.com/viagemnalupabr/" target="_blank" rel="noopener">@viagemnalupabr'
+        '<span class="so-leitor"> (abre em outra aba)</span></a></p>\n</div>\n' % (data_ap, SOBE),
+        capa, "\n", painel, '\n<div style="height:clamp(1.4rem,3vw,2.2rem)"></div>\n</div></div>\n\n',
+        '<div class="wrap wrap-estreito">\n',
+    ] + secoes + [
+        faq_html(perguntas, "descontos no Rio"), "\n",
+        continua("descontos"),
+        reserva(guia, "descontos", "Leve o documento de cada desconto: sem ele, a bilheteria cobra a inteira ou a "
+                                   "diferença. "),
+        '</div>\n',
+    ]
+    return os.path.join(RAIZ, "destinos", "rio-de-janeiro", "descontos", "index.html"), \
+        cabeca + "".join(partes) + pe
+
+
+def liga_descontos_no_guia(h):
+    if 'href="descontos/"' in h:
+        return h
+    pg = '<a class="pg" href="descontos/">Onde morador e brasileiro pagam menos</a>'
+    h = re.sub(r'(<h2>As outras páginas do Rio de Janeiro</h2></div>\s*<div class="paginas">)',
+               r"\1 " + pg, h, count=1)
+    mais = '<p><a href="descontos/">Todos os descontos dos pontos do Rio, numa página só</a>.</p>'
+    return re.sub(r"(Onde ser brasileiro, ou morar no Rio, corta o preço pela metade.*?)(</details>)",
+                  lambda m: m.group(1) + mais + m.group(2), h, count=1, flags=re.S)
+
+
 # --------------------------------------------- O que fecha cada dia
 #
 # A ficha guarda horario em prosa, e prosa nao vira tabela sozinha. Aqui
@@ -839,7 +1044,7 @@ def liga_no_guia(h):
 
 def main(aplica):
     guia = le(GUIA)
-    for gera in (cristo, pao, que_fecha):
+    for gera in (cristo, pao, que_fecha, descontos):
         alvo, pagina = gera(guia)
         mudou = (not os.path.isfile(alvo)) or le(alvo) != pagina
         rel = os.path.relpath(alvo, RAIZ).replace(os.sep, "/")
@@ -848,7 +1053,7 @@ def main(aplica):
         if aplica and mudou:
             escreve(alvo, pagina)
     roteiro = os.path.join(RAIZ, "destinos", "rio-de-janeiro", "roteiro-6-dias", "index.html")
-    for arq, liga in ((GUIA, lambda h: liga_pao_no_guia(liga_fecha_no_guia(liga_no_guia(h)))), (roteiro, liga_no_roteiro)):
+    for arq, liga in ((GUIA, lambda h: liga_descontos_no_guia(liga_pao_no_guia(liga_fecha_no_guia(liga_no_guia(h))))), (roteiro, liga_no_roteiro)):
         h = le(arq)
         h2 = liga(h)
         if h2 != h:
