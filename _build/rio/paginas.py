@@ -131,13 +131,13 @@ def ld(o):
         o, ensure_ascii=False, separators=(",", ":"))
 
 
-def faq_html(perguntas):
+def faq_html(perguntas, sobre="o Cristo Redentor"):
     itens = "".join(
         '\n  <details class="faq-q"><summary><h3>%s</h3></summary><p>%s</p></details>' % (H.escape(q), a)
         for q, a in perguntas)
     return ('<section class="bloco faq" id="perguntas">\n  <div class="bloco-head"><span class="eyebrow">'
-            'Perguntas frequentes</span><h2>O que mais se pergunta sobre o Cristo Redentor</h2></div>%s\n'
-            '</section>\n' % itens)
+            'Perguntas frequentes</span><h2>O que mais se pergunta sobre %s</h2></div>%s\n'
+            '</section>\n' % (sobre, itens))
 
 
 def faq_ld(perguntas):
@@ -333,6 +333,7 @@ def cristo(guia):
         '  <div class="paginas"> <a class="pg" href="../">Guia dos 16 pontos turísticos</a> '
         '<a class="pg" href="../quanto-custa/">Quanto custa 6 dias no Rio</a> '
         '<a class="pg" href="../roteiro-6-dias/">Roteiro de 6 dias</a> '
+        '<a class="pg" href="../o-que-fecha-cada-dia/">O que abre e fecha em cada dia</a> '
         '<a class="pg" href="../quanto-custa/#calculadora">Calculadora da viagem</a> </div>\n</section>\n\n',
         '<section class="bloco">\n<div class="reserva">\n<div class="reserva-topo">\n<h3>Hospedagem</h3>\n'
         '<p>O ingresso compre só no canal oficial: com a obra, ele esgota dias antes. A hospedagem e a passagem '
@@ -349,7 +350,273 @@ def cristo(guia):
     return os.path.join(RAIZ, "destinos", "rio-de-janeiro", pid, "index.html"), cabeca + "".join(partes) + pe
 
 
+# --------------------------------------------- O que fecha cada dia
+#
+# A ficha guarda horario em prosa, e prosa nao vira tabela sozinha. Aqui
+# cada ponto tem a LEITURA da ficha (que dia fecha, que dia abre pela
+# metade) e as PROVAS: trechos que precisam estar no campo "Dias em que
+# nao funciona" daquela ficha. Se a ficha mudar e a prova sumir, o script
+# para - a tabela nunca descola do guia em silencio.
+#
+# Dia nao citado = abre. Feriado so conta como aberto quando a ficha diz;
+# quando nao diz, e "duvida" com a lacuna escrita.
+DIAS = ["seg", "ter", "qua", "qui", "sex", "sab", "dom", "fer"]
+NOME_DIA = {"seg": "Segunda-feira", "ter": "Terça-feira", "qua": "Quarta-feira", "qui": "Quinta-feira",
+            "sex": "Sexta-feira", "sab": "Sábado", "dom": "Domingo", "fer": "Feriado"}
+CURTO = {"seg": "Seg", "ter": "Ter", "qua": "Qua", "qui": "Qui", "sex": "Sex", "sab": "Sáb",
+         "dom": "Dom", "fer": "Feriado"}
+SEM_FERIADO = "a ficha não diz se abre no feriado"
+
+CALENDARIO = {
+ "cristo-redentor": ({}, ["Não há dia fixo de fechamento semanal", "inclusive feriados"],
+                     "chuva, vento e neblina suspendem o acesso em qualquer dia"),
+ "pao-de-acucar": ({}, ["Abre todos os dias", "feriados incluídos"],
+                   "raio e vento forte param os bondinhos em qualquer dia"),
+ "vista-chinesa": ({d: ("parcial", "não se sobe de carro, táxi nem aplicativo das 7h às 19h, só a pé ou de bicicleta")
+                    for d in ("sab", "dom", "fer")},
+                   ["sem dia fixo de fechamento semanal", "entre 7h e 19h aos finais de semana e feriados"], ""),
+ "parque-lage": ({"fer": ("duvida", SEM_FERIADO)}, ["Não há dia fixo de fechamento semanal"],
+                 "o palacete está fechado em obra todos os dias; só os jardins abrem"),
+ "copacabana": ({}, ["todos os dias do ano"], ""),
+ "ipanema-arpoador": ({}, ["acesso livre 24 horas"], "a Pedra do Arpoador fecha às 21h todos os dias"),
+ "jardim-botanico": ({"qua": ("parcial", "o Arboreto só abre às 11h e o Museu fecha")},
+                     ["na quarta-feira, 11h às 17h", "na quarta-feira fica fechado", "Feriados: funcionamento normal"],
+                     ""),
+ "floresta-da-tijuca": ({}, ["Não fecha em nenhum dia da semana", "feriados inclusive"], ""),
+ "museu-do-amanha": ({"qua": ("fecha", "")}, ["Fecha às quartas-feiras", "feriados inclusive"], ""),
+ "mar": ({"qua": ("fecha", ""), "seg": ("duvida", "as fontes do próprio museu divergem sobre a segunda"),
+          "fer": ("duvida", SEM_FERIADO)},
+         ["Fecha às quartas-feiras", "a abertura de segunda-feira fica em dúvida"], ""),
+ "theatro-municipal": ({"dom": ("fecha", "sem visita guiada"), "seg": ("fecha", "sem visita guiada"),
+                        "ter": ("fecha", "sem visita guiada; só instituições com agendamento"),
+                        "fer": ("duvida", "não encontrado calendário de feriado")},
+                       ["Não há visitas de domingo a terça-feira", "Não encontrado calendário de fechamento por feriado"],
+                       "a visita guiada é o que se visita; fora dela, só com ingresso de espetáculo"),
+ "real-gabinete": ({d: ("fecha", "") for d in ("sab", "dom", "fer")},
+                   ["Fechado aos sábados, domingos e feriados"], ""),
+ "escadaria-selaron": ({}, ["Logradouro público, sem portão e sem horário"], ""),
+ "santa-teresa-bonde": ({d: ("parcial", "o ramal Silvestre não opera, e os outros dois rodam das 9h às 17h")
+                         for d in ("sab", "dom", "fer")},
+                        ["Não opera aos sábados, domingos e feriados", "sábados, domingos e feriados das 9h às 17h"], ""),
+ "lapa-arcos": ({}, ["Praça pública, aberta 24 horas"], ""),
+ "maracana": ({"fer": ("duvida", SEM_FERIADO)}, ["Não há fechamento fixo semanal"],
+              "em dia de jogo o tour encurta, e pode nem abrir"),
+}
+
+# Tres endereços que nao tem ficha no guia, mas que o aviso "O calendario
+# do Centro" cita. Entram como lista a parte, com a prova no aviso.
+FORA = [
+ ("Forte de Copacabana", {"seg": "fecha"}, "<b>Segunda-feira:</b> fecham o Forte de Copacabana"),
+ ("Parque das Ruínas, em Santa Teresa", {"seg": "fecha"}, "e o Parque das Ruínas, em Santa Teresa"),
+ ("Museu da Chácara do Céu", {"ter": "fecha", "dom": "fecha", "fer": "fecha"},
+  "<b>Terça, domingo e feriado:</b> fecha o Museu da Chácara do Céu"),
+]
+
+ROTULO = {"abre": "Abre", "fecha": "Fecha", "parcial": "Em parte", "duvida": "?"}
+
+
+def junta(itens):
+    itens = list(itens)
+    if len(itens) <= 1:
+        return "".join(itens)
+    return ", ".join(itens[:-1]) + " e " + itens[-1]
+
+
+def que_fecha(guia):
+    from g2 import G2
+    from g3 import G3
+    from g4 import G4
+    grupos = [G1, G2, G3, G4]
+    pontos = [p for g in grupos for p in g["pontos"]]
+    if set(CALENDARIO) != {p["id"] for p in pontos}:
+        sys.exit("PARADO: CALENDARIO e as fichas nao tem os mesmos pontos: %s"
+                 % sorted(set(CALENDARIO) ^ {p["id"] for p in pontos}))
+    for p in pontos:
+        regras, provas, _ = CALENDARIO[p["id"]]
+        texto = limpa(p["campos"]["Dias em que não funciona"])
+        for pr in provas:
+            if pr not in texto:
+                sys.exit("PARADO: a ficha de %s nao diz mais '%s'" % (p["id"], pr))
+    calendario = acha(r'(?s)O calendário do Centro.*?</details>', guia, "o aviso do calendario do Centro").group(0)
+    for nome, _, prova in FORA:
+        if prova not in calendario:
+            sys.exit("PARADO: o aviso do Centro nao cita mais '%s'" % nome)
+    data_ap = acha(r"Preços verificados em (\d+ de \w+ de \d{4})", guia, "a data do guia").group(1)
+
+    def estado(pid, d):
+        return CALENDARIO[pid][0].get(d, ("abre", ""))
+
+    url = "%s/destinos/rio-de-janeiro/o-que-fecha-cada-dia/" % SITE
+    centro = [p for p in G3["pontos"]]
+    dias_centro = [d for d in DIAS[:7] if all(estado(p["id"], d)[0] == "abre" for p in centro)]
+    nomes_centro = [p["nome"] for p in centro]
+
+    # ------------------------------------------------- por dia
+    def do_dia(d):
+        fecha = [(p, estado(p["id"], d)[1]) for p in pontos if estado(p["id"], d)[0] == "fecha"]
+        parte = [(p, estado(p["id"], d)[1]) for p in pontos if estado(p["id"], d)[0] == "parcial"]
+        duvida = [(p, estado(p["id"], d)[1]) for p in pontos if estado(p["id"], d)[0] == "duvida"]
+        fora = [n for n, regra, _ in FORA if regra.get(d) == "fecha"]
+        return fecha, parte, duvida, fora
+
+    def item(p, nota):
+        return '<a href="../#%s">%s</a>%s' % (p["id"], H.escape(p["nome"]), (" — " + nota) if nota else "")
+
+    secoes = []
+    for d in DIAS:
+        fecha, parte, duvida, fora = do_dia(d)
+        abre = len(pontos) - len(fecha) - len(parte) - len(duvida)
+        li = []
+        if fecha:
+            li.append("<li><b>Fecha:</b> %s.</li>" % "; ".join(item(p, n) for p, n in fecha))
+        if parte:
+            li.append("<li><b>Abre em parte:</b> %s.</li>" % "; ".join(item(p, n) for p, n in parte))
+        if duvida:
+            li.append('<li><b>Sem confirmação:</b> %s. <span class="flag">Não encontrado</span></li>'
+                      % "; ".join(item(p, n) for p, n in duvida))
+        if fora:
+            li.append("<li><b>Fora dos 16 pontos do guia, também fecha:</b> %s.</li>" % junta(fora))
+        if not li:
+            li.append("<li>Nenhum dos 16 pontos fecha.</li>")
+        li.append("<li><b>Abrem normalmente:</b> %d dos %d pontos.</li>" % (abre, len(pontos)))
+        if d in dias_centro:
+            li.append("<li>É um dos dias com <b>os quatro endereços do Centro abertos</b>.</li>")
+        secoes.append('<section class="bloco" id="%s">\n  <div class="bloco-head"><h2>%s</h2></div>\n'
+                      '  <ul class="plain">%s</ul>\n</section>\n\n' % (d, NOME_DIA[d], "".join(li)))
+
+    # ------------------------------------------------- a tabela
+    def celula(pid, d):
+        e, nota = estado(pid, d)
+        rot = ROTULO[e]
+        tit = (' title="%s"' % H.escape(nota, quote=True)) if nota else ""
+        if e == "abre":
+            return '<td class="n" style="color:var(--nevoa)">%s</td>' % rot
+        if e == "fecha":
+            return '<td class="n"%s><b style="color:var(--ambar)">%s</b></td>' % (tit, rot)
+        return '<td class="n"%s><b>%s</b></td>' % (tit, rot)
+    cab = "".join("<th>%s</th>" % CURTO[d] for d in DIAS)
+    linhas = "".join('<tr><td><a href="../#%s">%s</a></td>%s</tr>'
+                     % (p["id"], H.escape(p["nome"]), "".join(celula(p["id"], d) for d in DIAS)) for p in pontos)
+    ressalvas = [(p, CALENDARIO[p["id"]][2]) for p in pontos if CALENDARIO[p["id"]][2]]
+
+    # ------------------------------------------------- textos derivados
+    f_seg, f_qua, f_sab = do_dia("seg"), do_dia("qua"), do_dia("sab")
+    nomes = lambda lst: [p["nome"] for p, _ in lst]
+    titulo = "O que abre e o que fecha no Rio de Janeiro em cada dia da semana"
+    descricao = ("Segunda, quarta e fim de semana fecham pontos diferentes no Rio. Quarta fecham %s; "
+                 "sábado e domingo, o %s. %s são os únicos dias com o Centro todo aberto. "
+                 "16 pontos, horários apurados em %s."
+                 % (junta(nomes(f_qua[0])), junta(nomes(f_sab[0])),
+                    junta(NOME_DIA[d].split("-")[0] for d in dias_centro).capitalize(), data_ap))
+    img_id = "gabinete"
+    cred = json.loads(le(os.path.join(AQUI, "creditos.json")))[img_id]
+    credito = ('Foto: %s · <a href="%s" target="_blank" rel="noopener license">%s</a> · '
+               '<a href="%s" target="_blank" rel="noopener">Wikimedia Commons</a> · recortada'
+               % (H.escape(cred["autor"]), cred["licurl"], cred["lic"], cred["pagina"]))
+    base_img = SOBE + "assets/img/rio-de-janeiro/" + img_id
+    capa = ('<figure class="hero-capa">\n  <img fetchpriority="high" srcset="%(b)s-400.webp 400w, %(b)s-640.webp 640w, '
+            '%(b)s-820.webp 820w, %(b)s.webp 1200w" sizes="(min-width:1080px) 820px, 100vw" src="%(b)s.webp" '
+            'alt="%(alt)s" width="1200" height="675" decoding="async">\n  <figcaption><p class="foto-cred">%(c)s'
+            '</p></figcaption>\n</figure>' % dict(b=base_img, alt=H.escape(cred["alt"], quote=True), c=credito))
+    img = "%s/assets/img/rio-de-janeiro/%s.webp" % (SITE, img_id)
+
+    quem_seg = "; ".join("%s, %s" % (p["nome"], n) if n else p["nome"] for p, n in f_seg[0]) or "nenhum fecha"
+    perguntas = [
+        ("O que fecha na segunda-feira no Rio de Janeiro?",
+         "Dos 16 pontos do guia: %s. Fora deles, o guia avisa que fecham o %s. %s"
+         % (quem_seg, junta(f_seg[3]),
+            ("O MAR não está confirmado: %s." % estado("mar", "seg")[1]) if estado("mar", "seg")[0] == "duvida" else "")),
+        ("Quais museus do Rio fecham na quarta-feira?",
+         "%s fecham na quarta. No Jardim Botânico, %s."
+         % (junta(nomes(f_qua[0])), estado("jardim-botanico", "qua")[1])),
+        ("O que fecha no fim de semana no Rio?",
+         "O %s fecha sábado, domingo e feriado. No domingo também não há visita guiada no Theatro Municipal. "
+         "Na Vista Chinesa, %s; no bonde de Santa Teresa, %s."
+         % (junta(nomes(f_sab[0])), estado("vista-chinesa", "sab")[1], estado("santa-teresa-bonde", "sab")[1])),
+        ("Qual é o melhor dia para visitar o Centro do Rio?",
+         "%s: são os únicos dias em que %s estão abertos ao mesmo tempo."
+         % (junta(NOME_DIA[d].lower() for d in dias_centro).capitalize(), junta(nomes_centro))),
+        ("O que abre no feriado no Rio?",
+         "Fecham no feriado: %s. Sem confirmação na ficha: %s. Os demais pontos abrem."
+         % (junta(nomes(do_dia("fer")[0]) + do_dia("fer")[3]), junta(nomes(do_dia("fer")[2])))),
+    ]
+
+    migalhas = {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Início", "item": SITE + "/"},
+        {"@type": "ListItem", "position": 2, "name": "Destinos", "item": SITE + "/destinos/"},
+        {"@type": "ListItem", "position": 3, "name": "Rio de Janeiro", "item": SITE + "/destinos/rio-de-janeiro/"},
+        {"@type": "ListItem", "position": 4, "name": "O que fecha cada dia", "item": url}]}
+    cabeca, pe = esqueleto(titulo, descricao, url, img, cred["alt"])
+    cabeca = cabeca.replace("</head>", ld(faq_ld(perguntas)) + ld(migalhas) + "</head>", 1)
+
+    idx = " · ".join('<a href="#%s">%s</a>' % (d, CURTO[d]) for d in DIAS)
+    partes = [
+        '<main id="conteudo">\n<div class="faixa"><div class="wrap wrap-estreito">\n',
+        '<p class="migalhas"><a href="%s">Início</a> › <a href="../../">Destinos</a> › '
+        '<a href="../">Rio de Janeiro</a> › O que fecha cada dia</p>\n' % SOBE,
+        '<div class="hero">\n  <span class="eyebrow">Calendário da semana</span>\n'
+        '  <h1>O que abre e o que fecha no Rio em cada dia da semana</h1>\n'
+        '  <p>Os %d pontos do guia, dia por dia: o que fecha, o que abre só em parte e o que não foi possível '
+        'confirmar. Montar o roteiro no dia errado custa um dia inteiro, e no Rio cada endereço fecha num dia '
+        'diferente. Horários apurados em %s.</p>\n'
+        '<p class="assinatura">Apurado por <a href="%ssobre/#quem-faz">Allan Vitor</a> · '
+        '<a href="https://www.instagram.com/viagemnalupabr/" target="_blank" rel="noopener">@viagemnalupabr'
+        '<span class="so-leitor"> (abre em outra aba)</span></a></p>\n</div>\n' % (len(pontos), data_ap, SOBE),
+        capa, '\n<div style="height:clamp(1.4rem,3vw,2.2rem)"></div>\n</div></div>\n\n',
+        '<div class="wrap wrap-estreito">\n',
+        '<section class="bloco"><div class="aviso a"><span class="t">O resumo</span>'
+        '<p><b>%s são os únicos dias com os quatro endereços do Centro abertos</b>: %s.</p>'
+        '<p><b>Quarta-feira</b> fecham %s. <b>Sábado, domingo e feriado</b> fecha o %s. '
+        '<b>De domingo a terça</b> não há visita guiada no Theatro Municipal.</p></div></section>\n\n'
+        % (junta(NOME_DIA[d].lower() for d in dias_centro).capitalize(), junta(nomes_centro), junta(nomes(f_qua[0])),
+           junta(nomes(f_sab[0]))),
+        '<section class="bloco">\n  <div class="bloco-head"><span class="eyebrow">Ir para o dia</span>'
+        '<h2>Dia por dia</h2></div>\n  <p class="idx-gratis">%s</p>\n</section>\n\n' % idx,
+    ] + secoes + [
+        '<section class="bloco" id="tabela">\n  <div class="bloco-head"><span class="eyebrow">Os 16 pontos</span>'
+        '<h2>A semana inteira numa tabela</h2></div>\n'
+        '  <div class="tabwrap"><table><thead><tr><th>Ponto</th>%s</tr></thead><tbody>%s</tbody></table></div>\n'
+        '  <p style="color:var(--nevoa);font-size:.9rem">“Em parte”: abre com restrição de horário, de acesso ou de '
+        'ramal, explicada na seção do dia. “?”: a ficha não confirma, e a lacuna fica escrita. Cada nome leva à '
+        'ficha do ponto no guia, com a fonte e o horário completo.</p>\n</section>\n\n' % (cab, linhas),
+        '<section class="bloco" id="em-qualquer-dia">\n  <div class="bloco-head"><span class="eyebrow">Fora do '
+        'calendário</span><h2>O que fecha em qualquer dia</h2></div>\n  <ul class="plain">%s</ul>\n</section>\n\n'
+        % "".join("<li>%s — %s.</li>" % (item(p, ""), n) for p, n in ressalvas),
+        faq_html(perguntas, "o que fecha no Rio"), "\n",
+        '<section class="bloco">\n  <div class="bloco-head"><span class="eyebrow">Continue</span>'
+        '<h2>As outras páginas do Rio de Janeiro</h2></div>\n'
+        '  <div class="paginas"> <a class="pg" href="../">Guia dos 16 pontos turísticos</a> '
+        '<a class="pg" href="../roteiro-6-dias/">Roteiro de 6 dias</a> '
+        '<a class="pg" href="../cristo-redentor/">Cristo Redentor: ingresso e como subir</a> '
+        '<a class="pg" href="../quanto-custa/">Quanto custa 6 dias no Rio</a> '
+        '<a class="pg" href="../quanto-custa/#calculadora">Calculadora da viagem</a> </div>\n</section>\n\n',
+        '</div>\n',
+    ]
+    return os.path.join(RAIZ, "destinos", "rio-de-janeiro", "o-que-fecha-cada-dia", "index.html"), \
+        cabeca + "".join(partes) + pe
+
+
 # ------------------------------------------------- os links no guia
+def liga_no_roteiro(h):
+    if 'href="../o-que-fecha-cada-dia/"' in h:
+        return h
+    mais = ('<p><a href="../o-que-fecha-cada-dia/">A semana inteira, ponto por ponto: o que abre e o que fecha '
+            'em cada dia</a>.</p>')
+    return re.sub(r"(As regras que sustentam esta ordem</span>.*?<p><b>O dia 4 só existe.*?</p>)",
+                  lambda m: m.group(1) + mais, h, count=1, flags=re.S)
+
+
+def liga_fecha_no_guia(h):
+    if 'href="o-que-fecha-cada-dia/"' in h:
+        return h
+    pg = '<a class="pg" href="o-que-fecha-cada-dia/">O que abre e fecha em cada dia</a>'
+    h = re.sub(r'(<h2>As outras páginas do Rio de Janeiro</h2></div>\s*<div class="paginas">)',
+               r"\1 " + pg, h, count=1)
+    mais = '<p><a href="o-que-fecha-cada-dia/">A tabela da semana inteira, com os 16 pontos</a>.</p>'
+    return re.sub(r"(O calendário do Centro.*?)(</details>)", lambda m: m.group(1) + mais + m.group(2),
+                  h, count=1, flags=re.S)
+
+
 def liga_no_guia(h):
     pg = '<a class="pg" href="cristo-redentor/">Cristo Redentor: ingresso e como subir</a>'
     if 'href="cristo-redentor/"' not in h:
@@ -364,18 +631,23 @@ def liga_no_guia(h):
 
 def main(aplica):
     guia = le(GUIA)
-    alvo, pagina = cristo(guia)
-    mudou = (not os.path.isfile(alvo)) or le(alvo) != pagina
-    rel = os.path.relpath(alvo, RAIZ).replace(os.sep, "/")
-    print("   %s  %d bytes  %s" % (rel, len(pagina.encode("utf-8")),
-                                   "escrito" if (aplica and mudou) else ("ja igual" if not mudou else "SO MOSTRANDO")))
-    if aplica and mudou:
-        escreve(alvo, pagina)
-    g2 = liga_no_guia(guia)
-    if g2 != guia:
-        print("   guia: +2 links para cristo-redentor/  %s" % ("escrito" if aplica else "SO MOSTRANDO"))
-        if aplica:
-            escreve(GUIA, g2)
+    for gera in (cristo, que_fecha):
+        alvo, pagina = gera(guia)
+        mudou = (not os.path.isfile(alvo)) or le(alvo) != pagina
+        rel = os.path.relpath(alvo, RAIZ).replace(os.sep, "/")
+        print("   %s  %d bytes  %s" % (rel, len(pagina.encode("utf-8")),
+                                       "escrito" if (aplica and mudou) else ("ja igual" if not mudou else "SO MOSTRANDO")))
+        if aplica and mudou:
+            escreve(alvo, pagina)
+    roteiro = os.path.join(RAIZ, "destinos", "rio-de-janeiro", "roteiro-6-dias", "index.html")
+    for arq, liga in ((GUIA, lambda h: liga_fecha_no_guia(liga_no_guia(h))), (roteiro, liga_no_roteiro)):
+        h = le(arq)
+        h2 = liga(h)
+        if h2 != h:
+            print("   %s: links novos  %s" % (os.path.relpath(arq, RAIZ).replace(os.sep, "/"),
+                                              "escrito" if aplica else "SO MOSTRANDO"))
+            if aplica:
+                escreve(arq, h2)
     if not aplica:
         print("Nada foi alterado. Rode com --aplica.")
 
