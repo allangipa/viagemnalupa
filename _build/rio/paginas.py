@@ -3,7 +3,7 @@
 
 Plano em _build/docs/cluster-rio-2026-10-23.md (fase A). Esta e a 1:
 /destinos/rio-de-janeiro/cristo-redentor/; a 2, o-que-fecha-cada-dia/; a 3,
-pao-de-acucar/; a 4, descontos/.
+pao-de-acucar/; a 4, descontos/; a 5, quando-ir/.
 
 DE ONDE SAI TUDO: da ficha do Cristo em g1.py, importada - a mesma que o
 guia publica -, e do aviso da obra, lido do guia publicado (ele mora no
@@ -154,6 +154,7 @@ IRMAS = [
     ("pao-de-acucar/", "Pão de Açúcar: ingresso e desconto"),
     ("o-que-fecha-cada-dia/", "O que abre e fecha em cada dia"),
     ("descontos/", "Onde morador e brasileiro pagam menos"),
+    ("quando-ir/", "Quando ir, mês a mês"),
     ("quanto-custa/", "Quanto custa 6 dias no Rio"),
     ("roteiro-6-dias/", "Roteiro de 6 dias"),
     ("quanto-custa/#calculadora", "Calculadora da viagem"),
@@ -769,6 +770,215 @@ def liga_descontos_no_guia(h):
                   lambda m: m.group(1) + mais + m.group(2), h, count=1, flags=re.S)
 
 
+# --------------------------------------------------------------- Quando ir
+def confere_sazonal():
+    """A serie do sazonal.py contra o texto extraido do PDF da FOHB."""
+    import sazonal
+    txt = le(os.path.join(AQUI, "fontes", "fohb-panorama-20-rio.txt"))
+    trecho = acha(r"ACUMULADO 2025\s*(.*?)0%\s*\n10%", txt, "a serie mensal no texto da FOHB").group(1)
+    nums = re.findall(r"\d+%?", trecho)
+    diarias = [int(n) for n in nums if not n.endswith("%")][:12]
+    ocup = [int(n[:-1]) for n in nums if n.endswith("%")][:12]
+    if diarias != [m[1] for m in sazonal.MESES] or ocup != [m[2] for m in sazonal.MESES]:
+        sys.exit("PARADO: sazonal.py nao bate com o texto da FOHB (%s / %s)" % (diarias, ocup))
+    media = acha(r"\n(\d+) (\d+) (\d+)\d{3} \d{3} \d{3}\n", txt, "a media anual na pagina 30").group(3)
+    if int(media) != sazonal.MEDIA_ANO:
+        sys.exit("PARADO: a media anual (%s) nao bate com sazonal.py" % media)
+    return sazonal
+
+
+def faixa_de_meses(nomes, todos):
+    """['maio','junho','julho'] -> 'de maio a julho' quando contiguos."""
+    idx = [todos.index(n) for n in nomes]
+    if len(idx) > 2 and idx == list(range(idx[0], idx[-1] + 1)):
+        return "de %s a %s" % (nomes[0], nomes[-1])
+    return junta(nomes)
+
+
+def quando_ir(guia):
+    sz = confere_sazonal()
+    from g2 import G2
+    from g4 import G4
+    custos = le(os.path.join(RAIZ, "destinos", "rio-de-janeiro", "quanto-custa", "index.html"))
+    carn_mes, carn_pico = acha(r"Carnaval de 2026 a diária média do mês foi a R\$ ([\d.]+)</b>, e a <b>noite de "
+                               r"pico a R\$ ([\d.]+)", custos, "o Carnaval na ficha de custos").groups()
+    rev_ocup = acha(r"ocupação hoteleira medida foi de ([\d,]+%)", custos, "o Reveillon na ficha de custos").group(1)
+    cristo_f = limpa(ponto("cristo-redentor")["campos"]["Menor visitação e temperatura"])
+    ferias = acha(r"(julho é mês de férias escolares brasileiras, então o movimento sobe)", cristo_f,
+                  "as ferias de julho na ficha do Cristo").group(1)
+    from g3 import G3
+    theatro = [p for p in G3["pontos"] if p["id"] == "theatro-municipal"][0]
+    acha(r"(Theatro costuma reforçar a programação)", limpa(theatro["campos"]["Menor visitação e temperatura"]),
+         "a programacao de julho do Theatro")
+    acha(r"(março e abril, impulsionados\s+pelo Carnaval e por grandes shows)",
+         le(os.path.join(AQUI, "fontes", "fohb-panorama-20-rio.txt")), "o motivo do pico no relatorio")
+    bonde = [p for p in G4["pontos"] if p["id"] == "santa-teresa-bonde"][0]
+    acha(r"(julho é alta temporada para o bonde)", limpa(bonde["campos"]["Menor visitação e temperatura"]),
+         "o recorde de julho do bonde")
+
+    M = sz.MESES
+    nomes = [m[0] for m in M]
+    barato = min(M, key=lambda m: m[1])
+    caro = max(M, key=lambda m: m[1])
+    seco = min(M, key=lambda m: m[5])
+    chuvoso = max(M, key=lambda m: m[5])
+    frio = min(M, key=lambda m: m[3])
+    LIMITE = 70
+    janela = [m for m in M if m[1] < sz.MEDIA_ANO and m[5] < LIMITE]
+    abaixo = [m[0] for m in M if m[1] < sz.MEDIA_ANO]
+    vazio = min(M, key=lambda m: m[2])
+    julho = M[nomes.index("julho")]
+    junho = M[nomes.index("junho")]
+    mais_cheios = sum(1 for m in M if m[2] > julho[2])
+    url = "%s/destinos/rio-de-janeiro/quando-ir/" % SITE
+
+    titulo = "Quando ir ao Rio de Janeiro: diária, chuva e temperatura mês a mês"
+    descricao = ("A diária média do Rio vai de R$ %d em %s a R$ %d em %s, e a chuva de %d mm em %s a %d mm em %s. "
+                 "Os 12 meses lado a lado, com Carnaval e Réveillon à parte. Dados FOHB 2025 e Climatempo."
+                 % (barato[1], barato[0], caro[1], caro[0], seco[5], seco[0], chuvoso[5], chuvoso[0]))
+    capa, img, alt = capa_de("copacabana")
+
+    def linha(m):
+        def neg(v, alvo):
+            return "<b>%s</b>" % v if alvo else v
+        return ('<tr><td>%s</td><td class="n">%s</td><td class="n">%d%%</td><td class="n">%d° / %d°</td>'
+                '<td class="n">%s</td></tr>'
+                % (m[0].capitalize(), neg("R$ %d" % m[1], m in (barato, caro)), m[2], m[3], m[4],
+                   neg("%d mm" % m[5], m in (seco, chuvoso))))
+    tabela = "".join(linha(m) for m in M)
+
+    janela_txt = faixa_de_meses([m[0] for m in janela], nomes)
+    perguntas = [
+        ("Qual é o mês mais barato para ir ao Rio de Janeiro?",
+         "Pela diária de hotel, %s: R$ %d em média em 2025, contra R$ %d de média do ano e R$ %d em %s, o mais "
+         "caro. Ficam abaixo da média do ano %s." % (barato[0], barato[1], sz.MEDIA_ANO, caro[1], caro[0],
+                                                    faixa_de_meses(abaixo, nomes) if len(abaixo) > 2 else junta(abaixo))),
+        ("Qual é o mês com menos chuva no Rio?",
+         "%s, com %d mm na média de 30 anos. O mais chuvoso é %s, com %d mm." % (seco[0].capitalize(), seco[5],
+                                                                            chuvoso[0], chuvoso[5])),
+        ("Qual é a melhor época para ir ao Rio de Janeiro?",
+         "Se o critério é pagar menos e pegar menos chuva, %s: são os meses com diária abaixo da média do ano "
+         "(R$ %d) e menos de %d mm de chuva. A ressalva é julho, mês de férias escolares, em que as atrações "
+         "enchem mais." % (janela_txt, sz.MEDIA_ANO, LIMITE)),
+        ("Vale a pena ir ao Rio em julho?",
+         "Pelo preço e pelo clima, sim: diária média de R$ %d, %d mm de chuva e %d° a %d°. Mas é mês de férias "
+         "escolares: a ocupação dos hotéis passa de %d%% em junho para %d%% em julho, e atrações como o bonde de "
+         "Santa Teresa têm em julho a sua alta temporada." % (julho[1], julho[5], julho[3], julho[4],
+                                                              junho[2], julho[2])),
+        ("Quanto custa a diária no Carnaval do Rio?",
+         "No Carnaval de 2026 a diária média do mês foi a R$ %s, e a noite de pico a R$ %s, contra R$ %d de média "
+         "do ano. No Réveillon a ocupação medida foi de %s, e ninguém publica a diária só da noite da virada."
+         % (carn_mes, carn_pico, sz.MEDIA_ANO, rev_ocup)),
+    ]
+
+    migalhas = {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Início", "item": SITE + "/"},
+        {"@type": "ListItem", "position": 2, "name": "Destinos", "item": SITE + "/destinos/"},
+        {"@type": "ListItem", "position": 3, "name": "Rio de Janeiro", "item": SITE + "/destinos/rio-de-janeiro/"},
+        {"@type": "ListItem", "position": 4, "name": "Quando ir", "item": url}]}
+    cabeca, pe = esqueleto(titulo, descricao, url, img, alt)
+    cabeca = cabeca.replace("</head>", ld(faq_ld(perguntas)) + ld(migalhas) + "</head>", 1)
+
+    painel = (
+        '<div class="painel">'
+        '<div class="pcel"><span class="rotp">Diária mais baixa</span><span class="big c">R$ %d</span>'
+        '<span class="sub">%s, média dos hotéis em 2025.</span></div>'
+        '<div class="pcel"><span class="rotp">Diária mais alta</span><span class="big">R$ %d</span>'
+        '<span class="sub">%s. A média do ano foi R$ %d.</span></div>'
+        '<div class="pcel"><span class="rotp">Mês mais seco</span><span class="big c">%d mm</span>'
+        '<span class="sub">%s, média de 30 anos.</span></div>'
+        '<div class="pcel"><span class="rotp">Mês mais chuvoso</span><span class="big">%d mm</span>'
+        '<span class="sub">%s.</span></div>'
+        '</div>' % (barato[1], barato[0].capitalize(), caro[1], caro[0].capitalize(), sz.MEDIA_ANO,
+                    seco[5], seco[0].capitalize(), chuvoso[5], chuvoso[0].capitalize()))
+
+    clima_risco = "".join(
+        '<li><a href="../#%s"><b>%s</b></a>: %s.</li>' % (pid, H.escape(ponto(pid)["nome"]), CALENDARIO[pid][2])
+        for pid in ("cristo-redentor", "pao-de-acucar"))
+
+    partes = [
+        '<main id="conteudo">\n<div class="faixa"><div class="wrap wrap-estreito">\n',
+        '<p class="migalhas"><a href="%s">Início</a> › <a href="../../">Destinos</a> › '
+        '<a href="../">Rio de Janeiro</a> › Quando ir</p>\n' % SOBE,
+        '<div class="hero">\n  <span class="eyebrow">O ano inteiro</span>\n'
+        '  <h1>Quando ir ao Rio de Janeiro, mês a mês</h1>\n'
+        '  <p>A diária média dos hotéis, a ocupação, a temperatura e a chuva dos 12 meses, lado a lado. No Rio a '
+        'hospedagem é a maior parte da conta, então o mês pesa mais que qualquer outra escolha, e duas semanas do '
+        'ano fogem de qualquer média.</p>\n'
+        '<p class="assinatura">Apurado por <a href="%ssobre/#quem-faz">Allan Vitor</a> · '
+        '<a href="https://www.instagram.com/viagemnalupabr/" target="_blank" rel="noopener">@viagemnalupabr'
+        '<span class="so-leitor"> (abre em outra aba)</span></a></p>\n</div>\n' % SOBE,
+        capa, "\n", painel, '\n<div style="height:clamp(1.4rem,3vw,2.2rem)"></div>\n</div></div>\n\n',
+        '<div class="wrap wrap-estreito">\n',
+        '<section class="bloco"><div class="aviso a"><span class="t">Carnaval e Réveillon não cabem na média do mês'
+        '</span><p><b>No Carnaval de 2026 a diária média do mês foi a R$ %s</b>, e a <b>noite de pico a R$ %s</b>, '
+        'contra R$ %d de média do ano. No Réveillon a ocupação medida foi de <b>%s</b>, e ninguém publica a '
+        'diária só da noite da virada. Os números estão na <a href="../quanto-custa/#quando-ir">ficha de '
+        'custos</a>.</p></div></section>\n\n' % (carn_mes, carn_pico, sz.MEDIA_ANO, rev_ocup),
+        '<section class="bloco" id="mes-a-mes">\n  <div class="bloco-head"><span class="eyebrow">Os 12 meses'
+        '</span><h2>Diária, ocupação, temperatura e chuva</h2></div>\n'
+        '  <div class="tabwrap"><table><thead><tr><th>Mês</th><th>Diária média</th><th>Ocupação</th>'
+        '<th>Mín. / máx.</th><th>Chuva</th></tr></thead><tbody>%s</tbody></table></div>\n'
+        '  <p style="color:var(--nevoa);font-size:.9rem"><b>Diária e ocupação:</b> %s. É a média dos hotéis '
+        'filiados na cidade inteira, sem recorte por bairro, e é 2025, não previsão para o ano que vem. '
+        '<b>Temperatura e chuva:</b> %s.</p>\n</section>\n\n' % (tabela, H.escape(sz.FONTE_DIARIA), H.escape(sz.FONTE_CLIMA)),
+        '<section class="bloco" id="melhor-epoca">\n  <div class="bloco-head"><span class="eyebrow">A conta do '
+        'calendário</span><h2>Quando o preço e a chuva caem juntos</h2></div>\n'
+        '  <p style="color:var(--nevoa)"><b>%s</b> são os meses com diária abaixo da média do ano (R$ %d) e '
+        'menos de %d mm de chuva. O mais barato é %s, a R$ %d; o mais seco, %s, com %d mm; o mais frio, %s, com '
+        'mínima de %d°.</p>\n'
+        '  <p style="color:var(--nevoa)">O mês mais vazio nos hotéis foi %s, com %d%% de ocupação. '
+        'O mais caro foi %s, a R$ %d; o relatório atribui o pico de março e abril ao Carnaval e a grandes '
+        'shows.</p>\n</section>\n\n'
+        % (janela_txt.capitalize(), sz.MEDIA_ANO, LIMITE, barato[0], barato[1], seco[0], seco[5], frio[0], frio[3],
+           vazio[0], vazio[2], caro[0], caro[1]),
+        '<section class="bloco" id="julho">\n  <div class="bloco-head"><span class="eyebrow">A exceção</span>'
+        '<h2>Julho: barato e seco, mas com férias escolares</h2></div>\n'
+        '  <p style="color:var(--nevoa)">Diária de R$ %d, %d mm de chuva e %d° a %d°. Nos hotéis, a ocupação '
+        'passa de %d%% em junho para %d%% em julho, ainda menor que a de %d dos outros meses. Quem sente mais as '
+        'férias são as atrações: o bonde de Santa Teresa tem em julho a sua alta temporada, e o Theatro Municipal '
+        'reforça a programação. Para o mesmo clima com menos gente, %s teve a menor ocupação do ano, %d%%.</p>\n'
+        '</section>\n\n'
+        % (julho[1], julho[5], julho[3], julho[4], junho[2], julho[2], mais_cheios, vazio[0], vazio[2]),
+        '<section class="bloco" id="clima-fecha">\n  <div class="bloco-head"><span class="eyebrow">Chuva não é só '
+        'desconforto</span><h2>Os dois pontos que o tempo fecha</h2></div>\n'
+        '  <ul class="plain">%s</ul>\n  <p style="color:var(--nevoa)">Nos meses de mais chuva, deixe uma folga no '
+        'roteiro para esses dois. <a href="../o-que-fecha-cada-dia/">O que fecha em cada dia da semana</a> está '
+        'em outra página.</p>\n</section>\n\n' % clima_risco,
+        '<section class="bloco" id="lacunas">\n  <div class="bloco-head"><span class="eyebrow">O que não '
+        'sabemos</span><h2>As lacunas</h2></div>\n  <ul class="plain">'
+        '<li>Nenhum dos 16 pontos do guia publica visitação mês a mês. O movimento por mês sai da ocupação dos '
+        'hotéis, não das bilheterias.</li>'
+        '<li>A diária não tem recorte por bairro: Copacabana, Ipanema, Botafogo e Centro não aparecem '
+        'separados.</li>'
+        '<li>A diária da noite do Réveillon não é publicada por ninguém.</li></ul>\n</section>\n\n',
+        faq_html(perguntas, "quando ir ao Rio"), "\n",
+        continua("quando-ir"),
+        reserva(guia, "quando-ir", "Com a data escolhida, compare a diária da sua semana com a média do mês "
+                                   "nesta tabela. "),
+        '</div>\n',
+    ]
+    return os.path.join(RAIZ, "destinos", "rio-de-janeiro", "quando-ir", "index.html"), \
+        cabeca + "".join(partes) + pe
+
+
+def liga_quando_no_guia(h):
+    if 'href="quando-ir/"' in h:
+        return h
+    pg = '<a class="pg" href="quando-ir/">Quando ir, mês a mês</a>'
+    return re.sub(r'(<h2>As outras páginas do Rio de Janeiro</h2></div>\s*<div class="paginas">)',
+                  r"\1 " + pg, h, count=1)
+
+
+def liga_quando_na_ficha(h):
+    if 'href="../quando-ir/"' in h:
+        return h
+    mais = ('<p style="color:var(--nevoa)"><a href="../quando-ir/">Os 12 meses lado a lado, com diária, ocupação, '
+            'temperatura e chuva</a>.</p>')
+    return re.sub(r'(<section class="bloco" id="quando-ir">.*?)(\n</section>)', lambda m: m.group(1) + mais + m.group(2),
+                  h, count=1, flags=re.S)
+
+
 # --------------------------------------------- O que fecha cada dia
 #
 # A ficha guarda horario em prosa, e prosa nao vira tabela sozinha. Aqui
@@ -1044,7 +1254,7 @@ def liga_no_guia(h):
 
 def main(aplica):
     guia = le(GUIA)
-    for gera in (cristo, pao, que_fecha, descontos):
+    for gera in (cristo, pao, que_fecha, descontos, quando_ir):
         alvo, pagina = gera(guia)
         mudou = (not os.path.isfile(alvo)) or le(alvo) != pagina
         rel = os.path.relpath(alvo, RAIZ).replace(os.sep, "/")
@@ -1053,7 +1263,9 @@ def main(aplica):
         if aplica and mudou:
             escreve(alvo, pagina)
     roteiro = os.path.join(RAIZ, "destinos", "rio-de-janeiro", "roteiro-6-dias", "index.html")
-    for arq, liga in ((GUIA, lambda h: liga_descontos_no_guia(liga_pao_no_guia(liga_fecha_no_guia(liga_no_guia(h))))), (roteiro, liga_no_roteiro)):
+    for arq, liga in ((GUIA, lambda h: liga_quando_no_guia(liga_descontos_no_guia(liga_pao_no_guia(liga_fecha_no_guia(liga_no_guia(h)))))), (roteiro, liga_no_roteiro),
+                      (os.path.join(RAIZ, "destinos", "rio-de-janeiro", "quanto-custa", "index.html"),
+                       liga_quando_na_ficha)):
         h = le(arq)
         h2 = liga(h)
         if h2 != h:
