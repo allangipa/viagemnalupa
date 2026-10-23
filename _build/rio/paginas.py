@@ -2,7 +2,8 @@
 """Paginas derivadas do Rio: uma pergunta por pagina, em volta do guia.
 
 Plano em _build/docs/cluster-rio-2026-10-23.md (fase A). Esta e a 1:
-/destinos/rio-de-janeiro/cristo-redentor/.
+/destinos/rio-de-janeiro/cristo-redentor/; a 2, o-que-fecha-cada-dia/; a 3,
+pao-de-acucar/.
 
 DE ONDE SAI TUDO: da ficha do Cristo em g1.py, importada - a mesma que o
 guia publica -, e do aviso da obra, lido do guia publicado (ele mora no
@@ -146,6 +147,45 @@ def faq_ld(perguntas):
          "acceptedAnswer": {"@type": "Answer", "text": limpa(a)}} for q, a in perguntas]}
 
 
+# As paginas do cluster, na ordem em que aparecem no "Continue" de cada uma.
+IRMAS = [
+    ("", "Guia dos 16 pontos turísticos"),
+    ("cristo-redentor/", "Cristo Redentor: ingresso e como subir"),
+    ("pao-de-acucar/", "Pão de Açúcar: ingresso e desconto"),
+    ("o-que-fecha-cada-dia/", "O que abre e fecha em cada dia"),
+    ("quanto-custa/", "Quanto custa 6 dias no Rio"),
+    ("roteiro-6-dias/", "Roteiro de 6 dias"),
+    ("quanto-custa/#calculadora", "Calculadora da viagem"),
+]
+
+
+def continua(atual):
+    links = " ".join('<a class="pg" href="../%s">%s</a>' % (h, t) for h, t in IRMAS if h != atual + "/")
+    return ('<section class="bloco">\n  <div class="bloco-head"><span class="eyebrow">Continue</span>'
+            '<h2>As outras páginas do Rio de Janeiro</h2></div>\n  <div class="paginas"> %s </div>\n</section>\n\n'
+            % links)
+
+
+SETA = ('<svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17 L17 7 '
+        'M9 7h8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'
+        '</path></svg>')
+
+
+def reserva(guia, sid, frase):
+    """O bloco da Booking, com o link do guia e sid proprio. frase: o que dizer do ingresso."""
+    booking = acha(r'<a class="parceiro" href="(https://www\.jdoqocy\.com/[^"]*)"', guia, "a Booking do guia").group(1)
+    booking = re.sub(r"sid=[^&\"]*", "sid=vnl-rio-de-janeiro-" + sid, booking)
+    return ('<section class="bloco">\n<div class="reserva">\n<div class="reserva-topo">\n<h3>Hospedagem</h3>\n'
+            '<p>%sA hospedagem e a passagem não entram nos preços desta página; <a href="../quanto-custa/">a ficha '
+            'de custos</a> traz as duas, com a data da apuração.</p>\n'
+            '<p style="color:var(--nevoa);font-size:.9rem"><b>Este link dá comissão ao site.</b> Você paga o mesmo '
+            'preço que pagaria indo direto, e a comissão <b>não altera nenhum número do site</b>. '
+            '<a href="%ssobre/">Como isso funciona</a>.</p>\n</div>\n'
+            '<div class="reserva-lista"><a class="parceiro" href="%s" target="_blank" rel="noopener sponsored">'
+            '<span class="p-nome">Booking.com%s</span><span class="p-nota">hotéis no Rio de Janeiro</span></a></div>\n'
+            '</div>\n</section>\n' % (frase, SOBE, H.escape(booking, quote=True), SETA))
+
+
 # ------------------------------------------------------------------ Cristo
 def cristo(guia):
     p = ponto("cristo-redentor")
@@ -256,11 +296,6 @@ def cristo(guia):
                     '<script src="%sassets/js/streetview.js" defer></script>\n<!-- consentimento:inicio -->' % SOBE, 1)
 
     # ------------------------------------------------- o corpo
-    booking = acha(r'<a class="parceiro" href="(https://www\.jdoqocy\.com/[^"]*)"', guia, "a Booking do guia").group(1)
-    booking = re.sub(r"sid=[^&\"]*", "sid=vnl-rio-de-janeiro-cristo", booking)
-    seta = ('<svg width="13" height="13" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17 L17 7 '
-            'M9 7h8v8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'
-            '</path></svg>')
     import sv  # noqa: E402  (o mesmo botao do guia)
 
     linhas_tab = "".join(
@@ -328,26 +363,205 @@ def cristo(guia):
               % (c["Fatos históricos"], c["Visitantes por ano"], c["Curiosidades"], c["Pontos de referência"])),
         campo("Perto dali", "perto", "Para emendar", '<p style="color:var(--nevoa)">%s</p>' % c["Pontos turísticos próximos"]),
         faq_html(perguntas), "\n",
-        '<section class="bloco">\n  <div class="bloco-head"><span class="eyebrow">Continue</span>'
-        '<h2>As outras páginas do Rio de Janeiro</h2></div>\n'
-        '  <div class="paginas"> <a class="pg" href="../">Guia dos 16 pontos turísticos</a> '
-        '<a class="pg" href="../quanto-custa/">Quanto custa 6 dias no Rio</a> '
-        '<a class="pg" href="../roteiro-6-dias/">Roteiro de 6 dias</a> '
-        '<a class="pg" href="../o-que-fecha-cada-dia/">O que abre e fecha em cada dia</a> '
-        '<a class="pg" href="../quanto-custa/#calculadora">Calculadora da viagem</a> </div>\n</section>\n\n',
-        '<section class="bloco">\n<div class="reserva">\n<div class="reserva-topo">\n<h3>Hospedagem</h3>\n'
-        '<p>O ingresso compre só no canal oficial: com a obra, ele esgota dias antes. A hospedagem e a passagem '
-        'não entram nos preços desta página; <a href="../quanto-custa/">a ficha de custos</a> traz as duas, '
-        'com a data da apuração.</p>\n'
-        '<p style="color:var(--nevoa);font-size:.9rem"><b>Este link dá comissão ao site.</b> Você paga o mesmo '
-        'preço que pagaria indo direto, e a comissão <b>não altera nenhum número do site</b>. '
-        '<a href="%ssobre/">Como isso funciona</a>.</p>\n</div>\n'
-        '<div class="reserva-lista"><a class="parceiro" href="%s" target="_blank" rel="noopener sponsored">'
-        '<span class="p-nome">Booking.com%s</span><span class="p-nota">hotéis no Rio de Janeiro</span></a></div>\n'
-        '</div>\n</section>\n' % (SOBE, H.escape(booking, quote=True), seta),
+        continua(pid),
+        reserva(guia, "cristo", "O ingresso compre só no canal oficial: com a obra, ele esgota dias antes. "),
         '</div>\n',
     ]
     return os.path.join(RAIZ, "destinos", "rio-de-janeiro", pid, "index.html"), cabeca + "".join(partes) + pe
+
+
+# ------------------------------------------------------------ Pão de Açúcar
+def pao(guia):
+    p = ponto("pao-de-acucar")
+    c = p["campos"]
+    pid = p["id"]
+    url = "%s/destinos/rio-de-janeiro/%s/" % (SITE, pid)
+
+    # --- o preco: "<b>Categoria: R$ N</b>, quem tem direito." em sequencia
+    linhas = c["Valor da entrada"].split("<br>")
+    fonte = linhas[0]
+    data_ap = acha(r"consultado em (\d+/\w+/\d{4})", fonte, "a data da apuracao").group(1)
+    cats = []
+    for m in re.finditer(r"<b>(.*?)</b>([^<]*)", linhas[1]):
+        b, depois = m.group(1).strip().rstrip("."), m.group(2)
+        if "R$" not in b:
+            continue
+        if ":" in b:
+            nome, preco = [x.strip() for x in b.split(":", 1)]
+        else:
+            nome, preco = re.match(r"(.*?)\s*(R\$.*)", b).groups()
+        quem = re.sub(r"^\s*(\(≈[^)]*\))?[.,]?\s*", "", depois).split(".")[0].strip()
+        if not quem and "," in nome:
+            nome, quem = [x.strip() for x in nome.split(",", 1)]
+        valores = [reais(v) for v in re.findall(r"R\$ ([\d.]+)", preco)]
+        cats.append(dict(nome=nome, preco=preco, quem=quem, valor=valores[0]))
+    if len(cats) < 5:
+        sys.exit("PARADO: so achei %d categorias de preco na ficha" % len(cats))
+    gratis = acha(r"(Bebês[^<]*?não pagam\.)", linhas[1], "a gratuidade de bebe").group(1)
+
+    def cat(chave):
+        for k in cats:
+            if chave in k["nome"].lower():
+                return k
+        sys.exit("PARADO: nao achei a categoria '%s'" % chave)
+    inteira, brasil, rj = cat("inteira"), cat("brasileiros"), cat("estado do rj")
+    economia = round(100 * (inteira["valor"] - rj["valor"]) / inteira["valor"])
+    if "%d%%" % economia not in c["Valor da entrada"]:
+        sys.exit("PARADO: a economia calculada (%d%%) nao bate com a ficha" % economia)
+    dinamico = next((x for x in linhas if "a partir de" in x), None)
+    if not dinamico:
+        sys.exit("PARADO: a ressalva do preco dinamico sumiu da ficha")
+
+    dias = [x.strip() for x in c["Dias em que não funciona"].split("<br>") if x.strip()]
+    horario = dias[0]
+    doc = next((x for x in dias if "documento" in x), None)
+    if not doc:
+        sys.exit("PARADO: o aviso do documento sumiu da ficha")
+    abre, fecha = acha(r"das (\d+h\d*) às (\d+h)", limpa(horario), "o horario").groups()
+    ultimo = acha(r"último embarque às (\d+h\d*)", limpa(horario), "o ultimo embarque").group(1)
+    if "feriados incluídos" not in horario:
+        sys.exit("PARADO: a ficha nao diz mais que abre nos feriados")
+    onibus = acha(r"ônibus de integração <b>(\d+) \(([^)]*)\)</b>", c["Metrô mais próximo"], "o onibus 513").groups()
+    metro = limpa(acha(r"<b>(.*?)</b>", c["Metrô mais próximo"], "a estacao de metro").group(1)).rstrip(".")
+    metro = re.sub(r"^(.*?) — (.*)$", r"\1 (\2)", metro)
+
+    # ------------------------------------------------- textos derivados
+    titulo = "Pão de Açúcar: ingresso, preço e desconto de morador em 2026"
+    descricao = ("Bondinho do Pão de Açúcar: inteira R$ %d, R$ %d para brasileiro e R$ %d para quem mora no Estado "
+                 "do Rio, %d%% a menos. O documento que pedem, horário e como chegar de metrô. Apurado em %s."
+                 % (inteira["valor"], brasil["valor"], rj["valor"], economia, data_ap))
+    img_id = p["img"]
+    cred = json.loads(le(os.path.join(AQUI, "creditos.json")))[img_id]
+    if cred["fonte"] == "storyblocks":
+        credito = "Storyblocks · licença royalty-free · SBI-%s" % cred["sbi"]
+    else:
+        credito = ('Foto: %s · <a href="%s" target="_blank" rel="noopener license">%s</a> · '
+                   '<a href="%s" target="_blank" rel="noopener">Wikimedia Commons</a> · recortada'
+                   % (H.escape(cred["autor"]), cred["licurl"], cred["lic"], cred["pagina"]))
+    base_img = SOBE + "assets/img/rio-de-janeiro/" + img_id
+    capa = ('<figure class="hero-capa">\n  <img fetchpriority="high" srcset="%(b)s-400.webp 400w, %(b)s-640.webp 640w, '
+            '%(b)s-820.webp 820w, %(b)s.webp 1200w" sizes="(min-width:1080px) 820px, 100vw" src="%(b)s.webp" '
+            'alt="%(alt)s" width="1200" height="675" decoding="async">\n  <figcaption><p class="foto-cred">%(c)s'
+            '</p></figcaption>\n</figure>' % dict(b=base_img, alt=H.escape(cred["alt"], quote=True), c=credito))
+    img = "%s/assets/img/rio-de-janeiro/%s.webp" % (SITE, img_id)
+
+    perguntas = [
+        ("Quanto custa o bondinho do Pão de Açúcar?",
+         "A inteira custa R$ %d. %s" % (inteira["valor"], "; ".join(
+             "%s: %s" % (k["nome"], k["preco"]) for k in cats if k is not inteira) + ". " + gratis)),
+        ("Morador do Rio paga menos no Pão de Açúcar?",
+         "Sim. Quem mora no Estado do Rio paga %s, %s. É %d%% a menos que a inteira de R$ %d."
+         % (rj["preco"], rj["quem"], economia, inteira["valor"])),
+        ("Brasileiro de outro estado tem desconto?",
+         "Tem: a tarifa %s custa %s, %s." % (brasil["nome"], brasil["preco"], brasil["quem"])),
+        ("Que documento preciso levar ao Pão de Açúcar?", limpa(doc)),
+        ("Qual é o horário do bondinho do Pão de Açúcar?",
+         "Das %s às %s, todos os dias e nos feriados, com último embarque às %s. Vento forte e raio suspendem a "
+         "operação dos cabos." % (abre, fecha, ultimo)),
+        ("Como chegar ao Pão de Açúcar de metrô?",
+         "Desça na estação %s e pegue o ônibus de integração %s (%s) até o ponto UNIRIO, a poucos metros da entrada. "
+         "Não há estacionamento no parque." % (metro, onibus[0], onibus[1])),
+    ]
+
+    ofertas = [{"@type": "Offer", "name": k["nome"], "price": "%d.00" % k["valor"], "priceCurrency": "BRL",
+                "description": limpa("%s %s" % (k["preco"], k["quem"])), "url": url + "#precos"} for k in cats]
+    atracao = {"@context": "https://schema.org", "@type": "TouristAttraction",
+               "name": "Parque Bondinho Pão de Açúcar", "alternateName": p["nome"], "url": url, "image": img,
+               "description": limpa(c["Fatos históricos"])[:300],
+               "isAccessibleForFree": False, "publicAccess": True,
+               "address": {"@type": "PostalAddress", "streetAddress": "Av. Pasteur, 520",
+                           "addressLocality": "Rio de Janeiro", "addressRegion": "RJ", "addressCountry": "BR"},
+               "containedInPlace": {"@type": "TouristDestination", "name": "Rio de Janeiro",
+                                    "url": SITE + "/destinos/rio-de-janeiro/"},
+               "offers": ofertas}
+    if "Av. Pasteur, 520" not in c["Endereço"]:
+        sys.exit("PARADO: o endereco da ficha mudou")
+    g = coords(pid)
+    if g:
+        atracao["geo"] = {"@type": "GeoCoordinates", "latitude": g[0], "longitude": g[1]}
+    migalhas = {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+        {"@type": "ListItem", "position": 1, "name": "Início", "item": SITE + "/"},
+        {"@type": "ListItem", "position": 2, "name": "Destinos", "item": SITE + "/destinos/"},
+        {"@type": "ListItem", "position": 3, "name": "Rio de Janeiro", "item": SITE + "/destinos/rio-de-janeiro/"},
+        {"@type": "ListItem", "position": 4, "name": "Pão de Açúcar", "item": url}]}
+
+    cabeca, pe = esqueleto(titulo, descricao, url, img, cred["alt"])
+    cabeca = cabeca.replace("</head>", ld(atracao) + ld(faq_ld(perguntas)) + ld(migalhas) + "</head>", 1)
+    pe = pe.replace("<!-- consentimento:inicio -->",
+                    '<script src="%sassets/js/streetview.js" defer></script>\n<!-- consentimento:inicio -->' % SOBE, 1)
+
+    import sv  # noqa: E402  (o mesmo botao do guia)
+
+    def campo(rot, sec_id, eyebrow, corpo, extra=""):
+        return ('<section class="bloco" id="%s">\n  <div class="bloco-head"><span class="eyebrow">%s</span>'
+                '<h2>%s</h2></div>\n  %s%s\n</section>\n\n' % (sec_id, eyebrow, rot, corpo, extra))
+
+    def ps(t):
+        return "".join('<p style="color:var(--nevoa)">%s</p>' % x.strip() for x in t.split("<br>") if x.strip())
+
+    linhas_tab = "".join('<tr><td><b>%s</b></td><td class="n">%s</td><td>%s</td></tr>'
+                         % (H.escape(k["nome"]), k["preco"], k["quem"][:1].upper() + k["quem"][1:] if k["quem"] else "—")
+                         for k in cats)
+    painel = (
+        '<div class="painel">'
+        '<div class="pcel"><span class="rotp">Inteira</span><span class="big">R$ %d</span>'
+        '<span class="sub">O preço de quem não comprova nada.</span></div>'
+        '<div class="pcel"><span class="rotp">Brasileiro de qualquer estado</span><span class="big c">R$ %d</span>'
+        '<span class="sub">Nascido ou residente no Brasil.</span></div>'
+        '<div class="pcel"><span class="rotp">Morador do Estado do Rio</span><span class="big c">R$ %d</span>'
+        '<span class="sub">%d%% a menos que a inteira. Leve o comprovante.</span></div>'
+        '<div class="pcel"><span class="rotp">Último embarque</span><span class="big">%s</span>'
+        '<span class="sub">Abre às %s, todos os dias.</span></div>'
+        '</div>' % (inteira["valor"], brasil["valor"], rj["valor"], economia, ultimo, abre))
+
+    partes = [
+        '<main id="conteudo">\n<div class="faixa"><div class="wrap wrap-estreito">\n',
+        '<p class="migalhas"><a href="%s">Início</a> › <a href="../../">Destinos</a> › '
+        '<a href="../">Rio de Janeiro</a> › Pão de Açúcar</p>\n' % SOBE,
+        '<div class="hero">\n  <span class="eyebrow">Ingresso e desconto</span>\n'
+        '  <h1>Pão de Açúcar: ingresso, preço e o desconto de quem mora no Rio</h1>\n'
+        '  <p>O bondinho tem %d preços, e quem mora no Estado do Rio paga %d%% menos que a inteira. Quem paga '
+        'cada um, o documento que pedem na catraca, o horário e como chegar de metrô. Preços consultados em %s.</p>\n'
+        '<p class="assinatura">Apurado por <a href="%ssobre/#quem-faz">Allan Vitor</a> · '
+        '<a href="https://www.instagram.com/viagemnalupabr/" target="_blank" rel="noopener">@viagemnalupabr'
+        '<span class="so-leitor"> (abre em outra aba)</span></a></p>\n</div>\n' % (len(cats), economia, data_ap, SOBE),
+        capa, "\n", painel, '\n<div style="height:clamp(1.4rem,3vw,2.2rem)"></div>\n</div></div>\n\n',
+        '<div class="wrap wrap-estreito">\n',
+        '<section class="bloco"><div class="aviso b"><span class="t">Leve o documento da sua categoria</span>'
+        '<p>%s</p></div></section>\n\n' % doc,
+        campo("Quanto custa cada ingresso", "precos", "Preço por pessoa",
+              '<div class="tabwrap"><table><thead><tr><th>Categoria</th><th>Preço</th>'
+              '<th>Quem tem direito</th></tr></thead><tbody>%s</tbody></table></div>\n'
+              '  <p style="color:var(--nevoa)">%s %s</p>\n  <p style="color:var(--nevoa)">%s</p>'
+              % (linhas_tab, gratis, fonte, dinamico)),
+        campo("Horário e quando o bondinho para", "horarios", "Antes de sair", ps(c["Dias em que não funciona"])),
+        campo("Como chegar", "como-chegar", "Endereço, metrô e ônibus",
+              '<p style="color:var(--nevoa)">%s</p>\n  <p style="color:var(--nevoa)">%s</p>'
+              % (c["Endereço"], c["Metrô mais próximo"]), sv.botao(pid)),
+        campo("Quando ir", "quando-ir", "Clima e movimento", ps(c["Menor visitação e temperatura"])),
+        campo("O bondinho", "bondinho", "História e números",
+              '<p style="color:var(--nevoa)">%s</p>\n  <p style="color:var(--nevoa)">%s</p>\n  %s\n'
+              '  <p style="color:var(--nevoa)">%s</p>'
+              % (c["Fatos históricos"], c["Visitantes por ano"], c["Curiosidades"], c["Pontos de referência"])),
+        campo("Perto dali", "perto", "Para emendar", '<p style="color:var(--nevoa)">%s</p>' % c["Pontos turísticos próximos"]),
+        faq_html(perguntas, "o Pão de Açúcar"), "\n",
+        continua(pid),
+        reserva(guia, "pao", "O ingresso compre no canal oficial e leve o documento da sua categoria. "),
+        '</div>\n',
+    ]
+    return os.path.join(RAIZ, "destinos", "rio-de-janeiro", pid, "index.html"), cabeca + "".join(partes) + pe
+
+
+def liga_pao_no_guia(h):
+    if 'href="pao-de-acucar/"' in h:
+        return h
+    pg = '<a class="pg" href="pao-de-acucar/">Pão de Açúcar: ingresso e desconto</a>'
+    h = re.sub(r'(<h2>As outras páginas do Rio de Janeiro</h2></div>\s*<div class="paginas">)',
+               r"\1 " + pg, h, count=1)
+    mais = ('\n  <p class="foto-nota"><a href="pao-de-acucar/">Página completa do Pão de Açúcar: '
+            'os preços lado a lado, o documento que pedem e as perguntas frequentes</a></p>')
+    return re.sub(r'(<article class="ponto" id="pao-de-acucar">.*?)(\n</article>)',
+                  lambda m: m.group(1) + mais + m.group(2), h, count=1, flags=re.S)
 
 
 # --------------------------------------------- O que fecha cada dia
@@ -583,13 +797,7 @@ def que_fecha(guia):
         'calendário</span><h2>O que fecha em qualquer dia</h2></div>\n  <ul class="plain">%s</ul>\n</section>\n\n'
         % "".join("<li>%s — %s.</li>" % (item(p, ""), n) for p, n in ressalvas),
         faq_html(perguntas, "o que fecha no Rio"), "\n",
-        '<section class="bloco">\n  <div class="bloco-head"><span class="eyebrow">Continue</span>'
-        '<h2>As outras páginas do Rio de Janeiro</h2></div>\n'
-        '  <div class="paginas"> <a class="pg" href="../">Guia dos 16 pontos turísticos</a> '
-        '<a class="pg" href="../roteiro-6-dias/">Roteiro de 6 dias</a> '
-        '<a class="pg" href="../cristo-redentor/">Cristo Redentor: ingresso e como subir</a> '
-        '<a class="pg" href="../quanto-custa/">Quanto custa 6 dias no Rio</a> '
-        '<a class="pg" href="../quanto-custa/#calculadora">Calculadora da viagem</a> </div>\n</section>\n\n',
+        continua("o-que-fecha-cada-dia"),
         '</div>\n',
     ]
     return os.path.join(RAIZ, "destinos", "rio-de-janeiro", "o-que-fecha-cada-dia", "index.html"), \
@@ -631,7 +839,7 @@ def liga_no_guia(h):
 
 def main(aplica):
     guia = le(GUIA)
-    for gera in (cristo, que_fecha):
+    for gera in (cristo, pao, que_fecha):
         alvo, pagina = gera(guia)
         mudou = (not os.path.isfile(alvo)) or le(alvo) != pagina
         rel = os.path.relpath(alvo, RAIZ).replace(os.sep, "/")
@@ -640,7 +848,7 @@ def main(aplica):
         if aplica and mudou:
             escreve(alvo, pagina)
     roteiro = os.path.join(RAIZ, "destinos", "rio-de-janeiro", "roteiro-6-dias", "index.html")
-    for arq, liga in ((GUIA, lambda h: liga_fecha_no_guia(liga_no_guia(h))), (roteiro, liga_no_roteiro)):
+    for arq, liga in ((GUIA, lambda h: liga_pao_no_guia(liga_fecha_no_guia(liga_no_guia(h)))), (roteiro, liga_no_roteiro)):
         h = le(arq)
         h2 = liga(h)
         if h2 != h:
