@@ -12,6 +12,10 @@ def fmt(c, v):
 def plural(n, um, muitos):
     return "%d %s" % (n, um if n == 1 else muitos)
 
+def noites_cobradas(noites, taxa):
+    """Taxa sem teto (Porto) cobra todas as noites - a mesma regra do ficha.js."""
+    return noites if taxa.get("teto") is None else min(noites, taxa["teto"])
+
 def bloco(c, primeira):
     d, noites = c["dias"], c["dias"] - 1
     hosp = {h["k"]: h for h in c["hosp"]}
@@ -48,10 +52,11 @@ def bloco(c, primeira):
                          fmt(c, t["v"] * d), t["obs"]))
     if c["taxa"]:
         tx = c["taxa"]
-        nc = min(noites, tx["teto"])
-        linhas.append('<tr data-tipo="taxa" data-noite="%.4f" data-teto="%d" data-rot="%s">'
+        nc = noites_cobradas(noites, tx)
+        teto = (' data-teto="%d"' % tx["teto"]) if tx.get("teto") is not None else ""
+        linhas.append('<tr data-tipo="taxa" data-noite="%.4f"%s data-rot="%s">'
                       '<td>%s</td><td class="n">%s</td><td>%s</td></tr>'
-                      % (tx["noite"], tx["teto"], tx["rot"],
+                      % (tx["noite"], teto, tx["rot"],
                          tx["rot"].replace("{n}", plural(nc, "noite", "noites")),
                          fmt(c, tx["noite"] * nc), tx["obs"]))
     for nome, v, obs in c["fixos"]:
@@ -66,7 +71,7 @@ def bloco(c, primeira):
     ing = sum(v for _, v, _ in c["ingressos"])
     outros = (t["v"] * d if t else 0) + sum(v for _, v, _ in c["fixos"])
     if c["taxa"]:
-        outros += c["taxa"]["noite"] * min(noites, c["taxa"]["teto"])
+        outros += c["taxa"]["noite"] * noites_cobradas(noites, c["taxa"])
     total = ing + outros + (hp["ref"] * noites if hp else 0)
 
     return """<div class="ficha-calc" data-cidade="%(slug)s"%(hid)s>

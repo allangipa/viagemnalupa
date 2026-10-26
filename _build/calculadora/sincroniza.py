@@ -36,6 +36,11 @@ Uso
 ---
     python _build/calculadora/sincroniza.py
     python _build/calculadora/sincroniza.py --aplica
+    python _build/calculadora/sincroniza.py --refaz porto [--aplica]
+
+--refaz remonta o bloco e o botao de uma cidade que JA esta na calculadora,
+a partir da ficha de custos de hoje. Sem ele, so cidade nova entra: um
+bloco montado errado ficava errado para sempre.
 """
 import io
 import json
@@ -47,7 +52,7 @@ AQUI = os.path.dirname(os.path.abspath(__file__))
 RAIZ = os.path.dirname(os.path.dirname(AQUI))
 sys.path.insert(0, AQUI)
 
-from montar import bloco, fmt                                   # noqa: E402
+from montar import bloco, fmt, noites_cobradas                  # noqa: E402
 
 if hasattr(sys.stdout, "buffer"):
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
@@ -388,8 +393,13 @@ def do_destino(slug):
             noite = re.search(r'data-noite="([^"]+)"', attrs)
             teto = re.search(r'data-teto="([^"]+)"', attrs)
             rot = re.search(r'data-rot="([^"]*)"', attrs)
-            if noite and teto:
-                taxa = dict(noite=float(noite.group(1)), teto=int(teto.group(1)),
+            # O teto e opcional, como no ficha.js: sem ele, cobra todas as
+            # noites. Ate 26/10/2026 exigia os dois, e o Porto (que nao
+            # tem teto) entrou na calculadora SEM a taxa: o botao dizia
+            # € 113,25 e a ficha, € 125,25.
+            if noite:
+                taxa = dict(noite=float(noite.group(1)),
+                            teto=int(teto.group(1)) if teto else None,
                             rot=rot.group(1) if rot else "Taxa, {n}", obs=obs)
 
     # quantos pontos a ficha do destino tem
@@ -420,7 +430,7 @@ def total_de(c):
     v += (t["v"] * c["dias"] if t else 0)
     v += sum(x for _, x, _ in c["fixos"])
     if c["taxa"]:
-        v += c["taxa"]["noite"] * min(noites, c["taxa"]["teto"])
+        v += c["taxa"]["noite"] * noites_cobradas(noites, c["taxa"])
     return v + (hp["ref"] * noites if hp else 0)
 
 
@@ -492,5 +502,40 @@ def main(aplica):
         print("Nada foi alterado. Rode com --aplica para escrever.")
 
 
+def refaz(slug, aplica):
+    """Troca o bloco e o rotulo do botao de `slug` pelos da ficha de hoje."""
+    c = do_destino(slug)
+    if not c:
+        raise SystemExit("%s nao tem ficha de custos com calc-cfg" % slug)
+    p = os.path.join(RAIZ, "calculadora", "index.html")
+    h = le(p)
+    ini = re.search(r'<div class="ficha-calc" data-cidade="%s"( hidden)?>' % re.escape(slug), h)
+    if not ini:
+        raise SystemExit("%s nao esta na calculadora; rode sem --refaz para acrescentar" % slug)
+    fim = h.find("\n</div>\n", ini.start()) + len("\n</div>")
+    novo = bloco(c, False)
+    if not ini.group(1):
+        novo = novo.replace(' hidden>', '>', 1)
+    tot = total_de(c)
+    rot = "por pessoa" if c["hosp"] else "<b>sem hospedagem</b>"
+    h2 = h[:ini.start()] + novo + h[fim:]
+    h2, n = re.subn(r'(<button type="button" class="cc-big" data-troca="%s"><b>[^<]*</b><span>)[^<]*'
+                    % re.escape(slug), lambda m: m.group(1) + "%s " % fmt(c, tot), h2, count=1)
+    antigo = re.search(r'data-troca="%s"><b>[^<]*</b><span>([^<]*)' % re.escape(slug), h)
+    print("   %s: botao %s-> %s %s  (%d linhas no bloco)"
+          % (slug, antigo.group(1) if antigo else "?", fmt(c, tot), rot,
+             novo.count("<tr data-tipo=")))
+    if h2 == h:
+        print("   ja igual")
+    elif aplica:
+        escreve(p, h2)
+        print("   escrito")
+    else:
+        print("   Nada foi alterado. Rode com --aplica.")
+
+
 if __name__ == "__main__":
-    main("--aplica" in sys.argv)
+    if "--refaz" in sys.argv:
+        refaz(sys.argv[sys.argv.index("--refaz") + 1], "--aplica" in sys.argv)
+    else:
+        main("--aplica" in sys.argv)
