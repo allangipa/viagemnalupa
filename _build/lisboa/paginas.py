@@ -529,11 +529,8 @@ def liga_no_guia(h):
                       ("o-que-fecha-cada-dia/", "O que abre e fecha em cada dia"),
                       ("descontos/", "Descontos e dias grátis")):
         h = C.liga_na_lista(h, "de Lisboa", href, rot)
-    if 'href="palacio-da-pena/">Página completa' not in h:
-        mais = ('\n  <p class="foto-nota"><a href="palacio-da-pena/">Página completa do Palácio da Pena: os cinco '
-                'bilhetes, a hora marcada e as perguntas frequentes</a></p>')
-        h = re.sub(r'(<article class="ponto" id="palacio-da-pena">.*?)(\n</article>)',
-                   lambda m: m.group(1) + mais + m.group(2), h, count=1, flags=re.S)
+    h = C.liga_no_ponto(h, "palacio-da-pena", "palacio-da-pena/", "Página completa do Palácio da Pena: os cinco "
+                        "bilhetes, a hora marcada e as perguntas frequentes")
     if 'href="o-que-fecha-cada-dia/">A tabela' not in h:
         mais = '<p><a href="o-que-fecha-cada-dia/">A tabela da semana inteira, com os 16 pontos e os feriados</a>.</p>'
         h = re.sub(r"(O calendário de fechos: cada dia da semana mata um pedaço do roteiro.*?)(</(?:details|div)>)",

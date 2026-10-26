@@ -192,6 +192,22 @@ def liga_na_lista(h, cidade_frase, href, rotulo):
                   lambda m: m.group(1) + ' <a class="pg" href="%s">%s</a>' % (href, rotulo), h, count=1)
 
 
+def liga_no_ponto(h, pid, href, texto):
+    """Poe 'Pagina completa de ...' dentro da ficha do ponto no guia, antes dos campos.
+
+    NAO usar <p class="foto-nota">: o layout/sem_moldura.py apaga todas, e foi
+    assim que os primeiros links (Cristo, Pao de Acucar, Pena) sumiram na
+    rodada seguinte da cadeia. E nao depois dos campos: o layout/reorganiza.py
+    so reorganiza o bloco de campos quando ele fecha o <article>.
+    """
+    if 'class="ponto-mais"><a href="%s"' % href in h:
+        return h
+    mais = ('<p class="ponto-mais" style="margin:.4rem 0 .8rem;font-size:.92rem"><a href="%s">%s</a></p>\n  '
+            % (href, texto))
+    return re.sub(r'(<article class="ponto" id="%s">.*?)(<div class="campos">)' % re.escape(pid),
+                  lambda m: m.group(1) + mais + m.group(2), h, count=1, flags=re.S)
+
+
 def aplica_tudo(geradores, ligacoes, guia_path, aplica):
     """Roda os geradores de pagina e as ligacoes nos arquivos ja publicados."""
     guia = le(guia_path)

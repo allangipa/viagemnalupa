@@ -485,15 +485,9 @@ def pao(guia):
 
 
 def liga_pao_no_guia(h):
-    if 'href="pao-de-acucar/"' in h:
-        return h
-    pg = '<a class="pg" href="pao-de-acucar/">Pão de Açúcar: ingresso e desconto</a>'
-    h = re.sub(r'(<h2>As outras páginas do Rio de Janeiro</h2></div>\s*<div class="paginas">)',
-               r"\1 " + pg, h, count=1)
-    mais = ('\n  <p class="foto-nota"><a href="pao-de-acucar/">Página completa do Pão de Açúcar: '
-            'os preços lado a lado, o documento que pedem e as perguntas frequentes</a></p>')
-    return re.sub(r'(<article class="ponto" id="pao-de-acucar">.*?)(\n</article>)',
-                  lambda m: m.group(1) + mais + m.group(2), h, count=1, flags=re.S)
+    h = C.liga_na_lista(h, "do Rio de Janeiro", "pao-de-acucar/", "Pão de Açúcar: ingresso e desconto")
+    return C.liga_no_ponto(h, "pao-de-acucar", "pao-de-acucar/", "Página completa do Pão de Açúcar: os preços "
+                           "lado a lado, o documento que pedem e as perguntas frequentes")
 
 
 # -------------------------------------------------------------- Descontos
@@ -1568,15 +1562,9 @@ def liga_fecha_no_guia(h):
 
 
 def liga_no_guia(h):
-    pg = '<a class="pg" href="cristo-redentor/">Cristo Redentor: ingresso e como subir</a>'
-    if 'href="cristo-redentor/"' not in h:
-        h = re.sub(r'(<h2>As outras páginas do Rio de Janeiro</h2></div>\s*<div class="paginas">)',
-                   r"\1 " + pg, h, count=1)
-        mais = ('\n  <p class="foto-nota"><a href="cristo-redentor/">Página completa do Cristo Redentor: '
-                'as formas de subir lado a lado, a obra e as perguntas frequentes</a></p>')
-        h = re.sub(r'(<article class="ponto" id="cristo-redentor">.*?)(\n</article>)',
-                   lambda m: m.group(1) + mais + m.group(2), h, count=1, flags=re.S)
-    return h
+    h = C.liga_na_lista(h, "do Rio de Janeiro", "cristo-redentor/", "Cristo Redentor: ingresso e como subir")
+    return C.liga_no_ponto(h, "cristo-redentor", "cristo-redentor/", "Página completa do Cristo Redentor: as "
+                           "formas de subir lado a lado, a obra e as perguntas frequentes")
 
 
 def main(aplica):
