@@ -658,6 +658,33 @@ def confere_conta_fechada():
         print("   nenhuma pagina tem o bloco")
 
 
+def confere_fila():
+    """A fila da home ("Os proximos da fila") nao pode anunciar destino ja publicado.
+
+    Entrou em 26/10/2026: o bloco ainda dizia "Proximos destinos: Paris,
+    Granada, Foz do Iguacu, Gramado" um mes depois de tres deles estarem no
+    ar. O nome publicado sai do DESTINOS do schema/gera.py, o mesmo que o
+    /gratis/ usa, e so conta destino com pasta em disco.
+    """
+    print()
+    print("=== fila da home: algum 'proximo' ja esta publicado? ===")
+    h = le(os.path.join(RAIZ, "index.html"))
+    m = re.search(r'(?s)<div class="breve">(.*?)</div>', h)
+    if not m:
+        print("   a home nao tem o bloco da fila")
+        return
+    fila = [re.sub(r"\s+", " ", x).strip() for x in re.findall(r'<span class="bv">([^<]+)</span>', m.group(1))]
+    s = le(os.path.join(RAIZ, "_build", "schema", "gera.py"))
+    dm = re.search(r"(?s)^DESTINOS = \{(.*?)^\}", s, re.M)
+    publicados = {nome.lower(): slug for slug, nome in re.findall(r'"([^"]+)":\s*"([^"]+)"', dm.group(1))
+                  if os.path.isfile(os.path.join(RAIZ, "destinos", slug, "index.html"))}
+    for nome in fila:
+        slug = publicados.get(nome.lower())
+        print("   %-22s %s" % (nome, ("JA PUBLICADO em /destinos/%s/ <<<" % slug) if slug else "na fila"))
+        if slug:
+            anota("index.html: a fila anuncia %s, que ja esta publicado em /destinos/%s/" % (nome, slug))
+
+
 def main():
     real = pontos_reais()
     confere_contadores(real)
@@ -666,6 +693,7 @@ def main():
     confere_cartoes()
     confere_parceiros()
     confere_conta_fechada()
+    confere_fila()
     print()
     if PROBLEMAS:
         print("!!! %d problema(s):" % len(PROBLEMAS))
