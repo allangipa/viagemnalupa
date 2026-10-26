@@ -63,11 +63,12 @@ if hasattr(sys.stdout, "buffer"):
 # O verbete de quem nao tem faixa de hospedagem. Repetido em sete
 # destinos, entao mora numa constante: se a redacao mudar, muda nos
 # sete de uma vez.
-SEM = ("<b>Esta ficha nao tem hospedagem, e isso e deliberado.</b> Nao ha diaria "
-       "media publicada por orgao oficial que sirva a este destino, e usar media de "
+# Texto que vai para a tela: com acento (estava sem ate 26/10/2026).
+SEM = ("<b>Esta ficha não tem hospedagem, e isso é deliberado.</b> Não há diária "
+       "média publicada por órgão oficial que sirva a este destino, e usar média de "
        "agregador seria furar a regra da casa <b>justamente na linha mais cara da "
-       "viagem</b>. O total abaixo e o que da para somar com fonte, nao o que a "
-       "viagem custa - por isso o botao desta cidade diz <b>sem hospedagem</b>. ")
+       "viagem</b>. O total abaixo é o que dá para somar com fonte, não o que a "
+       "viagem custa — por isso o botão desta cidade diz <b>sem hospedagem</b>. ")
 
 PROSA = {
     "montevideu": dict(
@@ -131,8 +132,8 @@ PROSA = {
                "espanhol. Apuradas em 25 de setembro de 2026. "
                "<b>Nenhum valor veio de agregador de viagem.</b>"),
         nota=("As noites saem das suas datas. Hospedagem por quarto, duas pessoas por "
-              "quarto. <b>Sevilha é um dos dois destinos do site com três faixas de "
-              "hospedagem</b> — o outro é Granada —, e é porque o dado permite: o INE espanhol publica ADR "
+              "quarto. <b>Sevilha tem três faixas de hospedagem</b> porque o dado "
+              "permite: o INE espanhol publica ADR "
               "por ponto turístico. E a série revela o que importa — <b>agosto a "
               "€ 87,39 contra abril a € 204,57</b>, 2,3 vezes mais, por causa da "
               "Semana Santa e da Feria. <b>A média de 12 meses é cálculo nosso</b> "
@@ -190,6 +191,20 @@ PROSA = {
               "veículo no Everglades também fica fora do total</b>: é por carro, não "
               "por pessoa, e esta calculadora soma por pessoa."),
     ),
+    "fortaleza": dict(
+        gratis=("Quatro dos sete pontos não cobram entrada: o Centro Dragão do Mar, o "
+                "Mercado Central, a Catedral Metropolitana e a Praia do Futuro."),
+        fonte=("Site oficial do Beach Park, Instituto Dragão do Mar, Arquidiocese de "
+               "Fortaleza e Prefeitura de Jijoca, apurados em 17 de setembro de 2026. "
+               "Hospedagem: FOHB e HotelInvest, Panorama da Hotelaria Brasileira, 20ª "
+               "edição, consultado em 26 de outubro de 2026."),
+        nota=("As noites saem das suas datas. <b>A hospedagem é a média dos hotéis de "
+              "Fortaleza em 2025, da FOHB</b>; troque para maio, o mês mais barato, ou "
+              "janeiro, o mais caro. <b>O Beach Park entra pelo piso oficial</b>, porque "
+              "o preço muda com a data. <b>Não há linha de transporte</b>: não "
+              "levantamos tarifa de ônibus, táxi nem dos traslados para o Beach Park e "
+              "Jericoacoara."),
+    ),
     "salvador": dict(
         gratis=("Cinco das linhas não cobram entrada: o Elevador Lacerda, o Pelourinho "
                 "e o Centro Histórico, a Basílica do Senhor do Bonfim, o Mercado "
@@ -197,11 +212,14 @@ PROSA = {
         fonte=("Prefeitura de Salvador, portal Pelourinho Dia e Noite, secretaria de "
                "Mobilidade e Museu Náutico da Bahia. Apuradas em 29 de setembro de "
                "2026."),
-        nota=(SEM + "<b>E há um desconto que a calculadora não aplica sozinha:</b> três "
-              "dos quatro pontos pagos são equipamentos municipais, e municipais "
-              "<b>não cobram nada às quartas-feiras</b>. Desmarque Casa do Carnaval, "
-              "Casa do Rio Vermelho e os Espaços do Forte e você vê o total de uma "
-              "quarta — sobra só o Farol da Barra, que não é da prefeitura."),
+        nota=("As noites saem das suas datas. <b>A hospedagem é a média dos hotéis de "
+              "Salvador em 2025, da FOHB</b>, a mesma fonte do Rio; troque para junho ou "
+              "março no seletor. <b>E há um desconto que a calculadora não aplica "
+              "sozinha:</b> três dos quatro pontos pagos são equipamentos municipais, e "
+              "municipais <b>não cobram nada às quartas-feiras</b>. Desmarque Casa do "
+              "Carnaval, Casa do Rio Vermelho e os Espaços do Forte e você vê os "
+              "ingressos de uma quarta — sobra só o Farol da Barra, que não é da "
+              "prefeitura."),
     ),
     "madri": dict(
         gratis=("Quatro das linhas não cobram entrada: a nave da Catedral de la "
@@ -332,8 +350,8 @@ PROSA = {
 }
 
 # Destino com ficha de custos que NAO entra, e o motivo, escrito.
+# Fortaleza saiu daqui em 26/10/2026: a ficha ganhou a diaria da FOHB.
 FORA = {
-    "fortaleza": "a ficha de custos não tem nenhuma faixa de hospedagem apurada",
 }
 
 
@@ -519,8 +537,13 @@ def refaz(slug, aplica):
     tot = total_de(c)
     rot = "por pessoa" if c["hosp"] else "<b>sem hospedagem</b>"
     h2 = h[:ini.start()] + novo + h[fim:]
-    h2, n = re.subn(r'(<button type="button" class="cc-big" data-troca="%s"><b>[^<]*</b><span>)[^<]*'
-                    % re.escape(slug), lambda m: m.group(1) + "%s " % fmt(c, tot), h2, count=1)
+    # O botao inteiro, no mesmo formato que main() usa ao acrescentar cidade.
+    # A primeira versao trocava so o texto ate a primeira tag: perdia "por
+    # pessoa · N dias" e deixava um "sem hospedagem" velho atras do valor.
+    botao = ('<button type="button" class="cc-big" data-troca="%s"><b>%s</b><span>%s %s &middot; %d dias'
+             '</span></button>' % (slug, c["nome"], fmt(c, tot), rot, c["dias"]))
+    h2, n = re.subn(r'<button type="button" class="cc-big" data-troca="%s">.*?</button>' % re.escape(slug),
+                    lambda m: botao, h2, count=1, flags=re.S)
     antigo = re.search(r'data-troca="%s"><b>[^<]*</b><span>([^<]*)' % re.escape(slug), h)
     print("   %s: botao %s-> %s %s  (%d linhas no bloco)"
           % (slug, antigo.group(1) if antigo else "?", fmt(c, tot), rot,

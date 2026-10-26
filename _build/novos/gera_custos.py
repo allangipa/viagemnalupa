@@ -4,9 +4,10 @@
 Regra desta pagina, por decisao do Allan: entra o que tem dado concreto;
 o que nao tem fica em branco, declarado, e FORA do total.
 
-Fortaleza nao tem diaria de hospedagem publicada por orgao nenhum, e por
-isso a ficha dela sai sem hospedagem - com o total dizendo, no proprio
-rotulo, que e a viagem sem a hospedagem. O ficha.js foi ensinado a lidar
+Fortaleza saiu sem hospedagem em setembro de 2026, com o total dizendo,
+no proprio rotulo, que era a viagem sem a hospedagem. Em 26/10/2026 a
+diaria entrou: a FOHB publica a serie da cidade no Panorama da Hotelaria
+Brasileira (p. 46-47), a mesma fonte do Rio e de Salvador. O ficha.js foi ensinado a lidar
 com isso; antes ele quebrava e a ficha perdia tambem os ingressos, que
 estao apurados.
 """
@@ -120,25 +121,28 @@ FICHAS = {
     "fortaleza": {
         "nome": "Fortaleza", "dias": 5, "moeda": "R$", "dec": 2,
         "titulo": "Quanto custa 5 dias em Fortaleza em 2026",
-        "descricao": ("O custo de 5 dias em Fortaleza, por pessoa, com a taxa de "
-                      "Jericoacoara que a Justiça suspendeu — e sem a hospedagem, porque "
-                      "não há diária publicada."),
+        "descricao": ("O custo de 5 dias em Fortaleza, por pessoa, com a diária média dos "
+                      "hotéis da cidade e a taxa de Jericoacoara que a Justiça suspendeu."),
         "abertura": ("A conta do que foi apurado, por pessoa, com as tarifas pesquisadas "
-                     "em 17 de setembro de 2026. <b>Sem a hospedagem</b> — e a página "
-                     "explica por quê."),
-        "hosp": [],
-        "hospPadrao": None,
+                     "em 17 de setembro de 2026. <b>Com hospedagem</b> desde 26 de outubro "
+                     "de 2026: a diária média dos hotéis de Fortaleza em 2025, da FOHB."),
+        # FOHB/HotelInvest, Panorama 20a ed., p. 46-47 (texto em
+        # _build/novos/fohb-panorama-20-salvador-fortaleza.txt). A mesma
+        # fonte do Rio e de Salvador. Valores reais de dez/2025.
+        "hosp": [
+            {"k": "media", "rot": "Média da cidade em 2025 (FOHB)", "ref": 342, "mn": 308, "mx": 398},
+            {"k": "baixa", "rot": "Maio, o mês mais barato (FOHB)", "ref": 308, "mn": 308, "mx": 308},
+            {"k": "alta", "rot": "Janeiro, o mês mais caro (FOHB)", "ref": 398, "mn": 398, "mx": 398},
+        ],
+        "hospPadrao": "media",
         "intro": ("A tabela abaixo é a nossa apuração: 5 dias, 1 pessoa. Mude as datas e o "
-                  "número de pessoas, desmarque o que você não vai fazer, e a conta se "
-                  "refaz na hora."),
+                  "número de pessoas, troque a época da hospedagem, desmarque o que você "
+                  "não vai fazer, e a conta se refaz na hora."),
         "nota_calc": (
-            "<b style=\"color:var(--gelo)\">Esta ficha não tem hospedagem, e isso é "
-            "deliberado.</b> Nenhum órgão publica diária média de Fortaleza: o FOHB divulga "
-            "variação percentual por categoria, não valor, e não achamos série da cidade. "
-            "Como a regra desta casa é não estimar, a hospedagem ficou de fora e o total "
-            "diz isso no próprio rótulo. <b>Nas outras fichas do site a hospedagem é de "
-            "75% a 85% do total</b> — some a sua reserva por fora e use este número só "
-            "para o resto. O transporte também não entra: não apuramos tarifa."),
+            "<b style=\"color:var(--gelo)\">A hospedagem é a média dos hotéis de Fortaleza "
+            "em 2025, da FOHB</b>, a mesma fonte das fichas do Rio e de Salvador. Por "
+            "quarto, duas pessoas por quarto; troque para maio, o mês mais barato, ou "
+            "janeiro, o mais caro. O transporte não entra: não apuramos tarifa."),
         "linhas": [
             ("ingresso", 250, "Beach Park, Aqua Park", "A partir de R$ 250",
              "Site oficial de ingressos. <b>Não existe preço fechado:</b> muda conforme a "
@@ -172,12 +176,18 @@ FICHAS = {
              "A praia não cobra. <span class=\"flag\">Sem preço apurado</span> consumação "
              "mínima e aluguel de mesa nas barracas não foram levantados e não entram na "
              "conta."),
-            ("ingresso", 0, "Hospedagem",
-             "<span class=\"flag\">Não apurada</span>",
-             "<b>Nenhum órgão publica diária média de Fortaleza.</b> O FOHB divulga "
-             "variação percentual por categoria — economia, midscale, upscale — e não "
-             "valor absoluto da cidade. <b>Sem número, sem linha:</b> preferimos a conta "
-             "incompleta e honesta à conta completa e inventada."),
+            ("hosp", None, "Hospedagem, 4 noites", "R$ 1.368,00",
+             "Fonte: <b>FOHB e HotelInvest</b>, <i>Panorama da Hotelaria Brasileira</i>, "
+             "20ª edição, páginas 46 e 47: diária média (ADR) dos hotéis de Fortaleza em "
+             "2025, <b>R$ 342 por quarto por noite</b>, em valores corrigidos para dez/2025, "
+             "consultado em 26/out/2026. A mesma fonte das fichas do Rio e de Salvador.<br>"
+             "<b>A série mensal vai de R$ 308 em maio a R$ 398 em janeiro</b>; o relatório "
+             "aponta janeiro e julho como os melhores meses, pelo lazer regional.<br>"
+             "<span class=\"flag\">Ressalva</span> é a média dos hotéis filiados, da cidade "
+             "inteira, sem recorte por bairro. Aluguel por temporada fica abaixo: R$ 232 de "
+             "diária média com 67% de ocupação, segundo a AirDNA citada no mesmo "
+             "relatório. Esta linha corrige a apuração de setembro, que não tinha achado "
+             "série da cidade."),
             ("ingresso", 0, "Transporte urbano e traslados",
              "<span class=\"flag\">Não apurado</span>",
              "Não levantamos tarifa de ônibus, táxi ou transfer para Aquiraz e "
@@ -187,9 +197,8 @@ FICHAS = {
         "rodape_tabela": (
             "<b>Quatro dos sete pontos do guia não cobram entrada:</b> Mercado Central, "
             "Catedral, Praia do Futuro e a maior parte da programação do Dragão do Mar. "
-            "<b>Não estão incluídos</b>: hospedagem, passagem aérea, refeições, compras, "
-            "seguro viagem, transporte urbano e os traslados. É o custo dos ingressos de "
-            "Fortaleza, não o da viagem inteira — e o rótulo do total diz isso."),
+            "<b>Não estão incluídos</b>: passagem aérea, refeições, compras, seguro "
+            "viagem, transporte urbano e os traslados."),
         "parceiros": [
             ("https://www.booking.com/", "Booking.com", "hotéis e pousadas"),
             ("https://www.getyourguide.com/", "GetYourGuide", "ingressos e passeios"),
@@ -199,9 +208,9 @@ FICHAS = {
             "Beach Park; Instituto Dragão do Mar; Arquidiocese de Fortaleza; Prefeitura de "
             "Jijoca de Jericoacoara para a Taxa de Turismo Sustentável; e as decisões da "
             "Justiça Federal e do TRF-5 sobre a suspensão da taxa do ICMBio. "
-            "<b>A maior lacuna desta ficha é a diária de hospedagem</b>, e ela está "
-            "declarada na tabela em vez de preenchida. Quando aparecer fonte que publique "
-            "valor da cidade, a linha entra — com fonte e data, como todas as outras."),
+            "<b>A hospedagem entrou em 26 de outubro de 2026</b>, pela FOHB, que publica a "
+            "série da cidade no Panorama da Hotelaria Brasileira. A maior lacuna que "
+            "sobra é o transporte, declarado na tabela em vez de preenchido."),
     },
 }
 
@@ -444,7 +453,13 @@ def monta(slug):
 
 
 def main(aplica):
+    # --so <slug>: escreve uma ficha so. Regerar a ficha de Cancun para mexer
+    # na de Fortaleza apagaria, em Cancun, o que a cadeia e o coletor de voos
+    # puseram depois (26/10/2026).
+    so = sys.argv[sys.argv.index("--so") + 1] if "--so" in sys.argv else None
     for slug, f in FICHAS.items():
+        if so and slug != so:
+            continue
         pasta = os.path.join(RAIZ, "destinos", slug, "quanto-custa")
         html = monta(slug)
         print("  %-12s %d linhas, hospedagem:%s, %d KB%s"
