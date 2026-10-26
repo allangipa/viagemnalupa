@@ -26,7 +26,9 @@ diz por que.
 
 O QUE FICA FORA DO TOTAL
 ------------------------
-Hospedagem e transporte, por falta de fonte oficial apurada. Catedral,
+Transporte, por falta de fonte oficial apurada. A hospedagem entrou em
+26/10/2026: INE, tabela 46298, serie EOT43548 (Madrid), 12 meses de
+out/2025 a set/2026, guardada em _build/madri/fontes/. Catedral,
 Plaza Mayor, Sol, Mercado de San Miguel, Retiro e Debod entram como zero
 porque sao mesmo gratuitos.
 
@@ -52,32 +54,52 @@ _d = importlib.util.module_from_spec(_s)
 _s.loader.exec_module(_d)
 base.APURACAO = _d.APURACAO
 
+# Serie do INE, tabela 46298, "Madrid. Tarifa media diaria (ADR)",
+# EOT43548, lida pela API (servicios.ine.es/wstempus) em 26/10/2026 e
+# guardada em _build/madri/fontes/ine-46298-madrid-adr.json.
+ADR = {
+    "out/2025": 202.87, "nov/2025": 177.77, "dez/2025": 163.31,
+    "jan/2026": 156.32, "fev/2026": 148.62, "mar/2026": 164.38,
+    "abr/2026": 185.80, "mai/2026": 192.68, "jun/2026": 186.17,
+    "jul/2026": 151.93, "ago/2026": 129.68, "set/2026": 212.96,
+}
+MEDIA = round(sum(ADR.values()) / len(ADR), 2)      # 172.71
+
 FICHAS = {
     "madri": {
         "nome": "Madri", "dias": 5, "moeda": "€", "dec": 2,
         "titulo": "Quanto custa 5 dias em Madri em 2026",
-        "descricao": ("O custo de 5 dias em Madri, por pessoa, com as quatro janelas "
-                      "gratuitas que derrubam a conta de € 101 para € 42."),
+        "descricao": ("O custo de 5 dias em Madri, por pessoa, com a diária média dos "
+                      "hotéis pelo INE e as quatro janelas gratuitas que derrubam os "
+                      "ingressos de € 101 para € 42."),
         "abertura": ("A conta do que foi apurado, por pessoa, com as tarifas pesquisadas "
-                     "em 29 de setembro de 2026. <b>Sem a hospedagem</b> — e a página "
-                     "explica por quê."),
-        "hosp": [],
-        "hospPadrao": None,
+                     "em 29 de setembro de 2026. <b>Com hospedagem</b> desde 26 de outubro "
+                     "de 2026: a diária média dos hotéis de Madri pelo INE espanhol, a "
+                     "mesma fonte de Barcelona, Sevilha e Granada."),
+        "hosp": [
+            {"k": "media", "rot": "Média dos 12 meses (cálculo nosso, INE)", "ref": MEDIA, "mn": MEDIA, "mx": MEDIA},
+            {"k": "baixa", "rot": "Agosto — o mês mais barato do ano (INE)",
+             "ref": ADR["ago/2026"], "mn": ADR["ago/2026"], "mx": ADR["ago/2026"]},
+            {"k": "alta", "rot": "Setembro — o mês mais caro do ano (INE)",
+             "ref": ADR["set/2026"], "mn": ADR["set/2026"], "mx": ADR["set/2026"]},
+        ],
+        "hospPadrao": "media",
         "intro": ("A tabela abaixo é a nossa apuração: 5 dias, 1 pessoa, valores em euro. "
-                  "Mude as datas e o número de pessoas, desmarque o que você não vai "
-                  "fazer, e a conta se refaz na hora."),
+                  "Mude as datas e o número de pessoas, troque a época da hospedagem, "
+                  "desmarque o que você não vai fazer, e a conta se refaz na hora."),
         "nota_calc": (
             "<b style=\"color:var(--gelo)\">Quatro das seis linhas pagas têm horário em "
             "que não custam nada.</b> Desmarque Prado, Reina Sofía, Thyssen e Palácio "
-            "Real e você vê o total de quem se organiza pelas janelas gratuitas: "
+            "Real e você vê os ingressos de quem se organiza pelas janelas gratuitas: "
             "<b>€ 42</b>, contra € 101. Sobram só o Bernabéu e o museu da Almudena, que "
             "não têm janela nenhuma. "
             "<b style=\"color:var(--gelo)\">E € 18 desse desconto é seu por "
             "nacionalidade</b>: a tarifa gratuita do Palácio Real vale para cidadão "
             "latino-americano com documento, e não só para europeu. "
-            "<b>Esta ficha não tem hospedagem</b>, e isso é deliberado: não apuramos "
-            "diária média publicada por órgão oficial para Madri nesta rodada. Linhas "
-            "marcadas como não apuradas continuam fora do total."),
+            "<b style=\"color:var(--gelo)\">A hospedagem vem do INE espanhol</b>, que "
+            "publica a diária média por ponto turístico, e Madri é um deles. Por quarto, "
+            "duas pessoas por quarto; troque para agosto, o mês mais barato, ou setembro, "
+            "o mais caro. Linhas marcadas como não apuradas continuam fora do total."),
         "linhas": [
             ("ingresso", 35, "Estádio Santiago Bernabéu, tour", "€ 35",
              "<b>A partir de € 35 online e € 38 na bilheteria</b> — <b>é a única linha de "
@@ -146,12 +168,16 @@ FICHAS = {
              "custa nada. <b>O que custa é sentar e consumir</b>, e nos três casos o "
              "preço é de zona turística — o mercado é caro para o padrão de Madri e "
              "funciona por porções pequenas, o que faz a conta subir sem parecer."),
-            ("ingresso", 0, "Hospedagem",
-             "<span class=\"flag\">Não apurada</span>",
-             "<b>Não apuramos diária média publicada por órgão oficial para Madri</b> "
-             "nesta rodada. Usar média de agregador seria furar a regra da casa na linha "
-             "mais cara da viagem. Mesma lacuna declarada de Fortaleza, Bariloche, Punta "
-             "Cana, Miami e Salvador."),
+            ("hosp", None, "Hospedagem, 4 noites", "€ %s" % ("%.2f" % (MEDIA * 4)).replace(".", ","),
+             "Fonte: <b>INE</b>, <i>Encuesta de Ocupación Hotelera</i>, tabela 46298 — tarifa "
+             "média diária (ADR) por <b>ponto turístico</b>, série <i>Madrid, total de "
+             "categorias</i>, lida pela API do INE em 26/out/2026.<br>"
+             "<b>O valor mostrado usa a média dos 12 meses de out/2025 a set/2026: € %s por "
+             "quarto por noite.</b> Os doze valores são do INE; <b>a média é cálculo "
+             "nosso</b>, e está rotulada como tal no seletor.<br>"
+             "<b>Setembro de 2026 é o mês mais caro (€ %s) e agosto o mais barato "
+             "(€ %s)</b>: em Madri a diária cai no verão, como em Granada." % tuple(("%.2f" % v).replace(".", ",") for v in
+                                                (MEDIA, ADR["set/2026"], ADR["ago/2026"]))),
             ("ingresso", 0, "Transporte urbano",
              "<span class=\"flag\">Não apurado</span>",
              "Não apuramos tarifa de metrô, de ônibus nem do trem ao aeroporto. "
@@ -160,9 +186,9 @@ FICHAS = {
              "também fica fora desse eixo."),
         ],
         "rodape_tabela": ("Valores em euro, por pessoa, apurados em 29 de setembro de 2026. "
-                          "<b>Duas linhas estão fora do total</b>, hospedagem e transporte, "
-                          "por falta de fonte oficial. <b>E o total de € 101 cai para "
-                          "€ 42</b> para quem encaixa as quatro janelas gratuitas — o "
+                          "<b>Uma linha está fora do total</b>, o transporte, por falta de "
+                          "fonte oficial. <b>E os ingressos, € 101, caem para € 42</b> "
+                          "para quem encaixa as quatro janelas gratuitas — o "
                           "roteiro mostra como três delas encadeiam numa segunda-feira."),
         "parceiros": [
             ("https://www.booking.com/", "Booking.com", "hotéis e apartamentos"),

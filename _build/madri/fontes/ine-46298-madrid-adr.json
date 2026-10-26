@@ -1,0 +1,14 @@
+{"COD":"EOT43548", "Nombre":"Madrid. Tarifa media diaria (ADR). Total categorías. Dato. ", "FK_Unidad":7, "FK_Escala":1, "Data":[{"Fecha":1759269600000, "FK_TipoDato":2, "FK_Periodo":10, "Anyo":2025, "Valor":202.87, "Secreto":false}
+,{"Fecha":1761951600000, "FK_TipoDato":2, "FK_Periodo":11, "Anyo":2025, "Valor":177.77, "Secreto":false}
+,{"Fecha":1764543600000, "FK_TipoDato":2, "FK_Periodo":12, "Anyo":2025, "Valor":163.31, "Secreto":false}
+,{"Fecha":1767222000000, "FK_TipoDato":2, "FK_Periodo":1, "Anyo":2026, "Valor":156.32, "Secreto":false}
+,{"Fecha":1769900400000, "FK_TipoDato":2, "FK_Periodo":2, "Anyo":2026, "Valor":148.62, "Secreto":false}
+,{"Fecha":1772319600000, "FK_TipoDato":2, "FK_Periodo":3, "Anyo":2026, "Valor":164.38, "Secreto":false}
+,{"Fecha":1774994400000, "FK_TipoDato":2, "FK_Periodo":4, "Anyo":2026, "Valor":185.8, "Secreto":false}
+,{"Fecha":1777586400000, "FK_TipoDato":2, "FK_Periodo":5, "Anyo":2026, "Valor":192.68, "Secreto":false}
+,{"Fecha":1780264800000, "FK_TipoDato":2, "FK_Periodo":6, "Anyo":2026, "Valor":186.17, "Secreto":false}
+,{"Fecha":1782856800000, "FK_TipoDato":2, "FK_Periodo":7, "Anyo":2026, "Valor":151.93, "Secreto":false}
+,{"Fecha":1785535200000, "FK_TipoDato":2, "FK_Periodo":8, "Anyo":2026, "Valor":129.68, "Secreto":false}
+,{"Fecha":1788213600000, "FK_TipoDato":2, "FK_Periodo":9, "Anyo":2026, "Valor":212.96, "Secreto":false}
+]
+}
