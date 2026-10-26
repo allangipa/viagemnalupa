@@ -131,7 +131,17 @@ def ficha(slug):
     h1 = limpa(h1.group(1)) if h1 else ""
     if not v:
         return None
-    return dict(dias=int(dias.group(1)), total=v.group(1), h1=h1)
+    # O que o total soma, lido da propria ficha. Ate 26/10/2026 a resposta
+    # dizia "com hospedagem, ingressos e transporte" nos 22 guias, inclusive
+    # nos 10 cujo total e "sem a hospedagem" e nos que nao tem transporte.
+    rot = re.search(r'class="tot-rot">([^<]*)', q)
+    nomes = [limpa(re.findall(r"(?s)<td[^>]*>(.*?)</td>", c)[0])
+             for c in re.findall(r'(?s)<tr data-tipo="(?:dia|metro|fixo)"[^>]*>(.*?)</tr>', q)]
+    return dict(dias=int(dias.group(1)), total=v.group(1), h1=h1,
+                hosp="sem a hospedagem" not in (rot.group(1) if rot else t),
+                transporte=any(not re.match(r"alimenta", n, re.I) for n in nomes),
+                comida=any(re.match(r"alimenta", n, re.I) for n in nomes),
+                taxa=bool(re.search(r'<tr data-tipo="taxa"[^>]*data-noite=', q)))
 
 
 def monta(slug, h):
@@ -175,11 +185,14 @@ def monta(slug, h):
     if f:
         perg = f["h1"] if re.match(r"Quanto custa \d+ dias", f["h1"]) \
             else "Quanto custa %d dias em %s" % (f["dias"], cidade)
+        itens = (["hospedagem"] if f["hosp"] else []) + ["ingressos"] \
+            + (["transporte"] if f["transporte"] else []) + (["alimentação"] if f["comida"] else [])             + (["taxa turística"] if f["taxa"] else [])
+        fora = "sem passagem aérea" if f["hosp"] else \
+            "sem a hospedagem, que a ficha não inclui, e sem passagem aérea"
         qs.append((perg + ", por pessoa?",
                    "%s, pela <a href=\"quanto-custa/\">ficha de custos de %d dias</a> — "
-                   "com hospedagem, ingressos e transporte, sem passagem aérea. A "
-                   "calculadora da ficha refaz a conta com as suas datas."
-                   % (f["total"], f["dias"])))
+                   "com %s, %s. A calculadora da ficha refaz a conta com as suas datas."
+                   % (f["total"], f["dias"], lista_pt(itens), fora)))
 
     # 4. de quando sao os precos
     dm = re.search(r'"dateModified"\s*:\s*"([^"]+)"', h)
