@@ -46,8 +46,10 @@ Pago de 1 de abril a 31 de outubro; gratuito de 1 de novembro a 31 de
 marco. Custa justamente quando esta bonito. O Passaporte ja inclui, mas
 quem compra so o bilhete do castelo paga o jardim a parte na alta.
 
-O QUE FICA FORA DO TOTAL: a taxe de sejour, a hospedagem e o
-transporte. A taxa e por pessoa e por noite e nao vem no preco da
+O QUE FICA FORA DO TOTAL: a taxe de sejour e o transporte. A hospedagem
+entrou em 26/10/2026 pelo unico numero que existe: o painel privado do
+In Extenso TCH, via imprensa (HR-Infos), rotulado assim - o INSEE nao
+publica preco medio de hotel. Nota em _build/paris/fontes/. A taxa e por pessoa e por noite e nao vem no preco da
 reserva.
 """
 import importlib.util
@@ -73,15 +75,19 @@ FICHAS = {
         "descricao": ("O custo de 5 dias em Paris, por pessoa, com o Louvre que cobra "
                       "€ 32 de quem não é europeu desde janeiro de 2026."),
         "abertura": ("A conta do que foi apurado, por pessoa, com as tarifas pesquisadas "
-                     "em 30 de setembro de 2026. <b>Sem a hospedagem</b> — e a página "
-                     "explica por quê."),
-        "hosp": [],
-        "hospPadrao": None,
+                     "em 30 de setembro de 2026. <b>Com hospedagem</b> desde 26 de outubro "
+                     "de 2026, por um painel do setor hoteleiro: nenhum órgão público "
+                     "francês publica a diária média de Paris."),
+        "hosp": [
+            {"k": "media", "rot": "Média de 2025 (painel do setor, In Extenso, via imprensa)",
+             "ref": 239, "mn": 239, "mx": 239},
+        ],
+        "hospPadrao": "media",
         "intro": ("A tabela abaixo é a nossa apuração: 5 dias, 1 pessoa, valores em euro. "
                   "Mude as datas e o número de pessoas, desmarque o que você não vai "
                   "fazer, e a conta se refaz na hora."),
         "nota_calc": (
-            "<b style=\"color:var(--gelo)\">Os € 159,50 são o que um brasileiro paga. "
+            "<b style=\"color:var(--gelo)\">Os ingressos, € 159,50, são o que um brasileiro paga. "
             "Um europeu paga € 146,50 pelos mesmos seis pontos.</b> A diferença são "
             "€ 10 no Louvre e € 3 em Versalhes — e a regra muda de lugar para lugar: "
             "a Torre Eiffel não separa por nacionalidade nenhuma, e a gratuidade de 18 "
@@ -96,8 +102,9 @@ FICHAS = {
             "domingo é do Orsay</b>, não do Louvre, e os dois nunca caem no mesmo dia. "
             "<b>A taxe de séjour tem linha própria e fica fora do total</b>: é por "
             "pessoa por noite, varia com a categoria do hotel, e esta calculadora não "
-            "modela isso. <b>Esta ficha também não tem hospedagem</b>, por falta de "
-            "diária média oficial apurada."),
+            "modela isso. <b style=\"color:var(--gelo)\">A hospedagem é a média de 2025 "
+            "de um painel do setor</b> (In Extenso), noticiada pela imprensa: é o único "
+            "número que existe, porque o INSEE publica ocupação, não preço."),
         "linhas": [
             ("ingresso", 35, "Palácio de Versalhes — Passaporte", "€ 35",
              "<b>Alta temporada, de 1º de abril a 31 de outubro: € 35.</b> Na baixa, de "
@@ -200,11 +207,19 @@ FICHAS = {
              "temporada não classificado tem <b>teto de € 15,93</b>. <b>Trate como ordem "
              "de grandeza, não como número apurado.</b> Num 3 estrelas, duas pessoas, "
              "cinco noites: <b>€ 55,30</b> fora da diária."),
-            ("ingresso", 0, "Hospedagem",
-             "Não apurada",
-             "<b>Esta ficha não tem hospedagem</b> porque não apuramos diária média "
-             "oficial para Paris. Preferimos a lacuna escrita ao número estimado. "
-             "<b>A taxe de séjour, acima, incide sobre ela e é cobrada à parte.</b>"),
+            ("hosp", None, "Hospedagem, 4 noites", "€ 956,00",
+             "<span class=\"flag\">Painel do setor, via imprensa</span> "
+             "<b>€ 239 por quarto por noite</b>, a diária média dos hotéis de Paris em "
+             "2025 segundo o painel mensal do <b>In Extenso Tourisme, Culture &amp; "
+             "Hôtellerie</b>, apresentado em 6/fev/2026 e noticiado pela HR-Infos em "
+             "11/fev/2026, consultado em 26/out/2026. Ocupação de 82% no ano.<br>"
+             "<b>Por que este número e não um oficial:</b> o INSEE publica quartos, "
+             "chegadas e ocupação dos hotéis, mas não preço médio; a Câmara de Comércio "
+             "de Paris repete os números do INSEE. É o mesmo tipo de fonte da ficha do "
+             "Rio, um painel de hotéis, só que privado e lido de segunda mão.<br>"
+             "<span class=\"flag\">O que não se sabe</span> se o valor é de Paris "
+             "intramuros, se inclui imposto, e como varia por mês ou categoria. "
+             "<b>A taxe de séjour, acima, incide sobre a diária e é cobrada à parte.</b>"),
             ("ingresso", 0, "Transporte urbano",
              "Não apurado",
              "<b>Não apuramos tarifa de metrô nem de RER para esta ficha.</b> "
@@ -212,9 +227,9 @@ FICHAS = {
              "nesta conta."),
         ],
         "rodape_tabela": ("Valores em euro, por pessoa, apurados em 30 de setembro de "
-                          "2026. <b>Quatro linhas estão fora do total</b>: o Orsay, que "
-                          "não conseguimos apurar, a taxe de séjour, a hospedagem e o "
-                          "transporte. <b>Os € 159,50 são o que paga quem não é "
+                          "2026. <b>Três linhas estão fora do total</b>: o Orsay, que "
+                          "não conseguimos apurar, a taxe de séjour e o "
+                          "transporte. <b>Os ingressos, € 159,50, são o que paga quem não é "
                           "europeu; um europeu paga € 146,50 pelos mesmos seis "
                           "pontos.</b>"),
         "parceiros": [

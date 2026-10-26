@@ -107,6 +107,10 @@ def base_da_diaria(rot):
     r = rot.lower()
     if "amostra" in r:
         return "amostra"
+    if "painel" in r:
+        return "painel do setor, via imprensa"
+    if "gmcvb" in r:
+        return "média do órgão de turismo"
     if "oficial" in r or "adr" in r or "ine" in r or "fohb" in r:
         return "média oficial" if "cálculo" not in r else "cálculo sobre dado oficial"
     return "a ficha não diz a base"
@@ -229,8 +233,8 @@ def main(aplica):
         '<section class="bloco"><div class="aviso a"><span class="t">Por que esta página não diz qual destino é o '
         'mais barato</span><p>O custo por dia de cada destino está na ficha de custos de cada um, mas a comparação '
         'ainda não é justa: <b>%d fichas não têm hospedagem</b> (%s): a apuração de cada uma não achou diária '
-        'média publicada que servisse, e a ficha diz isso. Sem o hotel, Roma ou Salvador pareceriam mais baratos '
-        'que o Rio só por falta de uma linha. O ranking por dia entra quando essas fichas tiverem diária.</p>%s'
+        'média publicada que servisse, e a ficha diz isso. Sem o hotel, essas cidades pareceriam mais '
+        'baratas do que são, só por falta de uma linha. O ranking por dia entra quando essas fichas tiverem diária.</p>%s'
         '</div></section>\n\n' % (len(sem_hosp), j(sem_hosp),
                                   ("<p>%s ainda não tem ficha de custos.</p>" % j(sem_ficha)) if sem_ficha else ""),
         '<section class="bloco" id="gratis">\n  <div class="bloco-head"><span class="eyebrow">Para gastar menos com '

@@ -254,8 +254,12 @@ PROSA = {
                "Apuradas em 30 de setembro de 2026. <b>Três sites oficiais recusaram "
                "leitura</b> — notredamedeparis.fr, toureiffel.paris (que abriu no "
                "navegador) e musee-orsay.fr —, e isso está dito ponto a ponto na ficha "
-               "do destino."),
-        nota=(SEM + "<b>E Paris passou a cobrar por passaporte, com regra diferente em "
+               "do destino. Hospedagem: painel do setor In Extenso, via imprensa, "
+               "consultado em 26 de outubro de 2026."),
+        nota=("As noites saem das suas datas. <b>A hospedagem é a média de 2025 de um "
+              "painel do setor</b> (In Extenso), noticiada pela imprensa: nenhum órgão "
+              "público francês publica a diária de Paris. A taxe de séjour fica fora. "
+              "<b>E Paris passou a cobrar por passaporte, com regra diferente em "
               "cada lugar.</b> O Louvre cobra <b>€ 32</b> de quem não é do Espaço "
               "Econômico Europeu e € 22 de quem é, desde 14 de janeiro de 2026; "
               "Versalhes separa por € 3; a Torre Eiffel não separa nada. <b>Um europeu "
