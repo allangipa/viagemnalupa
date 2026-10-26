@@ -29,9 +29,10 @@ prefere somar de menos e dizer por que, a somar errado em silencio.
 O QUE MAIS FICA FORA DO TOTAL, E POR QUE
 -----------------------------------------
 Vizcaya e Wynwood Walls cobram e nao publicam tabela - as duas vendem por
-widget de reserva. Hospedagem fica fora porque nao apuramos ADR oficial
-de Miami nesta rodada, e usar media de agregador seria furar a regra da
-casa na linha mais cara. Transporte fica fora pelo mesmo motivo.
+widget de reserva. Transporte fica fora por falta de tarifa apurada. A
+hospedagem entrou em 26/10/2026: ADR de 2025 do Greater Miami Convention
+and Visitors Bureau (dados STR), por regiao, texto em _build/miami/fontes/.
+Impostos e resort fee seguem fora: nao ha valor unico.
 
 Sao cinco linhas fora do total numa tabela de onze. O total e o que da
 para somar com fonte, nao o que a viagem custa - e a pagina diz isso.
@@ -70,13 +71,22 @@ FICHAS = {
         "descricao": ("O custo de 5 dias em Miami, por pessoa, com o adicional de US$ 100 "
                       "dos Everglades para quem não mora nos EUA."),
         "abertura": ("A conta do que foi apurado, por pessoa, com as tarifas pesquisadas "
-                     "em 29 de setembro de 2026. <b>Sem a hospedagem</b> — e a página "
-                     "explica por quê."),
-        "hosp": [],
-        "hospPadrao": None,
+                     "em 29 de setembro de 2026. <b>Com hospedagem</b> desde 26 de outubro "
+                     "de 2026: a diária média de 2025 do órgão de turismo de Miami, com "
+                     "Miami Beach e Downtown à parte."),
+        # GMCVB Research Division, "2025 Dec Greater Miami Occupancy and ADR",
+        # fonte STR, ano de 2025 (year to date de dezembro). Sem impostos e
+        # sem resort fee, como todo ADR da STR.
+        "hosp": [
+            {"k": "media", "rot": "Miami-Dade, média de 2025 (GMCVB/STR)", "ref": 224.24, "mn": 224.24, "mx": 224.24},
+            {"k": "beach", "rot": "Miami Beach, média de 2025 (GMCVB/STR)", "ref": 287.90, "mn": 287.90, "mx": 287.90},
+            {"k": "downtown", "rot": "Downtown Miami, média de 2025 (GMCVB/STR)", "ref": 244.09, "mn": 244.09, "mx": 244.09},
+        ],
+        "hospPadrao": "media",
         "intro": ("A tabela abaixo é a nossa apuração: 5 dias, 1 pessoa, valores em "
-                  "dólar. Mude as datas e o número de pessoas, desmarque o que você não "
-                  "vai fazer, e a conta se refaz na hora."),
+                  "dólar. Mude as datas e o número de pessoas, troque a região da "
+                  "hospedagem, desmarque o que você não vai fazer, e a conta se refaz "
+                  "na hora."),
         "nota_calc": (
             "<b style=\"color:var(--gelo)\">O adicional do Everglades escala por pessoa, "
             "e a entrada do veículo não.</b> Os US$ 100 são cobrados de cada "
@@ -85,11 +95,11 @@ FICHAS = {
             "total</b>: não existe tipo nesta calculadora que os modele, e somá-los por "
             "pessoa daria um número errado. Some US$ 35 uma vez, qualquer que seja o "
             "número de ocupantes. "
-            "<b>Esta ficha também não tem hospedagem</b>, e isso é deliberado: não "
-            "apuramos diária média publicada por órgão oficial para Miami nesta rodada, "
-            "e em Miami a diária anunciada não é o que se paga — faltam de 13% a 14% de "
-            "impostos e a resort fee diária. Linhas marcadas como não apuradas "
-            "continuam fora do total."),
+            "<b style=\"color:var(--gelo)\">A hospedagem é a diária média de 2025 do "
+            "órgão de turismo de Miami</b>, com dados da STR; troque para Miami Beach ou "
+            "Downtown no seletor. <b>Ela não inclui impostos nem resort fee</b>: some de "
+            "13% a 14% de impostos e a resort fee diária, que a calculadora não modela. "
+            "Linhas marcadas como não apuradas continuam fora do total."),
         "linhas": [
             ("ingresso", 100, "Everglades, adicional de não-residente", "US$ 100",
              "<b>Por pessoa de 16 anos ou mais que não mora nos Estados Unidos</b>, em "
@@ -145,14 +155,18 @@ FICHAS = {
              "visita guiada da Miami Design Preservation League é paga</b>, e "
              "<span class=\"flag\">não apuramos a tarifa</span> em fonte oficial. Cadeira "
              "e guarda-sol na areia são concessão privada dos hotéis."),
-            ("ingresso", 0, "Hospedagem",
-             "<span class=\"flag\">Não apurada</span>",
-             "<b>Não há diária média oficial de Miami nesta apuração</b>, e usar média de "
-             "agregador seria furar a regra da casa na linha mais cara da viagem. E aqui "
-             "seria pior que em outros destinos: <b>a diária anunciada não é o que se "
-             "paga</b>. Somam-se de <b>13% a 14% de impostos</b> — e a composição muda "
-             "conforme o bairro — mais uma <b>resort fee diária</b> de US$ 25 a US$ 60. "
-             "A ficha do guia detalha as duas coisas."),
+            ("hosp", None, "Hospedagem, 4 noites", "US$ 896,96",
+             "Fonte: <b>Greater Miami Convention and Visitors Bureau</b>, divisão de "
+             "pesquisa, relatório <i>2025 Dec Greater Miami Occupancy and ADR</i>, com "
+             "dados da STR, consultado em 26/out/2026: diária média (ADR) de 2025 em "
+             "Miami-Dade, <b>US$ 224,24 por quarto por noite</b>, com 73,9% de ocupação.<br>"
+             "<b>Por região, no mesmo relatório:</b> Miami Beach US$ 287,90, Downtown "
+             "US$ 244,09, Coral Gables US$ 216,59. Dezembro é mais caro que a média: "
+             "US$ 279,70 no condado.<br>"
+             "<b>A diária não é o que se paga.</b> Somam-se de <b>13% a 14% de "
+             "impostos</b> — a composição muda conforme o bairro — e uma <b>resort fee "
+             "diária</b> de US$ 25 a US$ 60. Nenhum dos dois entra nesta linha, porque "
+             "não há valor único; a ficha do guia detalha os dois."),
             ("ingresso", 0, "Transporte urbano e aluguel de carro",
              "<span class=\"flag\">Não apurado</span>",
              "Não apuramos tarifa de Metromover, Metrorail, ônibus nem diária de locadora. "
@@ -161,10 +175,11 @@ FICHAS = {
              "parque é o mesmo que paga os US$ 35 da linha acima."),
         ],
         "rodape_tabela": ("Valores em dólar, por pessoa, apurados em 29 de setembro de 2026. "
-                          "<b>Cinco linhas estão fora do total</b>, todas marcadas na "
+                          "<b>Quatro linhas e os extras da hospedagem estão fora do "
+                          "total</b>, todos marcados na "
                           "tabela: a entrada do veículo no Everglades, Vizcaya, Wynwood "
-                          "Walls, hospedagem e transporte. O total é o que dá para somar "
-                          "com fonte, não o que a viagem custa."),
+                          "Walls, transporte e os impostos e a resort fee da "
+                          "hospedagem. O total é o que dá para somar com fonte."),
         "parceiros": [
             ("https://www.booking.com/", "Booking.com", "hotéis em Miami e Miami Beach"),
             ("https://www.getyourguide.com/", "GetYourGuide", "ingressos e passeios"),

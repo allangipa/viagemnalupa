@@ -183,8 +183,11 @@ PROSA = {
         fonte=("Páginas oficiais do National Park Service, do Pérez Art Museum Miami, "
                "do Frost Science, do Zoo Miami, do Vizcaya e do Wynwood Walls, mais a "
                "página de impostos turísticos do condado de Miami-Dade. Apuradas em 29 "
-               "de setembro de 2026."),
-        nota=(SEM + "<b>E em Miami a diária anunciada não é o que se paga</b>: somam-se "
+               "de setembro de 2026. Hospedagem: Greater Miami Convention and Visitors "
+               "Bureau, dados STR de 2025, consultado em 26 de outubro de 2026."),
+        nota=("As noites saem das suas datas. <b>A hospedagem é a diária média de 2025 "
+              "do órgão de turismo de Miami</b>; troque para Miami Beach ou Downtown no "
+              "seletor. <b>Mas a diária não é o que se paga</b>: somam-se "
               "de 13% a 14% de impostos, com composição que muda conforme o bairro, "
               "mais uma <b>resort fee diária de US$ 25 a US$ 60</b> que desde maio de "
               "2025 tem de aparecer no preço total por regra federal. <b>A entrada do "
@@ -231,10 +234,13 @@ PROSA = {
                "de 2026. <b>A página do Museo del Prado está atrás de proteção "
                "anti-bot e não abriu</b>: os valores dele vêm da indexação do próprio "
                "domínio somada à ficha do esMadrid, portal oficial de turismo da "
-               "cidade, que coincidem."),
-        nota=(SEM + "<b>E quatro das seis linhas pagas têm horário em que não custam "
-              "nada.</b> Desmarque Prado, Reina Sofía, Thyssen e Palácio Real e a "
-              "conta cai de € 101 para € 42. <b>€ 18 desse desconto é seu por "
+               "cidade, que coincidem. Hospedagem: INE, tabela 46298, lida em 26 de "
+              "outubro de 2026."),
+        nota=("As noites saem das suas datas. <b>A hospedagem é a média de 12 meses do "
+              "INE espanhol</b> (cálculo nosso sobre a série oficial); troque para agosto "
+              "ou setembro no seletor. <b>E quatro das seis linhas pagas têm horário em "
+              "que não custam nada.</b> Desmarque Prado, Reina Sofía, Thyssen e Palácio "
+              "Real e os ingressos caem de € 101 para € 42. <b>€ 18 desse desconto é seu por "
               "nacionalidade</b>: a tarifa gratuita do Palácio Real vale para cidadão "
               "latino-americano com documento, e não só para europeu."),
     ),

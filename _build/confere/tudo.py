@@ -684,6 +684,13 @@ def confere_calculadora_x_ficha():
         if not f:
             continue
         olhadas += 1
+        # Ficha que ganhou hospedagem com a nota velha "nao tem hospedagem" na
+        # calculadora: aconteceu com Salvador, Madri e Miami em 26/10/2026.
+        bloco = h[m.start():h.find('<div class="ficha-calc"', m.end())]
+        rot = re.search(r'class="tot-rot">([^<]*)', le(p))
+        if rot and "sem a hospedagem" not in rot.group(1) and re.search(r"n[aã]o tem hospedagem", bloco):
+            anota("calculadora/index.html: %s tem hospedagem na ficha, e a nota da calculadora "
+                  "ainda diz que nao tem (tire o SEM da PROSA e rode --refaz %s)" % (slug, slug))
         if numero(calc) != numero(f.group(1)):
             print("   %-16s calculadora %s  ficha %s  <<<" % (slug, calc, f.group(1)))
             anota("calculadora/index.html: %s soma %s, a ficha de custos publica %s "

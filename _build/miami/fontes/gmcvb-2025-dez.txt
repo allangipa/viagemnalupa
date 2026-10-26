@@ -1,0 +1,117 @@
+Greater Miami Convention and Visitors Bureau, Research Division, "2025 Dec Greater Miami Occupancy and ADR" (fonte: STR), texto extraido com pypdf em 26/out/2026.
+Arquivo: https://www.miamiandbeaches.com/getmedia/964e21ca-c90b-427a-b314-bf5118214428/2025_Dec_Greater_Miami-Occupancy_and_ADR.pdf
+
+GREATER MIAMI CONVENTION AND VISITORS BUREAU
+% Change % Change
+2025 2024 25 vs 24 2025 2024 25 vs 24
+Airport 84.3% 83.5% 1.1% 80.7% 81.6% -1.2%
+Aventura/Sunny Isles 72.5% 72.7% -0.3% 71.5% 70.4% 1.6%
+Central Dade 84.5% 81.6% 3.6% 78.4% 78.8% -0.5%
+Coconut Grove/Key Biscayne 68.7% 75.0% -8.4% 72.1% 70.1% 2.9%
+Coconut Grove 79.9% 78.6% 1.6% 73.4% 73.1% 0.5%
+Coral Gables 76.2% 75.2% 1.3% 73.2% 72.7% 0.7%
+Doral 79.4% 81.2% -2.2% 78.0% 79.0% -1.3%
+Downtown Miami 78.6% 77.4% 1.6% 74.3% 72.4% 2.7%
+Miami Beach 73.7% 73.2% 0.6% 71.4% 72.1% -1.0%
+North Dade 75.8% 77.2% -1.8% 71.9% 72.4% -0.7%
+South Dade 76.1% 74.6% 2.0% 69.5% 71.3% -2.6%
+Surfside/Bal Harbour 66.5% 70.7% -6.0% 63.6% 61.3% 3.7%
+Miami-Dade 77.0% 76.6% 0.5% 73.9% 74.0% -0.1%
+MIAMI-DADE OCCUPANCY BY REGION
+December YEAR TO DATE
+20.0%
+30.0%
+40.0%
+50.0%
+60.0%
+70.0%
+80.0%
+90.0%
+2025 2024
+OCCUPANCY
+0.0%
+10.0%
+20.0%
+30.0%
+40.0%
+50.0%
+60.0%
+70.0%
+80.0%
+90.0%
+2025 2024
+YEAR TO DATE OCCUPANCY
+Source: STR Page 1 Prepared by: GMCVB Research Division
+
+GREATER MIAMI CONVENTION AND VISITORS BUREAU
+% Change % Change
+2025 2024 25 vs 24 2025 2024 25 vs 24
+Airport $149.58 $146.92 1.8% $137.62 $138.92 -0.9%
+Aventura/Sunny Isles $313.54 $292.90 7.0% $267.24 $258.75 3.3%
+Central Dade $151.04 $148.83 1.5% $137.28 $136.26 0.7%
+Coconut Grove/Key Biscayne $421.42 $390.02 8.1% $309.06 $310.19 -0.4%
+Coconut Grove $330.49 $296.97 11.3% $267.45 $247.75 8.0%
+Coral Gables $235.35 $226.20 4.0% $216.59 $208.82 3.7%
+Doral $169.42 $166.17 2.0% $154.57 $154.94 -0.2%
+Downtown Miami $282.48 $280.78 0.6% $244.09 $239.84 1.8%
+Miami Beach $391.04 $376.72 3.8% $287.90 $285.28 0.9%
+North Dade $153.36 $152.11 0.8% $124.96 $127.51 -2.0%
+South Dade $115.38 $108.72 6.1% $104.47 $105.98 -1.4%
+Surfside/Bal Harbour $1,033.37 $858.88 20.3% $685.24 $661.35 3.6%
+Miami-Dade $279.70 $269.69 3.7% $224.24 $221.64 1.2%
+MIAMI-DADE ROOM RATE BY REGION
+December YEAR TO DATE
+$0.00
+$100.00
+$200.00
+$300.00
+$400.00
+$500.00
+2025 2024
+ROOM RATE
+$0.00
+$200.00
+$400.00
+$600.00
+$800.00
+2025 2024
+YEAR TO DATE ROOM RATE
+Source: STR Page 2 Prepared by: GMCVB Research Division
+
+GREATER MIAMI CONVENTION AND VISITORS BUREAU
+% Change % Change
+2025 2024 25 vs 24 2025 2024 25 vs 24
+Airport $126.16 $122.61 2.9% $111.05 $113.41 -2.1%
+Aventura/Sunny Isles $227.39 $213.01 6.8% $191.19 $182.22 4.9%
+Central Dade $127.65 $121.45 5.1% $107.61 $107.32 0.3%
+Coconut Grove/Key Biscayne $289.60 $292.56 -1.0% $222.76 $217.32 2.5%
+Coconut Grove $264.01 $233.56 13.0% $196.32 $180.98 8.5%
+Coral Gables $179.36 $170.19 5.4% $158.60 $151.86 4.4%
+Doral $134.54 $134.89 -0.3% $120.53 $122.38 -1.5%
+Downtown Miami $222.08 $217.28 2.2% $181.38 $173.54 4.5%
+Miami Beach $288.09 $275.81 4.5% $205.55 $205.70 -0.1%
+North Dade $116.24 $117.39 -1.0% $89.88 $92.34 -2.7%
+South Dade $87.79 $81.13 8.2% $72.55 $75.55 -4.0%
+Surfside/Bal Harbour $687.33 $607.44 13.2% $435.60 $405.34 7.5%
+Miami-Dade $215.37 $206.66 4.2% $165.73 $163.91 1.1%
+MIAMI-DADE RevPAR BY REGION
+December YEAR TO DATE
+$0.00
+$100.00
+$200.00
+$300.00
+$400.00
+$500.00
+$600.00
+$700.00
+2025 2024
+RevPAR
+$0.00
+$100.00
+$200.00
+$300.00
+$400.00
+$500.00
+2025 2024
+YEAR TO DATE RevPAR
+Source: STR Page 3 Prepared by: GMCVB Research Division
