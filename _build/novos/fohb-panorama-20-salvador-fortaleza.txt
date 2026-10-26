@@ -1,0 +1,297 @@
+Panorama da Hotelaria Brasileira, 20a edicao (HotelInvest e FOHB), paginas 40, 41, 46 e 47 (Salvador e Fortaleza), texto extraido com pypdf em 26/out/2026.
+Arquivo: https://static.poder360.com.br/2026/04/Panorama-da-Hotelaria-Brasileira.pdf
+
+
+==== pagina 40
+OCUPAÇÃO
+DIÁRIA MÉDIA
+SALVADOR
+Com ambiente operacional mais estável, Salvador 
+apresentou em 2025 consolidação do mercado, com 
+desempenho alinhado às expectativas. O RevPAR 
+cresceu 10,5%, puxado pela diária média (+9,9%), 
+enquanto a ocupação avançou moderadamente 
+(+0,5%), refletindo maior capacidade de precificação. 
+O resultado foi favorecido pelo lazer na alta 
+temporada e pela ampliação gradual do fluxo 
+internacional, impulsionada pela entrada da Air 
+France no final de 2024, embora o volume de 
+passageiros tenha permanecido estável.
+A demanda seguiu majoritariamente corporativa, 
+com destaque para eventos regionais nos setores 
+agropecuário, tecnologia, construção e varejo, 
+enquanto a ausência de grande centro de 
+convenções segue como limitação estrutural 
+xxxxxxxxx
+O lazer evoluiu gradualmente, apoiado por eventos 
+esportivos e culturais.
+Estruturalmente, Salvador tem oferta hoteleira 
+fragmentada e presença relevante do STR. Em 2025, 
+a hotelaria registrou 69% de ocupação, diária média 
+de R$ 473 e RevPAR de R$ 324, superando o STR 
+(58% | R$ 242 | R$ 140, AirDNA), que se fortalece 
+em períodos de pico como o Carnaval. Há iniciativas 
+de retrofit e expectativa de novas aberturas de luxo. 
+Para 2026, projeta-se crescimento moderado, com 
+foco na diária média e na captura da demanda 
+corporativa e de lazer.
+Histórico de desempenho*
+Fonte: HotelInvest e FOHB.
+394 430 473254 293 324
+64%
+68% 68%
+55%
+60%
+65%
+70%
+0
+100
+200
+300
+400
+500
+2023 2024 2025
+Diária Média RevPAR Ocupação
+HI_abreviada.png
+2 0 ª  E D I Ç Ã O
+9,9% de crescimento*
+0,5% de crescimento 
+* V A L O R E S  R E A I S  ( A C I M A  D A  I N F L A Ç Ã O )  -  D E Z / 2 5
+P A N O R A M A  D A  H O T E L A R I A  B R A S I L E I R AP Á G I N A  4 0
+DESEMPENHO DO MERCADO
+
+
+==== pagina 41
+Os melhores resultados do mercado hoteleiro de Salvador ocorreram entre 
+março e novembro, impulsionados pelo Carnaval, alta temporada e forte 
+demanda corporativa e de lazer, enquanto maio e junho foram os meses mais 
+desafiadores, próximos ao ponto de equilíbrio. Para 2026, as oportunidades 
+estão no crescimento da diária média, consolidação dos congressos médicos, 
+antecipação da demanda corporativa e fortalecimento do lazer urbano, 
+enquanto os desafios seguem ligados à segurança, conectividade aérea e 
+competição pontual com o STR.
+SALVADOR
+ACUMULADO 2025
+Histórico de desempenho mensal*
+Média móvel de desempenho* 
+série dessazonalizada – 12 meses
+Fonte: HotelInvest e FOHB.
+Fonte: HotelInvest e FOHB.
+474
+524
+570 541
+401 386 416 439 444 464 494 502
+357 368 379 356 250 200 290 313 315 357 378 319
+75% 70%
+67%
+66% 62%
+52%
+70% 71% 71% 77% 76%
+64%
+0%
+20%
+40%
+60%
+80%
+100%
+0
+100
+200
+300
+400
+500
+600
+jan/25
+fev/25
+mar/25
+abr/25
+mai/25
+jun/25
+jul/25
+ago/25
+set/25
+out/25
+nov/25
+dez/25
+Diária Média RevPAR Ocupação
+HI_abreviada.png
+2 0 ª  E D I Ç Ã O
+P A N O R A M A  D A  H O T E L A R I A  B R A S I L E I R AP Á G I N A  4 1
+DESEMPENHO DO MERCADO
+40%
+60%
+80%
+0
+100
+200
+300
+400
+500
+jan/23
+mar/23
+mai/23
+jul/23
+set/23
+nov/23
+jan/24
+mar/24
+mai/24
+jul/24
+set/24
+nov/24
+jan/25
+mar/25
+mai/25
+jul/25
+set/25
+nov/25
+Diária Média Ocupação
+* V A L O R E S  R E A I S  ( A C I M A  D A  I N F L A Ç Ã O )  -  D E Z / 2 5
+
+
+==== pagina 46
+OCUPAÇÃO
+DIÁRIA MÉDIA
+FORTALEZA
+Impulsionado pela força do lazer e por uma base 
+regional resiliente, o mercado hoteleiro de Fortaleza 
+apresentou desempenho positivo em 2025, embora 
+limitado pelo elevado custo do transporte aéreo, 
+que restringiu a expansão do fluxo fora da região. O 
+RevPAR real cresceu aproximadamente 12,5% frente 
+a 2024, sustentado pela recuperação da ocupação 
+(+7,0%) e pelo avanço da diária média (+5,1% real), 
+superando os níveis pré-pandemia e de 2019.
+Como contrapeso à conectividade aérea, o turismo 
+macrorregional se fortaleceu, com maior fluxo do 
+interior do Ceará e de estados vizinhos, como 
+Maranhão e Piauí, refletido no uso mais intenso do 
+transporte rodoviário. O lazer manteve-se como 
+principal 
+principal vetor de demanda, enquanto o corporativo 
+seguiu relevante fora das férias, contribuindo para 
+estabilidade ao longo do ano.
+Do lado da oferta, além das cinco unidades em 
+pipeline , o STR permaneceu como alternativa 
+complementar, com ocupação de 67%, diária média 
+de R$ 232 e RevPAR de R$ 155 (AirDNA), inferior à 
+hotelaria tradicional (73% | R$ 342 | R$ 250). Para 
+2026, projeta-se continuidade do desempenho, 
+apoiada no lazer regional qualificado, na agenda de 
+eventos e na capacidade do destino de capturar 
+demanda mesmo em cenário mais sensível a preços 
+e ao ambiente macroeconômico.
+Histórico de desempenho*
+Fonte: HotelInvest e FOHB.
+317 326 342202 222 250
+64%
+68%
+73%
+50%
+55%
+60%
+65%
+70%
+75%
+0
+100
+200
+300
+400
+2023 2024 2025
+Diária Média RevPAR Ocupação
+HI_abreviada.png
+2 0 ª  E D I Ç Ã O
+5,1% de crescimento*
+7,0% de crescimento 
+* V A L O R E S  R E A I S  ( A C I M A  D A  I N F L A Ç Ã O )  -  D E Z / 2 5
+P A N O R A M A  D A  H O T E L A R I A  B R A S I L E I R AP Á G I N A  4 6
+DESEMPENHO DO MERCADO
+
+
+==== pagina 47
+Os melhores resultados concentraram-se em janeiro e julho, quando o RevPAR 
+atingiu R$ 334 e R$ 291, refletindo a força do lazer macrorregional e a 
+capacidade de sustentar reajustes tarifários. O Réveillon ficou abaixo do 
+potencial histórico, pressionado pela concorrência entre capitais nordestinas e 
+pelo alto custo das passagens aéreas. As oportunidades seguem ligadas à 
+diversificação do lazer, com destaque para o turismo gastronômico como fator 
+de diferenciação no médio prazo.
+FORTALEZA
+ACUMULADO 2025
+Histórico de desempenho mensal*
+Média móvel de desempenho* 
+série dessazonalizada – 12 meses
+Fonte: HotelInvest e FOHB.
+Fonte: HotelInvest e FOHB.
+398
+310 312 310 308 327
+370
+325 335 343 355
+395
+334 205 204 209 214 221 291 238 262 272 281 261
+84%
+66% 65% 68% 70% 68%
+79% 73% 78% 79% 79%
+66%
+0%
+20%
+40%
+60%
+80%
+100%
+0
+100
+200
+300
+400
+500
+jan/25
+fev/25
+mar/25
+abr/25
+mai/25
+jun/25
+jul/25
+ago/25
+set/25
+out/25
+nov/25
+dez/25
+Diária Média RevPAR Ocupação
+HI_abreviada.png
+2 0 ª  E D I Ç Ã O
+P A N O R A M A  D A  H O T E L A R I A  B R A S I L E I R AP Á G I N A  4 7
+DESEMPENHO DO MERCADO
+40%
+60%
+80%
+200
+220
+240
+260
+280
+300
+320
+340
+360
+jan/23
+mar/23
+mai/23
+jul/23
+set/23
+nov/23
+jan/24
+mar/24
+mai/24
+jul/24
+set/24
+nov/24
+jan/25
+mar/25
+mai/25
+jul/25
+set/25
+nov/25
+Diária Média Ocupação
+* V A L O R E S  R E A I S  ( A C I M A  D A  I N F L A Ç Ã O )  -  D E Z / 2 5

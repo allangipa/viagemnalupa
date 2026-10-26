@@ -107,7 +107,7 @@ def base_da_diaria(rot):
     r = rot.lower()
     if "amostra" in r:
         return "amostra"
-    if "oficial" in r or "adr" in r or "ine" in r:
+    if "oficial" in r or "adr" in r or "ine" in r or "fohb" in r:
         return "média oficial" if "cálculo" not in r else "cálculo sobre dado oficial"
     return "a ficha não diz a base"
 

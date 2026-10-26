@@ -30,8 +30,9 @@ mudar durante a validade desta pagina. A linha diz os tres.
 O QUE FICA FORA DO TOTAL, E POR QUE
 -----------------------------------
 Sao Francisco esta fechada para restauro e nao tem preco praticado hoje.
-Hospedagem e transporte ficam de fora por falta de fonte oficial
-apurada. Mercado Modelo e Porto da Barra sao gratuitos para entrar, e o
+Transporte fica de fora por falta de fonte oficial apurada. A
+hospedagem entrou em 26/10/2026: diaria media FOHB de 2025, a mesma
+fonte do Rio. Mercado Modelo e Porto da Barra sao gratuitos para entrar, e o
 que se consome neles nao tem tabela.
 
 Uso
@@ -64,22 +65,29 @@ FICHAS = {
         "descricao": ("O custo de 5 dias em Salvador, por pessoa, com os sete museus "
                       "municipais que não cobram nada às quartas-feiras."),
         "abertura": ("A conta do que foi apurado, por pessoa, com as tarifas pesquisadas "
-                     "em 29 de setembro de 2026. <b>Sem a hospedagem</b> — e a página "
-                     "explica por quê."),
-        "hosp": [],
-        "hospPadrao": None,
+                     "em 29 de setembro de 2026. <b>Com hospedagem</b> desde 26 de outubro "
+                     "de 2026: a diária média dos hotéis de Salvador em 2025, da FOHB."),
+        # FOHB/HotelInvest, Panorama 20a ed., p. 40-41 (texto guardado em
+        # _build/novos/fohb-panorama-20-salvador-fortaleza.txt). A mesma
+        # fonte da ficha do Rio. Valores reais de dez/2025.
+        "hosp": [
+            {"k": "media", "rot": "Média da cidade em 2025 (FOHB)", "ref": 473, "mn": 386, "mx": 570},
+            {"k": "baixa", "rot": "Junho, o mês mais barato (FOHB)", "ref": 386, "mn": 386, "mx": 386},
+            {"k": "alta", "rot": "Março, o mês mais caro (FOHB)", "ref": 570, "mn": 570, "mx": 570},
+        ],
+        "hospPadrao": "media",
         "intro": ("A tabela abaixo é a nossa apuração: 5 dias, 1 pessoa, valores em real. "
-                  "Mude as datas e o número de pessoas, desmarque o que você não vai "
-                  "fazer, e a conta se refaz na hora."),
+                  "Mude as datas e o número de pessoas, troque a época da hospedagem, "
+                  "desmarque o que você não vai fazer, e a conta se refaz na hora."),
         "nota_calc": (
             "<b style=\"color:var(--gelo)\">Três dos quatro pontos pagos são municipais, e "
             "municipais não cobram nada às quartas-feiras.</b> Desmarque Casa do Carnaval, "
-            "Casa do Rio Vermelho e os Espaços do Forte e você vê o total de uma quarta: "
-            "<b>R$ 20</b>, só o Farol da Barra, que é do Museu Náutico e cobra os sete "
-            "dias. São R$ 60 de diferença por pessoa, e basta escolher o dia. "
-            "<b>Esta ficha não tem hospedagem</b>, e isso é deliberado: não apuramos "
-            "diária média publicada por órgão oficial para Salvador nesta rodada, e usar "
-            "média de agregador seria furar a regra da casa na linha mais cara da viagem. "
+            "Casa do Rio Vermelho e os Espaços do Forte e você vê os ingressos de uma "
+            "quarta: <b>R$ 20</b>, só o Farol da Barra, que é do Museu Náutico e cobra os "
+            "sete dias. São R$ 60 de diferença por pessoa, e basta escolher o dia. "
+            "<b style=\"color:var(--gelo)\">A hospedagem é a média dos hotéis de Salvador "
+            "em 2025, da FOHB</b>, a mesma fonte da ficha do Rio. Por quarto, duas pessoas "
+            "por quarto; troque para junho, o mês mais barato, ou março, o mais caro. "
             "Linhas marcadas como não apuradas continuam fora do total."),
         "linhas": [
             ("ingresso", 20, "Casa do Carnaval da Bahia", "R$ 20",
@@ -141,11 +149,17 @@ FICHAS = {
              "<b>dentro da Baía de Todos os Santos</b>, com água calma e rasa. Cadeira, "
              "guarda-sol e barraca são concessão e comércio privado, "
              "<span class=\"flag\">sem tabela apurada</span>."),
-            ("ingresso", 0, "Hospedagem",
-             "<span class=\"flag\">Não apurada</span>",
-             "<b>Não há diária média oficial de Salvador nesta apuração</b>, e usar média "
-             "de agregador seria furar a regra da casa na linha mais cara da viagem. É a "
-             "mesma lacuna declarada de Fortaleza, Bariloche, Punta Cana e Miami."),
+            ("hosp", None, "Hospedagem, 4 noites", "R$ 1.892",
+             "Fonte: <b>FOHB e HotelInvest</b>, <i>Panorama da Hotelaria Brasileira</i>, "
+             "20ª edição, páginas 40 e 41: diária média (ADR) dos hotéis de Salvador em "
+             "2025, <b>R$ 473 por quarto por noite</b>, em valores corrigidos para dez/2025, "
+             "consultado em 26/out/2026. É a mesma fonte da ficha do Rio.<br>"
+             "<b>A série mensal vai de R$ 386 em junho a R$ 570 em março</b>: o relatório "
+             "atribui os melhores meses ao Carnaval e à alta temporada.<br>"
+             "<span class=\"flag\">Ressalva</span> é a média dos hotéis filiados, da cidade "
+             "inteira, sem recorte por bairro. Aluguel por temporada fica abaixo: R$ 242 de "
+             "diária média com 58% de ocupação, segundo a AirDNA citada no mesmo "
+             "relatório."),
             ("ingresso", 0, "Transporte urbano e travessias",
              "<span class=\"flag\">Não apurado</span>",
              "Não apuramos tarifa de ônibus, metrô nem das travessias para Itaparica e "
@@ -154,10 +168,10 @@ FICHAS = {
              "deslocamento, e não estão nesta conta."),
         ],
         "rodape_tabela": ("Valores em real, por pessoa, apurados em 29 de setembro de 2026. "
-                          "<b>Quatro linhas estão fora do total</b>: São Francisco, que "
-                          "está fechada, mais hospedagem e transporte, que não têm fonte. "
-                          "<b>E o total de R$ 80 vira R$ 20 numa quarta-feira</b>, quando "
-                          "os três museus municipais não cobram."),
+                          "<b>Duas linhas estão fora do total</b>: São Francisco, que "
+                          "está fechada, e o transporte, que não tem fonte. "
+                          "<b>E os ingressos, R$ 80, viram R$ 20 numa quarta-feira</b>, "
+                          "quando os três museus municipais não cobram."),
         "parceiros": [
             ("https://www.booking.com/", "Booking.com", "hotéis e pousadas"),
             ("https://www.getyourguide.com/", "GetYourGuide", "ingressos e passeios"),
