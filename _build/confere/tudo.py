@@ -658,6 +658,39 @@ def confere_conta_fechada():
         print("   nenhuma pagina tem o bloco")
 
 
+def confere_calculadora_x_ficha():
+    """O total de cada cidade na calculadora bate com o da ficha de custos?
+
+    Entrou em 26/10/2026: o Porto entrou na calculadora sem a taxa turística
+    (a linha da ficha nao tem teto de noites, e o sincroniza.py so lia taxa
+    com teto). A ficha dizia € 125,25 e a calculadora, € 113,25 - dois totais
+    para a mesma viagem, sem erro em lugar nenhum. Compara o numero, nao o
+    texto: "US$ 2.181,00" e "US$ 2.181" sao o mesmo total.
+    """
+    print()
+    print("=== calculadora x ficha de custos: o total bate? ===")
+
+    def numero(t):
+        t = re.sub(r"[^\d,.]", "", t)
+        return float(t.replace(".", "").replace(",", ".")) if t else None
+    h = le(os.path.join(RAIZ, "calculadora", "index.html"))
+    olhadas = 0
+    for m in re.finditer(r'(?s)<div class="ficha-calc" data-cidade="([^"]+)".*?class="n tot-val">([^<]*)<', h):
+        slug, calc = m.group(1), m.group(2)
+        p = os.path.join(RAIZ, "destinos", slug, "quanto-custa", "index.html")
+        if not os.path.isfile(p):
+            continue
+        f = re.search(r'class="n tot-val">([^<]*)<', le(p))
+        if not f:
+            continue
+        olhadas += 1
+        if numero(calc) != numero(f.group(1)):
+            print("   %-16s calculadora %s  ficha %s  <<<" % (slug, calc, f.group(1)))
+            anota("calculadora/index.html: %s soma %s, a ficha de custos publica %s "
+                  "(rode _build/calculadora/sincroniza.py --refaz %s)" % (slug, calc, f.group(1), slug))
+    print("   cidades conferidas: %d" % olhadas)
+
+
 def confere_fila():
     """A fila da home ("Os proximos da fila") nao pode anunciar destino ja publicado.
 
@@ -693,6 +726,7 @@ def main():
     confere_cartoes()
     confere_parceiros()
     confere_conta_fechada()
+    confere_calculadora_x_ficha()
     confere_fila()
     print()
     if PROBLEMAS:
