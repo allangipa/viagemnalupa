@@ -533,9 +533,9 @@ def descontos(guia):
 # nota, cujos numeros a trava confere na ficha. Preco do cartao e a conta saem
 # do aviso do guia.
 #
-# Divergencia registrada em 27/10/2026: o aviso do guia lista o Museu dos
-# Coches como entrada livre; a ficha do museu diz "nao confirmado". Esta
-# pagina segue a ficha.
+# Divergencia de 27/10/2026, resolvida no mesmo dia: o aviso do guia listava
+# o Museu dos Coches como entrada livre; a ficha do museu diz "nao confirmado".
+# O aviso foi alinhado a ficha.
 CARTAO = [
  ("mosteiro-jeronimos", "livre", "", ["Lisboa Card: entrada livre"]),
  ("torre-de-belem", "livre", "", ["Lisboa Card: entrada livre"]),
