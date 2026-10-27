@@ -9,6 +9,8 @@ dia, descontos - passava para Lisboa. Comecou em 23/out/2026.
                                             de visitantes em 2025)
   /destinos/lisboa/o-que-fecha-cada-dia/
   /destinos/lisboa/descontos/
+  /destinos/lisboa/lisboa-card/             a busca "lisboa card preco" ja
+                                            aparecia em posicao 12
 
 DE ONDE SAI TUDO: das fichas de g1.py ... g4.py, importadas, e dos avisos
 publicados no guia. A mecanica (cabeca emprestada da ficha de custos, FAQ,
@@ -55,6 +57,7 @@ IRMAS = [
     ("palacio-da-pena/", "Palácio da Pena: ingresso e hora marcada"),
     ("o-que-fecha-cada-dia/", "O que abre e fecha em cada dia"),
     ("descontos/", "Descontos e dias grátis"),
+    ("lisboa-card/", "Lisboa Card: preço e quando compensa"),
     ("quanto-custa/", "Quanto custa 6 dias em Lisboa"),
     ("roteiro-6-dias/", "Roteiro de 6 dias"),
     ("quanto-custa/#calculadora", "Calculadora da viagem"),
@@ -523,11 +526,190 @@ def descontos(guia):
                   [faq_ld(perguntas), C.migalhas(SLUG, "Lisboa", "Descontos", url)], partes)
 
 
+# --------------------------------------------------------------- Lisboa Card
+# Busca "lisboa card preço" ja aparecia em posicao 12 no Search Console
+# (out/2026). O que o cartao faz em cada ponto sai da ficha do ponto: a
+# leitura fica aqui, com as PROVAS (trechos que precisam estar na ficha) e a
+# nota, cujos numeros a trava confere na ficha. Preco do cartao e a conta saem
+# do aviso do guia.
+#
+# Divergencia registrada em 27/10/2026: o aviso do guia lista o Museu dos
+# Coches como entrada livre; a ficha do museu diz "nao confirmado". Esta
+# pagina segue a ficha.
+CARTAO = [
+ ("mosteiro-jeronimos", "livre", "", ["Lisboa Card: entrada livre"]),
+ ("torre-de-belem", "livre", "", ["Lisboa Card: entrada livre"]),
+ ("padrao-descobrimentos", "livre", "", ["Lisboa Card: entrada gratuita"]),
+ ("castelo-sao-jorge", "livre", "menos para quem tem de 13 a 15 anos, que paga € 8,50",
+  ["portadores do Lisboa Card", "exceto para crianças de 13 a 15 anos"]),
+ ("praca-do-comercio", "livre", "a subida ao Arco da Rua Augusta; a praça é grátis para todos",
+  ["Lisboa Card: entrada livre"]),
+ ("eletrico-28", "incluido", "como todo o transporte da Carris e do metrô",
+  ["Lisboa Card: viagem incluída"]),
+ ("museu-dos-coches", "duvida", "o museu não aparece na lista do cartão que a apuração conseguiu ler",
+  ["Lisboa Card: não confirmado"]),
+ ("gulbenkian", "desconto", "20% de desconto", ["Lisboa Card, 20%"]),
+ ("quinta-da-regaleira", "desconto", "20% de desconto", ["Lisboa Card: só 20% de desconto"]),
+ ("oceanario", "desconto", "o desconto divulgado é de 15%, mas não está em fonte oficial",
+  ["Lisboa Card: só desconto", "não confirmado"]),
+ ("palacio-da-pena", "desconto", "10% para adulto, e as fontes divergem",
+  ["Lisboa Card: só 10% de desconto", "Fontes divergem"]),
+ ("castelo-dos-mouros", "nada", "a ficha não registra desconto nem entrada com o cartão", []),
+]
+ROTULO_CARTAO = {"livre": "Entrada livre", "incluido": "Viagem incluída", "desconto": "Só desconto", "duvida": "Não confirmado",
+                 "nada": "Não consta"}
+
+
+def lisboa_card(guia):
+    aviso = acha(r'(?s)<(?:span|summary) class="t">O Lisboa Card compensa a partir de duas entradas por dia'
+                 r'</(?:span|summary)>(.*?)</(?:div|details)>', guia, "o aviso do Lisboa Card").group(1)
+    a24, a48, a72 = (int(x) for x in acha(r"<b>24h € (\d+), 48h € (\d+), 72h € (\d+)</b>", aviso,
+                                          "o preco do cartao").groups())
+    c24, c48, c72 = acha(r"€ (\d+), € (\d+) e € (\d+) para criança de (\d+) a (\d+) anos", aviso,
+                         "o cartao de crianca").groups()[:3]
+    faixa_crianca = acha(r"para criança de (\d+) a (\d+) anos", aviso, "a faixa de crianca").groups()
+    vigencia = acha(r"Preços em vigor de ([^:]+):", aviso, "a vigencia").group(1)
+    for pid, est, nota, provas in CARTAO:
+        valor = limpa(ficha(pid, "Valor da entrada"))
+        for pr in provas:
+            if pr not in valor:
+                sys.exit("PARADO: a ficha de %s nao diz mais '%s'" % (pid, pr))
+        if nota:
+            C.confere_numeros(nota, valor, pid)
+    eletrico = limpa(ficha("eletrico-28", "Valor da entrada"))
+    passe = euros(acha(r"passe de 24h Carris/Metro, € ([\d,]+)", eletrico, "o passe de 24h").group(1))
+    passe_trem = euros(acha(r"com comboio, € ([\d,]+)", eletrico, "o passe com comboio").group(1))
+
+    def preco(pid):
+        return euros(acha(r"€ ([\d,]+)", PONTOS[pid]["preco"], "o preco de " + pid).group(1))
+
+    def e(v):
+        return ("€ %.2f" % v).replace(".", ",").replace(",00", "")
+
+    # tres dias-tipo, so com o que tem preco unico. Com o cartao: entrada livre
+    # custa zero, desconto aplica o percentual da ficha, o resto paga cheio.
+    DESCONTO = {"palacio-da-pena": 0.10, "quinta-da-regaleira": 0.20}
+    C.confere_numeros("10% 20%", limpa(ficha("palacio-da-pena", "Valor da entrada")) + " "
+                      + limpa(ficha("quinta-da-regaleira", "Valor da entrada")), "os descontos de Sintra")
+    estado = {pid: est for pid, est, _, _ in CARTAO}
+
+    def com_cartao(pid):
+        if estado[pid] in ("livre", "incluido"):
+            return 0.0
+        return preco(pid) * (1 - DESCONTO.get(pid, 0))
+
+    def dia(nome, itens, transp, rot_transp):
+        sem = sum(preco(p) for p in itens) + transp
+        com = a24 + sum(com_cartao(p) for p in itens)
+        return dict(nome=nome, nomes=junta([PONTOS[p]["nome"] for p in itens]), sem=sem, com=com,
+                    dif=sem - com, rot=rot_transp)
+    belem = ["mosteiro-jeronimos", "torre-de-belem", "padrao-descobrimentos"]
+    centro = ["castelo-sao-jorge"]
+    sintra = ["palacio-da-pena", "quinta-da-regaleira", "castelo-dos-mouros"]
+    dias_tipo = [
+        dia("Um dia em Belém", belem, passe, "passe de 24h da Carris e do metrô"),
+        dia("Um dia no centro", centro, passe, "passe de 24h da Carris e do metrô"),
+        dia("Um dia em Sintra", sintra, passe_trem, "passe de 24h com o comboio para Sintra"),
+    ]
+
+    url = "%s/destinos/%s/lisboa-card/" % (SITE, SLUG)
+    titulo = "Lisboa Card: preço, o que inclui e quando compensa (2026)"
+    descricao = ("Lisboa Card a € %d (24h), € %d (48h) e € %d (72h): onde dá entrada livre, onde só dá desconto e "
+                 "a conta de três dias-tipo. Oceanário, Pena e Regaleira não são grátis com ele."
+                 % (a24, a48, a72))
+    capa, img, alt = capa_de("tram28")
+
+    linhas = "".join(
+        '<tr><td><a href="../#%s">%s</a></td><td class="n">%s</td><td><b>%s</b>%s</td></tr>'
+        % (pid, H.escape(PONTOS[pid]["nome"]), H.escape(limpa(PONTOS[pid]["preco"])), ROTULO_CARTAO[est],
+           (": " + nota) if nota else "")
+        for pid, est, nota, _ in CARTAO)
+    gratis = [p["nome"] for p in PONTOS.values() if re.match(r"gr[aá]tis", limpa(p["preco"]), re.I)
+              and p["id"] != "praca-do-comercio"]
+
+    def cartao_dia(d):
+        veredito = ("<b>compensa</b>: sobram %s" % e(d["dif"])) if d["dif"] > 0 else \
+            ("<b>não compensa</b>: perde %s" % e(-d["dif"]))
+        return ('<li><b>%s</b> (%s). Sem o cartão: %s, com o %s. Com o cartão de 24h: %s. O cartão '
+                '%s.</li>' % (d["nome"], d["nomes"], e(d["sem"]), d["rot"], e(d["com"]), veredito))
+
+    perguntas = [
+        ("Quanto custa o Lisboa Card?",
+         "€ %d o de 24 horas, € %d o de 48 e € %d o de 72, para adulto; € %s, € %s e € %s para criança de %s a %s "
+         "anos. Preços em vigor de %s." % (a24, a48, a72, c24, c48, c72, faixa_crianca[0], faixa_crianca[1],
+                                            vigencia)),
+        ("O Lisboa Card vale a pena?",
+         "Depende do dia. Num dia em Belém, com Jerónimos, Torre de Belém e Padrão, sobram %s. Num dia em Sintra "
+         "não compensa: Pena e Regaleira só dão desconto, e o cartão perde %s. A conta completa está nesta página."
+         % (e(dias_tipo[0]["dif"]), e(-dias_tipo[2]["dif"]))),
+        ("O Lisboa Card inclui o Oceanário e o Palácio da Pena?",
+         "Não dá entrada livre em nenhum dos dois: só desconto. O do Oceanário é divulgado como 15%, sem fonte "
+         "oficial; o da Pena, como 10% para adulto, com fontes divergentes. A Regaleira também é só desconto, de "
+         "20%."),
+        ("O Lisboa Card inclui transporte?",
+         "Inclui o transporte público de Lisboa — metrô, Carris e os elétricos, como o 28 — e os comboios urbanos "
+         "para Sintra e Cascais."),
+        ("Criança precisa de Lisboa Card?",
+         "Até 12 anos, quase nunca: a criança já entra de graça em Jerónimos, Torre de Belém, Castelo e Padrão, "
+         "e o cartão infantil acaba pagando só o transporte. Passa a fazer sentido dos 13 aos 15 anos."),
+    ]
+    acha(r"(metro, Carris, elétricos, e os comboios urbanos para Sintra e Cascais)", limpa(aviso), "o transporte do cartao")
+    acha(r"(Só passa a fazer sentido dos 13 aos 15 anos)", limpa(aviso), "a regra da crianca")
+
+    painel = (
+        '<div class="painel">'
+        '<div class="pcel"><span class="rotp">24 horas</span><span class="big c">€ %d</span>'
+        '<span class="sub">Adulto. Criança de %s a %s anos: € %s.</span></div>'
+        '<div class="pcel"><span class="rotp">48 horas</span><span class="big">€ %d</span>'
+        '<span class="sub">Criança: € %s.</span></div>'
+        '<div class="pcel"><span class="rotp">72 horas</span><span class="big">€ %d</span>'
+        '<span class="sub">Criança: € %s.</span></div>'
+        '<div class="pcel"><span class="rotp">Um dia em Belém</span><span class="big c">%s</span>'
+        '<span class="sub">A menos que sem o cartão.</span></div>'
+        '</div>' % (a24, faixa_crianca[0], faixa_crianca[1], c24, a48, c48, a72, c72, e(dias_tipo[0]["dif"])))
+
+    partes = abre_pagina(
+        "Lisboa Card", "O cartão turístico",
+        "Lisboa Card: preço, o que inclui e quando compensa",
+        "Quanto custa, onde dá entrada livre e onde só dá desconto, ponto por ponto, e a conta de três dias-tipo "
+        "com os preços que o guia apurou. Os lugares que quase todo brasileiro quer ver não são grátis com ele.",
+        capa, painel) + [
+        '<section class="bloco"><div class="aviso a"><span class="t">Oceanário, Pena e Regaleira não são grátis '
+        'com o cartão</span><p>Nos três, o Lisboa Card dá só desconto. Quem monta o roteiro em volta deles paga a '
+        'entrada quase inteira e ainda paga o cartão. Ele compensa em Belém e no transporte, não em Sintra.</p>'
+        '</div></section>\n\n',
+        '<section class="bloco" id="ponto-a-ponto">\n  <div class="bloco-head"><span class="eyebrow">O que ele '
+        'faz em cada ponto</span><h2>Entrada livre, desconto ou nada</h2></div>\n'
+        '  <div class="tabwrap"><table><thead><tr><th>Ponto</th><th>Sem o cartão</th><th>Com o Lisboa Card</th>'
+        '</tr></thead><tbody>%s</tbody></table></div>\n'
+        '  <p style="color:var(--nevoa);font-size:.9rem">Cada linha sai da ficha do ponto no guia, com a fonte e a '
+        'data. %s não cobram entrada: o cartão não muda nada neles.</p>\n</section>\n\n' % (linhas, junta(gratis)),
+        '<section class="bloco" id="dias-tipo">\n  <div class="bloco-head"><span class="eyebrow">A conta</span>'
+        '<h2>Três dias, com e sem o cartão</h2><p>Adulto, cartão de 24 horas, só os ingressos com preço único e o '
+        'transporte do dia. Na Pena e na Regaleira, o desconto que a ficha registra.</p></div>\n'
+        '  <ul class="plain">%s</ul>\n'
+        '  <p style="color:var(--nevoa);font-size:.9rem">O autocarro 434, da estação de Sintra até a Pena, fica '
+        'fora das duas contas: a ficha não diz se o cartão o cobre. O Museu dos Coches também fica fora, porque '
+        'não está confirmado no cartão.</p>\n</section>\n\n' % "".join(cartao_dia(d) for d in dias_tipo),
+        '<section class="bloco" id="a-conta-do-guia">\n  <div class="bloco-head"><span class="eyebrow">Preços, '
+        'criança e ativação</span><h2>O que o guia já dizia</h2></div>\n  %s\n</section>\n\n' % aviso.strip(),
+        C.faq_html(perguntas, "o Lisboa Card"), "\n",
+        continua("lisboa-card"),
+        reserva(guia, "lisboa-card", "O cartão se compra online, como voucher trocado por cartão "
+                                     "físico. "),
+        '</div>\n',
+    ]
+    acha(r"(voucher)", limpa(aviso), "o voucher")
+    return pagina("lisboa-card", titulo, descricao, img, alt,
+                  [C.faq_ld(perguntas), C.migalhas(SLUG, "Lisboa", "Lisboa Card", url)], partes)
+
+
 # ------------------------------------------------- os links no guia
 def liga_no_guia(h):
     for href, rot in (("palacio-da-pena/", "Palácio da Pena: ingresso e hora marcada"),
                       ("o-que-fecha-cada-dia/", "O que abre e fecha em cada dia"),
-                      ("descontos/", "Descontos e dias grátis")):
+                      ("descontos/", "Descontos e dias grátis"),
+                      ("lisboa-card/", "Lisboa Card: preço e quando compensa")):
         h = C.liga_na_lista(h, "de Lisboa", href, rot)
     h = C.liga_no_ponto(h, "palacio-da-pena", "palacio-da-pena/", "Página completa do Palácio da Pena: os cinco "
                         "bilhetes, a hora marcada e as perguntas frequentes")
@@ -539,7 +721,7 @@ def liga_no_guia(h):
 
 
 def main(aplica):
-    C.aplica_tudo((pena, que_fecha, descontos), ((GUIA, liga_no_guia),), GUIA, aplica)
+    C.aplica_tudo((pena, que_fecha, descontos, lisboa_card), ((GUIA, liga_no_guia),), GUIA, aplica)
 
 
 if __name__ == "__main__":
