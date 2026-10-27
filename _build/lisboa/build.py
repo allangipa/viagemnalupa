@@ -10,10 +10,12 @@ from g4 import G4
 CRED = json.load(open('/home/claude/lisboa/creditos.json', encoding='utf-8'))
 GRUPOS = [G1, G2, G3, G4]
 CSSV = "68fde8e7"
-TITULO = "Lisboa: 16 pontos turísticos com preço e horário"
-DESC = ("Preço, horário e endereço de 16 pontos de Lisboa e Sintra, com o que mudou em 2026 — "
-        "ascensores fechados, elétrico 28 desviado, Torre de Belém com teto diário e o controlo "
-        "biométrico na fronteira. Apurado em 13/set/2026.")
+TITULO = "Pontos turísticos de Lisboa: os 16, com preço e horário (2026)"
+# Titulo e descricao trocados em 26/10/2026 no HTML publicado (Search Console:
+# 184 impressoes, posicao 7,5, nenhum clique). Este build.py nao roda mais
+# (caminhos /home/claude), mas fica igual ao que esta no ar.
+DESC = ("O que ver em Lisboa e Sintra e quanto custa: Jerónimos € 18, Pena € 20, Castelo € 17, "
+        "Oceanário de € 25 a € 29. Horário, o que fecha e o que mudou em 2026.")
 
 def indice():
     cols, n = [], 0

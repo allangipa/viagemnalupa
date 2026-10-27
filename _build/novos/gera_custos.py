@@ -36,10 +36,10 @@ CIDADES = [("nova-york", "Nova York"), ("santiago", "Santiago"),
 FICHAS = {
     "cancun": {
         "nome": "Cancún", "dias": 5, "moeda": "MX$", "dec": 0,
-        "titulo": "Quanto custa 5 dias em Cancún em 2026",
-        "descricao": ("O custo de 5 dias em Cancún e na Riviera Maya, por pessoa, com as "
-                      "duas bilheterias de Chichén Itzá somadas e o que não conseguimos "
-                      "apurar dito na cara."),
+        "titulo": "Quanto custa viajar para Cancún: 5 dias por MX$ 8.897 (2026)",
+        "descricao": ("A conta de 5 dias em Cancún por pessoa, com hotel pela tarifa média oficial, "
+                      "Chichén Itzá com as duas bilheterias, Tulum e o ferry: MX$ 1.779 por dia, "
+                      "apurada em setembro de 2026."),
         "abertura": ("A conta do que foi apurado, por pessoa, com as tarifas pesquisadas "
                      "em 17 de setembro de 2026."),
         "hosp": [{"k": "media", "rot": "Tarifa média da cidade (oficial)",
