@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
 """Gera /comparar/: os destinos lado a lado, so no que e comparavel.
 
-Pedido de 26/10/2026 (pagina de "inspiracao"). A ideia original era um
-ranking de custo por dia, e os dados nao deixam: 10 das 21 fichas de custos
-nao tem hospedagem, e as outras 11 tem roteiros de 3 a 7 dias, conjuntos de
-ingressos diferentes e diarias de bases diferentes. Ordenar por custo por
-dia poria Roma e Salvador como "os mais baratos" so porque a ficha deles
-nao tem hotel. Fica para quando as 10 fichas tiverem diaria.
+Pedido de 26/10/2026 (pagina de "inspiracao"). O ranking por dia ficou de
+fora ate as fichas terem hotel (10 de 22 nao tinham). Em 27/10/2026, com 17
+fichas com diaria, entrou o "dia tipico": UMA pessoa, quarto inteiro, uma
+noite da diaria da ficha mais o resto da ficha (ingressos, transporte, taxa)
+dividido pelos dias, SEM a alimentacao que so Maceio soma. Normaliza as tres
+diferencas entre as fichas: duracao (3 a 7 dias), quarto (Buenos Aires
+divide o apartamento por dois) e o que entra no total. As 5 sem hotel ficam
+fora, nomeadas; a base de cada diaria (media oficial, amostra, categoria)
+aparece ao lado do valor.
 
 O QUE ENTRA, e tem a mesma base nos 22 guias:
   - pontos que nao cobram entrada, contados como o /gratis/ conta
@@ -96,11 +99,28 @@ def da_ficha(slug):
     m = re.search(r'(?s)class="calc-cfg"[^>]*>(.*?)</script>', le(p))
     if not m:
         return None
+    q = le(p)
     cfg = json.loads(m.group(1))
     hp = {x["k"]: x for x in cfg.get("hosp") or []}.get(cfg.get("hospPadrao"))
     if cfg["moeda"] not in SIMBOLO:
         sys.exit("PARADO: moeda %s da ficha de %s sem codigo no boletim" % (cfg["moeda"], slug))
-    return dict(moeda=SIMBOLO[cfg["moeda"]], hosp=hp)
+    resto = None
+    if hp:
+        # o resto por dia: total publicado menos a linha de hospedagem e a de
+        # alimentacao, dividido pelos dias do roteiro
+        def num(t):
+            t = re.sub(r"[^\d,.]", "", t)
+            return float(t.replace(".", "").replace(",", ".")) if t else 0.0
+
+        def valor_da_linha(corpo):
+            return num(re.findall(r"(?s)<td[^>]*>(.*?)</td>", corpo)[1])
+        tot = num(re.search(r'class="n tot-val">([^<]*)', q).group(1))
+        hrow = re.search(r'(?s)<tr data-tipo="hosp"[^>]*>(.*?)</tr>', q)
+        if not hrow:
+            sys.exit("PARADO: %s tem diaria no seletor e nao tem linha de hospedagem" % slug)
+        alim = sum(valor_da_linha(c) for c in re.findall(r'(?s)<tr data-tipo="[^"]*"[^>]*>(<td>Alimenta.*?)</tr>', q))
+        resto = (tot - valor_da_linha(hrow.group(1)) - alim) / cfg["dias"]
+    return dict(moeda=SIMBOLO[cfg["moeda"]], hosp=hp, resto=resto, dias=cfg["dias"])
 
 
 def base_da_diaria(rot):
@@ -133,15 +153,18 @@ def main(aplica):
             med, maior = statistics.median(vals), (caro[0] * tx, caro[1], caro[2])
         else:
             med = maior = None
-        diaria = None
+        diaria = dia = None
         if ficha and ficha["hosp"]:
             diaria = (ficha["hosp"]["ref"] * taxas[ficha["moeda"]], base_da_diaria(ficha["hosp"]["rot"]),
                       ficha["hosp"]["rot"])
+            dia = (diaria[0] + ficha["resto"] * taxas[ficha["moeda"]], ficha["resto"] * taxas[ficha["moeda"]],
+                   ficha["dias"])
         linhas.append(dict(slug=slug, nome=nomes[slug], total=total, gratis=len(gratis), npagos=len(pagos),
-                           mediana=med, maior=maior, diaria=diaria, tem_ficha=bool(ficha)))
+                           mediana=med, maior=maior, diaria=diaria, dia=dia, tem_ficha=bool(ficha)))
 
     n_cid = len(linhas)
     sem_hosp = [l["nome"] for l in linhas if l["tem_ficha"] and not l["diaria"]]
+    por_dia = sorted([l for l in linhas if l["dia"]], key=lambda l: l["dia"][0])
     sem_ficha = [l["nome"] for l in linhas if not l["tem_ficha"]]
     metade = sorted([l for l in linhas if l["total"] and l["gratis"] * 2 >= l["total"]],
                     key=lambda l: -l["gratis"] / l["total"])
@@ -152,6 +175,9 @@ def main(aplica):
                      key=lambda l: l["mediana"])
     poucos = [l for l in linhas if l["mediana"] is not None and l["npagos"] < MIN_PAGOS]
 
+    def minus(t):
+        return t[:1].lower() + t[1:]
+
     def j(itens):
         itens = list(itens)
         return itens[0] if len(itens) == 1 else ", ".join(itens[:-1]) + " e " + itens[-1]
@@ -159,10 +185,11 @@ def main(aplica):
     def nome_link(l):
         return '<a href="../destinos/%s/">%s</a>' % (l["slug"], H.escape(l["nome"]))
 
-    titulo = "%d destinos lado a lado: ingressos, pontos grátis e diária, em reais" % n_cid
-    descricao = ("Os %d destinos do Viagem na Lupa comparados no que tem a mesma base: quantos pontos não cobram "
-                 "entrada, quanto custa o ingresso típico e o mais caro, e a diária que cada ficha usa, tudo em "
-                 "reais pelo câmbio do Banco Central de %s." % (n_cid, DATA_BOLETIM))
+    titulo = "Quanto custa um dia em %d cidades, do mais barato ao mais caro, em reais" % len(por_dia)
+    descricao = ("Um dia de viagem, com hotel, ingressos e transporte, em %d cidades: de %s (%s) a %s (%s). E os "
+                 "%d destinos do site lado a lado em pontos grátis, ingresso típico e diária, pelo câmbio do Banco "
+                 "Central." % (len(por_dia), por_dia[0]["nome"], reais(por_dia[0]["dia"][0]), por_dia[-1]["nome"],
+                               reais(por_dia[-1]["dia"][0]), n_cid))
     url = SITE + "/comparar/"
 
     perguntas = [
@@ -177,9 +204,14 @@ def main(aplica):
                                com_med[-1]["nome"], reais(com_med[-1]["mediana"]), com_med[-2]["nome"],
                                reais(com_med[-2]["mediana"]))),
         ("Qual é o destino mais barato do site por dia?",
-         "Ainda não dá para responder com honestidade: %d das fichas de custos não têm hospedagem (%s), e sem ela "
-         "o custo por dia de uma cidade não se compara com o de outra. A comparação entra quando essas fichas "
-         "tiverem diária apurada." % (len(sem_hosp), j(sem_hosp))),
+         "Entre as %d cidades com hotel na ficha, %s: um dia típico custa %s, com hotel, ingressos e transporte, "
+         "para uma pessoa. Depois vêm %s (%s) e %s (%s). O mais caro é %s, a %s. %s ficam fora, porque a ficha não "
+         "tem diária de hotel." % (len(por_dia), por_dia[0]["nome"], reais(por_dia[0]["dia"][0]), por_dia[1]["nome"],
+                                   reais(por_dia[1]["dia"][0]), por_dia[2]["nome"], reais(por_dia[2]["dia"][0]),
+                                   por_dia[-1]["nome"], reais(por_dia[-1]["dia"][0]), j(sem_hosp))
+         + ((" Ressalva: a diária de %s é %s, não a média da cidade inteira." % (
+             por_dia[0]["nome"], minus(por_dia[0]["diaria"][2])))
+            if por_dia[0]["diaria"][1] in ("amostra", "a ficha não diz a base") else "")),
     ]
 
     migalhas = {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
@@ -225,16 +257,30 @@ def main(aplica):
         '<main id="conteudo">\n<div class="faixa"><div class="wrap wrap-estreito">\n',
         '<p class="migalhas"><a href="../">Início</a> › Comparar destinos</p>\n',
         '<div class="hero">\n  <span class="eyebrow">Para escolher o destino</span>\n'
-        '  <h1>%d destinos lado a lado</h1>\n' % n_cid,
-        '  <p>Quantos pontos não cobram entrada, quanto custa o ingresso típico e o mais caro, e a diária que cada '
-        'ficha usa, tudo convertido em reais pelo mesmo câmbio. Só entra o que tem a mesma base em todos os '
-        'guias.</p>\n</div>\n</div></div>\n\n',
+        '  <h1>Quanto custa um dia em cada destino</h1>\n',
+        '  <p>Um dia de viagem para uma pessoa, com hotel, ingressos e transporte, em %d cidades, do mais barato '
+        'ao mais caro. Depois, os %d destinos do site lado a lado em pontos grátis e ingresso típico. Tudo em reais '
+        'pelo mesmo câmbio.</p>\n</div>\n</div></div>\n\n' % (len(por_dia), n_cid),
         '<div class="wrap wrap-estreito">\n',
-        '<section class="bloco"><div class="aviso a"><span class="t">Por que esta página não diz qual destino é o '
-        'mais barato</span><p>O custo por dia de cada destino está na ficha de custos de cada um, mas a comparação '
-        'ainda não é justa: <b>%d fichas não têm hospedagem</b> (%s): a apuração de cada uma não achou diária '
-        'média publicada que servisse, e a ficha diz isso. Sem o hotel, essas cidades pareceriam mais '
-        'baratas do que são, só por falta de uma linha. O ranking por dia entra quando essas fichas tiverem diária.</p>%s'
+        '<section class="bloco" id="por-dia">\n  <div class="bloco-head"><span class="eyebrow">Um dia típico, por '
+        'pessoa</span><h2>Do mais barato ao mais caro</h2><p>Uma noite de hotel, no quarto inteiro, mais o resto '
+        'da ficha de custos (ingressos, transporte e taxa) dividido pelos dias do roteiro. Sem passagem aérea e sem '
+        'alimentação.</p></div>\n'
+        '  <div class="tabwrap"><table><thead><tr><th></th><th>Destino</th><th>Um dia</th><th>Hotel, 1 noite</th>'
+        '<th>O resto, por dia</th></tr></thead><tbody>%s</tbody></table></div>\n'
+        '  <p style="color:var(--nevoa);font-size:.9rem"><b>Leia a coluna do hotel antes de comparar.</b> Em umas '
+        'cidades a diária é a média oficial da cidade inteira; em outras é amostra ou uma categoria (intermediário, '
+        'econômico, apartamento), e a tabela diz qual é qual.%s</p>\n'
+        '</section>\n\n' % (" O hotel é o maior item do dia em todos eles." if all(
+            l["diaria"][0] > l["dia"][1] for l in por_dia) else "", "".join(
+            '<tr><td class="n">%d</td><td>%s</td><td class="n"><b>%s</b></td><td class="n">%s <span style="color:'
+            'var(--nevoa)">· %s</span></td><td class="n">%s</td></tr>'
+            % (i, nome_link(l), reais(l["dia"][0]), reais(l["diaria"][0]), H.escape(l["diaria"][2]),
+               reais(l["dia"][1])) for i, l in enumerate(por_dia, 1))),
+        '<section class="bloco"><div class="aviso a"><span class="t">As %d cidades que ficam fora do ranking'
+        '</span><p>%s: a ficha de custos de cada um não tem diária de hotel, porque a apuração não achou diária '
+        'média publicada que servisse, e a ficha diz isso. Sem o hotel, essas cidades pareceriam mais baratas do '
+        'que são, só por falta de uma linha. Elas continuam na comparação de pontos grátis e ingressos, abaixo.</p>%s'
         '</div></section>\n\n' % (len(sem_hosp), j(sem_hosp),
                                   ("<p>%s ainda não tem ficha de custos.</p>" % j(sem_ficha)) if sem_ficha else ""),
         '<section class="bloco" id="gratis">\n  <div class="bloco-head"><span class="eyebrow">Para gastar menos com '
