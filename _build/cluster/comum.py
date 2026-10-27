@@ -200,7 +200,9 @@ def liga_no_ponto(h, pid, href, texto):
     rodada seguinte da cadeia. E nao depois dos campos: o layout/reorganiza.py
     so reorganiza o bloco de campos quando ele fecha o <article>.
     """
-    if 'class="ponto-mais"><a href="%s"' % href in h:
+    # O <p> leva style, entao a conferencia e por regex: a primeira versao
+    # procurava 'class="ponto-mais"><a' e nunca achava, somando um link por rodada.
+    if re.search(r'class="ponto-mais"[^>]*><a href="%s"' % re.escape(href), h):
         return h
     mais = ('<p class="ponto-mais" style="margin:.4rem 0 .8rem;font-size:.92rem"><a href="%s">%s</a></p>\n  '
             % (href, texto))
