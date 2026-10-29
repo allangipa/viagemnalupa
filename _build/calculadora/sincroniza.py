@@ -159,9 +159,9 @@ PROSA = {
                "Patagonia, do Teleférico Cerro Otto e dos operadores da Isla Victoria "
                "e de Puerto Blest. Apuradas em 17 de setembro de 2026. <b>Nenhum valor "
                "veio de agregador de viagem.</b>"),
-        nota=(SEM + "No caso de Bariloche o INDEC anunciou mudança na divulgação da "
-              "Encuesta de Ocupación Hotelera a partir de janeiro de 2026, e não "
-              "encontramos tarifa média por localidade. <b>Os valores estão em peso "
+        nota=(SEM + "No caso de Bariloche, o INDEC coleta a tarifa média na Encuesta "
+              "de Ocupación Hotelera mas não a publica, e a série está suspensa desde "
+              "novembro de 2025. <b>Os valores estão em peso "
               "argentino e não são convertidos</b>: o Banco Central publica cotação de "
               "dez moedas, e o peso argentino não está entre elas."),
     ),
@@ -173,9 +173,9 @@ PROSA = {
                "as duas ficam. Apurado em 17 de setembro de 2026. Nenhum número foi "
                "escolhido por conveniência nem tirado por média."),
         nota=(SEM + "E aqui a lacuna é maior que a hospedagem: <b>três dos sete pontos "
-              "também não têm tarifa única publicada</b> e ficam fora da conta. A "
-              "ASONAHORES, associação hoteleira dominicana, não publica ADR aberto por "
-              "polo turístico."),
+              "também não têm tarifa única publicada</b> e ficam fora da conta. O "
+              "Banco Central dominicano e a ASONAHORES publicam a ocupação por zona, "
+              "não a diária."),
     ),
     "miami": dict(
         gratis=("Duas das linhas não cobram entrada: Little Havana com a Calle Ocho, e "

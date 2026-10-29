@@ -16,6 +16,11 @@ no INDEC, que publica a Encuesta de Ocupacion Hotelera da Argentina, e na
 ASONAHORES, que e a associacao hoteleira dominicana. O INDEC anunciou
 mudanca na divulgacao da EOH a partir de janeiro de 2026 e nao achei tarifa
 media por localidade; a ASONAHORES nao publica ADR aberto por polo.
+Revisto em 29/10/2026: a EOH coleta tarifa mas nao a publica, e a serie
+parou em nov/2025 (o relatorio de fevereiro de 2026 nao saiu); o tablero
+do Yvera so tem ocupacao. BCRD e ASONAHORES publicam ocupacao por zona,
+sem tarifa; o unico ADR que circula e o nacional da STR, de 2022, via
+imprensa, e inflado pelo all-inclusive. Continua lacuna.
 Inventar uma diaria de agregador seria furar a regra da casa na linha mais
 cara da viagem.
 
@@ -55,9 +60,11 @@ FICHAS = {
                   "não vai fazer, e a conta se refaz na hora."),
         "nota_calc": (
             "<b style=\"color:var(--gelo)\">Esta ficha não tem hospedagem, e isso é "
-            "deliberado.</b> O INDEC publica a Encuesta de Ocupación Hotelera, mas anunciou "
-            "mudança na divulgação a partir de janeiro de 2026 e não encontramos tarifa "
-            "média por localidade que cubra Bariloche. Preferimos a lacuna escrita a uma "
+            "deliberado.</b> O INDEC coleta a tarifa média na Encuesta de Ocupación "
+            "Hotelera, mas não a publica: o relatório de novembro de 2025 traz de Bariloche "
+            "só ocupação e pernoites. E a série está suspensa — novembro de 2025 é o último "
+            "mês divulgado. O painel do Ministério do Turismo argentino também não traz "
+            "preço. Revimos as fontes em 29/out/2026 e preferimos a lacuna escrita a uma "
             "diária de agregador na linha mais cara da viagem. "
             "<b>O transporte também está fora</b>: não apuramos tarifa de ônibus urbano nem "
             "de transfer do aeroporto. Linhas marcadas como não apuradas continuam fora do "
@@ -139,8 +146,10 @@ FICHAS = {
             "tarifa única para a Isla Saona, e o Parque Ojos Indígenas aparece a US$ 50 numa "
             "fonte e a US$ 15 em outra. <b>Três das sete linhas ficam fora do total</b>, com "
             "o motivo escrito. Isso não é defeito da apuração: é como o destino funciona. "
-            "A hospedagem também está fora — a ASONAHORES não publica diária média aberta "
-            "por polo."),
+            "A hospedagem também está fora: o Banco Central dominicano e a ASONAHORES "
+            "publicam a ocupação por zona, não a diária. A única média que circula é a "
+            "nacional da STR, de 2022, e ela vem inflada pelo all-inclusive, que põe "
+            "comida e bebida dentro da diária. Fontes revistas em 29/out/2026."),
         "linhas": [
             ("ingresso", 129, "Hoyo Azul e Scape Park", "US$ 129",
              "Admissão geral do Scape Park, que inclui o cenote e as demais atividades do "
