@@ -328,6 +328,14 @@ um guia, procure a frase em `_build/`. Se não aparecer, edite o
 `destinos/<slug>/index.html`. Se aparecer no `dados.py`, mude nos dois.
 Regerar o guia inteiro só para trocar uma frase desfaz a cadeia toda.
 
+**A ficha de Buenos Aires também não tem gerador** (nasceu escrita à mão, em
+9/set/2026), e o bloco dela na calculadora é anterior ao `sincroniza.py`: não
+está no `PROSA`, e `--refaz buenos-aires` estoura com `KeyError`. Mudou a ficha,
+mude o bloco `data-cidade="buenos-aires"` de `calculadora/index.html` com o
+mesmo texto, inclusive o `value` do campo de pessoas e o botão "US$ … por
+pessoa". Para rodar só a cadeia, use `regera_ficha.py buenos-aires /dev/null`.
+O passo da calculadora falha no fim, e os anteriores já rodaram.
+
 ### Fontes guardadas como prova
 
 Quando o número vem de uma API ou de um arquivo que pode mudar, a resposta fica

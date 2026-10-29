@@ -7,7 +7,9 @@ fichas com diaria, entrou o "dia tipico": UMA pessoa, quarto inteiro, uma
 noite da diaria da ficha mais o resto da ficha (ingressos, transporte, taxa)
 dividido pelos dias, SEM a alimentacao que so Maceio soma. Normaliza as tres
 diferencas entre as fichas: duracao (3 a 7 dias), quarto (Buenos Aires
-divide o apartamento por dois) e o que entra no total. As 5 sem hotel ficam
+dividia o apartamento por dois ate 29/10/2026, quando a ficha passou a
+cobrar o quarto inteiro de 1 pessoa como as outras) e o que entra no
+total. As 5 sem hotel ficam
 fora, nomeadas; a base de cada diaria (media oficial, amostra, categoria)
 aparece ao lado do valor.
 

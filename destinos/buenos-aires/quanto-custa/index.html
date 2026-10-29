@@ -84,7 +84,7 @@
   <div class="bloco-head">
     <span class="eyebrow">Calculadora</span>
     <h2>Faça a conta da <em style="font-style:normal;color:var(--ambar)">sua</em> viagem</h2>
-    <p>A tabela abaixo é a nossa apuração: 5 dias, 2 pessoas.
+    <p>A tabela abaixo é a nossa apuração: 5 dias, 1 pessoa.
        Mude as datas, o número de pessoas e a categoria de hospedagem, desmarque o que
        você não vai fazer, e a conta se refaz na hora.</p>
   </div>
@@ -97,19 +97,19 @@
       <label>Volta
         <input type="date" class="c-volta" value="2026-11-14" min="2026-09-09" max="2028-12-31"></label>
       <label>Pessoas
-        <input type="number" class="c-pes" min="1" max="8" step="1" value="2" inputmode="numeric"></label>
+        <input type="number" class="c-pes" min="1" max="8" step="1" value="1" inputmode="numeric"></label>
       <label>Hospedagem
         <select class="c-hosp"><option value="dorm">Cama em dormitório de hostel</option><option value="privativo">Quarto privativo em hostel</option><option value="apto" selected>Apartamento de 1 quarto</option><option value="quatro">Hotel 4 estrelas (estimativa)</option><option value="boutique">Hotel boutique</option><option value="luxo">Hotel de luxo</option></select></label>
     </div>
     <p class="calc-dur c-dur"></p>
     <div class="c-alertas"></div>
-    <p class="calc-nota">As noites saem das suas datas. Hospedagem por quarto, 2 pessoas por quarto, já com a devolução de 21% de IVA para quem paga com cartão emitido no exterior. O subte foi apurado como 10 viagens em 5 dias e escala proporcional aos dias; o IOF de 3,5% recalcula sobre o total. Os valores unitários são os apurados em 9 de setembro de 2026
+    <p class="calc-nota">As noites saem das suas datas. Hospedagem por quarto, até 2 pessoas por quarto: quem viaja só paga o quarto inteiro, como nas outras fichas do site. Já com a devolução de 21% de IVA para quem paga com cartão emitido no exterior. O subte foi apurado como 10 viagens em 5 dias e escala proporcional aos dias; o IOF de 3,5% recalcula sobre o total. Os valores unitários são os apurados em 9 de setembro de 2026
        e estão na tabela abaixo — <b style="color:var(--gelo)">o que muda aqui é só a
        aritmética, não a fonte</b>. Linhas marcadas como não encontradas continuam fora
        da conta. <b style="color:var(--gelo)">Os valores desta ficha estão em dólar americano, não em peso argentino.</b> A Argentina cobra em peso, e parte das linhas desta página traz o valor em peso quando a fonte publicou assim — repare que as duas moedas convivem aqui. <b>E a ficha de Bariloche, no mesmo país, está em peso</b>, e explica lá por que não converte: a inflação deixa os números com tantos dígitos que seis algarismos passam por dólares. São escolhas diferentes para o mesmo problema, e as duas estão ditas.</p>
     <div class="painel res"></div>
   </div>
-  <script type="application/json" class="calc-cfg">{"moeda": "US$", "dec": 2, "dias": 5, "pessoas": 2, "hosp": [{"k": "dorm", "rot": "Cama em dormitório de hostel", "ref": 18, "mn": 15, "mx": 21, "pessoa": true, "desc": 0.174}, {"k": "privativo", "rot": "Quarto privativo em hostel", "ref": 65.5, "mn": 55, "mx": 76, "desc": 0.174}, {"k": "apto", "rot": "Apartamento de 1 quarto", "ref": 80, "mn": 80, "mx": 80, "desc": 0.174}, {"k": "quatro", "rot": "Hotel 4 estrelas (estimativa)", "ref": 140, "mn": 100, "mx": 180, "desc": 0.174}, {"k": "boutique", "rot": "Hotel boutique", "ref": 276, "mn": 255, "mx": 297, "desc": 0.174}, {"k": "luxo", "rot": "Hotel de luxo", "ref": 569, "mn": 500, "mx": 638, "desc": 0.174}], "hospPadrao": "apto", "janela": null, "eventos": []}</script>
+  <script type="application/json" class="calc-cfg">{"moeda": "US$", "dec": 2, "dias": 5, "pessoas": 1, "hosp": [{"k": "dorm", "rot": "Cama em dormitório de hostel", "ref": 18, "mn": 15, "mx": 21, "pessoa": true, "desc": 0.174}, {"k": "privativo", "rot": "Quarto privativo em hostel", "ref": 65.5, "mn": 55, "mx": 76, "desc": 0.174}, {"k": "apto", "rot": "Apartamento de 1 quarto", "ref": 80, "mn": 80, "mx": 80, "desc": 0.174}, {"k": "quatro", "rot": "Hotel 4 estrelas (estimativa)", "ref": 140, "mn": 100, "mx": 180, "desc": 0.174}, {"k": "boutique", "rot": "Hotel boutique", "ref": 276, "mn": 255, "mx": 297, "desc": 0.174}, {"k": "luxo", "rot": "Hotel de luxo", "ref": 569, "mn": 500, "mx": 638, "desc": 0.174}], "hospPadrao": "apto", "janela": null, "eventos": []}</script>
 </section>
 <section class="bloco">
   <div class="tabwrap"><table class="tab-ficha"><thead><tr><th>Item</th><th>Valor</th><th>Observação</th></tr></thead><tbody><tr data-tipo="ingresso" data-v="15.7000"><td>Cemitério da Recoleta</td><td class="n">ARS 24.030 · US$ 15,70 · R$ 80</td><td>Preço de estrangeiro, dado de agosto de 2026, confirmado por duas fontes independentes (loomi.fun e
@@ -130,19 +130,20 @@
          <span class="flag">Dado de julho/2026</span> É o número oficial mais recente localizado e os reajustes são
          mensais. La Boca não tem subte, e muitos colectivos não aceitam dinheiro — só SUBE.</td></tr><tr><td>Tarjeta SUBE, aquisição</td><td class="n"><span class="flag">Não encontrado</span></td><td>O preço de compra do cartão físico em 2026 não foi localizado. Sem SUBE o turista fica sem ônibus e
          paga cerca de 45% a mais no subte, então o cartão é obrigatório na prática — e registrá-lo no site da SUBE
-         é gratuito.</td></tr><tr data-tipo="hosp"><td>Hospedagem, 4 noites</td><td class="n">US$ 132</td><td>Apartamento de 1 quarto a ~US$ 80 a diária para duas pessoas, ou seja US$ 40 por pessoa por noite,
-         US$ 160 nas quatro noites — <b>menos os 21% de IVA devolvidos por pagar com cartão emitido no exterior</b>,
-         o que reduz o valor final em cerca de 17,4%. Pagando em dinheiro, esta linha voltaria a US$ 160.
+         é gratuito.</td></tr><tr data-tipo="hosp"><td>Hospedagem, 4 noites</td><td class="n">US$ 264</td><td>Apartamento de 1 quarto a ~US$ 80 a diária, <b>o quarto inteiro para uma pessoa</b>,
+         como nas outras fichas do site: US$ 320 nas quatro noites — <b>menos os 21% de IVA devolvidos por pagar com cartão emitido no exterior</b>,
+         o que reduz o valor final em cerca de 17,4%. Pagando em dinheiro, esta linha voltaria a US$ 320.
+         Viajando a dois, o apartamento se divide: ponha 2 pessoas na calculadora acima.
          <span class="flag">Estimativa</span> A diária vem de guia de viagem (Rebecca and the World, abril/2026),
          não de fonte oficial. O roteiro de 5 dias tem 4 noites entre o dia 1 e o dia 5; as noites de chegada e
          partida dependem do voo.</td></tr><tr><td>Alimentação</td><td class="n"><span class="flag">Não encontrado</span></td><td>A apuração não levantou preço de restaurante, café da manhã, parrilla ou mercado em Buenos Aires. Não
          há número para colocar aqui e não vamos inventar um — esta linha fica fora do total, e é a maior lacuna
-         desta ficha.</td></tr><tr data-tipo="pct" data-base="tudo" data-p="0.0350000"><td>IOF sobre o gasto no cartão</td><td class="n">US$ 7,84</td><td>3,5% sobre US$ 223,94, considerando tudo pago no cartão. A alíquota de 3,5% para compras internacionais
+         desta ficha.</td></tr><tr data-tipo="pct" data-base="tudo" data-p="0.0350000"><td>IOF sobre o gasto no cartão</td><td class="n">US$ 12,46</td><td>3,5% sobre US$ 356,03, considerando tudo pago no cartão. A alíquota de 3,5% para compras internacionais
          em crédito e débito está fixa em 2026: a redução progressiva que zeraria o imposto em 2028 foi suspensa.
          Alguns bancos isentam ou devolvem (BTG Pactual isenta; Porto Bank, Nubank Ultravioleta, Caixa e Banco do
          Brasil têm condições especiais). Fonte: cartoesdecredito.me, 2026.</td></tr><tr><td>Museo de Arte de Tigre, se entrar</td><td class="n"><span class="flag">Não encontrado</span></td><td>O preço para argentinos é ARS 7.650 (US$ 5,00); o preço para estrangeiro não foi localizado, e vários
          museus argentinos cobram mais de estrangeiro. Fora do total por isso. O Museo de la Reconquista, na mesma
-         cidade, é gratuito.</td></tr></tbody><tfoot><tr><td class="tot-rot">Total por pessoa, sem alimentação</td><td class="n tot-val">US$ 232</td><td class="tot-dia">US$ 46 por dia · ARS 354.960 · R$ 1.189</td></tr></tfoot></table></div>
+         cidade, é gratuito.</td></tr></tbody><tfoot><tr><td class="tot-rot">Total por pessoa, sem alimentação</td><td class="n tot-val">US$ 368</td><td class="tot-dia">US$ 74 por dia · ARS 563.040 · R$ 1.886</td></tr></tfoot></table></div>
   <p style="color:var(--nevoa);font-size:.92rem"><b>O que está dentro:</b> os cinco ingressos que o roteiro efetivamente usa, o traslado de ida e
     volta a Ezeiza, dez viagens de subte, o trem de Tigre, o ônibus de La Boca, quatro noites de hospedagem já com
     a devolução do IVA e o IOF de 3,5% sobre o total. Conversão a <b>US$ 1 = ARS 1.530</b> (oficial de venda do
@@ -168,7 +169,7 @@
     2025</b> — INDEC/EOH. O dado que realmente muda a conta é fiscal, não de tarifa: pagar a hospedagem com cartão
     emitido no exterior devolve <b>21% de IVA</b> na hora, e pagar em dinheiro perde esse desconto.</p>
   <div class="tabwrap"><table><thead><tr><th>Categoria</th><th>Diária</th><th>Observação</th></tr></thead><tbody><tr><td>Cama em dormitório de hostel</td><td class="n">US$ 15 – 21 por noite</td><td><span class="flag">Dado de abril/2026</span> Fonte: Rebecca and the World, relato de viagem de abril de
-         2026. Outra fonte (relatosnomadas, 2026) cita US$ 10–20.</td></tr><tr><td>Quarto privativo em hostel</td><td class="n">US$ 55 – 76 por noite</td><td><span class="flag">Dado de abril/2026</span> Valor para duas pessoas. Fonte: Rebecca and the World.</td></tr><tr><td>Apartamento de 1 quarto</td><td class="n">~US$ 80 por noite</td><td><span class="flag">Dado de abril/2026</span> Para duas pessoas — é a linha usada na ficha de custos.
+         2026. Outra fonte (relatosnomadas, 2026) cita US$ 10–20.</td></tr><tr><td>Quarto privativo em hostel</td><td class="n">US$ 55 – 76 por noite</td><td><span class="flag">Dado de abril/2026</span> Valor para duas pessoas. Fonte: Rebecca and the World.</td></tr><tr><td>Apartamento de 1 quarto</td><td class="n">~US$ 80 por noite</td><td><span class="flag">Dado de abril/2026</span> Para até duas pessoas — é a linha usada na ficha de custos, que cobra o apartamento inteiro de quem viaja só.
          Fonte: Rebecca and the World. Outra fonte (relatosnomadas, 2026) cita Airbnb básico a US$ 25–45.</td></tr><tr><td>Hotel boutique</td><td class="n">US$ 255 – 297 por noite</td><td><span class="flag">Dado de abril/2026</span> Fonte: Rebecca and the World.</td></tr><tr><td>Hotel de luxo</td><td class="n">US$ 500 – 638 por noite</td><td><span class="flag">Dado de abril/2026</span> Fonte: Rebecca and the World.</td></tr><tr><td>Hotel 4 estrelas</td><td class="n">US$ 100 – 180 por noite</td><td><span class="flag">Estimativa</span> Fonte: relatosnomadas, 2026 — divergente da tabela acima, que não
          tem categoria equivalente. Duas fontes secundárias, nenhuma oficial.</td></tr><tr><td>Aluguel mensal em Palermo</td><td class="n">US$ 500 – 600 + ~US$ 120 de expensas</td><td>Estúdio; dois quartos por volta de US$ 750. Fonte: Holafly, 2026. Serve para estadia longa, não para
          cinco dias.</td></tr><tr><td>Diária média por bairro</td><td class="n"><span class="flag">Não encontrado</span></td><td>Não há dado datado e confiável para Palermo, Recoleta, San Telmo, Puerto Madero ou Microcentro. O que
@@ -208,7 +209,7 @@
 </section>
 
 <section class="bloco"><div class="aviso a"><span class="t">Onde a conta escapa</span><p><b>Alimentação não está na conta.</b> É a lacuna maior desta ficha e ela pode facilmente dobrar o
-            total. A pesquisa não levantou preços de comida em Buenos Aires e não há número confiável para estimar.</p><p><b>Pagar o hotel em dinheiro custa 21% a mais.</b> Os US$ 132 da linha de hospedagem viram US$ 160
+            total. A pesquisa não levantou preços de comida em Buenos Aires e não há número confiável para estimar.</p><p><b>Pagar o hotel em dinheiro custa 21% a mais.</b> Os US$ 264 da linha de hospedagem viram US$ 320
             se você pagar em espécie — a devolução do IVA só sai com cartão emitido no exterior ou transferência
             internacional.</p><p><b>Não trocar dinheiro no aeroporto.</b> As cotações de Ezeiza são bem piores que as da cidade. Se
             precisar, troque no Banco Nación do desembarque só o suficiente para o transporte. E use sempre o
