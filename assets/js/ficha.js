@@ -202,7 +202,9 @@
            ficha.js cumprir a sua parte. */
         if (on && !isNaN(v)) ing += v;
       } else if (t === "fixo") {
-        outros += v * p;
+        /* O mesmo NaN, no transporte: o onibus de Foz ate o lado argentino
+           nao tem preco publicado, e a linha existe para dizer isso (29/10/2026). */
+        if (!isNaN(v)) outros += v * p;
       } else if (t === "dia") {
         var q = tr.dataset.grupo ? 1 : p;
         var sub = v * d * q;

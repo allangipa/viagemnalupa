@@ -345,6 +345,19 @@ PROSA = {
               "Gramado foi revogada pela Câmara em abril de 2026</b>, e a Room Tax que "
               "ficou no lugar é voluntária — por isso nenhuma das duas está no total."),
     ),
+    "foz-do-iguacu": dict(
+        gratis=("Uma linha não cobra: o <b>Templo Budista Chen Tien</b>, que só aparece em "
+                "guias de viagem, sem página oficial — e fecha na segunda."),
+        fonte=("As páginas oficiais do Parque Nacional do Iguaçu, do Parque Nacional Iguazú e "
+               "da Administración de Parques Nacionales, do Macuco Safari, do Parque das Aves, "
+               "do Turismo Itaipu e do Marco das Três Fronteiras, e a Secretaria Municipal de "
+               "Turismo. Apuradas em 29 de outubro de 2026. <b>Nenhum valor veio de agregador "
+               "de viagem.</b>"),
+        nota=(SEM + "<b>O lado argentino das Cataratas está em peso</b>: AR$ 60.000, "
+              "convertidos pela taxa de venda do boletim de fechamento do Banco Central de "
+              "23/out/2026, R$ 197,94 — <b>sem tarifa Mercosul</b>, o brasileiro paga como "
+              "estrangeiro. O ônibus até a Argentina não tem preço publicado e está fora."),
+    ),
     "roma": dict(
         gratis=("Três das linhas não cobram entrada: a Basílica de São Pedro, a "
                 "Fontana di Trevi com a Piazza Navona, e a Piazza di Spagna — onde, no "

@@ -43,6 +43,7 @@ DESTINOS = {
     "granada":        ("GRX", "Granada"),
     "barcelona":      ("BCN", "Barcelona"),
     "gramado":        ("POA", "Porto Alegre, para Gramado"),
+    "foz-do-iguacu":  ("IGU", "Foz do Iguaçu"),
     "madri":          ("MAD", "Madri"),
     "miami":          ("MIA", "Miami"),
     "paris":          ("PAR", "Paris"),
