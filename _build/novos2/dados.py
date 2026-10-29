@@ -71,13 +71,14 @@ BARILOCHE = {
             "como se fossem dólares.</p>"
             "<p><span class=\"flag\">Não convertemos os valores</span> a conversão "
             "automática pela PTAX do Banco Central existe em outras fichas do site e "
-            "<b>não pode entrar aqui: o Banco Central publica a cotação de dez moedas, "
-            "e o peso argentino não está entre elas</b> — conferimos a lista da API do "
-            "PTAX em 17/set/2026.</p>"
-            "<p>Para dar ordem de grandeza sem fingir precisão: <b>ARS 1.000 ficavam "
-            "perto de R$ 3,40</b> em 17/set/2026, segundo cotação de mercado publicada "
-            "pela Wise e pelo Investing.com. <b>Não é taxa oficial e muda todo dia</b> "
-            "— use só para dimensionar.</p>"),
+            "<b>não pode entrar aqui: a PTAX cobre dez moedas, e o peso argentino não "
+            "está entre elas</b> — conferimos a lista da API do PTAX em 17/set/2026.</p>"
+            # boletim de fechamento de 23/10/2026, ARS venda 0,003299 - o mesmo
+            # arquivo do /comparar/ (_build/recortes/fontes/bcb-fechamento-20261023.csv)
+            "<p>O Banco Central publica o peso em outro lugar, o boletim diário de "
+            "fechamento, e é por ele que damos a ordem de grandeza: <b>ARS 1.000 valiam "
+            "R$ 3,30</b> em 23/out/2026, na taxa de venda. <b>Muda todo dia</b> — use "
+            "só para dimensionar.</p>"),
     },
     "busca": ("bariloche san carlos de bariloche argentina patagonia rio negro nahuel huapi "
               "parque nacional cerro catedral cerro otto cerro campanario isla victoria "

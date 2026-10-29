@@ -114,8 +114,9 @@ FICHAS = {
             "para o ferry; e a tarifa média da cidade divulgada pela Secretaría de Turismo "
             "de Quintana Roo. <b>Nenhum valor desta página foi convertido para real.</b> "
             "A conversão automática pela PTAX do Banco Central existe em outras fichas do "
-            "site e entra aqui quando tivermos a série do peso mexicano — o Banco Central "
-            "publica só dez moedas, e o peso mexicano não está entre elas."),
+            "site e não entra aqui: a PTAX cobre dez moedas, e o peso mexicano não está "
+            "entre elas. Para ordem de grandeza, o boletim de fechamento do Banco Central "
+            "dava MX$ 100 = R$ 26,99 em 23/out/2026, na taxa de venda."),
     },
 
     "fortaleza": {

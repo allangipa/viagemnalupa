@@ -107,8 +107,11 @@ PROSA = {
               "não levantamos tarifa de ônibus da Zona Hoteleira nem de táxi, e "
               "preferimos a lacuna à estimativa. <b>O Xcaret também está fora da "
               "conta</b> — apuramos três valores diferentes no mesmo dia e nenhum se "
-              "confirmou como o oficial. Os valores em peso não são convertidos: o "
-              "Banco Central publica dez moedas e o peso mexicano não está entre elas."),
+              "confirmou como o oficial. Os valores em peso não são convertidos: a "
+              "conversão automática do site usa a PTAX, que cobre dez moedas, e o peso "
+              "mexicano não está entre elas. Para ordem de grandeza, o boletim de "
+              "fechamento do Banco Central dava MX$ 100 = R$ 26,99 em 23/out/2026, na "
+              "taxa de venda."),
     ),
 
     # --- os oito que travavam o script desde 17/set/2026 --------------
@@ -162,8 +165,10 @@ PROSA = {
         nota=(SEM + "No caso de Bariloche, o INDEC coleta a tarifa média na Encuesta "
               "de Ocupación Hotelera mas não a publica, e a série está suspensa desde "
               "novembro de 2025. <b>Os valores estão em peso "
-              "argentino e não são convertidos</b>: o Banco Central publica cotação de "
-              "dez moedas, e o peso argentino não está entre elas."),
+              "argentino e não são convertidos</b>: a conversão automática do site usa "
+              "a PTAX, que cobre dez moedas, e o peso argentino não está entre elas. "
+              "Para ordem de grandeza, o boletim de fechamento do Banco Central dava "
+              "ARS 1.000 = R$ 3,30 em 23/out/2026, na taxa de venda."),
     ),
     "punta-cana": dict(
         gratis=("Duas das sete linhas não cobram entrada: a Playa Bávaro e a Playa "
