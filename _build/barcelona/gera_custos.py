@@ -51,19 +51,21 @@ base.APURACAO = _d.APURACAO
 APURADO = "18 de outubro de 2026"
 
 # Serie do INE, tabela 46298, "Barcelona. Tarifa media diaria (ADR)",
-# lida pela API (servicios.ine.es/wstempus) em 18/10/2026. Inteira aqui
-# para a media ser conferivel sem sair do arquivo.
+# EOT43584, lida pela API (servicios.ine.es/wstempus) em 29/10/2026 e
+# guardada em _build/barcelona/fontes/. Janela de out/2025 a set/2026, a
+# mesma de Madri: a de 18/10 comecava em set/2025, mes que o INE revisou
+# depois (198,64 -> 196,10). Inteira aqui para a media ser conferivel.
 ADR = {
-    "set/2025": 198.64, "out/2025": 190.29, "nov/2025": 155.67,
-    "dez/2025": 131.41, "jan/2026": 135.13, "fev/2026": 153.00,
-    "mar/2026": 188.47, "abr/2026": 193.14, "mai/2026": 223.37,
-    "jun/2026": 214.34, "jul/2026": 186.09, "ago/2026": 175.42,
+    "out/2025": 190.29, "nov/2025": 155.67, "dez/2025": 131.41,
+    "jan/2026": 135.13, "fev/2026": 153.00, "mar/2026": 188.47,
+    "abr/2026": 193.14, "mai/2026": 223.37, "jun/2026": 214.34,
+    "jul/2026": 186.09, "ago/2026": 175.42, "set/2026": 207.03,
 }
-MEDIA = round(sum(ADR.values()) / len(ADR), 2)      # 178.75
+MEDIA = round(sum(ADR.values()) / len(ADR), 2)      # 179.45
 assert len(ADR) == 12, "a media diz 12 meses; confira a serie"
 assert min(ADR, key=ADR.get) == "dez/2025", "dezembro deixou de ser o mais barato"
 assert max(ADR, key=ADR.get) == "mai/2026", "maio deixou de ser o mais caro"
-assert MEDIA == 178.75, "a media mudou; atualize os textos que a citam"
+assert MEDIA == 179.45, "a media mudou; atualize os textos que a citam"
 
 NOITES = 4
 TAXA_NOITE = 7.00       # 2,00 IEET + 5,00 recarrec, hotel de ate 3 estrelas
@@ -226,13 +228,13 @@ FICHAS = {
              {"noite": "%.4f" % TAXA_NOITE, "teto": "7",
               "rot": "Taxa turística (IEET + recargo de Barcelona), {n}"}),
             # ---------------------------------------------------- hospedagem
-            ("hosp", None, "Hospedagem, 4 noites", "€ 715,00",
+            ("hosp", None, "Hospedagem, 4 noites", "€ 717,79",
              "Fonte: <b>INE</b>, <i>Indicadores de Rentabilidad del Sector Hotelero</i>, "
              "tabela 46298 — tarifa média diária (ADR) por <b>ponto turístico</b>, série "
              "<i>Barcelona, total de categorias</i>, lida pela API do INE em "
-             "18/out/2026.<br>"
-             "<b>O valor mostrado usa a média dos 12 meses de set/2025 a ago/2026: "
-             "€ 178,75 por quarto por noite.</b> Os doze valores são do INE; <b>a média "
+             "29/out/2026.<br>"
+             "<b>O valor mostrado usa a média dos 12 meses de out/2025 a set/2026: "
+             "€ 179,45 por quarto por noite.</b> Os doze valores são do INE; <b>a média "
              "é cálculo nosso</b>, e está rotulada como tal no seletor.<br>"
              "<b>Maio é o mês mais caro (€ 223,37) e dezembro o mais barato "
              "(€ 131,41): 70% de diferença pelo mesmo quarto.</b> Agosto (€ 175,42) "

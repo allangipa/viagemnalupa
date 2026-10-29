@@ -40,8 +40,9 @@ viagem de quinta a segunda pega as tres tardes.
 O TERCEIRO: O INE DIZ QUAL E O MES MAIS CARO, E E MAIO
 --------------------------------------------------------------------
 Tabela 46298, serie "Barcelona. Tarifa media diaria (ADR)", 12 meses
-de set/2025 a ago/2026: maio de 2026 a 223,37 EUR por quarto e dezembro
-de 2025 a 131,41 - 70% de diferenca. Media dos doze: 178,75 (calculo
+de out/2025 a set/2026 (lida em 29/10/2026): maio de 2026 a 223,37 EUR
+por quarto e dezembro de 2025 a 131,41 - 70% de diferenca. Media dos
+doze: 179,45 (calculo
 nosso). Barcelona nao tem o "agosto ao contrario" de Granada: agosto
 (175,42) fica perto da media.
 
@@ -613,7 +614,7 @@ BARCELONA = {
             "grupo": "g3",
             "nome": "Hospedagem, e a taxa que dobrou",
             "tag": "Conta, não lugar",
-            "preco_val": "€ 178,75",
+            "preco_val": "€ 179,45",
             "preco_nota": "média de 12 meses por quarto; mais € 7 por pessoa por noite de taxa",
             "campos": [
                 ("A diária: a fonte, e o que o número é",
@@ -621,17 +622,17 @@ BARCELONA = {
                  "<i>Indicadores de Rentabilidad del Sector Hotelero</i>, <b>tabela "
                  "46298</b> — tarifa média diária (ADR) por <b>ponto turístico</b>, "
                  "série <i>Barcelona, total de categorias</i>, lida pela API do INE em "
-                 "18/out/2026.<br>"
+                 "29/out/2026.<br>"
                  "<b>É por quarto ocupado, por noite, e não por pessoa</b>, e cobre "
                  "<b>hotéis</b>, não apartamentos.<br>"
-                 "<b>Os € 178,75 são a média dos 12 meses de setembro de 2025 a agosto "
+                 "<b>Os € 179,45 são a média dos 12 meses de outubro de 2025 a setembro "
                  "de 2026.</b> Os doze valores são do INE; <b>a média é cálculo "
                  "nosso</b>.<br>"
-                 "Os doze, para você conferir: set/2025 € 198,64 · out/2025 € 190,29 · "
-                 "nov/2025 € 155,67 · <b>dez/2025 € 131,41</b> · jan/2026 € 135,13 · "
-                 "fev/2026 € 153,00 · mar/2026 € 188,47 · abr/2026 € 193,14 · "
-                 "<b>mai/2026 € 223,37</b> · jun/2026 € 214,34 · jul/2026 € 186,09 · "
-                 "ago/2026 € 175,42.<br>"
+                 "Os doze, para você conferir: out/2025 € 190,29 · nov/2025 € 155,67 · "
+                 "<b>dez/2025 € 131,41</b> · jan/2026 € 135,13 · fev/2026 € 153,00 · "
+                 "mar/2026 € 188,47 · abr/2026 € 193,14 · <b>mai/2026 € 223,37</b> · "
+                 "jun/2026 € 214,34 · jul/2026 € 186,09 · ago/2026 € 175,42 · "
+                 "set/2026 € 207,03.<br>"
                  "<b>Maio é o mês mais caro e dezembro o mais barato: 70% de diferença "
                  "pelo mesmo quarto.</b> Barcelona não tem o agosto ao contrário de "
                  "Granada: agosto fica perto da média."),
