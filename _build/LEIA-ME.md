@@ -262,6 +262,131 @@ estoura primeiro é o `booking.py`, com o `KeyError` pelado.
 O `confere/tudo.py` pega as três depois do fato. Registrar antes evita a
 segunda passada.
 
+## Regerar uma ficha de custos: `regera_ficha.py`
+
+Para mexer numa ficha que já está no ar (diária nova, nota corrigida), use:
+
+```
+python _build/regera_ficha.py <slug> <gerador.py> [args extras do gerador]
+
+python _build/regera_ficha.py barcelona _build/barcelona/gera_custos.py
+python _build/regera_ficha.py cancun    _build/novos/gera_custos.py  --so cancun
+python _build/regera_ficha.py bariloche _build/novos2/gera_custos.py --so bariloche
+```
+
+Ele roda o gerador, repõe o bloco do voo, roda a cadeia inteira (a da seção
+anterior e a de busca, abaixo), depois `calculadora/sincroniza.py`,
+`recortes/comparar.py` e `cluster/home.py`, e termina no `confere/tudo.py`.
+Grava direto e para no primeiro `rc != 0`.
+
+### O bloco do voo não tem gerador nesta máquina
+
+`<!-- voo:inicio --> … <!-- voo:fim -->` é escrito pela Action `voos.yml`, que
+tem o token da Aviasales. O gerador da ficha não sabe o preço da passagem, e
+**alguns escrevem um bloco provisório** ("Ainda não coletado… o primeiro valor
+aparece aqui na próxima coleta") no lugar do que estava no ar.
+
+O `regera_ficha.py` guarda o bloco antes e o devolve depois, **trocando o
+provisório** se houver. Isso custou caro uma vez, em 29/out/2026, regerando
+Barcelona: a primeira versão do script só repunha o bloco quando ele faltava.
+O provisório contava como presente, e o bloco real sumiu. Junto sumiu o link
+da Aviasales, que o `espalha.py` copia **da ficha** para o guia e o roteiro.
+O roteiro passou de "Passagem e hospedagem" para só "Hospedagem", sem erro
+nenhum. O único sinal foi um diff inesperado em `roteiro-5-dias/`.
+
+Se regerar à mão, confira com `git diff` que o bloco do voo da ficha não
+encolheu.
+
+### `--so`: os geradores que escrevem várias fichas
+
+`novos/gera_custos.py` escreve Cancún e Fortaleza, e `novos2/gera_custos.py`
+reusa o mesmo renderizador para Bariloche e Punta Cana. Sem `--so <slug>`,
+eles regeram todas as fichas de uma vez, e o `regera_ficha.py` só protege o
+voo da que foi nomeada. Passe sempre o `--so`.
+
+### `--refaz`: a calculadora de uma cidade que já está nela
+
+`calculadora/sincroniza.py` sem argumento só **acrescenta** cidades que faltam.
+Com `--refaz <slug>`, remonta o botão e o bloco inteiros daquela cidade a partir
+da ficha e do `PROSA`. Use depois de mudar qualquer valor ou texto da ficha.
+O `regera_ficha.py` já faz isso.
+
+### O preço do JSON-LD não acompanha uma diária nova
+
+`schema/ofertas.py` **nunca reescreve um `offers` que já existe** (ver "O preco
+do JSON-LD sai do HTML publicado", abaixo). Ao mudar uma diária que aparece no
+guia, troque à mão o `"price"` do Offer daquele ponto. Exemplo: o
+`#hospedagem` de Barcelona passou de `"178.75"` para `"179.45"` em 29/out/2026.
+Senão a página mostra um preço e o dado estruturado, outro.
+
+### O guia de algumas cidades não tem gerador no repositório
+
+O parágrafo de câmbio do guia de Cancún ("Preço em moeda estrangeira não foi
+convertido…") não aparece em nenhum arquivo de `_build/`: só existe no HTML
+publicado, e a correção de 29/out/2026 foi feita direto nele. Antes de corrigir
+um guia, procure a frase em `_build/`. Se não aparecer, edite o
+`destinos/<slug>/index.html`. Se aparecer no `dados.py`, mude nos dois.
+Regerar o guia inteiro só para trocar uma frase desfaz a cadeia toda.
+
+### Fontes guardadas como prova
+
+Quando o número vem de uma API ou de um arquivo que pode mudar, a resposta fica
+em `_build/<slug>/fontes/` (ou `_build/recortes/fontes/`), com a data no nome
+ou no comentário do gerador:
+
+- `madri/fontes/` e `barcelona/fontes/`: série do INE (tabela 46298) em JSON.
+  O INE revisa meses já publicados: Barcelona, set/2025, passou de 198,64 para
+  196,10. Por isso a janela de 12 meses e a data da leitura ficam escritas.
+- `recortes/fontes/bcb-fechamento-20261023.csv`: boletim de fechamento do BCB,
+  taxa de venda. É dele que saem o `/comparar/` e as ordens de grandeza de
+  Bariloche (ARS) e Cancún (MXN). **A PTAX cobre só dez moedas**, e os pesos
+  argentino e mexicano não estão entre elas. O BCB publica os dois no boletim
+  de fechamento. Não confunda os dois: o site já disse "o Banco Central só
+  publica dez moedas", e estava errado.
+- `rio/fontes/`, `miami/fontes/`, `paris/fontes/`, `novos/fohb-…`: tabelas de
+  táxi e diárias (FOHB, GMCVB, In Extenso).
+
+### O que o `confere/tudo.py` passou a pegar em outubro de 2026
+
+- **`confere_calculadora_x_ficha`**: o total de cada cidade na calculadora
+  bate com o da ficha. Nasceu do Porto, que entrou sem a taxa turística
+  (€ 113,25 contra € 125,25). Também acusa a nota "Esta ficha não tem
+  hospedagem" numa cidade que já tem diária.
+- **`confere_fila`**: a fila da home ("Os próximos da fila") não pode
+  anunciar destino que já está publicado.
+- **"N destinos"**: o número tem de ser o total do site (22). Para subconjunto,
+  escreva "cidades" ("17 cidades com diária"). O título da calculadora diz
+  "N cidades".
+
+## Páginas de cluster: `cluster/`, `rio/paginas.py`, `lisboa/paginas.py`
+
+Páginas de uma pergunta só, penduradas no guia: Cristo Redentor, Pão de
+Açúcar, o que fecha cada dia, descontos, quando ir, aeroporto, onde ficar,
+Palácio da Pena, Lisboa Card.
+
+- **`cluster/comum.py`** tem a mecânica: ler e escrever, a trava de números,
+  o FAQ, as migalhas, o "Continue", o bloco da Booking e a foto de capa. Nada
+  ali sabe de cidade.
+- **`<cidade>/paginas.py`** tem os dados e o texto. Duas travas param o script
+  com `PARADO`:
+  - `confere_numeros`: todo número escrito à mão tem de aparecer no texto da
+    fonte;
+  - as "provas": frases que têm de existir na ficha da qual a página empresta
+    o dado.
+- **`cluster/home.py`** monta o bloco "As respostas mais procuradas" na home,
+  entre `<!-- cluster:inicio -->` e `<!-- cluster:fim -->`. A lista sai do
+  disco: cidade nova com cluster entra sozinha.
+
+O link "Página completa" no guia vai num `<p class="ponto-mais">` antes de
+`<div class="campos">`, e **não** num `foto-nota`, que o `sem_moldura.py`
+apaga. O `liga_no_ponto` confere por regex se o link já está lá. A versão
+antiga conferia por texto, o atributo `style` quebrava a comparação, e cada
+rodada punha mais um link (Lisboa chegou a ter três).
+
+Regerar uma página de cluster tem o mesmo problema das outras: rode a cadeia
+depois. **`layout/faq.py` sozinho tira o FAQPage do JSON-LD**, e quem o devolve
+é o `schema/gera.py`.
+
 ## Busca: a cadeia de pos-processamento
 
 Rode nesta ordem. Cada um so acrescenta o que falta, entao rodar duas vezes
