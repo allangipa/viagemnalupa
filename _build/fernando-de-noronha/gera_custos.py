@@ -83,12 +83,12 @@ FICHAS = {
              "<span class=\"flag\">Muda em 1º de novembro</span> R$ 196,50 para "
              "brasileiro a partir de 1º/11/2026, segundo a imprensa citando o ICMBio "
              "(Brasilturis, 27/out/2026)."),
-            ("ingresso", 0.00, "Sancho, Golfinhos, Porcos, Leão e Sueste", "no ingresso",
+            ("ingresso", 0.00, "Sancho, Golfinhos, Porcos, Leão e Sueste", "incluído no ingresso do Parque",
              "Fonte: ICMBio, página de atrativos, consultada em 29/out/2026. Já pagos "
              "pelo ingresso do Parque. <b>A escada do Sancho tem horário de descer e de "
              "subir</b>; <b>no Sueste o banho está proibido</b>; na Baía dos Golfinhos "
              "não se desce."),
-            ("ingresso", 0.00, "Trilha da Atalaia, agendada", "no ingresso",
+            ("ingresso", 0.00, "Trilha da Atalaia, agendada", "incluído no ingresso do Parque",
              "Fonte: ICMBio. Vaga por dia e horário pela maré baixa; <b>sem o número do "
              "ingresso não se agenda</b>. Dispensa condutor. Colete, máscara e snorkel "
              "obrigatórios; protetor solar proibido antes do banho."),

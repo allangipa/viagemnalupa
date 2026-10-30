@@ -63,7 +63,10 @@ for s in ["layout/reorganiza.py --todos", "layout/atalhos.py", "layout/vizinhos.
           "parceiros/booking.py", "parceiros/espalha.py", "parceiros/aside.py",
           "nova-york/sv.py", "porto/sv.py", "granada/sv.py",
           "sitemap/atualiza.py", "schema/gera.py", "schema/editor.py", "schema/ofertas.py", "imagens/srcset.py",
-          "layout/fontes.py", "adsense/instala.py", "drive/instala.py"]:
+          "layout/fontes.py", "adsense/instala.py", "drive/instala.py",
+          # pagina recem-gerada sai com ?v=0; sem isto o CSS e o JS ficam sem
+          # o hash da versao (Noronha foi ao ar assim em 29/10/2026)
+          "cachebust/atualiza.py"]:
     partes = s.split()
     roda(os.path.join("_build", partes[0]), *partes[1:], "--aplica")
 calc = io.open(os.path.join(RAIZ, "calculadora", "index.html"), encoding="utf-8").read()

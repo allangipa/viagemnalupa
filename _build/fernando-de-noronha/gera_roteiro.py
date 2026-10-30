@@ -117,7 +117,7 @@ ROTEIROS = {
               "Sancho · escada livre 8h–8h50",
               "Descida 9h · subida 10h30",
               "Baía dos Porcos · pela Cacimba",
-              "Tudo no ingresso"]),
+              "Tudo incluído no ingresso do Parque"]),
 
             ("Dia 3 — a piscina da Atalaia e o Leão",
              "<b>Atalaia no horário agendado</b>, que segue a maré baixa: 3 km ida e "
@@ -130,7 +130,7 @@ ROTEIROS = {
               "Sem protetor solar antes",
               "Leão · 8h–18h · correntes",
               "Caracas · pôr do sol",
-              "Tudo no ingresso"]),
+              "Tudo incluído no ingresso do Parque"]),
 
             ("Dia 4 — o Sueste e o mar de barco",
              "<b>Sueste de manhã</b>: a faixa de areia abre das 9h às 16h, com vídeo ou "

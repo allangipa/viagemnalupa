@@ -171,8 +171,8 @@ NORONHA = {
             "grupo": "g2",
             "nome": "Baía do Sancho, dos Golfinhos e dos Porcos",
             "tag": "Praia do Parque",
-            "preco_val": "no ingresso",
-            "preco_nota": "a escada do Sancho tem horário de descer e de subir",
+            "preco_val": "incluído",
+            "preco_nota": "pago com o ingresso do Parque (R$ 192, vale 10 dias); a escada do Sancho tem horário de descer e de subir",
             "campos": [
                 ("A escada de horário marcado",
                  "Fonte: <b>ICMBio</b>, página de atrativos do Parque, consultada em "
@@ -203,8 +203,8 @@ NORONHA = {
             "grupo": "g2",
             "nome": "Praia do Leão e Ponta das Caracas",
             "tag": "Praia do Parque",
-            "preco_val": "no ingresso",
-            "preco_nota": "desova de tartaruga de dezembro a maio; correntes fortes",
+            "preco_val": "incluído",
+            "preco_nota": "pago com o ingresso do Parque (R$ 192, vale 10 dias); desova de tartaruga de dezembro a maio; correntes fortes",
             "campos": [
                 ("O Leão",
                  "Fonte: ICMBio, página de atrativos, consultada em 29/out/2026.<br>"
@@ -228,8 +228,8 @@ NORONHA = {
             "grupo": "g2",
             "nome": "Baía do Sueste",
             "tag": "Praia do Parque",
-            "preco_val": "no ingresso",
-            "preco_nota": "o banho está proibido",
+            "preco_val": "incluído",
+            "preco_nota": "pago com o ingresso do Parque (R$ 192, vale 10 dias); o banho está proibido",
             "campos": [
                 ("Só para olhar",
                  "Fonte: ICMBio, página de atrativos, consultada em 29/out/2026.<br>"
@@ -250,8 +250,8 @@ NORONHA = {
             "grupo": "g2",
             "nome": "As trilhas de piscina natural",
             "tag": "Trilha agendada",
-            "preco_val": "no ingresso",
-            "preco_nota": "agendamento e maré baixa; 4 delas exigem condutor pago",
+            "preco_val": "incluído",
+            "preco_nota": "pago com o ingresso do Parque (R$ 192, vale 10 dias); agendamento e maré baixa; 4 delas exigem condutor pago",
             "campos": [
                 ("Por que agendar",
                  "Fonte: ICMBio, páginas de visitação e de atrativos, consultadas em "
