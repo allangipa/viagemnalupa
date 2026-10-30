@@ -88,6 +88,7 @@ BUSCA = {
     "barcelona":      "Barcelona, Espanha",
     "gramado":        "Gramado, Brasil",
     "foz-do-iguacu":  "Foz do Iguaçu, Brasil",
+    "fernando-de-noronha": "Fernando de Noronha, Brasil",
     "lisboa":         "Lisboa, Portugal",
     "maceio":         "Maceió, Brasil",
     "madri":          "Madri, Espanha",

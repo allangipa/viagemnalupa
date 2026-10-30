@@ -53,6 +53,7 @@ DESTINOS = {
     "barcelona":      "Barcelona",
     "gramado":        "Gramado",
     "foz-do-iguacu":  "Foz do Iguaçu",
+    "fernando-de-noronha": "Fernando de Noronha",
     "lisboa":         "Lisboa",
     "maceio":         "Maceió",
     "madri":          "Madri",

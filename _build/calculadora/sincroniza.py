@@ -358,6 +358,18 @@ PROSA = {
               "23/out/2026, R$ 197,94 — <b>sem tarifa Mercosul</b>, o brasileiro paga como "
               "estrangeiro. O ônibus até a Argentina não tem preço publicado e está fora."),
     ),
+    "fernando-de-noronha": dict(
+        gratis=("Oito praias não pedem ingresso: <b>Cacimba do Padre, Bode, Americano, "
+                "Boldró, Conceição, Meio, Cachorro e o Porto de Santo Antônio</b>, da lista "
+                "oficial do ICMBio. A TPA vale do mesmo jeito."),
+        fonte=("A tabela oficial da TPA, da Administração do Distrito Estadual de Fernando "
+               "de Noronha, e as páginas do ICMBio do Parque Nacional Marinho. Apuradas em 29 "
+               "de outubro de 2026. <b>Nenhum valor veio de agregador de viagem.</b>"),
+        nota=(SEM + "<b>A TPA está fixa em 5 dias (R$ 520,50)</b>: a tabela é progressiva e "
+              "a calculadora não a recalcula pelas datas. Barco, condutor e ônibus não têm "
+              "preço em fonte oficial e estão fora — o total é quase só taxa, e isso é o "
+              "achado."),
+    ),
     "roma": dict(
         gratis=("Três das linhas não cobram entrada: a Basílica de São Pedro, a "
                 "Fontana di Trevi com a Piazza Navona, e a Piazza di Spagna — onde, no "
