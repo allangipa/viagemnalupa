@@ -45,6 +45,7 @@ DESTINOS = {
     "gramado":        ("POA", "Porto Alegre, para Gramado"),
     "foz-do-iguacu":  ("IGU", "Foz do Iguaçu"),
     "fernando-de-noronha": ("FEN", "Fernando de Noronha"),
+    "bonito":         ("BYO", "Bonito"),
     "madri":          ("MAD", "Madri"),
     "miami":          ("MIA", "Miami"),
     "paris":          ("PAR", "Paris"),

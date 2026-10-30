@@ -74,6 +74,7 @@ CIDADES = {
     "gramado":        "Gramado",
     "foz-do-iguacu":  "Foz do Iguaçu",
     "fernando-de-noronha": "Fernando de Noronha",
+    "bonito":         "Bonito",
     "lisboa":         "Lisboa",
     "maceio":         "Maceió",
     "madri":          "Madri",

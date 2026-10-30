@@ -370,6 +370,18 @@ PROSA = {
               "preço em fonte oficial e estão fora — o total é quase só taxa, e isso é o "
               "achado."),
     ),
+    "bonito": dict(
+        gratis=("Nenhuma linha é de graça: em Bonito todo passeio é vendido por agência, "
+                "com voucher, e paga a TCA de R$ 15 por dia de passeio."),
+        fonte=("A nota oficial da Prefeitura de Bonito sobre a TCA e o tarifário publicado "
+               "pelo Nascente Azul, conferidos em 29 de outubro de 2026. <b>Os outros "
+               "atrativos não publicam preço</b>: o valor de agência aparece na ficha do "
+               "destino, marcado, e fica fora desta conta."),
+        nota=(SEM + "<b>O total tem só o que tem fonte oficial</b>: a TCA e o Nascente Azul. "
+              "Rio da Prata, Gruta do Lago Azul, Balneário Municipal e Abismo Anhumas têm "
+              "preço tabelado mas não publicado — estão na ficha com o preço de agência, "
+              "fora da soma."),
+    ),
     "roma": dict(
         gratis=("Três das linhas não cobram entrada: a Basílica de São Pedro, a "
                 "Fontana di Trevi com a Piazza Navona, e a Piazza di Spagna — onde, no "
