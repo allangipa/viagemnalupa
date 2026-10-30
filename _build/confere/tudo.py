@@ -38,7 +38,7 @@ EXTENSO = {"um": 1, "dois": 2, "tres": 3, "três": 3, "quatro": 4, "cinco": 5,
            "vinte": 20, "vinte e um": 21, "vinte e uma": 21,
            "vinte e dois": 22, "vinte e duas": 22,
            "vinte e tres": 23, "vinte e três": 23,
-           "vinte e quatro": 24, "vinte e cinco": 25}
+           "vinte e quatro": 24, "vinte e cinco": 25, "vinte e seis": 26}
 
 # Tipos que descendem de CreativeWork e portanto aceitam inLanguage.
 # Qualquer outro que a traga esta errado - ver a anotacao no confere_schema.

@@ -46,6 +46,7 @@ DESTINOS = {
     "foz-do-iguacu":  ("IGU", "Foz do Iguaçu"),
     "fernando-de-noronha": ("FEN", "Fernando de Noronha"),
     "bonito":         ("BYO", "Bonito"),
+    "machu-picchu":   ("CUZ", "Cusco, para Machu Picchu"),
     "madri":          ("MAD", "Madri"),
     "miami":          ("MIA", "Miami"),
     "paris":          ("PAR", "Paris"),

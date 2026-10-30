@@ -362,7 +362,7 @@ ou no comentário do gerador:
   hospedagem" numa cidade que já tem diária.
 - **`confere_fila`**: a fila da home ("Os próximos da fila") não pode
   anunciar destino que já está publicado.
-- **"N destinos"**: o número tem de ser o total do site (25 desde Bonito, 29/out/2026). Para subconjunto,
+- **"N destinos"**: o número tem de ser o total do site (26 desde Machu Picchu, 29/out/2026). Para subconjunto,
   escreva "cidades" ("17 cidades com diária"). O título da calculadora diz
   "N cidades".
 

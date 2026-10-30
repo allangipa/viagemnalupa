@@ -55,6 +55,7 @@ DESTINOS = {
     "foz-do-iguacu":  "Foz do Iguaçu",
     "fernando-de-noronha": "Fernando de Noronha",
     "bonito":         "Bonito",
+    "machu-picchu":   "Machu Picchu",
     "lisboa":         "Lisboa",
     "maceio":         "Maceió",
     "madri":          "Madri",

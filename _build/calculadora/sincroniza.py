@@ -382,6 +382,17 @@ PROSA = {
               "preço tabelado mas não publicado — estão na ficha com o preço de agência, "
               "fora da soma."),
     ),
+    "machu-picchu": dict(
+        gratis=("Nenhuma linha é de graça: o bilhete de Machu Picchu e a taxa do SERNANP "
+                "são cobrados de todo visitante estrangeiro."),
+        fonte=("A data da taxa do SERNANP vem da resolução no El Peruano; o bilhete de "
+               "estrangeiro e o valor da taxa, da imprensa peruana, que reproduz a tarifa "
+               "oficial. Conferidos em 29 de outubro de 2026."),
+        nota=(SEM + "<b>O total tem só as duas tarifas do governo peruano</b>, convertidas "
+              "do sol pela taxa de venda do Banco Central de 23/out/2026. Trem, ônibus e "
+              "Boleto Turístico não têm fonte oficial legível e estão fora — os valores dos "
+              "guias estão na ficha do destino, marcados."),
+    ),
     "roma": dict(
         gratis=("Três das linhas não cobram entrada: a Basílica de São Pedro, a "
                 "Fontana di Trevi com a Piazza Navona, e a Piazza di Spagna — onde, no "
