@@ -77,6 +77,7 @@ if hasattr(sys.stdout, "buffer"):
 # senao "US$" casaria como "$" e "MX$" viraria dolar.
 MOEDAS = [
     ("US$", "USD"),
+    ("£", "GBP"),
     ("MX$", "MXN"),
     ("R$", "BRL"),
     ("$U", "UYU"),

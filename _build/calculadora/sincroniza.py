@@ -393,6 +393,36 @@ PROSA = {
               "Boleto Turístico não têm fonte oficial legível e estão fora — os valores dos "
               "guias estão na ficha do destino, marcados."),
     ),
+    "londres": dict(
+        gratis=("Três linhas não cobram, e são as maiores da cidade: o <b>British Museum</b>, "
+                "a <b>National Gallery</b> e o <b>Natural History Museum</b> têm entrada "
+                "livre. A troca da guarda em Buckingham, na rua, também — em novembro, "
+                "segunda, quarta e sexta, às 11h."),
+        fonte=("As páginas oficiais da Historic Royal Palaces, da Abadia de Westminster, da "
+               "Catedral de St Paul's, do London Eye, do Royal Collection Trust e dos três "
+               "museus nacionais; o gov.uk para a ETA; e os comunicados oficiais da TfL. "
+               "Apuradas em 7 de novembro de 2026. <b>A página de tarifas da TfL respondeu "
+               "com verificação anti-robô</b>, e o teto diário do metrô está marcado como "
+               "fonte secundária."),
+        nota=(SEM + "<b>A ETA de £ 20 entra na conta</b>, por pessoa, bebê incluído. "
+              "<b>Buckingham fica fora</b>: as salas só abrem no verão, e no resto do ano a "
+              "única entrada é uma visita guiada de £ 100. Os valores em libra não são "
+              "convertidos aqui."),
+    ),
+    "florianopolis": dict(
+        gratis=("As <b>praias</b> não cobram, por lei federal (Lei 7.661/1988), nem a "
+                "<b>Ponte Hercílio Luz</b>, o <b>Mercado Público</b> e a Lagoa. E as "
+                "<b>fortalezas da UFSC</b> não cobram no último domingo de cada mês, de "
+                "março a novembro."),
+        fonte=("O site oficial da Prefeitura para a Ilha do Campeche, o Departamento das "
+               "Fortalezas da UFSC e o texto da lei federal das praias. Apuradas em 7 de "
+               "novembro de 2026. <b>A taxa do Campeche e a tarifa de ônibus vêm da "
+               "imprensa</b>, e estão marcadas ponto a ponto na ficha do destino."),
+        nota=(SEM + "<b>Os dois barcos ficam fora</b> — o da Ilha do Campeche, de R$ 185 a "
+              "R$ 250 pela imprensa, e o da Costa da Lagoa —, porque cada associação cobra o "
+              "seu e não há tabela oficial. <b>O Campeche não devolve nem reagenda</b>, nem "
+              "com mar ruim."),
+    ),
     "roma": dict(
         gratis=("Três das linhas não cobram entrada: a Basílica de São Pedro, a "
                 "Fontana di Trevi com a Piazza Navona, e a Piazza di Spagna — onde, no "

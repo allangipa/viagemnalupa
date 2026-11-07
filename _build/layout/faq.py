@@ -51,7 +51,7 @@ RAIZ = os.path.dirname(os.path.dirname(AQUI))
 if hasattr(sys.stdout, "buffer"):
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding="utf-8", errors="replace")
 
-MOEDA = r"(?:US\$|R\$|€|MX\$|CLP|ARS|UYU|\$U|\$)"
+MOEDA = r"(?:US\$|R\$|€|£|MX\$|CLP|ARS|UYU|\$U|\$)"
 GRATIS = re.compile(r"gr[aá]tis|gratuit|livre", re.I)
 MESES = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho",
          "agosto", "setembro", "outubro", "novembro", "dezembro"]

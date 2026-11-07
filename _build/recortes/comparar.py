@@ -52,7 +52,7 @@ from gratis import le, escreve, limpa, nomes_dos_destinos, pontos_gratis, esquel
 BOLETIM = os.path.join(AQUI, "fontes", "bcb-fechamento-20261023.csv")
 DATA_BOLETIM = "23 de outubro de 2026"
 # simbolo da ficha de custos -> codigo do boletim
-SIMBOLO = {"€": "EUR", "US$": "USD", "R$": "BRL", "ARS": "ARS", "MX$": "MXN", "$U": "UYU", "CLP": "CLP"}
+SIMBOLO = {"€": "EUR", "US$": "USD", "R$": "BRL", "ARS": "ARS", "MX$": "MXN", "$U": "UYU", "CLP": "CLP", "£": "GBP"}
 
 
 def cotacoes():

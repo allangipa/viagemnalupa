@@ -56,6 +56,8 @@ DESTINOS = {
     "fernando-de-noronha": "Fernando de Noronha",
     "bonito":         "Bonito",
     "machu-picchu":   "Machu Picchu",
+    "londres":        "Londres",
+    "florianopolis":  "Florianópolis",
     "lisboa":         "Lisboa",
     "maceio":         "Maceió",
     "madri":          "Madri",

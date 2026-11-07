@@ -416,7 +416,13 @@ def monta(slug):
     # fica so "hosp", que o seletor de hospedagem trata a parte. Nas quatro
     # fichas anteriores a soma nao muda: elas nao tem linha de outro tipo
     # com valor, e isso foi conferido antes de trocar.
-    total = sum(v for t, v, *_ in f["linhas"] if t != "hosp" and v)
+    # Linha "dia" (Londres, 7/nov/2026: o teto diario do metro) e valor POR
+    # DIA - o ficha.js multiplica pelos dias, e o total impresso tem de
+    # fazer o mesmo, senao a pagina sem JavaScript e a calculadora divergem
+    # (o confere pegou: £ 185,90 contra £ 221,50). Antes de Londres nenhuma
+    # ficha deste gerador tinha linha "dia".
+    total = sum((v * f["dias"] if t == "dia" else v)
+                for t, v, *_ in f["linhas"] if t != "hosp" and v)
     if f["hosp"]:
         total += f["hosp"][0]["ref"] * (f["dias"] - 1)
     rot = "Total por pessoa" + ("" if f["hosp"] else ", sem a hospedagem")

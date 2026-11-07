@@ -47,6 +47,8 @@ DESTINOS = {
     "fernando-de-noronha": ("FEN", "Fernando de Noronha"),
     "bonito":         ("BYO", "Bonito"),
     "machu-picchu":   ("CUZ", "Cusco, para Machu Picchu"),
+    "londres":        ("LON", "Londres"),
+    "florianopolis":  ("FLN", "Florianópolis"),
     "madri":          ("MAD", "Madri"),
     "miami":          ("MIA", "Miami"),
     "paris":          ("PAR", "Paris"),

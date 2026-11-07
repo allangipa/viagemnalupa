@@ -91,6 +91,8 @@ BUSCA = {
     "fernando-de-noronha": "Fernando de Noronha, Brasil",
     "bonito":         "Bonito, Mato Grosso do Sul, Brasil",
     "machu-picchu":   "Cusco, Peru",
+    "londres":        "Londres, Reino Unido",
+    "florianopolis":  "Florianópolis, Brasil",
     "lisboa":         "Lisboa, Portugal",
     "maceio":         "Maceió, Brasil",
     "madri":          "Madri, Espanha",
