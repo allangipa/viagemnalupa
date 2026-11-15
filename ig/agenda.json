@@ -297,6 +297,16 @@
    "estado": "pronto",
    "video": "reel.mp4",
    "capa": "capa.jpg"
+  },
+  {
+   "data": "2026-11-30",
+   "hora": "12:00",
+   "tipo": "carrossel",
+   "slug": "barcelona",
+   "pasta": "2026-11-30-barcelona",
+   "titulo": "Notícia Barcelona: a taxa turística sobe em 01/04/2027; quem paga antes trava o valor de hoje",
+   "estado": "pronto",
+   "telas": 7
   }
  ]
 }
