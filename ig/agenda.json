@@ -307,6 +307,26 @@
    "titulo": "Notícia Barcelona: a taxa turística sobe em 01/04/2027; quem paga antes trava o valor de hoje",
    "estado": "pronto",
    "telas": 7
+  },
+  {
+   "data": "2026-12-01",
+   "hora": "12:00",
+   "tipo": "carrossel",
+   "slug": "sao-paulo",
+   "pasta": "2026-12-01-sao-paulo",
+   "titulo": "São Paulo: cada museu tem o seu dia grátis, e nenhum coincide",
+   "estado": "pronto",
+   "telas": 7
+  },
+  {
+   "data": "2026-12-03",
+   "hora": "12:00",
+   "tipo": "carrossel",
+   "slug": "aruba",
+   "pasta": "2026-12-03-aruba",
+   "titulo": "Aruba: o formulário de entrada é grátis, mas a taxa de US$ 20 vem dentro dele",
+   "estado": "pronto",
+   "telas": 7
   }
  ]
 }
