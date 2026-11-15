@@ -93,6 +93,8 @@ BUSCA = {
     "machu-picchu":   "Cusco, Peru",
     "londres":        "Londres, Reino Unido",
     "florianopolis":  "Florianópolis, Brasil",
+    "sao-paulo":      "São Paulo, Brasil",
+    "aruba":          "Aruba",
     "lisboa":         "Lisboa, Portugal",
     "maceio":         "Maceió, Brasil",
     "madri":          "Madri, Espanha",

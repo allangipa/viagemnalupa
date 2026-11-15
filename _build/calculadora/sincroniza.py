@@ -423,6 +423,37 @@ PROSA = {
               "seu e não há tabela oficial. <b>O Campeche não devolve nem reagenda</b>, nem "
               "com mar ruim."),
     ),
+    "sao-paulo": dict(
+        gratis=("Quatro linhas não cobram nunca: a <b>Paulista aberta</b> aos domingos, o "
+                "<b>Ibirapuera</b>, o <b>Mercadão</b> e o <b>Beco do Batman</b> — e a visita "
+                "guiada do <b>Theatro Municipal</b>. E cada um dos sete museus pagos tem o "
+                "seu dia grátis, em dias diferentes."),
+        fonte=("As páginas oficiais do MASP, da Pinacoteca, do Museu da Língua Portuguesa, do "
+               "Museu do Futebol, do MAM, do Museu Afro Brasil e do Theatro Municipal; a "
+               "Subprefeitura Sé, a SPTrans, a CPTM e o governo do estado. Apuradas em 15 de "
+               "novembro de 2026. <b>O preço do Museu do Ipiranga vem da plataforma de venda "
+               "que o próprio museu indica</b>, e está marcado."),
+        nota=("As noites saem das suas datas. <b>A hospedagem é a média dos hotéis de São "
+              "Paulo em 2025, da FOHB</b>, a mesma fonte do Rio e de Salvador; troque para "
+              "janeiro, o mês mais barato, ou novembro, o mais caro. <b>E há um desconto que "
+              "a calculadora não aplica sozinha:</b> os sete museus pagos têm, todos, um dia "
+              "grátis. De quarta a domingo, pelo roteiro, só o Museu do Futebol cobra — "
+              "desmarque os outros seis e você vê os ingressos dessa semana."),
+    ),
+    "aruba": dict(
+        gratis=("As <b>praias</b> não cobram, pela política oficial da ilha, e o <b>Donkey "
+                "Sanctuary</b> vive de doação. A cadeira montada pelo hotel é do hotel."),
+        fonte=("A Aruba Tourism Authority (aruba.com), a Aruba Conservation Foundation, o "
+               "Arubus, a lei do imposto de hospedagem, o departamento de impostos "
+               "(impuesto.aw) e o Banco Central de Aruba. Apuradas em 15 de novembro de "
+               "2026."),
+        nota=("As noites saem das suas datas. <b>A hospedagem é a diária média de 2025 do "
+              "Banco Central de Aruba</b>, US$ 408,99 por quarto. <b>A taxa de US$ 20 do "
+              "formulário de entrada está no total</b>, por pessoa; menor de 8 anos não paga. "
+              "<b>O que a calculadora não soma:</b> os 12,5% de imposto de hospedagem e os "
+              "US$ 3 por noite por quarto, que vêm por cima da diária. Os valores em dólar "
+              "não são convertidos aqui."),
+    ),
     "roma": dict(
         gratis=("Três das linhas não cobram entrada: a Basílica de São Pedro, a "
                 "Fontana di Trevi com a Piazza Navona, e a Piazza di Spagna — onde, no "

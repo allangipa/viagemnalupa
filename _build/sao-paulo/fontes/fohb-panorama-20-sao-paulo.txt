@@ -1,0 +1,228 @@
+Panorama da Hotelaria Brasileira, 20a edicao (HotelInvest e FOHB), paginas 26, 27 e 28 (Sao Paulo), texto extraido com pypdf em 15/nov/2026.
+Arquivo: https://static.poder360.com.br/2026/04/Panorama-da-Hotelaria-Brasileira.pdf
+
+==== pagina 26
+OCUPAÇÃO
+DIÁRIA MÉDIA
+SÃO PAULO
+independentes e categorias intermediárias — limita 
+movimentos tarifários mais agressivos, sobretudo 
+fora dos grandes eventos corporativos.
+Paralelamente, o avanço do 
+ short
+-
+term 
+ rental 
+adiciona uma camada relevante de competitividade. 
+O mercado conta com estoque estimado em cerca 
+de 29 mil unidades, ocupação próxima a 62% e 
+diária média ao redor de R$ 233, que em algumas 
+regiões se aproxima da hotelaria tradicional, ainda 
+que em patamar inferior. Esse cenário amplia a 
+pressão, especialmente sobre produtos 
+econômicos, e reforça a necessidade de 
+diferenciação por serviços, experiência e A&B.
+Principal mercado hoteleiro do país, São Paulo 
+mantém dinâmica fortemente sustentada pela 
+demanda corporativa e pelo calendário robusto de 
+eventos. A hotelaria tradicional registrou ocupação 
+média de 62,6%, diária média de R$ 602 e RevPAR 
+de R$ 377, com crescimento real de 2,7% em 
+RevPAR frente a 2024, mesmo em um ambiente 
+altamente competitivo e com ampla diversidade de 
+produtos.
+A cidade segue como principal polo de eventos do 
+Brasil, concentrando feiras, congressos e 
+convenções ao longo do ano, o que favorece melhor 
+distribuição da demanda e menor dependência de 
+sazonalidade pontual, garantindo maior 
+previsibilidade operacional. Ainda assim, a elevada 
+concorrência — especialmente entre hotéis 
+independentes
+Histórico de desempenho*
+Fonte: HotelInvest e FOHB.
+555 588 602344 367 377
+62% 62%
+63%
+56%
+58%
+60%
+62%
+64%
+0
+200
+400
+600
+800
+2023 2024 2025
+Diária Média RevPAR Ocupação
+HI_abreviada.png
+2 0 ª  E D I Ç Ã O
+P A N O R A M A  D A  H O T E L A R I A  B R A S I L E I R AP Á G I N A  2 6
+2,4% de crescimento*
+0,3% de crescimento 
+* V A L O R E S  R E A I S  ( A C I M A  D A  I N F L A Ç Ã O )  -  D E Z / 2 5
+DESEMPENHO DO MERCADO
+
+==== pagina 27
+Os melhores resultados da hotelaria paulistana concentram-se entre 
+setembro e novembro, impulsionados pelo calendário corporativo e eventos 
+de lazer, enquanto janeiro e dezembro seguem mais desafiadores diante da 
+dependência da demanda de negócios e dos feriados em dias úteis. Mesmo 
+sem entrada relevante de nova oferta, o avanço do STR pressiona sobretudo 
+os segmentos econômicos e supereconômicos, ao passo que eventos e lazer 
+de fim de semana sustentam ganhos graduais de RevPAR.
+Histórico de desempenho mensal*
+Média móvel de desempenho*
+série dessazonalizada - 12 meses
+SÃO PAULO
+ACUMULADO 2025
+508 551
+621 626 627 586
+534
+611 620 591
+706
+582
+217
+316
+376 398 420
+373 334
+419 434 398
+523
+312
+43%
+57% 61% 64%
+67% 64% 63%
+69% 70% 67% 74%
+54%
+0%
+10%
+20%
+30%
+40%
+50%
+60%
+70%
+80%
+0
+100
+200
+300
+400
+500
+600
+700
+800
+jan/25
+fev/25
+mar/25
+abr/25
+mai/25
+jun/25
+jul/25
+ago/25
+set/25
+out/25
+nov/25
+dez/25
+Diária Média RevPAR Ocupação
+Fonte: HotelInvest e FOHB.
+Fonte: HotelInvest e FOHB.
+HI_abreviada.png
+2 0 ª  E D I Ç Ã O
+P A N O R A M A  D A  H O T E L A R I A  B R A S I L E I R AP Á G I N A  2 7
+DESEMPENHO DO MERCADO
+58%
+59%
+60%
+61%
+62%
+63%
+64%
+0
+100
+200
+300
+400
+500
+600
+700
+jan/23
+mar/23
+mai/23
+jul/23
+set/23
+nov/23
+jan/24
+mar/24
+mai/24
+jul/24
+set/24
+nov/24
+jan/25
+mar/25
+mai/25
+jul/25
+set/25
+nov/25
+Diária Média Ocupação
+* V A L O R E S  R E A I S  ( A C I M A  D A  I N F L A Ç Ã O )  -  D E Z / 2 5
+
+==== pagina 28
+Apresentamos a análise por segmento de São Paulo em razão da relevância 
+estrutural da cidade para o desempenho hoteleiro nacional, dado seu peso 
+em oferta, liquidez e formação de diária no país. O comportamento da capital 
+paulista ajuda a explicar parte importante dos indicadores consolidados do 
+Brasil.
+No segmento econômico, São Paulo apresenta bom equilíbrio entre absorção
+de demanda e manutenção de tarifas competitivas, ainda que desafiadas pela
+oferta de STR, como vemos a seguir. No segmento
+ midscale , o mercado
+demonstra capacidade de sustentar preços mais elevados sem perda
+relevante de ocupação. Já no
+ upscale , mesmo com ocupação ligeiramente
+inferior, o segmento se destaca pelo maior nível tarifário e RevPAR, refletindo
+maior elasticidade de preços e forte presença de demanda corporativa e de
+maior valor agregado.
+Em conjunto, os dados demonstram que, embora a ocupação se mantenha 
+relativamente alinhada entre os segmentos, é o patamar superior de diárias 
+— especialmente em 
+ midscale  e 
+ upscale  — que impulsiona o RevPAR da 
+cidade, reforçando seu papel determinante na composição dos resultados 
+nacionais.
+SÃO PAULO
+POR SEGMENTO
+Histórico de desempenho por categoria*
+São Paulo
+Fonte: HotelInvest e FOHB.
+HI_abreviada.png
+2 0 ª  E D I Ç Ã O
+P A N O R A M A  D A  H O T E L A R I A  B R A S I L E I R AP Á G I N A  2 8
+DESEMPENHO DO MERCADO
+407
+609
+906
+259
+382
+547
+63,7% 62,8%
+60,3%
+50,0%
+55,0%
+60,0%
+65,0%
+0
+200
+400
+600
+800
+1000
+Econômico Midscale Upscale
+Diária média RevPAR Ocupação
+* V A L O R E S  R E A I S  ( A C I M A  D A  I N F L A Ç Ã O )  -  D E Z / 2 5
+Econômico Midscale Upscale
+Var. Ocupação 0,9% -1,5% 4,3%
+Var. Diária Média -2,0% 3,5% 2,6%
+Var. RevPAR -1,1% 1,9% 7,1%
+2025 vs 2024

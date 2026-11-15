@@ -58,6 +58,8 @@ DESTINOS = {
     "machu-picchu":   "Machu Picchu",
     "londres":        "Londres",
     "florianopolis":  "Florianópolis",
+    "sao-paulo":      "São Paulo",
+    "aruba":          "Aruba",
     "lisboa":         "Lisboa",
     "maceio":         "Maceió",
     "madri":          "Madri",
