@@ -191,6 +191,112 @@
    "estado": "publicado",
    "permalink": "https://www.instagram.com/p/DfH5BiKkXoU/",
    "publicado_em": "2026-10-30T15:20:59Z"
+  },
+  {
+   "data": "2026-11-16",
+   "hora": "12:00",
+   "tipo": "carrossel",
+   "slug": "paris",
+   "pasta": "2026-11-16-paris",
+   "titulo": "Paris: o Louvre cobra € 32 do brasileiro; o europeu paga € 22",
+   "estado": "pronto",
+   "telas": 7
+  },
+  {
+   "data": "2026-11-17",
+   "hora": "12:00",
+   "tipo": "reel",
+   "slug": "maceio",
+   "pasta": "2026-11-17-reel-maceio",
+   "titulo": "Reel Maceió: as piscinas naturais só existem com maré abaixo de 0,6 m",
+   "estado": "pronto",
+   "video": "reel.mp4",
+   "capa": "capa.jpg"
+  },
+  {
+   "data": "2026-11-18",
+   "hora": "12:00",
+   "tipo": "carrossel",
+   "slug": "miami",
+   "pasta": "2026-11-18-miami",
+   "titulo": "Miami: o Everglades passou a cobrar US$ 100 a mais de quem não mora nos EUA",
+   "estado": "pronto",
+   "telas": 7
+  },
+  {
+   "data": "2026-11-19",
+   "hora": "12:00",
+   "tipo": "reel",
+   "slug": "cancun",
+   "pasta": "2026-11-19-reel-cancun",
+   "titulo": "Reel Cancún: Chichén Itzá tem duas bilheterias, e os guias só mostram uma",
+   "estado": "pronto",
+   "video": "reel.mp4",
+   "capa": "capa.jpg"
+  },
+  {
+   "data": "2026-11-20",
+   "hora": "12:00",
+   "tipo": "reel",
+   "slug": "fortaleza",
+   "pasta": "2026-11-20-reel-fortaleza",
+   "titulo": "Reel Fortaleza: a taxa de Jericoacoara é R$ 41,50, não R$ 91,50",
+   "estado": "pronto",
+   "video": "reel.mp4",
+   "capa": "capa.jpg"
+  },
+  {
+   "data": "2026-11-23",
+   "hora": "12:00",
+   "tipo": "reel",
+   "slug": "santiago",
+   "pasta": "2026-11-23-reel-santiago",
+   "titulo": "Reel Santiago: o hotel não pode cobrar 19% de IVA de você",
+   "estado": "pronto",
+   "video": "reel.mp4",
+   "capa": "capa.jpg"
+  },
+  {
+   "data": "2026-11-24",
+   "hora": "12:00",
+   "tipo": "carrossel",
+   "slug": "madri",
+   "pasta": "2026-11-24-madri",
+   "titulo": "Madri: com passaporte brasileiro, o Palácio Real é de graça",
+   "estado": "pronto",
+   "telas": 7
+  },
+  {
+   "data": "2026-11-25",
+   "hora": "12:00",
+   "tipo": "reel",
+   "slug": "bariloche",
+   "pasta": "2026-11-25-reel-bariloche",
+   "titulo": "Reel Bariloche: a Isla Victoria anuncia ARS 140.000 e fecha em ARS 182.600",
+   "estado": "pronto",
+   "video": "reel.mp4",
+   "capa": "capa.jpg"
+  },
+  {
+   "data": "2026-11-26",
+   "hora": "12:00",
+   "tipo": "carrossel",
+   "slug": "salvador",
+   "pasta": "2026-11-26-salvador",
+   "titulo": "Salvador: às quartas, sete museus municipais não cobram entrada",
+   "estado": "pronto",
+   "telas": 7
+  },
+  {
+   "data": "2026-11-27",
+   "hora": "12:00",
+   "tipo": "reel",
+   "slug": "montevideu",
+   "pasta": "2026-11-27-reel-montevideu",
+   "titulo": "Reel Montevidéu: não existe um dia da semana com tudo aberto",
+   "estado": "pronto",
+   "video": "reel.mp4",
+   "capa": "capa.jpg"
   }
  ]
 }
