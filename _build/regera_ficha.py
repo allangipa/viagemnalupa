@@ -59,7 +59,7 @@ if voo:
     print("  bloco do voo reposto")
 
 for s in ["layout/reorganiza.py --todos", "layout/atalhos.py", "layout/vizinhos.py", "layout/sem_moldura.py",
-          "layout/assinatura.py", "layout/faq.py", "layout/tamanhos.py", "layout/capa.py", "recortes/gratis.py",
+          "layout/assinatura.py", "layout/faq.py", "layout/tamanhos.py", "layout/capa.py", "recortes/gratis.py", "recortes/taxas.py",
           "parceiros/booking.py", "parceiros/espalha.py", "parceiros/aside.py",
           "nova-york/sv.py", "porto/sv.py", "granada/sv.py",
           "sitemap/atualiza.py", "schema/gera.py", "schema/editor.py", "schema/ofertas.py", "imagens/srcset.py",

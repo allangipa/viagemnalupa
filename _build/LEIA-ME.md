@@ -512,3 +512,18 @@ DuckDuckGo.
 - **`.github/workflows/indexnow.yml`** roda no push que mexe em `index.html`,
   espera 3 minutos pelo deploy da Hostinger e avisa. Os pushes das Actions de
   câmbio e de voos não a disparam. O botão "Run workflow" reenvia tudo.
+
+## `/taxas/`: as taxas de turismo numa página só
+
+Desde 19/nov/2026, gerada por `_build/recortes/taxas.py` e ligada na cadeia
+depois do `gratis.py`. Não é apuração nova: cada linha resume o que a ficha,
+o guia ou a página de pergunta só do destino já publica, e leva a ela.
+
+- **Para acrescentar um destino**, ponha uma linha em `COBRAM`, `NAO_COBRAM`
+  ou `VOLTA`, com as **provas**: frases que têm de existir na página de
+  origem. Se a ficha mudar, o gerador para com `PARADO` em vez de publicar um
+  resumo velho. Os números do resumo também são conferidos contra a página,
+  letra por letra ("R$ 15,00", não "R$ 15").
+- **Não escreva "N destinos"** para o subconjunto: a página diz "lugares"
+  (Jericoacoara e Maragogi nem são destinos próprios do site).
+- O link na home sai do `cluster/home.py`, no grupo "Todos os destinos".

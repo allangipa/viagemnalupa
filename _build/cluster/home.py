@@ -79,7 +79,8 @@ def bloco(cluster, nomes):
         linhas.append('  <nav class="calc-cidades" aria-label="Páginas de %s"><span class="cc-rot">%s</span>%s</nav>'
                       % (H.escape(nomes[slug]), H.escape(nomes[slug]), links))
     # As paginas que cruzam todos os destinos, quando existem em disco
-    todas = [(p, r) for p, r in (("comparar", "Comparar os destinos"), ("gratis", "Pontos grátis"))
+    todas = [(p, r) for p, r in (("comparar", "Comparar os destinos"), ("gratis", "Pontos grátis"),
+                                   ("taxas", "Taxas de turismo"))
              if os.path.isfile(os.path.join(RAIZ, p, "index.html"))]
     if todas:
         linhas.append('  <nav class="calc-cidades" aria-label="Páginas de todos os destinos"><span class="cc-rot">'
