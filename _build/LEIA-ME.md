@@ -496,3 +496,19 @@ browser" a cliente que manda UA de navegador sem os outros cabecalhos
 (Accept, Accept-Language, Sec-Fetch-*). Navegador de verdade e o Lighthouse
 passam; `curl -A` sozinho nao. Para conferir o site no ar com curl, mandar os
 cabecalhos completos ou nenhum UA.
+
+## IndexNow: o aviso ao Bing a cada push
+
+Desde 19/nov/2026. O Google não lê o IndexNow (para ele valem o sitemap e o
+pedido manual no Search Console); o Bing lê, e alimenta o Copilot e o
+DuckDuckGo.
+
+- **A chave** é o arquivo `7d02cf38774f33514c5275ec84629c59.txt` na raiz do
+  site. É pública por desenho: o buscador confere por ela que o aviso veio do
+  dono. **Não apague nem renomeie.**
+- **`_build/indexnow/envia.py`** envia as URLs: `--desde <sha>` manda só as do
+  sitemap cujo `index.html` mudou; `--tudo` manda o sitemap inteiro. Sem
+  `--aplica`, só mostra.
+- **`.github/workflows/indexnow.yml`** roda no push que mexe em `index.html`,
+  espera 3 minutos pelo deploy da Hostinger e avisa. Os pushes das Actions de
+  câmbio e de voos não a disparam. O botão "Run workflow" reenvia tudo.

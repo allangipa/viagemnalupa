@@ -1,0 +1,44 @@
+name: IndexNow (avisa o Bing das páginas que mudaram)
+
+# A cada push na main que mexe em HTML, avisa o IndexNow das URLs mudadas.
+# Os pushes das outras Actions (câmbio, voos) usam o GITHUB_TOKEN e não
+# disparam esta: ficam de fora de propósito, porque mudam só um número por dia.
+on:
+  push:
+    branches: [main]
+    paths: ["**/index.html", "index.html"]
+  workflow_dispatch:          # botão: reenvia o sitemap inteiro
+
+permissions:
+  contents: read
+
+concurrency:
+  group: indexnow
+  cancel-in-progress: false
+
+jobs:
+  avisa:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # o auto-deploy da Hostinger leva um ou dois minutos; avisar antes
+      # faria o buscador ler a página velha
+      - name: Esperar o deploy
+        run: sleep 180
+
+      - name: Avisar o IndexNow
+        env:
+          ANTES: ${{ github.event.before }}
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            python _build/indexnow/envia.py --tudo --aplica
+          else
+            python _build/indexnow/envia.py --desde "$ANTES" --aplica
+          fi

@@ -12,6 +12,16 @@ internacional. O site tinha 28 destinos publicados nessa data, e a home não tin
 | 4 (07 a 13/12) | João Pessoa | Seul |
 | 5 (14 a 20/12) | Porto Seguro | Hong Kong |
 | 6 (21 a 27/12) | Lençóis Maranhenses | Jericoacoara (página própria; hoje está dentro de Fortaleza) |
+| 7 (28/12 a 03/01) | Chapada dos Veadeiros | Ushuaia |
+
+A semana 7 entrou em 19/11/2026, a pedido do Allan:
+
+- **Chapada dos Veadeiros**: réveillon e férias de janeiro. Fonte oficial provável: o ingresso do
+  ICMBio e a taxa municipal de Alto Paraíso, que a nota da Prefeitura de Bonito sobre a TCA cita
+  entre as taxas ambientais do país (`_build/bonito/fontes/tca-nota-prefeitura-20261029.txt`).
+- **Ushuaia**: temporada de dezembro a março. O Parque Nacional Tierra del Fuego é da mesma
+  Administración de Parques Nacionales de Iguazú, com tabela pública e categorias por residência;
+  conversa com Bariloche, já no site.
 
 Reserva: Campos do Jordão (forte em julho), Recife e Olinda em página própria, Mendoza, Atacama,
 Cartagena, Punta del Este. Esses quatro últimos não apareceram nos rankings consultados.
