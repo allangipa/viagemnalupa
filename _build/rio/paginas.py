@@ -174,12 +174,14 @@ def cristo(guia):
     vans_ate = acha(r"Largo do Machado das \d+h às (\d+h)", limpa(horarios), "o fim das vans").group(1)
 
     # ------------------------------------------------- textos derivados
-    titulo = "Cristo Redentor: ingresso, preço e como subir em 2026"
-    descricao = ("Ingresso do Cristo Redentor de R$ %d a R$ %d, conforme a forma de subir: van das Paineiras "
-                 "R$ %d, de Copacabana ou do Largo do Machado R$ %d. Com a obra das escadas rolantes até %s. "
-                 "Apurado em %s."
-                 % (min(f["adulto"] for f in formas), max(f["adulto"] for f in formas),
-                    paineiras["adulto"], cidade["adulto"], obra_ate, data_ap))
+    # titulo e descricao trocados em 19/11/2026 (Search Console: 239 impressoes,
+    # nenhum clique; as buscas sao "preco", "valor", "quanto custa subir")
+    titulo = ("Cristo Redentor: preço do ingresso de R$ %d a R$ %d (2026)"
+              % (min(f["adulto"] for f in formas), max(f["adulto"] for f in formas)))
+    descricao = ("Quanto custa subir ao Cristo Redentor em 2026: van das Paineiras R$ %d, de Copacabana ou "
+                 "do Largo do Machado R$ %d. O ingresso vai de R$ %d a R$ %d."
+                 % (paineiras["adulto"], cidade["adulto"],
+                    min(f["adulto"] for f in formas), max(f["adulto"] for f in formas)))
     img = SITE + "/assets/img/rio-de-janeiro/cristo.webp"
     capa = acha(r'(?s)<figure class="hero-capa">.*?</figure>', guia, "a capa do guia").group(0)
     alt = acha(r'alt="([^"]*)"', capa, "o alt da capa").group(1)
@@ -958,10 +960,12 @@ def aeroporto(guia):
         return '<ul class="plain">%s</ul>' % "".join(out)
 
     gig_exp_total = float(expresso) + soma
-    titulo = "Do aeroporto do Rio a Copacabana, Ipanema e Centro: táxi, ônibus e VLT com preço"
-    descricao = ("Táxi de tabela do Galeão a Copacabana por %s e do Santos Dumont por %s, Expresso do Galeão a "
-                 "R$ %s, VLT e metrô por %s. As tarifas oficiais de 2026, bairro por bairro."
-                 % (rs(gig_cop), rs(sdu_cop), expresso, rs(soma)))
+    # titulo e descricao trocados em 19/11/2026 (Search Console: 201 impressoes,
+    # nenhum clique; o titulo antigo, de 83 caracteres, era cortado)
+    titulo = "Galeão a Copacabana: táxi R$ %d e Expresso R$ %s (2026)" % (round(gig_cop), expresso)
+    descricao = ("Do Galeão a Copacabana, táxi de tabela por %s e Expresso por R$ %s; do Santos Dumont, táxi "
+                 "por %s. VLT e metrô por %s. Tarifas oficiais de 2026, bairro por bairro."
+                 % (rs(gig_cop), expresso, rs(sdu_cop), rs(soma)))
     capa, img, alt = capa_de("copacabana")
 
     perguntas = [
