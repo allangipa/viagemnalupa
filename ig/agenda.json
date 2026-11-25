@@ -287,9 +287,11 @@
    "slug": "bariloche",
    "pasta": "2026-11-25-reel-bariloche",
    "titulo": "Reel Bariloche: a Isla Victoria anuncia ARS 140.000 e fecha em ARS 182.600",
-   "estado": "pronto",
+   "estado": "publicado",
    "video": "reel.mp4",
-   "capa": "capa.jpg"
+   "capa": "capa.jpg",
+   "permalink": "https://www.instagram.com/reel/DgK0tKHyr_k/",
+   "publicado_em": "2026-11-25T15:12:37Z"
   },
   {
    "data": "2026-11-26",
