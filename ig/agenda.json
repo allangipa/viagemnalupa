@@ -300,8 +300,10 @@
    "slug": "salvador",
    "pasta": "2026-11-26-salvador",
    "titulo": "Salvador: às quartas, sete museus municipais não cobram entrada",
-   "estado": "pronto",
-   "telas": 7
+   "estado": "publicado",
+   "telas": 7,
+   "permalink": "https://www.instagram.com/p/DgNZYnDIT_U/",
+   "publicado_em": "2026-11-26T15:11:22Z"
   },
   {
    "data": "2026-11-27",
@@ -310,9 +312,11 @@
    "slug": "montevideu",
    "pasta": "2026-11-27-reel-montevideu",
    "titulo": "Reel Montevidéu: não existe um dia da semana com tudo aberto",
-   "estado": "pronto",
+   "estado": "publicado",
    "video": "reel.mp4",
-   "capa": "capa.jpg"
+   "capa": "capa.jpg",
+   "permalink": "https://www.instagram.com/reel/DgP-LfYTYAD/",
+   "publicado_em": "2026-11-27T15:11:37Z"
   },
   {
    "data": "2026-11-30",
