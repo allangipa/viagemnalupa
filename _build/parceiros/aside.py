@@ -80,6 +80,8 @@ CIDADES = {
     "florianopolis":  "Florianópolis",
     "sao-paulo":      "São Paulo",
     "aruba":          "Aruba",
+    "porto-de-galinhas": "Porto de Galinhas",
+    "toquio":         "Tóquio",
     "lisboa":         "Lisboa",
     "maceio":         "Maceió",
     "madri":          "Madri",

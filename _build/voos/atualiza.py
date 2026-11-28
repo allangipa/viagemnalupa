@@ -51,6 +51,8 @@ DESTINOS = {
     "florianopolis":  ("FLN", "Florianópolis"),
     # sao-paulo fica de fora: a origem da busca e SAO, e SAO -> SAO nao e voo.
     "aruba":          ("AUA", "Aruba"),
+    "porto-de-galinhas": ("REC", "Recife, para Porto de Galinhas"),
+    "toquio":         ("TYO", "Tóquio"),
     "madri":          ("MAD", "Madri"),
     "miami":          ("MIA", "Miami"),
     "paris":          ("PAR", "Paris"),

@@ -1,0 +1,40 @@
+Toquio - leituras de 27/11/2026.
+
+== OFICIAL: Tokyo Skytree, https://en.tokyo-skytree.jp/ticket/ (navegador)
+Tembo Deck ticket (Floor 350): Adults (ages 15 and over) From JPY 1,800 · Children (ages 6–14) From JPY 900
+Combo Ticket (Floor 350 & 450): Adults From JPY 3,000 · Children From JPY 1,500
+Tembo Galleria Ticket (comprado no dia, dentro do Tembo Deck): Adults JPY 1,400 · Children JPY 700
+"Admission is free for children 5 years and under."
+"A 500-yen service fee per ticket will be added for purchases made at the 4th-floor ticket counter or ticket vending machines."
+
+== OFICIAL: JNTO, https://www.japan.travel/en/ca/news/japans-international-tourist-tax-is-increasing/ (arquivo proprio)
+"As of July 1st, 2026, Japan's international tourist tax will increase from 1,000 JPY to 3,000 JPY."
+"In the vast majority of cases, the tax is automatically factored into passengers' return ticket at the point of purchase."
+
+== OFICIAL: Tokyo Metropolitan Government, Review of the Accommodation Tax (Overview of Draft), nov/2025 (arquivo proprio)
+Sistema em vigor: isento abaixo de ¥10,000 por pessoa por noite; ¥10,000 a menos de ¥15,000: ¥100; ¥15,000 ou mais: ¥200.
+Proposta: isencao sobe "from ¥10,000 to ¥13,000 per person per night"; "tax burden rate will be revised to 3%";
+"common lodging houses and private lodgings will also be added as taxation subjects".
+A data de inicio (1/4/2027) e a aprovacao do ministerio em 30/06/2026 vem da imprensa (SoraNews24, 07/07/2026;
+aviso do Hotel New Otani: vale para estadias a partir de 1/4/2027, qualquer que seja a data da reserva).
+
+== OFICIAL: Tokyo Metropolitan Government, comunicado de 30/01/2026 (arquivo proprio, em japones)
+Precos a partir de 14/03/2026 (antes -> depois, adulto): Tokyo Subway 24-hour Ticket 800 -> 1,000 ienes;
+48-hour 1,200 -> 1,500; 72-hour 1,500 -> 2,000. Crianca: metade.
+
+== OFICIAL: Tokyo National Museum (arquivo proprio)
+TNM Collection Exhibitions: Adults 1,000 yen; University Students 500 yen. 9:30-17:00; sexta e sabado ate 20:00.
+Closed Mondays; year-end closure December 26 to 31, 2026. Free admission May 19, September 21, November 3, 2026.
+
+== SO IMPRENSA E GUIAS: tax-free
+japan-guide.com, nippon.com, Time Out Tokyo e outros: desde 1/11/2026 o turista paga o preco com imposto e recebe
+o reembolso depois da conferencia na alfandega, ao sair do Japao. Minimo de 5.000 ienes sem imposto na mesma loja
+no mesmo dia. Nao lemos a pagina da Japan Tourism Agency nem da National Tax Agency.
+
+== NAO LIDOS
+Shibuya Sky (pagina sem texto legivel), Tokyo Metro (403 ao curl; a pagina no navegador nao mostra o preco).
+Diaria media: nenhuma fonte oficial achada.
+
+== CAMBIO
+BCB, boletim de fechamento de 23/10/2026: JPY venda 0,03211. ¥1.800 = R$ 57,80; ¥1.000 = R$ 32,11;
+¥2.000 = R$ 64,22; ¥3.000 = R$ 96,33; ¥200 = R$ 6,42.

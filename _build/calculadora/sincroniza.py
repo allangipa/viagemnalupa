@@ -454,6 +454,30 @@ PROSA = {
               "US$ 3 por noite por quarto, que vêm por cima da diária. Os valores em dólar "
               "não são convertidos aqui."),
     ),
+    "porto-de-galinhas": dict(
+        gratis=("Nenhuma linha é de graça, mas duas têm dia sem cobrança: o <b>Paço do "
+                "Frevo</b> não cobra às terças, e o <b>Instituto Ricardo Brennand</b>, na "
+                "última terça do mês — menos em janeiro, julho e dezembro."),
+        fonte=("As páginas oficiais dos três museus do Recife e a tabela de tarifas do "
+               "Grande Recife Consórcio de Transporte. A diária vem do Hotel Report da "
+               "Omnibees, publicado pelo Hotelier News. Apuradas em 27 de novembro de 2026."),
+        nota=("As noites saem das suas datas. <b>A hospedagem é a diária média de Ipojuca em "
+              "2025 num painel do setor</b> (Omnibees), R$ 1.134 por quarto: é média de "
+              "reservas de um sistema usado sobretudo por resorts, e pousada simples fica "
+              "abaixo. <b>A jangada às piscinas naturais não tem preço publicado</b> e está "
+              "fora da soma; os guias vão de R$ 50 a R$ 100."),
+    ),
+    "toquio": dict(
+        gratis=("Nenhuma linha é de graça. O <b>Museu Nacional de Tóquio</b> tem três dias "
+                "sem cobrança por ano: em 2026, 19/5, 21/9 e 3/11."),
+        fonte=("As páginas oficiais do Tokyo Skytree e do Museu Nacional de Tóquio, o "
+               "comunicado do Governo Metropolitano sobre o passe de metrô e a JNTO, para a "
+               "taxa de saída. Conferidas em 27 de novembro de 2026."),
+        nota=(SEM + "<b>Os preços são em iene</b>, convertidos pela taxa de venda do Banco "
+              "Central de 23/out/2026. <b>A taxa de saída do Japão, ¥ 3.000, vem na "
+              "passagem</b> e fica fora da soma, como a taxa de hospedagem, que depende da "
+              "diária."),
+    ),
     "roma": dict(
         gratis=("Três das linhas não cobram entrada: a Basílica de São Pedro, a "
                 "Fontana di Trevi com a Piazza Navona, e a Piazza di Spagna — onde, no "

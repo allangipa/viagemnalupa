@@ -95,6 +95,8 @@ BUSCA = {
     "florianopolis":  "Florianópolis, Brasil",
     "sao-paulo":      "São Paulo, Brasil",
     "aruba":          "Aruba",
+    "porto-de-galinhas": "Porto de Galinhas, Brasil",
+    "toquio":         "Tóquio, Japão",
     "lisboa":         "Lisboa, Portugal",
     "maceio":         "Maceió, Brasil",
     "madri":          "Madri, Espanha",
